@@ -3,9 +3,8 @@ services:
     name: cognitive-analysis-api
     runtime: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r ../requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    plan: free
     envVars:
       - key: DATABASE_URL
-        sync: false
+        sync: false   # lo ingresás manualmente en el dashboard de Render

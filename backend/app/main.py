@@ -9,7 +9,6 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Cognitive Analysis API")
 
-# CORS — permite que la extension de Chrome acceda al backend local
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -19,3 +18,7 @@ app.add_middleware(
 )
 
 app.include_router(videop.router)
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
