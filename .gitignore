@@ -1,0 +1,23 @@
+# Entorno virtual
+.venv/
+venv/
+env/
+
+# Variables de entorno (NO subir a GitHub)
+.env
+backend/.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# VS Code / editors
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

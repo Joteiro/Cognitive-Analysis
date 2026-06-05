@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Cognitive Analysis",
+  "version": "0.1.0",
+  "description": "Tracks YouTube video consumption for cognitive diet analysis.",
+
+  "permissions": ["activeTab"],
+
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "http://localhost:8000/*",
+    "https://*.onrender.com/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
