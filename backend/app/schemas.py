@@ -25,6 +25,14 @@ class VideoRead(BaseModel):
     duration: Optional[int] = None
     watched_at: Optional[datetime] = None
     created_at: Optional[datetime] = None
+    # YouTube API enrichment
+    view_count: Optional[int] = None
+    like_count: Optional[int] = None
+    comment_count: Optional[int] = None
+    category_id: Optional[str] = None
+    category_name: Optional[str] = None
+    tags: Optional[str] = None           # JSON string
+    # Nutri-Score
     score_letter: Optional[str] = None
     score_numeric: Optional[float] = None
     score_labels: Optional[str] = None   # JSON string

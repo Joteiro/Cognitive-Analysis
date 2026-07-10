@@ -8,6 +8,7 @@ from typing import List
 from .. import models, schemas
 from ..database import SessionLocal
 from ..scorer import compute_score
+from ..youtube_api import fetch_video_metadata
 
 logger = logging.getLogger(__name__)
 
@@ -46,10 +47,27 @@ def run_scoring(video_id: int):
         except Exception as e:
             logger.warning(f"Transcript no disponible para {video.youtube_id}: {e}")
 
+        # ── Enriquecimiento con YouTube Data API ──────────────────────────────
+        yt_meta = fetch_video_metadata(video.youtube_id)
+        if yt_meta:
+            video.description   = yt_meta["description"]
+            video.tags          = json.dumps(yt_meta["tags"], ensure_ascii=False)
+            video.category_id   = yt_meta["category_id"]
+            video.category_name = yt_meta["category_name"]
+            video.view_count    = yt_meta["view_count"]
+            video.like_count    = yt_meta["like_count"]
+            video.comment_count = yt_meta["comment_count"]
+            logger.info(f"YouTube metadata obtenida para {video.youtube_id}: {yt_meta['category_name']}")
+
         result = compute_score(
             title=video.title,
             duration_seconds=video.duration,
             transcript=transcript_text,
+            category_id=yt_meta["category_id"]   if yt_meta else None,
+            view_count=yt_meta["view_count"]      if yt_meta else None,
+            like_count=yt_meta["like_count"]      if yt_meta else None,
+            comment_count=yt_meta["comment_count"] if yt_meta else None,
+            description=yt_meta["description"]    if yt_meta else None,
         )
 
         video.score_letter  = result["letter"]

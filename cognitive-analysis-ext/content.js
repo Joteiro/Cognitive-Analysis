@@ -1,7 +1,7 @@
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 // Cambiá esta URL por la de Render una vez que hagas el deploy:
 // Ejemplo: 'https://cognitive-analysis-api.onrender.com'
-const API_BASE      = 'https://TU-APP.onrender.com';
+const API_BASE      = 'https://cognitive-analysis-gfpg.onrender.com';
 const BACKEND_URL   = `${API_BASE}/videos`;
 const SCORE_URL     = `${API_BASE}/videos/by-youtube`;
 const DELAY_MS      = 2500;
