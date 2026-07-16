@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 class VideoCreate(BaseModel):
-    """Payload que envía la extensión de Chrome. Sin cambios para mantener compatibilidad."""
+    """Payload que envía la extensión de Chrome."""
     video_id: str
     title: str
     url: str
@@ -13,6 +13,7 @@ class VideoCreate(BaseModel):
     duration_seconds: Optional[int] = None
     view_count_raw: Optional[str] = None
     tracked_at: Optional[datetime] = None
+    transcript: Optional[str] = None   # extraído en el navegador (Opción A); puede venir vacío
 
 
 class ContentItemRead(BaseModel):

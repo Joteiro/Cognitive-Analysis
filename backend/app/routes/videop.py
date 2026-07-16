@@ -77,17 +77,20 @@ def run_scoring(content_item_id: int):
             return
 
         # ── Transcript ────────────────────────────────────────────────────────
-        transcript_text = None
-        try:
-            from youtube_transcript_api import YouTubeTranscriptApi
-            entries = YouTubeTranscriptApi.get_transcript(
-                item.external_id, languages=["es", "en", "auto"]
-            )
-            transcript_text = " ".join(e["text"] for e in entries)
-            item.transcript = transcript_text
-            item.transcript_fetched_at = datetime.now(timezone.utc)
-        except Exception as e:
-            logger.warning(f"Transcript no disponible para {item.external_id}: {e}")
+        # Opción A: si la extensión ya lo mandó (IP/sesión del usuario), lo usamos.
+        # Fallback: intentamos el fetch propio (suele fallar desde IPs de Render).
+        transcript_text = item.transcript
+        if not transcript_text:
+            try:
+                from youtube_transcript_api import YouTubeTranscriptApi
+                entries = YouTubeTranscriptApi.get_transcript(
+                    item.external_id, languages=["es", "en", "auto"]
+                )
+                transcript_text = " ".join(e["text"] for e in entries)
+                item.transcript = transcript_text
+                item.transcript_fetched_at = datetime.now(timezone.utc)
+            except Exception as e:
+                logger.warning(f"Transcript no disponible para {item.external_id}: {e}")
 
         # ── YouTube API metadata ───────────────────────────────────────────────
         yt_meta = fetch_video_metadata(item.external_id)
@@ -168,6 +171,8 @@ def create_video(
         channel=video.channel,
         duration_seconds=video.duration_seconds,
         watched_at=video.tracked_at,
+        transcript=video.transcript,
+        transcript_fetched_at=datetime.now(timezone.utc) if video.transcript else None,
     )
     db.add(item)
     db.commit()

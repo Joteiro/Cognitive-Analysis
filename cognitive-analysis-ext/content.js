@@ -156,6 +156,53 @@ function extractVideoData() {
   };
 }
 
+// ─── TRANSCRIPT (Opción A: se extrae en el navegador, con IP/sesión del usuario) ─
+// El backend en Render tiene la IP bloqueada por YouTube para pedir subtítulos.
+// Acá los sacamos desde la propia página y los mandamos en el payload.
+async function fetchTranscript(videoId) {
+  try {
+    const res  = await fetch(`https://www.youtube.com/watch?v=${videoId}`, { credentials: 'include' });
+    const html = await res.text();
+
+    const marker = '"captionTracks":';
+    const idx = html.indexOf(marker);
+    if (idx === -1) return null;
+
+    // Extraer el array balanceado [ ... ] que sigue al marcador
+    const start = html.indexOf('[', idx);
+    let depth = 0, end = -1;
+    for (let j = start; j < html.length; j++) {
+      if (html[j] === '[') depth++;
+      else if (html[j] === ']') { depth--; if (depth === 0) { end = j; break; } }
+    }
+    if (end === -1) return null;
+
+    const tracks = JSON.parse(html.slice(start, end + 1));  // JSON.parse desescapa & → &
+    if (!tracks.length) return null;
+
+    // Preferir español, luego inglés, luego el primero disponible
+    const track =
+      tracks.find(t => t.languageCode === 'es') ||
+      tracks.find(t => t.languageCode === 'en') ||
+      tracks[0];
+    if (!track || !track.baseUrl) return null;
+
+    const capRes  = await fetch(`${track.baseUrl}&fmt=json3`);
+    const capJson = await capRes.json();
+
+    const text = (capJson.events || [])
+      .flatMap(e => (e.segs || []).map(s => s.utf8))
+      .join('')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    return text || null;
+  } catch (err) {
+    console.warn('[CognitiveAnalysis] No se pudo extraer el transcript:', err);
+    return null;
+  }
+}
+
 // ─── SEND ─────────────────────────────────────────────────────────────────────
 async function sendToBackend(payload) {
   try {
@@ -222,6 +269,9 @@ function handleNavigation() {
       const videoEl = document.querySelector('video.html5-main-video');
       data.duration_seconds = await getDurationWhenReady(videoEl);
     }
+
+    // Extraer el transcript en el navegador (Opción A) y adjuntarlo al payload
+    data.transcript = await fetchTranscript(data.video_id);
 
     const ok = await sendToBackend(data);
     if (ok) {
