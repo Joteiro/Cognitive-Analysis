@@ -1,31 +1,72 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, Float
+# app/models.py
+from sqlalchemy import (
+    Column, BigInteger, Integer, String, Text,
+    DateTime, Float, JSON, ForeignKey
+)
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from .database import Base
 
-class Video(Base):
-    __tablename__ = "videos"
 
-    id = Column(Integer, primary_key=True, index=True)
-    youtube_id = Column(String, unique=True, index=True)
-    title = Column(String, nullable=False)
-    url = Column(String, nullable=False)
-    channel = Column(String)
-    duration = Column(Integer)
-    description = Column(Text)
-    watched_at = Column(DateTime)
-    transcript = Column(Text, nullable=True)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+class RawEvent(Base):
+    """Ingesta cruda e inmutable. Guarda el payload exacto que manda la extensión."""
+    __tablename__ = "raw_events"
 
-    # YouTube API enrichment
-    view_count    = Column(Integer, nullable=True)
-    like_count    = Column(Integer, nullable=True)
-    comment_count = Column(Integer, nullable=True)
-    category_id   = Column(String(10), nullable=True)
-    category_name = Column(String(50), nullable=True)
-    tags          = Column(Text, nullable=True)         # JSON: ["tag1", "tag2", ...]
+    id          = Column(BigInteger, primary_key=True, autoincrement=True)
+    received_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    source      = Column(String(20), nullable=False, default="youtube")
+    payload     = Column(JSON, nullable=False)
 
-    # Nutri-Score
-    score_letter  = Column(String(1), nullable=True)   # A / B / C / D / E
-    score_numeric = Column(Float, nullable=True)        # 0-100
-    score_labels  = Column(Text, nullable=True)         # JSON: ["⚡ Alto estímulo", ...]
-    score_details = Column(Text, nullable=True)         # JSON: breakdown de señales
+
+class ContentItem(Base):
+    """Un ítem de contenido único (un video de YouTube). Datos enriquecidos y limpios."""
+    __tablename__ = "content_items"
+
+    id                    = Column(BigInteger, primary_key=True, autoincrement=True)
+    source                = Column(String(20), nullable=False, default="youtube")
+    external_id           = Column(String(100), unique=True, nullable=False, index=True)
+    url                   = Column(Text, nullable=False)
+    title                 = Column(Text, nullable=False)
+    channel               = Column(String)
+    duration_seconds      = Column(Integer)
+    description           = Column(Text)
+    tags                  = Column(JSON)           # lista de strings
+    category_id           = Column(String(10))
+    category_name         = Column(String(50))
+    view_count            = Column(BigInteger)
+    like_count            = Column(Integer)
+    comment_count         = Column(Integer)
+    stats_fetched_at      = Column(DateTime(timezone=True))
+    transcript            = Column(Text)
+    transcript_fetched_at = Column(DateTime(timezone=True))
+    watched_at            = Column(DateTime(timezone=True))
+    created_at            = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at            = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    scores = relationship(
+        "ContentScore",
+        back_populates="content_item",
+        order_by="desc(ContentScore.scored_at)",
+        cascade="all, delete-orphan",
+    )
+
+
+class ContentScore(Base):
+    """Historial de scores. Una fila por cada vez que se corre el scorer."""
+    __tablename__ = "content_scores"
+
+    id              = Column(BigInteger, primary_key=True, autoincrement=True)
+    content_item_id = Column(
+        BigInteger,
+        ForeignKey("content_items.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    scorer_version  = Column(String(20), nullable=False, default="1.0")
+    score_letter    = Column(String(1))
+    score_numeric   = Column(Float)
+    score_labels    = Column(JSON)    # lista de strings
+    score_details   = Column(JSON)    # dict con breakdown de señales
+    scored_at       = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+
+    content_item = relationship("ContentItem", back_populates="scores")

@@ -15,6 +15,13 @@ except ImportError:
     TEXTSTAT_AVAILABLE = False
 
 
+# ─── VERSIÓN DEL ALGORITMO ────────────────────────────────────────────────────
+# Subí esto cada vez que cambies pesos, señales o umbrales. Cada score se guarda
+# etiquetado con su versión → podés re-scorear el historial y comparar versiones.
+# Convención: MAYOR.menor  (MAYOR = cambio que altera resultados de forma notable)
+SCORER_VERSION = "1.0"
+
+
 # ─── PESOS DE CADA SEÑAL (deben sumar 1.0) ────────────────────────────────────
 WEIGHTS = {
     "title":             0.15,
