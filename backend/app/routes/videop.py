@@ -77,20 +77,17 @@ def run_scoring(content_item_id: int):
             return
 
         # ── Transcript ────────────────────────────────────────────────────────
-        # Opción A: si la extensión ya lo mandó (IP/sesión del usuario), lo usamos.
-        # Fallback: intentamos el fetch propio (suele fallar desde IPs de Render).
+        # Si ya vino en el payload lo usamos; si no, lo pedimos a Supadata (que
+        # resuelve el bloqueo de YouTube a las IPs de Render).
         transcript_text = item.transcript
         if not transcript_text:
-            try:
-                from youtube_transcript_api import YouTubeTranscriptApi
-                entries = YouTubeTranscriptApi.get_transcript(
-                    item.external_id, languages=["es", "en", "auto"]
-                )
-                transcript_text = " ".join(e["text"] for e in entries)
+            from ..transcript_api import fetch_transcript
+            transcript_text = fetch_transcript(item.url, item.external_id)
+            if transcript_text:
                 item.transcript = transcript_text
                 item.transcript_fetched_at = datetime.now(timezone.utc)
-            except Exception as e:
-                logger.warning(f"Transcript no disponible para {item.external_id}: {e}")
+            else:
+                logger.warning(f"Transcript no disponible para {item.external_id}")
 
         # ── YouTube API metadata ───────────────────────────────────────────────
         yt_meta = fetch_video_metadata(item.external_id)
