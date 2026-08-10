@@ -1,0 +1,300 @@
+external_id,status,transcript_source,words,n_chapters,error
+48cfbLUtkog,ok,youtube_auto,1570,7,
+NCeRd-OZyhU,ok,youtube_auto,5465,0,
+IFhKB5zHWFg,partial,,0,0,"transcript: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=IFhKB5zHWFg! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+mKJSGkfG3zI,failed,,,0,,DownloadError: [0;31mERROR:[0m [youtube] mKJSGkfG3zI: Requested format is not available. Use --list-formats for a list of available formats
+6IPdfw08qDM,failed,,,0,,DownloadError: [0;31mERROR:[0m [youtube] 6IPdfw08qDM: Requested format is not available. Use --list-formats for a list of available formats
+pnaZy15W4wA,failed,,,0,,DownloadError: [0;31mERROR:[0m [youtube] pnaZy15W4wA: Requested format is not available. Use --list-formats for a list of available formats
+J69zkLXjNVg,ok,youtube_auto,es,495,0,
+kgaS_kikD2E,ok,youtube_auto,es,6169,0,
+rqco3InjPSs,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=rqco3InjPSs! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+kdZvQppRYuU,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=kdZvQppRYuU! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+F8oSnscyq58,ok,youtube_auto,es,1992,0,
+xydz3tzNrgk,ok,youtube_auto,es,2682,0,
+46359Btp80g,ok,youtube_auto,es,9042,0,
+KExzdwvtk9w,ok,youtube_auto,es,442,0,
+JtOWndBzlD8,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=JtOWndBzlD8! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+aQwTJjLX_TA,ok,youtube_manual,es,2796,0,
+bQsSzQyrZJg,ok,youtube_manual,es-419,1703,0,
+a62HpQpVBh8,ok,youtube_auto,es,8335,0,
+M8khIr_okrY,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=M8khIr_okrY! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+BM0c465sX3Q,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=BM0c465sX3Q! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+3lU656AB_jk,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=3lU656AB_jk! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+GOqxZx4XEFU,ok,youtube_auto,es,6507,7,
+fwpF33rYgTo,ok,youtube_auto,es,3945,0,
+4g3XABZr4iw,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=4g3XABZr4iw! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+bohdsI0KghI,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=bohdsI0KghI! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+V5NIul16bMA,ok,youtube_auto,es,5498,0,
+pLt4aYKato4,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=pLt4aYKato4! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+pLt4aYKato4,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=pLt4aYKato4! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+OKJyP79f-5k,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=OKJyP79f-5k! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+9OEYp0WQ4W8,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=9OEYp0WQ4W8! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+qGGKfRdgfRk,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=qGGKfRdgfRk! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+KgB1af0RLRw,ok,youtube_auto,es,554,0,
+M39WIpfvmKs,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=M39WIpfvmKs! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+ic2A-IAGMcE,ok,youtube_manual,es,539,2,
+6_FmxJVmx2g,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=6_FmxJVmx2g! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+Bfk4YpHg1XQ,ok,youtube_auto,es,17450,0,
+CxedzCj_aBQ,ok,youtube_auto,es,4861,0,
+YPKcb4z-8Pk,ok,youtube_auto,es,2016,0,
+vlCZdi4V0s0,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=vlCZdi4V0s0! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+LW8FlbUwixI,ok,youtube_manual,es,3757,0,
+ElPsiWjchSU,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=ElPsiWjchSU! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+i8yqCdI8NdQ,ok,youtube_auto,es,4588,0,
+mZaAKXsolmU,ok,youtube_auto,es,5161,0,
+tn_-VhwlYfY,ok,youtube_manual,es-419,1825,0,
+rBLhdrKCx6U,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=rBLhdrKCx6U! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+AE1VbuTbd74,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=AE1VbuTbd74! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+pHo0tKmqo-0,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=pHo0tKmqo-0! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+cvJhBbyUacI,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=cvJhBbyUacI! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+f3NPAncHAjg,partial,,,0,0,"subs_api: VideoUnplayable: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=f3NPAncHAjg! This is most likely caused by:
+
+The video is unplayable for the following reason: This video is private
+
+Additional Details:
+ - If the owner of this video has granted you access, please 
+ - sign in
+ - .
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+XZzNOiU3dCM,ok,youtube_auto,es,6201,0,
+88GRKKk1e70,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=88GRKKk1e70! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+tyv_vE0YAX0,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=tyv_vE0YAX0! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+DBF0O70OJTI,ok,youtube_auto,es,5121,0,
+2RY_r8Cn9jE,ok,youtube_auto,es,5089,0,
+qxSYCNeVPcU,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=qxSYCNeVPcU! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+W3C444Lo1VI,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=W3C444Lo1VI! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+YU3PbQj4JJc,ok,youtube_auto,es,19287,15,
+1GL4y-TaPU0,ok,youtube_auto,es,1409,0,
+P4tUwyG2KKQ,ok,youtube_auto,es,7405,0,
+Pw9-k5i7Bz4,ok,youtube_manual,en,3835,0,
+daiCb6pT1qY,ok,youtube_manual,es-419,1451,0,
+XCILjE7xPc4,ok,youtube_auto,es,5826,0,
+-SL9k1h-OFA,ok,youtube_auto,es,5459,0,
+nb_lwU9AN0g,ok,youtube_auto,es,571,0,
+6gLF7KuRLiE,ok,youtube_manual,es,3156,0,
+pvrBDXpuMMw,ok,youtube_auto,es,17251,10,
+mKJSGkfG3zI,ok,youtube_auto,es,8917,0,
+6IPdfw08qDM,ok,youtube_auto,es,14680,0,
+pnaZy15W4wA,ok,youtube_auto,es,462,0,
+RdmcXQkvo08,ok,youtube_auto,es,4961,0,
+9pwh01JuuyU,ok,youtube_manual,en,2088,9,
+ViPBeSf1t4g,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=ViPBeSf1t4g! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+6uDwqTQSqrA,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=6uDwqTQSqrA! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+Q9ZGC9Nrh90,ok,youtube_auto,es,1312,45,
+kRadm8kpbnE,ok,youtube_auto,es,15290,0,
+MaZfiglXpkk,ok,youtube_auto,es,3137,0,
+wgYfvxdld9g,ok,youtube_auto,es,15772,0,
+Ze6Pd7H0vPU,ok,youtube_auto,es,5580,0,
+prcsB9WmVis,ok,youtube_auto,es,5741,0,
+MZDFTt7s_uE,ok,youtube_auto,es,3579,0,
+yI61OfzymIc,ok,youtube_auto,es,2058,0,
+mDn2dLqPDSU,ok,youtube_auto,es,4623,0,
+MBWLsU-t1fQ,ok,youtube_auto,es,16069,0,
+6uDwqTQSqrA,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=6uDwqTQSqrA! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+XX271qhi0d8,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=XX271qhi0d8! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+f3NPAncHAjg,partial,,,0,0,"subs_api: VideoUnplayable: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=f3NPAncHAjg! This is most likely caused by:
+
+The video is unplayable for the following reason: This video is private
+
+Additional Details:
+ - If the owner of this video has granted you access, please 
+ - sign in
+ - .
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+hZ8JXQyY99k,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=hZ8JXQyY99k! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+y6cQVnkiA6A,ok,youtube_auto,es,7923,0,
+S3_NPYbRtTk,ok,youtube_auto,es,2669,0,
+8d0oLaXlgFM,ok,youtube_auto,es,380,0,
+skVCKS-zUyo,ok,youtube_auto,es,16568,0,
+ydwvM2FqJrA,ok,youtube_auto,es,1796,0,
+vO4kYXmeZSw,ok,youtube_auto,es,1984,0,
+jtGcYxKEHqY,ok,youtube_auto,es,23584,0,
+gxcyVh1oR5w,ok,youtube_auto,es,3498,9,
+S5kc38r5_LA,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=S5kc38r5_LA! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+TNYlMCzMqag,ok,youtube_auto,es,3949,0,
+6SZBKa6f7pg,ok,youtube_auto,es,4015,0,
+t7IDj9Q5iec,ok,youtube_auto,es,522,0,
+I_etbzqfgzY,ok,youtube_auto,es,18370,0,
+ug_xHfzPNgo,ok,youtube_auto,es,3890,0,
+CC5V4p52ljY,ok,youtube_auto,es,284,0,
+Xgl9iDXkyC4,ok,youtube_auto,es,14276,0,
+xqNHI_FK5ws,ok,youtube_auto,es,257,0,
+xxuybD9Xdig,ok,youtube_auto,es,260,0,
+rX_BRrV4-Qw,ok,youtube_auto,es,20915,0,
+6Wi79J6nLcY,ok,youtube_auto,es,1595,0,
+Ey6PJGTKHZ8,ok,youtube_auto,es,300,0,
+OiGGMY5Eg2Q,ok,youtube_auto,es,5625,0,
+FmGRDRvNmtc,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=FmGRDRvNmtc! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+K2_ut8VNqV0,ok,youtube_auto,es,467,0,
+YxyxBUr9jeQ,ok,youtube_auto,es,12403,0,
+LwO3Yofo2ww,ok,youtube_auto,es,2173,0,
+UygAOMyPUWs,ok,youtube_auto,es,165,0,

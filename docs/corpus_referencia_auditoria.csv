@@ -1,0 +1,13 @@
+frame_version,formato,duracion,n_muestra,n_candidatos,peso_reponderacion,n_chart_canal,n_busqueda_semilla
+mm-2026-08-v1,informativo,corto,33,109,0.8417,12,21
+mm-2026-08-v1,informativo,medio,33,75,0.5792,14,19
+mm-2026-08-v1,informativo,largo,33,63,0.4865,9,24
+mm-2026-08-v1,practico_personal,corto,33,236,1.8224,2,31
+mm-2026-08-v1,practico_personal,medio,33,165,1.2741,6,27
+mm-2026-08-v1,practico_personal,largo,33,99,0.7645,9,24
+mm-2026-08-v1,entretenimiento,corto,33,333,2.5714,5,28
+mm-2026-08-v1,entretenimiento,medio,33,151,1.1660,6,27
+mm-2026-08-v1,entretenimiento,largo,33,83,0.6409,7,26
+mm-2026-08-v1,deporte_gaming,corto,33,52,0.4015,5,28
+mm-2026-08-v1,deporte_gaming,medio,33,124,0.9575,15,18
+mm-2026-08-v1,deporte_gaming,largo,33,64,0.4942,15,18
