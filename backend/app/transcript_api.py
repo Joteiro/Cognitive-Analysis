@@ -78,10 +78,20 @@ def _pedir(video_url: str, api_key: str, lang: str | None, timeout: int) -> dict
         # peor que no decir nada: manda a resolver el problema equivocado.
         # La unica forma de distinguirlos es leer el cuerpo de la respuesta.
         cuerpo = (r.text or "")[:300]
-        agotado = any(p in cuerpo.lower() for p in
-                      ("limit-exceeded", "quota", "credits", "insufficient",
-                       "upgrade", "plan"))
-        return {"estado": "sin_creditos" if agotado else "rate_limit",
+        low = cuerpo.lower()
+
+        # Supadata usa el MISMO codigo `limit-exceeded` para los dos casos.
+        # Lo que los separa esta en `details`:
+        #
+        #   "Request rate limit on current plan was exceeded."  -> ritmo
+        #   (algo sobre cuota mensual / creditos)               -> saldo
+        #
+        # Un primer intento de clasificar esto busco "limit-exceeded" y "plan"
+        # como senales de saldo agotado. Las dos aparecen tambien en el error
+        # de ritmo, asi que clasificaba mal justo el caso frecuente. Hay que
+        # mirar "rate limit" primero: es la frase que solo aparece en uno.
+        es_ritmo = "rate limit" in low or "too many requests" in low
+        return {"estado": "rate_limit" if es_ritmo else "sin_creditos",
                 "detalle": cuerpo,
                 "reintentar_en": int(r.headers.get("retry-after") or 0)}
 

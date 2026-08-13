@@ -27,6 +27,7 @@ que instrumento se midio cada fila, y "el instrumento se filtra en la medida"
 es justamente el patron que atraviesa todo el trabajo.
 """
 import logging
+import threading
 from datetime import datetime, timezone
 from typing import List
 
@@ -130,6 +131,31 @@ def _latest_score(content_item_id: int, db: Session) -> models.ContentScore | No
     )
 
 
+def _conviene_reintentar(item: models.ContentItem) -> bool:
+    """Si vale la pena volver a enriquecer un video que ya estaba en la base.
+
+    Tres condiciones, y las tres importan:
+      - No hay transcripcion todavia (si la hay, no hay nada que buscar).
+      - El estado admite reintento. 'exhausted' no: el saldo no se repone por
+        insistir, y cada intento gasta una llamada igual.
+      - Paso el margen minimo desde el ultimo intento. Sin esto, abrir el
+        video y que la extension reintente disparaba tres llamadas a Supadata
+        en pocos segundos — y tres llamadas seguidas son exactamente lo que
+        activa el limite de ritmo.
+    """
+    if (item.transcript or "").strip():
+        return False
+    if item.enrichment_status not in (None, "error"):
+        return False
+    ultimo = item.enriched_at or item.last_attempt_at
+    if ultimo is not None:
+        if ultimo.tzinfo is None:
+            ultimo = ultimo.replace(tzinfo=timezone.utc)
+        if (datetime.now(timezone.utc) - ultimo).total_seconds() < SEGUNDOS_ENTRE_INTENTOS:
+            return False
+    return True
+
+
 def _to_read(item: models.ContentItem, db: Session) -> schemas.ContentItemRead:
     score = _latest_score(item.id, db)
     return schemas.ContentItemRead(
@@ -156,6 +182,23 @@ def _to_read(item: models.ContentItem, db: Session) -> schemas.ContentItemRead:
 
 # ─── BACKGROUND TASK ──────────────────────────────────────────────────────────
 
+# Enriquecimientos en curso, para que el mismo video no se procese dos veces
+# a la vez. Render corre con WEB_CONCURRENCY=1, un solo proceso, asi que un
+# set en memoria alcanza.
+#
+# POR QUE HACE FALTA
+# Un mismo video llegaba a disparar TRES enriquecimientos: el POST inicial,
+# mas los reintentos que lanza la extension cuando el panel todavia no tiene
+# datos. Cada uno era una llamada a Supadata, y tres llamadas en pocos
+# segundos son justo lo que activa el limite de ritmo. El sistema se estaba
+# provocando a si mismo el error del que despues se quejaba.
+_EN_CURSO: set[int] = set()
+_CANDADO = threading.Lock()
+
+# Margen minimo entre dos enriquecimientos del mismo video.
+SEGUNDOS_ENTRE_INTENTOS = 90
+
+
 def run_enrichment(content_item_id: int):
     """
     Descarga transcript + metadata de YouTube API y los guarda en el
@@ -165,6 +208,20 @@ def run_enrichment(content_item_id: int):
     solo lee de la base: si llamara tambien, cada video nuevo costaria dos
     creditos en vez de uno, y con un plan de 100 eso se nota.
     """
+    with _CANDADO:
+        if content_item_id in _EN_CURSO:
+            logger.info(f"item {content_item_id}: ya se esta enriqueciendo, "
+                        f"se descarta el pedido duplicado")
+            return
+        _EN_CURSO.add(content_item_id)
+    try:
+        _run_enrichment(content_item_id)
+    finally:
+        with _CANDADO:
+            _EN_CURSO.discard(content_item_id)
+
+
+def _run_enrichment(content_item_id: int):
     db = SessionLocal()
     estado_tr = "ok"
     detalle_error = None
@@ -348,7 +405,7 @@ def create_video(
         # Si quedo a medias de un intento anterior (sin transcripcion y sin
         # estado, o con estado de error), se reintenta. No gasta creditos de
         # mas: fetch_transcript_detallado solo llama a Supadata si no hay texto.
-        if not existing.transcript and existing.enrichment_status in (None, "error"):
+        if _conviene_reintentar(existing):
             background_tasks.add_task(run_enrichment, existing.id)
         return _to_read(existing, db)
 
