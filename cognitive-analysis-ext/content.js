@@ -114,14 +114,29 @@ function panelCargando() {
 function panelSinDatos(d) {
   const caja = contenedor();
   cabecera(caja, '');
-  const porque = d.cobertura != null
-    ? `El video tiene muy poca habla para su duración (cobertura ${d.cobertura}).`
-    : 'No se pudo obtener una transcripción de este video.';
-  caja.insertAdjacentHTML('beforeend',
-    `<div class="vacio"><b>Sin datos suficientes.</b><br>${porque}<br><br>
+
+  // El backend ahora explica POR QUE no hay panel (sin subtitulos, sin credito,
+  // enriquecimiento incompleto). Si mando un motivo, se muestra ese: es mas
+  // preciso que cualquier texto generico que se pueda escribir aca.
+  const porque = d.mensaje
+    || (d.cobertura != null
+        ? `El video tiene muy poca habla para su duración (cobertura ${d.cobertura}).`
+        : 'No se pudo obtener una transcripción de este video.');
+
+  // La aclaracion de "no es una nota baja" solo aplica cuando el video
+  // efectivamente se midio y no alcanzo. Si el problema fue tecnico —no habia
+  // subtitulos, se acabo el credito— ponerla confunde: sugiere que el video
+  // tiene algo raro cuando el que fallo fue el sistema.
+  const esTecnico = ['sin_creditos', 'error_de_transcripcion',
+                     'enriquecimiento_incompleto', 'sin_respuesta'].includes(d.motivo);
+  const matiz = esTecnico ? '' : `<br><br>
      No es una puntuación baja: estos descriptores miden el habla, y hay videos
      —música, tomas sin voz, partidas comentadas a medias— a los que sencillamente
-     no les aplican.</div>`);
+     no les aplican.`;
+
+  const titulo = esTecnico ? 'No se pudo analizar.' : 'Sin datos suficientes.';
+  caja.insertAdjacentHTML('beforeend',
+    `<div class="vacio"><b>${titulo}</b><br>${porque}${matiz}</div>`);
 }
 
 function fila(d) {
@@ -190,8 +205,16 @@ function panelDatos(d) {
 
 async function pedirPanel(videoId, intento = 0) {
   if (intento >= POLL_MAX) {
+    // Antes esto hacia quitarPanel(): la etiqueta giraba ~80 s y despues
+    // desaparecia sin decir nada. Desde afuera es indistinguible de que la
+    // extension este rota, y es exactamente lo que mas cuesta diagnosticar.
     console.warn('[CognitiveAnalysis] el panel no estuvo listo a tiempo.');
-    quitarPanel();
+    panelSinDatos({
+      motivo: 'sin_respuesta',
+      mensaje: 'El análisis está tardando más de lo normal. Recargá la página '
+             + 'en un minuto; si sigue igual, el servicio de transcripción '
+             + 'puede estar caído o sin crédito.',
+    });
     return;
   }
   if (new URLSearchParams(location.search).get('v') !== videoId) return;
@@ -214,7 +237,10 @@ async function pedirPanel(videoId, intento = 0) {
     if (res.status === 404) {
       console.warn('[CognitiveAnalysis] /panel devolvio 404: el backend no tiene '
         + 'la ruta desplegada. Revisa /openapi.json en Render.');
-      quitarPanel();
+      panelSinDatos({
+        motivo: 'sin_respuesta',
+        mensaje: 'El servidor no tiene la ruta /panel desplegada todavía.',
+      });
       return;
     }
   } catch (_) { /* Render dormido: se reintenta */ }

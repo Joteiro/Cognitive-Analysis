@@ -186,19 +186,74 @@ SQL = text("""
            category_name, duration_seconds, transcript, transcript_source,
            transcript_is_generated, transcript_lang, transcript_word_count,
            transcript_segments, chapters, n_chapters, video_language,
-           stratum_format, corpus
+           stratum_format, corpus,
+           enrichment_status, enrichment_error, created_at
       FROM content_items
      WHERE external_id = :vid
 """)
 
+# Cuanto se espera al enriquecimiento antes de dar el video por perdido.
+# Es generoso a proposito: Render en plan gratuito se duerme y el arranque en
+# frio puede comerse medio minuto antes de que la tarea siquiera empiece.
+ESPERA_MAXIMA_SEG = 150
+
+# Por que no hay transcripcion, en castellano. La clave es enrichment_status,
+# que ahora escribe el backend con el mismo vocabulario que el worker local.
+MOTIVOS = {
+    "no_subs": ("sin_subtitulos",
+                "Este video no tiene subtítulos disponibles, así que no hay "
+                "texto que medir."),
+    "exhausted": ("sin_creditos",
+                  "Se agotó el crédito del servicio de transcripción. El video "
+                  "queda pendiente: cuando se reponga, el panel aparece solo."),
+    "error": ("error_de_transcripcion",
+              "Hubo un error al obtener la transcripción de este video."),
+}
+
 
 def de_la_base(vid: str) -> dict | None:
+    """Devuelve la fila exista o no la transcripcion.
+
+    Antes devolvia None cuando no habia texto, y el endpoint interpretaba eso
+    como "todavia procesando". Resultado: un video sin subtitulos dejaba la
+    etiqueta girando indefinidamente y despues desapareciendo sin decir nada.
+    Distinguir "todavia no" de "no va a haber" es justamente lo que hace
+    falta, asi que esa decision sube al endpoint, que tiene con que tomarla.
+    """
     with engine.connect() as c:
         row = c.execute(SQL, {"vid": vid}).mappings().first()
-    if not row:
-        return None
-    d = dict(row)
-    return d if (d.get("transcript") or "").strip() else None
+    return dict(row) if row else None
+
+
+def _sin_transcripcion(fila: dict, frame: str) -> dict:
+    """Que contestar cuando la fila existe pero no tiene texto."""
+    estado = (fila.get("enrichment_status") or "").lower()
+
+    if estado in MOTIVOS:
+        motivo, mensaje = MOTIVOS[estado]
+        return {"apto": False, "motivo": motivo, "mensaje": mensaje,
+                "estado_enriquecimiento": estado,
+                "detalle": fila.get("enrichment_error"),
+                "frame_version": frame}
+
+    # Sin estado registrado: o esta corriendo, o murio sin dejar rastro. La
+    # edad de la fila desempata.
+    creado = fila.get("created_at")
+    edad = None
+    if creado is not None:
+        if creado.tzinfo is None:
+            creado = creado.replace(tzinfo=timezone.utc)
+        edad = (datetime.now(timezone.utc) - creado).total_seconds()
+
+    if edad is not None and edad > ESPERA_MAXIMA_SEG:
+        return {"apto": False, "motivo": "enriquecimiento_incompleto",
+                "mensaje": "El análisis no llegó a completarse. Suele ser el "
+                           "servicio de transcripción caído o sin crédito.",
+                "estado_enriquecimiento": None,
+                "frame_version": frame}
+
+    return {"apto": None, "estado": "procesando", "registrado": True,
+            "mensaje": "Analizando el video…", "frame_version": frame}
 
 
 def metadatos_youtube(vid: str) -> dict:
@@ -394,20 +449,20 @@ def panel(video_id: str):
         # que gasta creditos. Si el panel tambien llamara, cada video nuevo
         # costaria dos en vez de uno.
         #
-        # La extension reintenta cada pocos segundos, asi que basta con decirle
-        # que espere: cuando el enriquecimiento termine, la fila va a estar.
-        existe = False
-        try:
-            with engine.connect() as c:
-                existe = c.execute(
-                    text("SELECT 1 FROM content_items WHERE external_id = :v"),
-                    {"v": video_id}).first() is not None
-        except Exception as e:
-            logger.warning(f"consulta de existencia de {video_id}: {e}")
+        # La fila todavia no existe: el POST de la extension no llego o no
+        # termino. Vale la pena esperar, porque llega en un segundo.
         return {"video_id": video_id, "apto": None, "estado": "procesando",
-                "registrado": existe,
+                "registrado": False,
                 "mensaje": "Analizando el video…",
                 "frame_version": escala["frame_version"]}
+
+    if not (fila.get("transcript") or "").strip():
+        # La fila existe pero no hay texto. Puede ser que el enriquecimiento
+        # siga corriendo, o que ya haya terminado sin conseguir nada. No es lo
+        # mismo y no se puede contestar igual: girar para siempre es la peor
+        # de las respuestas posibles, porque no se distingue de estar roto.
+        return {"video_id": video_id,
+                **_sin_transcripcion(fila, escala["frame_version"])}
 
     desc = calcular_descriptores(fila)
     fmt = fila.get("stratum_format") or _formato(fila.get("category_id"))
