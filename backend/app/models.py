@@ -109,7 +109,12 @@ class ContentItem(Base):
     enrichment_error      = Column(Text)
     enriched_at           = Column(DateTime(timezone=True))
     enricher_version      = Column(String(20))
-    attempts              = Column(Integer)
+    # OJO: NOT NULL con DEFAULT en la base. El default de Postgres solo se
+    # aplica si la columna NO viene en el INSERT, y SQLAlchemy la manda con
+    # NULL explicito si el modelo no le da un default propio. Sin este
+    # default=0, todo INSERT de un video nuevo moria con NotNullViolation.
+    attempts              = Column(Integer, nullable=False, default=0,
+                                   server_default="0")
     next_attempt_at       = Column(DateTime(timezone=True))
     last_attempt_at       = Column(DateTime(timezone=True))
 
@@ -118,7 +123,10 @@ class ContentItem(Base):
     # que se construyo la escala. NO se mezclan: los percentiles se calculan
     # solo sobre 'referencia', porque medir el historial contra si mismo seria
     # circular.
-    corpus                = Column(String(20))
+    # Igual que attempts: NOT NULL con DEFAULT en la base.
+    corpus                = Column(String(20), nullable=False,
+                                   default="historial",
+                                   server_default="'historial'")
     sampling_source       = Column(String(40))
     sampling_seed         = Column(Text)
     stratum_format        = Column(String(40))

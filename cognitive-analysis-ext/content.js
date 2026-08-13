@@ -217,7 +217,41 @@ function panelDatos(d) {
      cuando corresponde. <b>No es una calificación.</b><br>${fuente}.</div>`);
 }
 
+// ¿Sigue vivo el script?
+//
+// Cuando se recarga la extension desde chrome://extensions, las pestanas que
+// ya estaban abiertas se quedan corriendo el script VIEJO, desconectado. Ese
+// script sigue pudiendo tocar el DOM —dibuja el recuadro, muestra
+// "Analizando"— pero cualquier fetch suyo falla. Desde afuera se ve como un
+// servidor lento, y no lo es: es un fantasma.
+//
+// chrome.runtime.id es la forma limpia de detectarlo: en un script huerfano
+// queda undefined, o el propio acceso tira.
+function contextoVivo() {
+  try {
+    return Boolean(chrome && chrome.runtime && chrome.runtime.id);
+  } catch (_) {
+    return false;
+  }
+}
+
+function avisarHuerfano() {
+  console.error('[CognitiveAnalysis] esta pestaña quedó con el script viejo '
+    + '(la extensión se recargó después de abrirla). Recargá la página.');
+  panelSinDatos({
+    motivo: 'sin_respuesta',
+    mensaje: 'La extensión se recargó después de abrir esta pestaña, así que '
+           + 'quedó desconectada. Recargá la página (F5).',
+  });
+}
+
 async function pedirPanel(videoId, intento = 0) {
+  // Se comprueba en cada vuelta y no una sola vez al principio: la extension
+  // se puede recargar en cualquier momento, incluso en medio del sondeo.
+  if (!contextoVivo()) {
+    avisarHuerfano();
+    return;
+  }
   if (intento >= POLL_MAX) {
     // Antes esto hacia quitarPanel(): la etiqueta giraba ~80 s y despues
     // desaparecia sin decir nada. Desde afuera es indistinguible de que la
@@ -244,9 +278,12 @@ async function pedirPanel(videoId, intento = 0) {
         // de registro se perdio, y esperar no lo va a arreglar: seguiriamos
         // preguntando por algo que nadie mando. Se reintenta el registro una
         // sola vez, para no entrar en un bucle de POSTs.
+        // Se permiten dos rondas y no una: la primera puede haberse agotado
+        // entera mientras Render todavia arrancaba.
         if (d.registrado === false && ultimoPayload
-            && ultimoPayload.video_id === videoId && !reintentoRegistro) {
-          reintentoRegistro = true;
+            && ultimoPayload.video_id === videoId
+            && reintentosRegistro < MAX_REINTENTOS_PANEL) {
+          reintentosRegistro += 1;
           console.warn('[CognitiveAnalysis] el video no figura en la base; '
             + 'se reintenta el registro.');
           sendToBackend(ultimoPayload);
@@ -268,7 +305,16 @@ async function pedirPanel(videoId, intento = 0) {
       });
       return;
     }
-  } catch (_) { /* Render dormido: se reintenta */ }
+  } catch (err) {
+    // Un fetch que falla puede ser Render dormido (se reintenta) o el script
+    // huerfano (no tiene sentido reintentar: nunca va a salir).
+    if (!contextoVivo() || String(err).includes('Extension context invalidated')) {
+      avisarHuerfano();
+      return;
+    }
+    console.warn(`[CognitiveAnalysis] /panel no respondió `
+      + `(intento ${intento + 1}/${POLL_MAX}):`, err.message || err);
+  }
 
   setTimeout(() => pedirPanel(videoId, intento + 1), esperaMs(intento));
 }
@@ -307,13 +353,23 @@ function extractVideoData() {
 // avisa que el video no llego a la base.
 let ultimoPayload = null;
 
-async function sendToBackend(payload, intentos = 3) {
-  // POR QUE REINTENTA
-  // Si este POST falla, el video no existe en la base, y entonces el panel
-  // se queda pidiendo eternamente un video que nadie registro. Un fallo de
-  // un segundo —el servidor reiniciando por un deploy, la conexion
-  // parpadeando— dejaba el video perdido para siempre. Tres intentos con
-  // pausas crecientes cubren de sobra un reinicio de Render.
+// Pausas entre intentos de registro, en segundos: 0, 5, 12, 25, 45.
+// En total cubre ~90 s desde el primer intento.
+//
+// POR QUE TAN LARGO
+// Los tres intentos anteriores (0, 3 y 9 s) se agotaban en diez segundos, y
+// el arranque en frio de Render tarda unos cincuenta. O sea que los tres
+// caian dentro de la ventana en la que el servidor todavia no existe, y los
+// tres devolvian "Failed to fetch".
+//
+// Eso explica el sintoma que parecia imposible: el panel (GET) funcionaba y
+// el registro (POST) no, contra el MISMO servidor. No era que el POST
+// estuviera roto — era que el GET reintentaba durante cinco minutos y el
+// POST se rendia a los diez segundos. El GET esperaba a que el servidor
+// despertara; el POST, no.
+const PAUSAS_REGISTRO = [5000, 7000, 13000, 20000];
+
+async function sendToBackend(payload, intentos = PAUSAS_REGISTRO.length + 1) {
   for (let i = 0; i < intentos; i++) {
     try {
       const res = await fetch(BACKEND_URL, {
@@ -345,7 +401,7 @@ async function sendToBackend(payload, intentos = 3) {
         + `(intento ${i + 1}/${intentos}).`, err);
     }
     if (i < intentos - 1) {
-      await new Promise((r) => setTimeout(r, 3000 * (i + 1)));
+      await new Promise((r) => setTimeout(r, PAUSAS_REGISTRO[i] || 20000));
     }
   }
   return false;
@@ -353,7 +409,8 @@ async function sendToBackend(payload, intentos = 3) {
 
 // ─── NAVEGACION ───────────────────────────────────────────────────────────────
 const trackedThisSession = new Set();
-let reintentoRegistro = false;
+let reintentosRegistro = 0;   // rondas de reintento disparadas por el panel
+const MAX_REINTENTOS_PANEL = 2;
 
 function getDurationWhenReady(videoEl, timeoutMs = 5000) {
   return new Promise((resolve) => {
@@ -376,11 +433,17 @@ function getDurationWhenReady(videoEl, timeoutMs = 5000) {
 function handleNavigation() {
   if (window.location.pathname !== '/watch') return;
   quitarPanel();
-  reintentoRegistro = false;
+  reintentosRegistro = 0;
 
   setTimeout(async () => {
     const data = extractVideoData();
     if (!data) return;
+    // Antes de dibujar nada: si el script esta huerfano, mostrar "Analizando"
+    // es mentirle al usuario. No va a analizar nada.
+    if (!contextoVivo()) {
+      avisarHuerfano();
+      return;
+    }
     panelCargando();
     ultimoPayload = data;
 
