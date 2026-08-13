@@ -183,17 +183,34 @@ function panelDatos(d) {
 }
 
 async function pedirPanel(videoId, intento = 0) {
-  if (intento >= POLL_MAX) { quitarPanel(); return; }
+  if (intento >= POLL_MAX) {
+    console.warn('[CognitiveAnalysis] el panel no estuvo listo a tiempo.');
+    quitarPanel();
+    return;
+  }
   if (new URLSearchParams(location.search).get('v') !== videoId) return;
 
   try {
     const res = await fetch(`${PANEL_URL}/${videoId}`);
     if (res.ok) {
       const d = await res.json();
+      // apto === null es "todavia procesando": el enriquecimiento en background
+      // no termino. Se sigue reintentando en vez de dar por perdido el panel.
+      if (d.apto === null || d.estado === 'procesando') {
+        setTimeout(() => pedirPanel(videoId, intento + 1), POLL_INTERVAL);
+        return;
+      }
       if (d.apto) panelDatos(d); else panelSinDatos(d);
       return;
     }
-    if (res.status === 404) { quitarPanel(); return; }
+    // 404 = la ruta no existe en el servidor (deploy viejo). Conviene decirlo
+    // en vez de desaparecer en silencio, que fue justo lo que costo diagnosticar.
+    if (res.status === 404) {
+      console.warn('[CognitiveAnalysis] /panel devolvio 404: el backend no tiene '
+        + 'la ruta desplegada. Revisa /openapi.json en Render.');
+      quitarPanel();
+      return;
+    }
   } catch (_) { /* Render dormido: se reintenta */ }
 
   setTimeout(() => pedirPanel(videoId, intento + 1), POLL_INTERVAL);

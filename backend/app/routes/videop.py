@@ -8,7 +8,10 @@ from sqlalchemy.orm import Session
 
 from .. import models, schemas
 from ..database import SessionLocal
-from ..scorer import compute_score, SCORER_VERSION
+# El scorer v1 (letra A-E) quedo retirado: ver el bloque de abajo.
+# La tabla content_scores se conserva como evidencia historica de lo que
+# se reemplazo, pero no se escribe mas.
+from ..scorer import SCORER_VERSION  # noqa: F401  (solo para /score historico)
 from ..youtube_api import fetch_video_metadata
 
 logger = logging.getLogger(__name__)
@@ -63,10 +66,14 @@ def _to_read(item: models.ContentItem, db: Session) -> schemas.ContentItemRead:
 
 # ─── BACKGROUND TASK ──────────────────────────────────────────────────────────
 
-def run_scoring(content_item_id: int):
+def run_enrichment(content_item_id: int):
     """
-    Descarga transcript + metadata de YouTube API, calcula el score
-    y lo guarda en content_scores. Se ejecuta en background.
+    Descarga transcript + metadata de YouTube API y los guarda en el
+    content_item. Corre en background.
+
+    Es la UNICA parte del sistema que llama a Supadata. El endpoint /panel
+    solo lee de la base: si llamara tambien, cada video nuevo costaria dos
+    creditos en vez de uno, y con un plan de 100 eso se nota.
     """
     db = SessionLocal()
     try:
@@ -103,30 +110,22 @@ def run_scoring(content_item_id: int):
             logger.info(f"YT metadata: {item.external_id} → {yt_meta['category_name']}")
 
         # ── Score ─────────────────────────────────────────────────────────────
-        result = compute_score(
-            title=item.title,
-            duration_seconds=item.duration_seconds,
-            transcript=transcript_text,
-            category_id=yt_meta["category_id"]    if yt_meta else None,
-            view_count=yt_meta["view_count"]       if yt_meta else None,
-            like_count=yt_meta["like_count"]       if yt_meta else None,
-            comment_count=yt_meta["comment_count"] if yt_meta else None,
-            description=yt_meta["description"]     if yt_meta else None,
-        )
-
-        score = models.ContentScore(
-            content_item_id=item.id,
-            scorer_version=SCORER_VERSION,
-            score_letter=result["letter"],
-            score_numeric=result["numeric"],
-            score_labels=result["labels"],
-            score_details=result["details"],
-        )
-        db.add(score)
+        # RETIRADO el 2026-08-14. Antes aca se calculaba una letra A-E y se
+        # escribia en content_scores.
+        #
+        # Por que se saco: una letra agregada sobre ocho medidas ponderadas a
+        # criterio transmite una autoridad que el sistema no tiene, y ademas se
+        # demostro que el score v1 correlacionaba 0,73 con log(duracion) — la
+        # mitad de su varianza era, literalmente, cuanto duraba el video.
+        # Lo reemplaza el panel de descriptores (/panel), que muestra cada
+        # medida por separado como percentil y nunca las combina.
+        #
+        # La tabla content_scores NO se borra: es la evidencia de lo que habia
+        # antes y sostiene el capitulo de la memoria donde se explica por que se
+        # cambio. Simplemente dejo de crecer.
         db.commit()
-        logger.info(
-            f"Score '{item.title}': {result['letter']} ({result['numeric']}) [v{SCORER_VERSION}]"
-        )
+        logger.info(f"Enriquecido '{item.title}' "
+                    f"({'con' if transcript_text else 'sin'} transcripcion)")
 
     except Exception as e:
         logger.error(f"Error en scoring content_item_id={content_item_id}: {e}")
@@ -143,7 +142,7 @@ def create_video(
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db),
 ):
-    """Recibe el payload de la extensión, guarda raw_event + content_item y lanza scoring."""
+    """Recibe el payload de la extensión, guarda raw_event + content_item y lanza el enriquecimiento en background."""
     # Siempre guardamos el raw event (auditoría)
     raw_event = models.RawEvent(
         source="chrome_extension",
@@ -175,7 +174,7 @@ def create_video(
     db.commit()
     db.refresh(item)
 
-    background_tasks.add_task(run_scoring, item.id)
+    background_tasks.add_task(run_enrichment, item.id)
     return _to_read(item, db)
 
 

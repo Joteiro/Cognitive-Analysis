@@ -3,16 +3,21 @@
 Endpoint del panel: dado un video de YouTube, devuelve los 8 descriptores
 ubicados en la escala de referencia.
 
-ORDEN DE BUSQUEDA DEL TEXTO — importa, y es lo que hace que esto sea barato
---------------------------------------------------------------------------
-1. La base. Los ~500 videos ya enriquecidos salen gratis y al instante.
-2. Supadata con mode=native. Un credito. SOLO si no estaba en la base.
-3. Nada: se responde "sin datos suficientes". Nunca un cero, nunca una letra.
+SOLO LEE. NO GASTA CREDITOS.
+----------------------------
+Este endpoint no llama a Supadata. La unica parte del sistema que lo hace es el
+enriquecimiento en background que dispara POST /videos. Si el panel llamara
+tambien, cada video nuevo costaria dos creditos en vez de uno — con un plan de
+100, eso es la mitad del presupuesto tirado.
 
-Por que mode=native es obligatorio: sin el, un video cuyos subtitulos nativos
-Supadata no logra bajar se transcribe con Whisper, que cobra por minuto de
-audio. El 2026-08-12 una sola llamada asi consumio 134 creditos y agoto el plan
-entero. Con mode=native cada video cuesta 1.
+Entonces hay tres respuestas posibles:
+  apto = true   -> la fila esta en la base y pasa el gate. Se devuelve el panel.
+  apto = null   -> "procesando": todavia no hay transcripcion. La extension
+                   reintenta cada pocos segundos hasta que el enriquecimiento
+                   termine.
+  apto = false  -> hay transcripcion pero no alcanza (musica, gameplay sin
+                   comentario, tomas sin voz). "Sin datos suficientes", nunca
+                   un cero y nunca una letra.
 
 POR QUE EL CALCULO VIVE ACA Y NO EN EL NAVEGADOR
 ------------------------------------------------
@@ -23,11 +28,12 @@ solo cuerpo de reglas, sin copias.
 
 EQUIVALENCIA DE FUENTES: verificada, no supuesta
 ------------------------------------------------
-La escala se construyo con subtitulos de YouTube y el panel puede usar Supadata.
-Se comparo pareado sobre 7 videos: correlaciones de 0,996 a 1,000 y 0 % de los
-videos cambian de tramo en los 8 descriptores. Son el mismo instrumento.
-Detalle en docs/calibracion_supadata.md.
+La escala se construyo con subtitulos de YouTube y el enriquecimiento usa
+Supadata. Se comparo pareado sobre 7 videos: correlaciones de 0,996 a 1,000 y
+0 % de los videos cambian de tramo en los 8 descriptores. Son el mismo
+instrumento. Detalle en docs/calibracion_supadata.md.
 """
+
 from __future__ import annotations
 
 import json
@@ -194,6 +200,9 @@ def metadatos_youtube(vid: str) -> dict:
 
 
 def de_supadata(vid: str) -> tuple[str | None, str]:
+    """NO se usa desde el endpoint. Se conserva por si alguna vez hace falta un
+    modo "calcular ahora" explicito, y como documentacion de que mode=native es
+    obligatorio. Si se reactiva, recordar que duplica el gasto de creditos."""
     key = os.getenv("SUPADATA_API_KEY")
     if not key:
         return None, "sin_api_key"
@@ -235,20 +244,25 @@ def panel(video_id: str):
     fila, origen = de_la_base(video_id), "base"
 
     if fila is None:
-        meta = metadatos_youtube(video_id)
-        if not meta:
-            raise HTTPException(404, "No se pudieron obtener los metadatos del video.")
-        texto, estado = de_supadata(video_id)
-        if not texto:
-            # Es la respuesta honesta, no un error: hay videos que no admiten
-            # panel. Musica, gameplay sin comentario, tomas aereas.
-            return {"video_id": video_id, "apto": False, "motivo": estado,
-                    "mensaje": "Sin datos suficientes para mostrar el panel.",
-                    "frame_version": escala["frame_version"]}
-        fila = {**meta, "external_id": video_id, "transcript": texto,
-                "transcript_source": "supadata", "transcript_lang": "es",
-                "transcript_segments": None, "chapters": None, "n_chapters": None}
-        origen = "supadata"
+        # NO se llama a Supadata desde aca. El enriquecimiento en background
+        # que dispara POST /videos ya lo hace, y es la unica parte del sistema
+        # que gasta creditos. Si el panel tambien llamara, cada video nuevo
+        # costaria dos en vez de uno.
+        #
+        # La extension reintenta cada pocos segundos, asi que basta con decirle
+        # que espere: cuando el enriquecimiento termine, la fila va a estar.
+        existe = False
+        try:
+            with engine.connect() as c:
+                existe = c.execute(
+                    text("SELECT 1 FROM content_items WHERE external_id = :v"),
+                    {"v": video_id}).first() is not None
+        except Exception as e:
+            logger.warning(f"consulta de existencia de {video_id}: {e}")
+        return {"video_id": video_id, "apto": None, "estado": "procesando",
+                "registrado": existe,
+                "mensaje": "Analizando el video…",
+                "frame_version": escala["frame_version"]}
 
     desc = calcular_descriptores(fila)
     if not desc.get("v_apto_panel"):
