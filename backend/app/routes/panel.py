@@ -233,6 +233,19 @@ def de_la_base(vid: str) -> dict | None:
 def _sin_transcripcion(fila: dict, frame: str) -> dict:
     """Que contestar cuando la fila existe pero no tiene texto."""
     estado = (fila.get("enrichment_status") or "").lower()
+    detalle = str(fila.get("enrichment_error") or "")
+
+    # 'error' por limite de ritmo no es lo mismo que 'error' de verdad: el
+    # saldo esta intacto y se arregla solo con volver a abrir el video. Decirle
+    # a alguien que se quedo sin creditos cuando le sobran lo manda a resolver
+    # el problema equivocado.
+    if estado == "error" and detalle.startswith("rate_limit"):
+        return {"apto": False, "motivo": "limite_de_ritmo",
+                "mensaje": "El servicio de transcripción está recibiendo "
+                           "demasiadas consultas seguidas. No es falta de "
+                           "crédito: recargá la página en un minuto.",
+                "estado_enriquecimiento": estado,
+                "frame_version": frame}
 
     if estado in MOTIVOS:
         motivo, mensaje = MOTIVOS[estado]

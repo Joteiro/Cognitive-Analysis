@@ -141,7 +141,7 @@ function panelSinDatos(d) {
   // efectivamente se midio y no alcanzo. Si el problema fue tecnico —no habia
   // subtitulos, se acabo el credito— ponerla confunde: sugiere que el video
   // tiene algo raro cuando el que fallo fue el sistema.
-  const esTecnico = ['sin_creditos', 'error_de_transcripcion',
+  const esTecnico = ['sin_creditos', 'error_de_transcripcion', 'limite_de_ritmo',
                      'enriquecimiento_incompleto', 'sin_respuesta'].includes(d.motivo);
   const matiz = esTecnico ? '' : `<br><br>
      No es una puntuación baja: estos descriptores miden el habla, y hay videos

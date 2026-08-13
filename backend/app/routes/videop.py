@@ -31,6 +31,7 @@ from datetime import datetime, timezone
 from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from sqlalchemy.orm.attributes import flag_modified
 
@@ -58,7 +59,11 @@ ESTADO_A_ENRICHMENT = {
     "ok":               "ok",
     "whisper_evitado":  "no_subs",    # no tiene subtitulos nativos
     "vacio":            "no_subs",
-    "sin_creditos":     "exhausted",
+    "sin_creditos":     "exhausted",  # saldo agotado: no se reintenta solo
+    # Limite de peticiones por minuto, NO falta de saldo. Se marca 'error'
+    # justamente porque 'error' es el estado que create_video vuelve a
+    # intentar: abrir el video de nuevo lo resuelve.
+    "rate_limit":       "error",
     "sin_api_key":      "error",
 }
 
@@ -206,9 +211,16 @@ def run_enrichment(content_item_id: int):
                         f"{item.external_id}: transcripcion en '{tr.get('lang')}', "
                         f"no en espanol. La escala de referencia es en espanol.")
             else:
+                # Se guarda el detalle que devolvio Supadata, no solo la
+                # etiqueta. La diferencia entre "sin saldo" y "demasiadas
+                # peticiones por minuto" vive en ese texto, y sin el las dos
+                # se ven iguales en la base.
                 detalle_error = estado_tr
+                if tr.get("detalle"):
+                    detalle_error = f"{estado_tr}: {str(tr['detalle'])[:400]}"
                 logger.warning(
-                    f"Transcript no disponible para {item.external_id}: {estado_tr}")
+                    f"Transcript no disponible para {item.external_id}: "
+                    f"{detalle_error[:200]}")
 
         # ── YouTube API metadata ───────────────────────────────────────────────
         yt_meta = fetch_video_metadata(item.external_id)
@@ -353,7 +365,26 @@ def create_video(
         transcript_fetched_at=datetime.now(timezone.utc) if video.transcript else None,
     )
     db.add(item)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # Carrera: dos peticiones para el mismo video llegaron a la vez y las
+        # dos pasaron el chequeo de duplicado antes de que ninguna insertara.
+        # La base lo ataja con la restriccion unica, y la que pierde se limita
+        # a devolver la fila que creo la otra.
+        #
+        # Pasa de verdad: YouTube dispara su evento de navegacion mas de una
+        # vez y llegan dos POST con 0,2 s de diferencia. Antes esto era un 500
+        # que el navegador mostraba como "Failed to fetch" — un error de
+        # coordinacion disfrazado de problema de red.
+        db.rollback()
+        existente = db.query(models.ContentItem).filter(
+            models.ContentItem.external_id == video.video_id).first()
+        if existente:
+            logger.info(f"{video.video_id}: insercion simultanea, se devuelve "
+                        f"la fila existente")
+            return _to_read(existente, db)
+        raise
     db.refresh(item)
 
     background_tasks.add_task(run_enrichment, item.id)

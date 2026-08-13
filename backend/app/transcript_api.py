@@ -24,6 +24,7 @@ romper nada.
 """
 import logging
 import os
+import time
 
 import requests
 
@@ -63,8 +64,27 @@ def _pedir(video_url: str, api_key: str, lang: str | None, timeout: int) -> dict
         # nativos. No se espera el job — esos videos quedan fuera de la escala
         # igual, y esperarlo cuesta creditos por minuto de audio.
         return {"estado": "whisper_evitado"}
+
     if r.status_code == 429:
-        return {"estado": "sin_creditos"}
+        # 429 significa DOS cosas distintas y hasta ahora las tratabamos como
+        # una sola, con el mensaje mas alarmante de los dos:
+        #
+        #   - Se acabo el saldo del plan  -> no hay nada que hacer hasta que
+        #     se reponga.
+        #   - Demasiadas peticiones por minuto -> el saldo esta intacto y con
+        #     esperar unos segundos alcanza.
+        #
+        # Decirle a alguien que se quedo sin creditos cuando le sobran es
+        # peor que no decir nada: manda a resolver el problema equivocado.
+        # La unica forma de distinguirlos es leer el cuerpo de la respuesta.
+        cuerpo = (r.text or "")[:300]
+        agotado = any(p in cuerpo.lower() for p in
+                      ("limit-exceeded", "quota", "credits", "insufficient",
+                       "upgrade", "plan"))
+        return {"estado": "sin_creditos" if agotado else "rate_limit",
+                "detalle": cuerpo,
+                "reintentar_en": int(r.headers.get("retry-after") or 0)}
+
     if r.status_code != 200:
         return {"estado": f"http_{r.status_code}", "detalle": r.text[:150]}
     try:
@@ -98,6 +118,18 @@ def fetch_transcript_detallado(video_url: str, video_id: str | None = None,
     ultimo = {}
     for lang in IDIOMAS:
         res = _pedir(video_url, api_key, lang, timeout)
+
+        # Rate limit: el saldo esta bien, sobran peticiones por minuto. Se
+        # espera y se vuelve a probar UNA vez. Abrir tres videos seguidos en
+        # el navegador dispara varias llamadas casi simultaneas y es
+        # exactamente el caso que hay que sobrevivir.
+        if res.get("estado") == "rate_limit":
+            espera = min(max(res.get("reintentar_en") or 0, 20), 45)
+            logger.warning(f"{video_id}: Supadata limito el ritmo, "
+                           f"reintento en {espera}s. {res.get('detalle', '')[:120]}")
+            time.sleep(espera)
+            res = _pedir(video_url, api_key, lang, timeout)
+
         ultimo = res
         if res.get("estado") == "ok":
             devuelto = (res.get("lang") or "").lower()
@@ -116,12 +148,13 @@ def fetch_transcript_detallado(video_url: str, video_id: str | None = None,
             }
         # No tiene sentido reintentar en otro idioma si el problema es de cuota
         # o de que el video directamente no tiene subtitulos nativos.
-        if res.get("estado") in ("sin_creditos", "whisper_evitado"):
+        if res.get("estado") in ("sin_creditos", "whisper_evitado", "rate_limit"):
             break
 
-    logger.warning(f"Transcript no disponible para {video_id}: {ultimo.get('estado')}")
+    logger.warning(f"Transcript no disponible para {video_id}: "
+                   f"{ultimo.get('estado')} {str(ultimo.get('detalle') or '')[:150]}")
     return {"texto": None, "estado": ultimo.get("estado", "desconocido"),
-            "palabras": 0}
+            "detalle": ultimo.get("detalle"), "palabras": 0}
 
 
 def fetch_transcript(video_url: str, video_id: str | None = None) -> str | None:
