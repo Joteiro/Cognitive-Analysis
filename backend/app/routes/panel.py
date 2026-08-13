@@ -32,13 +32,31 @@ La escala se construyo con subtitulos de YouTube y el enriquecimiento usa
 Supadata. Se comparo pareado sobre 7 videos: correlaciones de 0,996 a 1,000 y
 0 % de los videos cambian de tramo en los 8 descriptores. Son el mismo
 instrumento. Detalle en docs/calibracion_supadata.md.
+
+SI DEJA CONSTANCIA: content_features
+------------------------------------
+Leer no cuesta creditos, pero calcular y olvidar cuesta otra cosa: hasta esta
+version el sistema media ocho descriptores por cada video visto y no guardaba
+ninguno. content_features tenia 0 filas. Eso significaba que no habia forma de
+responder "como se distribuyo mi historial", que es media memoria del TFM.
+
+Ahora cada calculo hace upsert en content_features (una fila por video, se
+pisa al recalcular). Se guardan tambien los NO aptos: el hallazgo de que los
+formatos difieren mas en si se pueden medir que en como puntuan se sostiene
+justamente sobre esas filas.
+
+La escritura esta aislada en un try/except propio. Si falla, el panel igual se
+devuelve: no mostrarle nada al usuario porque no se pudo guardar una fila
+seria cambiar un problema chico por uno grande.
 """
 
 from __future__ import annotations
 
 import json
 import logging
+import math
 import os
+from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
 
@@ -50,6 +68,8 @@ from ..database import engine
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/panel", tags=["panel"])
+
+FEATURES_VERSION = "panel-1.0"
 
 SUPADATA_URL = "https://api.supadata.ai/v1/transcript"
 YT_API = "https://www.googleapis.com/youtube/v3/videos"
@@ -106,7 +126,9 @@ def calcular_descriptores(fila: dict) -> dict:
     val = nf.capa0_validez(r, toks)
     ind = nf.indicadores(r, toks, tnorm, lang, val)
     eti = nf.etiquetas(r, ind, val, lang)
-    return {**val, **ind, **eti}
+    # _lang viaja con el resultado para que quien persista no tenga que
+    # recalcular la misma regla y arriesgarse a que las dos se separen.
+    return {**val, **ind, **eti, "_lang": lang}
 
 
 def percentil(valor, grid: list | None) -> float | None:
@@ -160,7 +182,7 @@ def ubicar(desc: dict, formato: str | None) -> list[dict]:
 # --------------------------------------------------------------- obtencion
 
 SQL = text("""
-    SELECT external_id, title, channel, description, tags, category_id,
+    SELECT id, external_id, title, channel, description, tags, category_id,
            category_name, duration_seconds, transcript, transcript_source,
            transcript_is_generated, transcript_lang, transcript_word_count,
            transcript_segments, chapters, n_chapters, video_language,
@@ -231,6 +253,125 @@ def de_supadata(vid: str) -> tuple[str | None, str]:
     return (t or None), ("ok" if t else "vacio")
 
 
+# --------------------------------------------------------------- persistencia
+
+# Los 8 descriptores vigentes. Se listan explicitamente y no se toman del
+# JSON de la escala para que un cambio en la escala no empiece a escribir en
+# columnas que no existen sin que nadie se entere.
+DESCRIPTORES_COL = ["ritmo_ppm", "cifras_100w", "atribucion_1000w", "mattr_200",
+                    "conectores_1000w", "enlaces_externos", "promocional_1000w",
+                    "cobertura_titulo"]
+
+UPSERT = text("""
+INSERT INTO content_features (
+    content_item_id, features_version, computed_at, frame_version, formato,
+    apto, cobertura_transcripcion, motivo_no_apto, panel,
+    n_words, duration_seconds, lang, transcript_source,
+    has_description, has_tags,
+    ritmo_ppm, ritmo_ppm_pct, cifras_100w, cifras_100w_pct,
+    atribucion_1000w, atribucion_1000w_pct, mattr_200, mattr_200_pct,
+    conectores_1000w, conectores_1000w_pct, enlaces_externos, enlaces_externos_pct,
+    promocional_1000w, promocional_1000w_pct, cobertura_titulo, cobertura_titulo_pct
+) VALUES (
+    :content_item_id, :features_version, :computed_at, :frame_version, :formato,
+    :apto, :cobertura_transcripcion, :motivo_no_apto, CAST(:panel AS jsonb),
+    :n_words, :duration_seconds, :lang, :transcript_source,
+    :has_description, :has_tags,
+    :ritmo_ppm, :ritmo_ppm_pct, :cifras_100w, :cifras_100w_pct,
+    :atribucion_1000w, :atribucion_1000w_pct, :mattr_200, :mattr_200_pct,
+    :conectores_1000w, :conectores_1000w_pct, :enlaces_externos, :enlaces_externos_pct,
+    :promocional_1000w, :promocional_1000w_pct, :cobertura_titulo, :cobertura_titulo_pct
+)
+ON CONFLICT (content_item_id) DO UPDATE SET
+    features_version = EXCLUDED.features_version,
+    computed_at      = EXCLUDED.computed_at,
+    frame_version    = EXCLUDED.frame_version,
+    formato          = EXCLUDED.formato,
+    apto             = EXCLUDED.apto,
+    cobertura_transcripcion = EXCLUDED.cobertura_transcripcion,
+    motivo_no_apto   = EXCLUDED.motivo_no_apto,
+    panel            = EXCLUDED.panel,
+    n_words          = EXCLUDED.n_words,
+    duration_seconds = EXCLUDED.duration_seconds,
+    lang             = EXCLUDED.lang,
+    transcript_source= EXCLUDED.transcript_source,
+    has_description  = EXCLUDED.has_description,
+    has_tags         = EXCLUDED.has_tags,
+    ritmo_ppm             = EXCLUDED.ritmo_ppm,
+    ritmo_ppm_pct         = EXCLUDED.ritmo_ppm_pct,
+    cifras_100w           = EXCLUDED.cifras_100w,
+    cifras_100w_pct       = EXCLUDED.cifras_100w_pct,
+    atribucion_1000w      = EXCLUDED.atribucion_1000w,
+    atribucion_1000w_pct  = EXCLUDED.atribucion_1000w_pct,
+    mattr_200             = EXCLUDED.mattr_200,
+    mattr_200_pct         = EXCLUDED.mattr_200_pct,
+    conectores_1000w      = EXCLUDED.conectores_1000w,
+    conectores_1000w_pct  = EXCLUDED.conectores_1000w_pct,
+    enlaces_externos      = EXCLUDED.enlaces_externos,
+    enlaces_externos_pct  = EXCLUDED.enlaces_externos_pct,
+    promocional_1000w     = EXCLUDED.promocional_1000w,
+    promocional_1000w_pct = EXCLUDED.promocional_1000w_pct,
+    cobertura_titulo      = EXCLUDED.cobertura_titulo,
+    cobertura_titulo_pct  = EXCLUDED.cobertura_titulo_pct
+""")
+
+
+def _num(v):
+    """A float de Python, o None.
+
+    Tres cosas se cuelan si no se filtra aca: los float64 de numpy, que
+    psycopg2 no sabe adaptar; los NaN, que Postgres acepta en real y despues
+    envenenan cualquier AVG(); y los bool, que en Python son int y entrarian
+    como 1.0 sin querer.
+    """
+    if v is None or isinstance(v, bool):
+        return None
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        return None
+    return None if math.isnan(f) or math.isinf(f) else f
+
+
+def guardar(fila: dict, desc: dict, filas_panel: list[dict], fmt: str | None,
+            lang: str, apto: bool, motivo: str | None) -> None:
+    """Upsert del panel en content_features. Nunca propaga una excepcion:
+    el panel es lo que el usuario pidio, la fila es contabilidad interna."""
+    escala = cargar_escala()
+    pct = {f["clave"]: f.get("percentil") for f in filas_panel}
+
+    p = {
+        "content_item_id": fila.get("id"),
+        "features_version": FEATURES_VERSION,
+        "computed_at": datetime.now(timezone.utc),
+        "frame_version": escala.get("frame_version"),
+        "formato": fmt,
+        "apto": bool(apto),
+        "cobertura_transcripcion": _num(desc.get("v_cobertura_transcripcion")),
+        "motivo_no_apto": motivo,
+        "panel": json.dumps(filas_panel, ensure_ascii=False, default=str),
+        "n_words": fila.get("transcript_word_count")
+                   or len((fila.get("transcript") or "").split()) or None,
+        "duration_seconds": fila.get("duration_seconds"),
+        "lang": lang,
+        "transcript_source": fila.get("transcript_source"),
+        "has_description": bool((fila.get("description") or "").strip()),
+        "has_tags": bool(fila.get("tags")),
+    }
+    for k in DESCRIPTORES_COL:
+        p[k] = _num(desc.get(k))
+        p[f"{k}_pct"] = _num(pct.get(k))
+
+    if not p["content_item_id"]:
+        return
+    try:
+        with engine.begin() as c:
+            c.execute(UPSERT, p)
+    except Exception as e:
+        logger.warning(f"no se pudo guardar content_features de "
+                       f"{fila.get('external_id')}: {e}")
+
+
 # --------------------------------------------------------------- endpoint
 
 def _formato(cat_id) -> str | None:
@@ -269,21 +410,31 @@ def panel(video_id: str):
                 "frame_version": escala["frame_version"]}
 
     desc = calcular_descriptores(fila)
+    fmt = fila.get("stratum_format") or _formato(fila.get("category_id"))
+    lang = desc.get("_lang") or "es"
+
     if not desc.get("v_apto_panel"):
+        # Se guarda igual. Un video que no se puede medir es un dato, no un
+        # vacio: la parte mas fuerte del estudio compara justamente cuantos
+        # videos de cada formato caen aca.
+        guardar(fila, desc, ubicar(desc, fmt), fmt, lang, False,
+                "cobertura_de_habla_insuficiente")
         return {"video_id": video_id, "apto": False,
                 "motivo": "cobertura_de_habla_insuficiente",
                 "cobertura": desc.get("v_cobertura_transcripcion"),
                 "mensaje": "Sin datos suficientes para mostrar el panel.",
                 "frame_version": escala["frame_version"]}
 
-    fmt = fila.get("stratum_format") or _formato(fila.get("category_id"))
+    filas_panel = ubicar(desc, fmt)
+    guardar(fila, desc, filas_panel, fmt, lang, True, None)
+
     return {
         "video_id": video_id,
         "apto": True,
         "origen_transcripcion": origen,
         "formato": fmt,
         "frame_version": escala["frame_version"],
-        "descriptores": ubicar(desc, fmt),
+        "descriptores": filas_panel,
         # La escala de referencia se construyo con 344 videos en espanol. Si el
         # texto medido esta en otro idioma, los percentiles siguen calculandose
         # pero comparan contra una poblacion que no le corresponde. Se avisa en

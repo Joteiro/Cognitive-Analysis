@@ -1,11 +1,25 @@
 # app/youtube_api.py
 """
 Cliente para la YouTube Data API v3.
-Obtiene descripción, tags, categoría y estadísticas de un video.
+Obtiene descripción, tags, categoría, estadísticas y datos del canal.
 Si YOUTUBE_API_KEY no está configurada, devuelve None sin crashear.
+
+QUE CAMBIO (2026-08-13)
+-----------------------
+Esta función pedía `part=snippet,statistics` y después tiraba a la basura la
+mitad del snippet. channelId, defaultAudioLanguage y publishedAt venían en la
+MISMA respuesta y no se leían: por eso channel_id, video_language y
+upload_date quedaban en null en toda fila enriquecida por Render, mientras que
+las del worker local sí los tenían.
+
+No cuesta cuota extra: videos.list vale 1 unidad sin importar cuántos `part`
+pidas. Es información que ya se estaba pagando y descartando.
 """
 import os
+import re
 import logging
+from datetime import date
+
 import requests
 
 logger = logging.getLogger(__name__)
@@ -30,10 +44,38 @@ CATEGORY_MAP = {
 }
 
 
+def _cap(valor, n: int):
+    """Recorta a n caracteres antes de que lo haga Postgres.
+
+    El 2026-08-11 se perdió un transcript de 9.289 palabras porque
+    transcript_lang era varchar(10) y el valor medía 14: Postgres no trunca,
+    aborta la transacción entera. Un idioma recortado es un defecto menor;
+    perder la fila no lo es.
+    """
+    if valor is None:
+        return None
+    s = str(valor).strip()
+    return (s[:n] if len(s) > n else s) or None
+
+
+def _duracion_iso(txt: str | None) -> int | None:
+    """PT1H2M3S → 3723 segundos. YouTube devuelve la duración en ISO-8601."""
+    if not txt:
+        return None
+    m = re.fullmatch(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", txt)
+    if not m:
+        return None
+    h, mi, s = (int(g or 0) for g in m.groups())
+    return (h * 3600 + mi * 60 + s) or None
+
+
 def fetch_video_metadata(youtube_id: str) -> dict | None:
     """
-    Llama a videos.list con parts=snippet,statistics.
-    Devuelve un dict con los campos enriquecidos, o None si falla.
+    Llama a videos.list y devuelve los campos enriquecidos, o None si falla.
+
+    video_language es el idioma que DECLARA el canal, que no es lo mismo que
+    el idioma de la pista que bajó Supadata: por eso se guarda aparte de
+    transcript_lang y no se pisan entre sí.
     """
     api_key = os.getenv("YOUTUBE_API_KEY")
     if not api_key:
@@ -45,7 +87,11 @@ def fetch_video_metadata(youtube_id: str) -> dict | None:
             "https://www.googleapis.com/youtube/v3/videos",
             params={
                 "id":   youtube_id,
-                "part": "snippet,statistics",
+                # contentDetails se agrega para tener la duración desde la
+                # fuente. La que manda la extensión sale del reproductor y en
+                # vivos o anuncios puede venir mal, y palabras_por_minuto
+                # divide por ese número.
+                "part": "snippet,statistics,contentDetails",
                 "key":  api_key,
             },
             timeout=10,
@@ -61,7 +107,16 @@ def fetch_video_metadata(youtube_id: str) -> dict | None:
         item     = items[0]
         snippet  = item.get("snippet", {})
         stats    = item.get("statistics", {})
+        detalles = item.get("contentDetails", {})
         cat_id   = snippet.get("categoryId", "")
+
+        # publishedAt viene como '2024-03-15T14:22:01Z'. La columna es date,
+        # así que alcanza con los diez primeros caracteres.
+        pub = snippet.get("publishedAt") or ""
+        try:
+            subida = date.fromisoformat(pub[:10]) if len(pub) >= 10 else None
+        except ValueError:
+            subida = None
 
         return {
             "description":   snippet.get("description", ""),
@@ -71,6 +126,18 @@ def fetch_video_metadata(youtube_id: str) -> dict | None:
             "view_count":    int(stats.get("viewCount",    0) or 0),
             "like_count":    int(stats.get("likeCount",    0) or 0),
             "comment_count": int(stats.get("commentCount", 0) or 0),
+
+            # ── lo que faltaba ────────────────────────────────────────────
+            "channel_id":    _cap(snippet.get("channelId"), 50),
+            "channel_title": snippet.get("channelTitle"),
+            # defaultAudioLanguage es el idioma del audio; defaultLanguage el
+            # de los metadatos. El primero es el que importa para elegir el
+            # léxico, así que va primero.
+            "video_language": _cap(
+                snippet.get("defaultAudioLanguage")
+                or snippet.get("defaultLanguage"), 40),
+            "upload_date":      subida,
+            "duration_seconds": _duracion_iso(detalles.get("duration")),
         }
 
     except Exception as exc:
