@@ -71,6 +71,11 @@ router = APIRouter(prefix="/panel", tags=["panel"])
 
 FEATURES_VERSION = "panel-1.0"
 
+# Lo pone precalentar() cuando pandas ya esta cargado. /health lo expone para
+# poder distinguir "el servidor duerme" de "el servidor esta despierto pero
+# todavia no puede calcular un panel rapido".
+_PRECALENTADO = False
+
 SUPADATA_URL = "https://api.supadata.ai/v1/transcript"
 YT_API = "https://www.googleapis.com/youtube/v3/videos"
 
@@ -195,7 +200,7 @@ SQL = text("""
 # Cuanto se espera al enriquecimiento antes de dar el video por perdido.
 # Es generoso a proposito: Render en plan gratuito se duerme y el arranque en
 # frio puede comerse medio minuto antes de que la tarea siquiera empiece.
-ESPERA_MAXIMA_SEG = 150
+ESPERA_MAXIMA_SEG = 240
 
 # Por que no hay transcripcion, en castellano. La clave es enrichment_status,
 # que ahora escribe el backend con el mismo vocabulario que el worker local.
@@ -320,7 +325,7 @@ DESCRIPTORES_COL = ["ritmo_ppm", "cifras_100w", "atribucion_1000w", "mattr_200",
 UPSERT = text("""
 INSERT INTO content_features (
     content_item_id, features_version, computed_at, frame_version, formato,
-    apto, cobertura_transcripcion, motivo_no_apto, panel,
+    apto, cobertura_transcripcion, motivo_no_apto, panel, etiquetas,
     n_words, duration_seconds, lang, transcript_source,
     has_description, has_tags,
     ritmo_ppm, ritmo_ppm_pct, cifras_100w, cifras_100w_pct,
@@ -330,6 +335,7 @@ INSERT INTO content_features (
 ) VALUES (
     :content_item_id, :features_version, :computed_at, :frame_version, :formato,
     :apto, :cobertura_transcripcion, :motivo_no_apto, CAST(:panel AS jsonb),
+    CAST(:etiquetas AS jsonb),
     :n_words, :duration_seconds, :lang, :transcript_source,
     :has_description, :has_tags,
     :ritmo_ppm, :ritmo_ppm_pct, :cifras_100w, :cifras_100w_pct,
@@ -346,6 +352,7 @@ ON CONFLICT (content_item_id) DO UPDATE SET
     cobertura_transcripcion = EXCLUDED.cobertura_transcripcion,
     motivo_no_apto   = EXCLUDED.motivo_no_apto,
     panel            = EXCLUDED.panel,
+    etiquetas        = EXCLUDED.etiquetas,
     n_words          = EXCLUDED.n_words,
     duration_seconds = EXCLUDED.duration_seconds,
     lang             = EXCLUDED.lang,
@@ -389,7 +396,8 @@ def _num(v):
 
 
 def guardar(fila: dict, desc: dict, filas_panel: list[dict], fmt: str | None,
-            lang: str, apto: bool, motivo: str | None) -> None:
+            lang: str, apto: bool, motivo: str | None,
+            etiquetas: dict | None = None) -> None:
     """Upsert del panel en content_features. Nunca propaga una excepcion:
     el panel es lo que el usuario pidio, la fila es contabilidad interna."""
     escala = cargar_escala()
@@ -405,6 +413,7 @@ def guardar(fila: dict, desc: dict, filas_panel: list[dict], fmt: str | None,
         "cobertura_transcripcion": _num(desc.get("v_cobertura_transcripcion")),
         "motivo_no_apto": motivo,
         "panel": json.dumps(filas_panel, ensure_ascii=False, default=str),
+        "etiquetas": json.dumps(etiquetas or {}, ensure_ascii=False, default=str),
         "n_words": fila.get("transcript_word_count")
                    or len((fila.get("transcript") or "").split()) or None,
         "duration_seconds": fila.get("duration_seconds"),
@@ -425,6 +434,123 @@ def guardar(fila: dict, desc: dict, filas_panel: list[dict], fmt: str | None,
     except Exception as e:
         logger.warning(f"no se pudo guardar content_features de "
                        f"{fila.get('external_id')}: {e}")
+
+
+# --------------------------------------------------------------- cache
+
+SQL_CACHE = text("""
+    SELECT cf.panel, cf.etiquetas, cf.formato, cf.frame_version, cf.apto,
+           cf.cobertura_transcripcion, cf.motivo_no_apto, cf.computed_at
+      FROM content_features cf
+     WHERE cf.content_item_id = :id
+       AND cf.frame_version   = :frame
+       AND cf.features_version = :fv
+""")
+
+
+def desde_cache(fila: dict) -> dict | None:
+    """El panel ya calculado, si sigue siendo valido.
+
+    POR QUE EXISTE
+    --------------
+    Calcular el panel obliga a importar pandas y numpy. En el plan gratuito de
+    Render eso son 10-20 segundos la primera vez que arranca el proceso, y el
+    proceso arranca cada vez que hay un deploy o el servicio se reinicia.
+    Volver a pagar ese peaje para devolver exactamente el mismo resultado que
+    la vez anterior no tiene sentido.
+
+    CUANDO NO VALE
+    --------------
+    Tres condiciones invalidan lo guardado, y las tres importan:
+      - frame_version distinta: cambio el corpus de referencia, asi que los
+        percentiles de ayer comparan contra otra poblacion.
+      - features_version distinta: cambio como se calcula un descriptor.
+      - la transcripcion se actualizo despues del calculo: se midio otro texto.
+    Fuera de eso, el resultado es identico por construccion: mismas entradas,
+    mismas reglas.
+    """
+    if not fila.get("id"):
+        return None
+    escala = cargar_escala()
+    try:
+        with engine.connect() as c:
+            r = c.execute(SQL_CACHE, {"id": fila["id"],
+                                      "frame": escala.get("frame_version"),
+                                      "fv": FEATURES_VERSION}).mappings().first()
+    except Exception as e:
+        logger.warning(f"lectura de cache de {fila.get('external_id')}: {e}")
+        return None
+    if not r or r["panel"] is None:
+        return None
+
+    # Si el transcript se rehizo despues del calculo, lo guardado midio otro
+    # texto. Se recalcula.
+    tf, ca = fila.get("transcript_fetched_at"), r["computed_at"]
+    if tf and ca:
+        if tf.tzinfo is None:
+            tf = tf.replace(tzinfo=timezone.utc)
+        if ca.tzinfo is None:
+            ca = ca.replace(tzinfo=timezone.utc)
+        if tf > ca:
+            return None
+    return dict(r)
+
+
+def armar_respuesta(video_id: str, fila: dict, filas_panel: list,
+                    etiquetas: dict, fmt, frame: str,
+                    desde_guardado: bool) -> dict:
+    """Un solo lugar donde se arma la respuesta.
+
+    La usan tanto el camino que calcula como el que lee de cache. Si cada uno
+    armara su propio diccionario, bastaria con tocar uno para que la extension
+    empezara a recibir dos formas distintas segun si el video ya se habia visto
+    — un error que solo aparece a veces, que son los peores.
+    """
+    lang_tr = str(fila.get("transcript_lang") or "es").lower()
+    return {
+        "video_id": video_id,
+        "apto": True,
+        "origen_transcripcion": "base",
+        "formato": fmt,
+        "frame_version": frame,
+        "descriptores": filas_panel,
+        # La escala de referencia se construyo con 344 videos en espanol. Si el
+        # texto medido esta en otro idioma, los percentiles siguen calculandose
+        # pero comparan contra una poblacion que no le corresponde. Se avisa en
+        # vez de ocultarlo.
+        "aviso_idioma": (None if lang_tr.startswith("es")
+                         else f"La transcripción está en '{fila.get('transcript_lang')}'. "
+                              "La escala de referencia es de videos en español: "
+                              "los percentiles no son estrictamente comparables."),
+        "etiquetas": etiquetas or {},
+        "recalculado": not desde_guardado,
+        "nota": ("Los percentiles son relativos al corpus de referencia de "
+                 "YouTube en espanol, agosto 2026. No son una calificacion."),
+    }
+
+
+def precalentar() -> None:
+    """Carga la escala y pandas/numpy al arrancar el proceso.
+
+    UptimeRobot mantiene el servicio despierto pegandole a /health, pero
+    /health no toca pandas: la primera peticion real de panel despues de cada
+    reinicio seguia pagando el import completo. Esto lo adelanta a un momento
+    en que nadie esta esperando. Corre en un hilo aparte para no demorar el
+    arranque, y si falla no rompe nada: el import volveria a intentarse cuando
+    llegue la primera peticion, como antes.
+    """
+    global _PRECALENTADO
+    try:
+        cargar_escala()
+        _features_mod()
+        _PRECALENTADO = True
+        logger.info("panel: escala y features precargados")
+    except Exception as e:
+        logger.warning(f"panel: no se pudo precalentar ({e})")
+
+
+def esta_precalentado() -> bool:
+    return _PRECALENTADO
 
 
 # --------------------------------------------------------------- endpoint
@@ -464,6 +590,23 @@ def panel(video_id: str):
         return {"video_id": video_id,
                 **_sin_transcripcion(fila, escala["frame_version"])}
 
+    # ── camino rapido: ya se calculo y sigue valiendo ─────────────────────
+    # Devuelve en milisegundos, sin importar pandas. Es el caso mas frecuente:
+    # un video que se vuelve a abrir, o que se abrio en otra pestana.
+    guardado = desde_cache(fila)
+    if guardado is not None:
+        if guardado["apto"] is False:
+            return {"video_id": video_id, "apto": False,
+                    "motivo": guardado.get("motivo_no_apto")
+                              or "cobertura_de_habla_insuficiente",
+                    "cobertura": guardado.get("cobertura_transcripcion"),
+                    "mensaje": "Sin datos suficientes para mostrar el panel.",
+                    "recalculado": False,
+                    "frame_version": escala["frame_version"]}
+        return armar_respuesta(video_id, fila, guardado["panel"],
+                               guardado["etiquetas"], guardado["formato"],
+                               escala["frame_version"], desde_guardado=True)
+
     desc = calcular_descriptores(fila)
     fmt = fila.get("stratum_format") or _formato(fila.get("category_id"))
     lang = desc.get("_lang") or "es"
@@ -481,24 +624,8 @@ def panel(video_id: str):
                 "frame_version": escala["frame_version"]}
 
     filas_panel = ubicar(desc, fmt)
-    guardar(fila, desc, filas_panel, fmt, lang, True, None)
+    etiquetas = {k: v for k, v in desc.items() if k.startswith("et_")}
+    guardar(fila, desc, filas_panel, fmt, lang, True, None, etiquetas)
 
-    return {
-        "video_id": video_id,
-        "apto": True,
-        "origen_transcripcion": origen,
-        "formato": fmt,
-        "frame_version": escala["frame_version"],
-        "descriptores": filas_panel,
-        # La escala de referencia se construyo con 344 videos en espanol. Si el
-        # texto medido esta en otro idioma, los percentiles siguen calculandose
-        # pero comparan contra una poblacion que no le corresponde. Se avisa en
-        # vez de ocultarlo.
-        "aviso_idioma": (None if str(fila.get("transcript_lang") or "es").lower().startswith("es")
-                         else f"La transcripción está en '{fila.get('transcript_lang')}'. "
-                              "La escala de referencia es de videos en español: "
-                              "los percentiles no son estrictamente comparables."),
-        "etiquetas": {k: v for k, v in desc.items() if k.startswith("et_")},
-        "nota": ("Los percentiles son relativos al corpus de referencia de "
-                 "YouTube en espanol, agosto 2026. No son una calificacion."),
-    }
+    return armar_respuesta(video_id, fila, filas_panel, etiquetas, fmt,
+                           escala["frame_version"], desde_guardado=False)

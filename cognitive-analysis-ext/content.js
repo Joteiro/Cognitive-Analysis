@@ -18,8 +18,22 @@ const API_BASE      = 'https://cognitive-analysis-gfpg.onrender.com';
 const BACKEND_URL   = `${API_BASE}/videos`;
 const PANEL_URL     = `${API_BASE}/panel`;
 const DELAY_MS      = 2500;
-const POLL_INTERVAL = 4000;   // Render se duerme; el arranque en frio tarda
-const POLL_MAX      = 20;     // ~80 s de tolerancia
+const POLL_MAX      = 24;
+
+// Espera progresiva: rapido al principio, mas lento despues. En total ~5 min.
+//
+// Los 80 s de la version anterior alcanzaban para un video ya procesado y no
+// para uno nuevo. La cadena completa en el plan gratuito de Render es:
+// despertar el servicio (hasta 60 s) + pedir la transcripcion a Supadata
+// (10-20 s) + cargar pandas la primera vez que se pide un panel (10-20 s).
+// Darse por vencido a los 80 s es rendirse justo antes de que llegue.
+//
+// Sube la espera en vez de repetir cada 4 s porque los primeros intentos son
+// los que valen: si a los dos minutos no esta, tampoco va a estar al
+// siguiente parpadeo, y machacar el servidor no lo apura.
+function esperaMs(intento) {
+  return Math.min(3000 + intento * 1000, 15000);
+}
 
 // Nombres legibles. La clave tecnica queda visible al pasar el mouse, para que
 // se pueda rastrear hasta el glosario.
@@ -211,9 +225,9 @@ async function pedirPanel(videoId, intento = 0) {
     console.warn('[CognitiveAnalysis] el panel no estuvo listo a tiempo.');
     panelSinDatos({
       motivo: 'sin_respuesta',
-      mensaje: 'El análisis está tardando más de lo normal. Recargá la página '
-             + 'en un minuto; si sigue igual, el servicio de transcripción '
-             + 'puede estar caído o sin crédito.',
+      mensaje: 'El análisis está tardando más de lo normal. Recargá la página: '
+             + 'la primera consulta del día despierta el servidor y puede '
+             + 'demorar un par de minutos.',
     });
     return;
   }
@@ -226,7 +240,7 @@ async function pedirPanel(videoId, intento = 0) {
       // apto === null es "todavia procesando": el enriquecimiento en background
       // no termino. Se sigue reintentando en vez de dar por perdido el panel.
       if (d.apto === null || d.estado === 'procesando') {
-        setTimeout(() => pedirPanel(videoId, intento + 1), POLL_INTERVAL);
+        setTimeout(() => pedirPanel(videoId, intento + 1), esperaMs(intento));
         return;
       }
       if (d.apto) panelDatos(d); else panelSinDatos(d);
@@ -245,7 +259,7 @@ async function pedirPanel(videoId, intento = 0) {
     }
   } catch (_) { /* Render dormido: se reintenta */ }
 
-  setTimeout(() => pedirPanel(videoId, intento + 1), POLL_INTERVAL);
+  setTimeout(() => pedirPanel(videoId, intento + 1), esperaMs(intento));
 }
 
 // ─── EXTRACCION ───────────────────────────────────────────────────────────────

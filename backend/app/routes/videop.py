@@ -32,6 +32,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
+from sqlalchemy.orm.attributes import flag_modified
 
 from .. import models, schemas
 from ..database import SessionLocal
@@ -257,6 +258,16 @@ def run_enrichment(content_item_id: int):
         item.enrichment_error  = detalle_error
         item.enriched_at       = datetime.now(timezone.utc)
         item.enricher_version  = _cap(ENRICHER_VERSION, 20)
+
+        # SQLAlchemy solo manda en el UPDATE las columnas que cambiaron
+        # respecto de lo que leyo. Si dos enriquecimientos corren a la vez
+        # —pasa si se recarga la pagina dos veces seguidas— el que lee primero
+        # ve enrichment_error en null, le asigna null, y como "null a null" no
+        # es un cambio, la columna no viaja: queda el error que escribio el
+        # otro. Asi aparecio una fila con status 'ok' y error 'sin_creditos' a
+        # la vez, que es una contradiccion que despues nadie sabe leer.
+        # flag_modified fuerza a que la columna se escriba siempre.
+        flag_modified(item, "enrichment_error")
 
         # ── Score ─────────────────────────────────────────────────────────────
         # RETIRADO el 2026-08-13. Antes aca se calculaba una letra A-E y se
