@@ -19,3 +19,40 @@
 10/08 17:58:22  INFO        \u2713 youtube_auto / es / 20915 palabras / 0 capítulos
 10/08 17:58:47  INFO    [9/10] 6Wi79J6nLcY — Colocación puerta de acero
 10/08 17:58:53  INFO        \u2713 youtube_auto / es / 1595 palabras / 0 capítulos
+ 
+===== Tue 08/11/2026 11:41:02.77 ===== 
+11/08 11:41:05  INFO    Tanda de 10 video(s) [worker]
+11/08 11:41:08  INFO    [1/10] 3R1tljlGfqo — Tu número de teléfono puede ser anónimo y no lo 
+11/08 11:41:11  INFO        \u2713 youtube_auto / es / 1216 palabras / 6 capítulos
+11/08 11:41:49  INFO    [2/10] 3mgLgCr0FmU — Cuando descubras esto, verás el mundo de otra fo
+11/08 11:41:52  INFO        \u2713 youtube_auto / es / 16441 palabras / 0 capítulos
+^C 
+===== Tue 08/11/2026 12:41:02.69 ===== 
+11/08 12:41:03  INFO    Tanda de 10 video(s) [worker]
+11/08 12:41:04  INFO    [1/10] 5onII7kxEcY — "Perdi mi pierna por 15 disparos..." - El Peligr
+11/08 12:41:08  INFO        \u2713 youtube_auto / en / 2594 palabras / 0 capítulos
+11/08 12:41:36  INFO    [2/10] mDdZIvoWWpk — Verano Roto - Valentino (Video Oficial)
+11/08 12:41:39  INFO        \u2713 youtube_auto / es / 301 palabras / 0 capítulos
+11/08 12:42:01  INFO    [3/10] FScBqF8ac5k — En Familia
+11/08 12:42:04  INFO        \u2713 youtube_auto / es / 8842 palabras / 0 capítulos
+11/08 12:42:38  INFO    [4/10] l57UfS7AJJs — Como quitar y poner el panel de puerta correctam
+11/08 12:42:39  INFO        \u2713 youtube_auto / es / 2407 palabras / 8 capítulos
+11/08 12:43:05  INFO    [5/10] RbUQ1cCJXBg — Como jugar GTA 5 online con amigos de Xbox one y
+11/08 12:43:06  INFO        \u2713 youtube_auto / es / 821 palabras / 0 capítulos
+11/08 12:43:43  INFO    [6/10] i5UzRW7Uhdk — La Tienda de Ramen
+11/08 12:43:44  INFO        \u2713 youtube_auto / es / 5398 palabras / 0 capítulos
+11/08 12:44:05  INFO    [7/10] ShbqalOPzGM — DUO VS. SQUAD MIENTRAS LOS PIBES JUEGAN UN FIFA 
+11/08 12:44:06  INFO        \u2713 youtube_auto / es / 542 palabras / 0 capítulos
+11/08 12:44:50  INFO    [8/10] eiFPd3fPhQ0 — Regalos al alma \U0001f4ab - Claro que es necesario que a
+11/08 12:44:51  INFO        \u2713 youtube_auto / es / 527 palabras / 0 capítulos
+11/08 12:45:20  INFO    [9/10] 3iFnJbFpkyo — Aquí Está Tu Enamorado (1963) | Tele N | Películ
+11/08 12:45:21  INFO        \u2713 youtube_auto / es / 11728 palabras / 0 capítulos
+11/08 12:45:59  INFO    [10/10] 9U2WLsdmWLs — \U0001f64d\U0001f3fb\u200d\u2640\ufe0fEl problema diario de ir a clases | CHICAS 
+11/08 12:46:00  INFO        \u2713 youtube_manual / en / 2250 palabras / 0 capítulos
+11/08 12:46:01  INFO    Resumen: ok=10
+11/08 12:46:01  INFO    ESTADO               N  INTENTOS  PRÓXIMO TURNO
+11/08 12:46:01  INFO    ok                 251         1  —
+11/08 12:46:01  INFO    (sin intentar)     202         0  10/08 12:56
+11/08 12:46:01  INFO    no_subs             37         1  —
+11/08 12:46:01  INFO    partial              1         2  10/08 16:36
+11/08 12:46:01  INFO    geo_blocked          1         0  —

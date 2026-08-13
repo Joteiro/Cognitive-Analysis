@@ -1,9 +1,21 @@
+# Dependencias del backend en Render (render.yaml: pip install -r ../requirements.txt)
+
 fastapi
 uvicorn
 sqlalchemy
 psycopg2-binary
 python-dotenv
 pydantic
+requests
+
+# El endpoint /panel importa backend/scripts/nutriscore_features.py, que las
+# necesita. Sin estas dos el deploy compila igual y despues tira 500 en la
+# primera llamada al panel: el import falla recien en tiempo de ejecucion.
+# En panel.py el import esta diferido a proposito, asi que el arranque en frio
+# no las carga si nadie pide el panel.
+pandas>=2.2
+numpy>=1.26
+
+# Quedan de la version anterior; se usan en el scorer viejo.
 youtube-transcript-api
 textstat
-requests

@@ -9,6 +9,13 @@ __pycache__/
 .venv/
 venv/
 
+# Caches de trabajo: son megabytes de transcripciones que se pueden volver a
+# generar, y no aportan nada al repositorio. OJO: corpus_reserva.json SI hace
+# falta para --rellenar, pero es reconstruible con --rehacer-banco.
+backend/scripts/corpus_candidatos_cache.json
+backend/scripts/calibracion_supadata_cache.json
+backend/scripts/enrich.log
+
 # OS
 .DS_Store
 Thumbs.db

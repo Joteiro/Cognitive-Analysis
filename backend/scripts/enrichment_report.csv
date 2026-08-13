@@ -298,3 +298,359 @@ K2_ut8VNqV0,ok,youtube_auto,es,467,0,
 YxyxBUr9jeQ,ok,youtube_auto,es,12403,0,
 LwO3Yofo2ww,ok,youtube_auto,es,2173,0,
 UygAOMyPUWs,ok,youtube_auto,es,165,0,
+3pHJ8iB0s8U,ok,youtube_auto,es,1471,0,
+mqxfYKNEgKs,ok,youtube_auto,es,12259,0,
+SxI6beXxUbk,ok,youtube_auto,es,1458,0,
+-wzf38mKDJA,ok,youtube_auto,es,1207,0,
+6pCVmJD6YaY,ok,youtube_auto,es,5640,0,
+NEonY1wPKbo,ok,youtube_auto,es,993,0,
+3R1tljlGfqo,ok,youtube_auto,es,1216,6,
+3mgLgCr0FmU,ok,youtube_auto,es,16441,0,
+gk1W4jUYvJw,ok,youtube_auto,es,1380,0,
+EzU3mwJwAvE,ok,youtube_auto,es,1289,0,
+058kOShRHuQ,ok,youtube_auto,es,11141,0,
+hJgFf0KNKZs,ok,youtube_auto,es,948,0,
+dBU0Oui6sd0,ok,youtube_auto,es,661,0,
+4MJGYOnvZwk,ok,youtube_auto,es,1150,0,
+Xf6zWRK94LQ,ok,youtube_auto,es,3401,0,
+GO-rr4zW2zg,ok,youtube_auto,es,466,0,
+4IkeIUce8WA,ok,youtube_auto,es,2775,0,
+8siop21pGGI,ok,youtube_auto,es,3259,0,
+jrZJehm5dCA,ok,youtube_auto,es,400,0,
+mpb7zwAuTbY,ok,youtube_auto,es,7892,0,
+4tUl9ocJTds,ok,youtube_auto,es,1502,6,
+QJ8CDmyfVeM,ok,youtube_auto,es,5,0,
+ABc8OHigUV4,ok,youtube_auto,es,3243,0,
+qssHjbvVol8,ok,youtube_manual,en,2150,0,
+rCdYB54gX0c,ok,youtube_auto,es,458,0,
+7Wh_JjWk_oI,ok,youtube_auto,es,8634,0,
+7SMdNzDKIC4,ok,youtube_auto,es,864,0,
+tLb1I1DCqjg,ok,youtube_auto,es,592,0,
+xXKuJJZ_eXc,ok,youtube_auto,es,6665,0,
+YdayDJOpCi0,ok,youtube_auto,es,1756,0,
+5onII7kxEcY,ok,youtube_auto,en,2594,0,
+mDdZIvoWWpk,ok,youtube_auto,es,301,0,
+FScBqF8ac5k,ok,youtube_auto,es,8842,0,
+l57UfS7AJJs,ok,youtube_auto,es,2407,8,
+RbUQ1cCJXBg,ok,youtube_auto,es,821,0,
+i5UzRW7Uhdk,ok,youtube_auto,es,5398,0,
+ShbqalOPzGM,ok,youtube_auto,es,542,0,
+eiFPd3fPhQ0,ok,youtube_auto,es,527,0,
+3iFnJbFpkyo,ok,youtube_auto,es,11728,0,
+9U2WLsdmWLs,ok,youtube_manual,en,2250,0,
+YdayDJOpCi0,ok,youtube_auto,es,1756,0,
+eUBq31GmXb4,ok,youtube_auto,es,1243,0,
+1-l1hB7tM5M,ok,youtube_auto,es,9265,0,
+UC0k3vIpPNs,ok,youtube_auto,es,1809,0,
+MPs1JrpI1GQ,ok,youtube_auto,es,1160,0,
+VaF3dsfGxlk,ok,youtube_auto,es,6713,0,
+R4JWrPXiLbw,ok,youtube_auto,es,2364,0,
+9Z5byent42I,ok,youtube_auto,es,316,0,
+QSGNV3Ndpmk,ok,youtube_auto,es,16355,0,
+s__MrwVm0F4,ok,youtube_auto,es,2471,0,
+pfmESmc8ZZE,ok,youtube_auto,es,251,0,
+kolcGgJuVKA,ok,youtube_auto,es,10498,0,
+SJiJQ4oyUR0,ok,youtube_auto,es,1129,0,
+-yPqjq6N1NA,ok,youtube_auto,es,568,0,
+DosDNq4fmDM,ok,youtube_auto,es,5006,0,
+5onII7kxEcY,ok,youtube_auto,en,2594,0,
+mDdZIvoWWpk,ok,youtube_auto,es,301,0,
+FScBqF8ac5k,ok,youtube_auto,es,8842,0,
+l57UfS7AJJs,ok,youtube_auto,es,2407,8,
+RbUQ1cCJXBg,ok,youtube_auto,es,821,0,
+i5UzRW7Uhdk,ok,youtube_auto,es,5398,0,
+ShbqalOPzGM,ok,youtube_auto,es,542,0,
+eiFPd3fPhQ0,ok,youtube_auto,es,527,0,
+3iFnJbFpkyo,ok,youtube_auto,es,11728,0,
+9U2WLsdmWLs,ok,youtube_manual,en,2250,0,
+nzPEPNxk1OI,ok,youtube_auto,es,1347,0,
+jL-UD0zuAyk,ok,youtube_auto,es,13183,0,
+1CwgnM24Oas,ok,youtube_auto,es,4861,6,
+KOIpE6Ge24o,ok,youtube_manual,es,552,8,
+zAO_QvrO2A8,ok,youtube_auto,es,7166,0,
+1Uu3cxL6OfI,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=1Uu3cxL6OfI! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+BiwEGb7pj6k,ok,youtube_auto,es,449,5,
+1PNl2YSCpcY,ok,youtube_auto,es,11628,0,
+kDr-D_CEUac,ok,youtube_auto,es,2460,7,
+i0m2PhGJoWg,ok,youtube_auto,es,459,0,
+jLf53bLtlNc,ok,youtube_auto,es,18236,0,
+zl01KK_w5bs,ok,youtube_auto,es,914,0,
+1Xbk4TNAR9Q,ok,youtube_auto,es,745,0,
+vO0HEsH-whk,ok,youtube_auto,es,6838,12,
+Bh7pEMnsEUA,ok,youtube_auto,es,3915,0,
+c4YDB6Jv0IE,ok,youtube_auto,es,861,0,
+uYKACAkAHqA,ok,youtube_auto,es,5928,0,
+-wCvB7JCBzA,ok,youtube_auto,es,1342,0,
+MpSZuX21eYE,ok,youtube_auto,es,987,0,
+3HS2W77-QBE,ok,youtube_auto,es,6449,0,
+qvyWgHzsAvw,ok,youtube_auto,es,812,0,
+gDF99qnJuEE,ok,youtube_auto,es,430,0,
+NMDLOyqBrRg,ok,youtube_auto,es,5412,0,
+WCBacZ2S3Uw,ok,youtube_auto,es,3455,0,
+hSYHACrFMtg,ok,youtube_auto,es,518,0,
+A04AK4ivQk4,ok,youtube_auto,es,15321,0,
+EEofSIp6N-g,ok,youtube_auto,es,3045,0,
+qxuggaKnATk,ok,youtube_auto,es,94,0,
+5bjY9kztBCM,ok,youtube_auto,es,4561,0,
+91EvajiGiik,ok,youtube_auto,es,1954,0,
+oWvbO1s0T2I,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=oWvbO1s0T2I! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+QmVf_CSYgek,ok,youtube_auto,es,8091,0,
+pMIM4dmVIOI,ok,youtube_auto,es,1037,0,
+bTzX5YqZ6zM,ok,youtube_auto,es,856,0,
+nDaTmxewtRk,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=nDaTmxewtRk! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+aTsASH_6C2Q,ok,youtube_auto,es,2314,0,
+mDsdKSXXTlc,ok,youtube_auto,es,396,0,
+ra-3OS5cC98,ok,youtube_auto,es,10461,8,
+5TBOBpjaIoU,ok,youtube_auto,es,4236,0,
+8EkXRcIuyeg,ok,youtube_auto,es,1256,21,
+zaOXGOtyoOk,ok,youtube_auto,es,4750,0,
+LeutBqwnqAo,ok,youtube_auto,es,850,0,
+B1be19Z3HAI,ok,youtube_auto,es,46,0,
+q6_rYJ_JF64,ok,youtube_auto,es,7318,0,
+5zJnXbtS4HA,ok,youtube_auto,es,2021,0,
+Eb7FLNgaQhU,ok,youtube_auto,es,279,0,
+-tVHhgiM9eI,ok,youtube_auto,es,4588,0,
+ggslHZGoSIw,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=ggslHZGoSIw! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+rbRppr-7ozM,ok,youtube_auto,es,243,0,
+cksNWRuziMY,ok,youtube_auto,es,7864,17,
+0mBrxPgv26E,ok,youtube_auto,es,3006,0,
+2Q7Uet3Gi9A,ok,youtube_auto,es,1427,11,
+5fZAlJ3IJiE,ok,youtube_auto,es,5841,0,
+z6DpLH4cpZQ,ok,youtube_auto,es,1339,0,
+JQovOX82D-M,ok,youtube_auto,es,621,0,
+pm5PV_bY6E0,ok,youtube_auto,es,16859,0,
+h5ifrskkTXw,ok,youtube_auto,es,3992,0,
+lhdi9nAUUM8,ok,youtube_auto,es,231,0,
+fbuT3rOpPyI,ok,youtube_auto,es,3399,0,
+Gq2MjVgwMdA,ok,youtube_auto,es,3692,0,
+2nkyCTws3OY,ok,youtube_auto,es,1544,12,
+1IBHxPG3JQQ,ok,youtube_auto,es,7557,0,
+mHEzQAv2fF4,ok,youtube_auto,es,3137,0,
+0r1_FQsJu7g,ok,youtube_auto,es,634,0,
+R6Vlt0t4VQ0,ok,youtube_auto,es,9734,0,
+lYc9uj1lxa8,ok,youtube_auto,es,2756,0,
+-ucNY6gTHZc,ok,youtube_auto,es,983,0,
+CO7SGjxXgL0,ok,youtube_auto,es,5422,0,
+EuI55L8122I,ok,youtube_auto,es,1672,0,
+lp47MKk-aHw,ok,youtube_auto,es,259,4,
+3_hqnVm8Ck8,ok,youtube_auto,es,6291,0,
+vgzQf1HP9rw,ok,youtube_auto,es,1361,0,
+PIkCuuVLCSI,ok,youtube_auto,es,647,0,
+KSgcIb8n05g,ok,youtube_auto,es,9687,0,
+onpiMEG4IIc,ok,youtube_auto,es,3623,5,
+pTMBiynEy-E,ok,youtube_auto,es,603,0,
+tRLAQJ7-foY,ok,youtube_auto,es,14560,9,
+O933oBoYuHg,ok,youtube_auto,es,2097,0,
+WOnMLaQI8hM,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=WOnMLaQI8hM! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+7vsX6_qUshM,ok,youtube_auto,es,6859,0,
+oZPAtOckzI0,ok,youtube_auto,es,3083,0,
+yYRARygpP34,ok,youtube_auto,es,507,0,
+3iPRic11QKU,ok,youtube_auto,es,6828,0,
+ddth4PxhN_E,ok,youtube_auto,es,4087,0,
+7QiX_sDmPm0,ok,youtube_auto,es,1596,8,
+cJpevDDfJEs,ok,youtube_manual,es,4678,0,
+AZOYli5y--0,ok,youtube_auto,es,4360,0,
+3KpSOYeBq14,ok,youtube_auto,es,693,0,
+xlRHaxIv7FE,ok,youtube_auto,es,2950,0,
+RZN1vcC0SeM,ok,youtube_auto,es,1800,0,
+C8k4XH6DVmY,ok,youtube_auto,es,1295,0,
+nSgdXqFpwEQ,no_subs,,,0,5,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=nSgdXqFpwEQ! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+6QLIZ_Zdy5U,ok,youtube_auto,es,2536,0,
+KX20TtpC8G0,ok,youtube_auto,es,653,0,
+YOn_z2I6iqE,ok,youtube_auto,es,8589,0,
+nJeB0iSij8k,ok,youtube_auto,es,3022,0,
+jDMJQ-KtsGQ,ok,youtube_auto,es,547,0,
+9vuV3ziQe0U,ok,youtube_auto,es,15990,0,
+sbAU78rPPKQ,ok,youtube_auto,es,2604,7,
+yq3OfBSm2vQ,ok,youtube_auto,es,805,23,
+1j0FFcSSf5U,ok,youtube_auto,es,2387,0,
+zU51ehI1m1A,ok,youtube_auto,es,1491,0,
+DaMKJcwZMvU,ok,youtube_auto,es,396,0,
+pwwSUwL335s,ok,youtube_auto,es,6395,0,
+xbQFc16wnWc,ok,youtube_auto,es,2082,0,
+I5hGyi3eZW4,ok,youtube_auto,es,302,0,
+Az5C9h61NzE,ok,youtube_auto,es,17036,0,
+wb7f992aXRQ,ok,youtube_auto,es,1870,0,
+XuONSFMjDXs,ok,youtube_auto,es,288,0,
+I_UC5CGGhWY,ok,youtube_auto,es,6905,0,
+Vy2IvXWoy8w,ok,youtube_auto,es,2656,0,
+G_z3DIRP98M,ok,youtube_auto,es,307,0,
+APQJLP_UYjc,ok,youtube_auto,es,5937,2,
+xr-Yv3_nGzo,ok,youtube_auto,es,4516,0,
+4CIXE4qPm0c,ok,youtube_auto,es,536,0,
+fff6xiQhrT8,ok,youtube_auto,es,13048,0,
+sTVw4vX9ugk,ok,youtube_auto,es,3268,0,
+4X0JZh1Cxvg,ok,youtube_auto,es,718,0,
+gOfl-aPdoB8,ok,youtube_auto,es,4021,0,
+KcQFauE6Jwg,ok,youtube_auto,es,2814,0,
+XWKFHPjQQ5A,ok,youtube_auto,es,471,0,
+e4GCeGYwBLM,ok,youtube_manual,es-uYU-mmqFLq8,9289,0,
+Sadz8gLmKkE,ok,youtube_auto,es,3255,5,
+yXd8S-ZHSPY,ok,youtube_auto,es,818,0,
+1yihntDbMTI,ok,youtube_auto,es,3595,6,
+wObXs_xWBKE,ok,youtube_auto,es,1335,0,
+1b_Wmb9G8qc,ok,youtube_auto,es,456,0,
+_b-lpaZRSgg,ok,youtube_auto,es,2660,0,
+Yq8aZg_WLAE,ok,youtube_auto,es,4528,0,
+jsvE6alqvrs,ok,youtube_auto,es,924,0,
+eRMGgcjxMJY,ok,youtube_auto,es,618,0,
+NCdTxNotbLc,ok,youtube_auto,es,1129,0,
+ri6qCHWZyGc,ok,youtube_auto,es,866,0,
+DQr7KnkpeMo,ok,youtube_auto,es,6449,0,
+2nxSWmx94q4,ok,youtube_auto,es,4465,0,
+sBUYcl9DIkQ,ok,youtube_auto,es,335,0,
+VIwJwkzLrVQ,ok,youtube_auto,es,11523,0,
+avKj0hjXr2Y,ok,youtube_auto,es,1843,0,
+6387_kgAZBQ,ok,youtube_auto,es,1305,0,
+6gyDjLPwm9o,ok,youtube_auto,es,7435,0,
+nHuyQSqgNRg,ok,youtube_auto,es,2473,4,
+biayD8E7KOc,ok,youtube_auto,es,465,0,
+M14vI2bY6to,ok,youtube_auto,es,11373,0,
+gDF0_HcFt6c,ok,youtube_auto,es,2416,0,
+p4Z4t75NlnY,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=p4Z4t75NlnY! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+cmlkcAlu69o,ok,youtube_auto,es,14783,10,
+gtRTslZ_azI,ok,youtube_auto,es,2763,0,
+qxa0nZEo6Ag,ok,youtube_auto,es,511,0,
+W7Jlm7ewg3w,ok,youtube_auto,es,7259,0,
+u-Gpm_0LTU4,ok,youtube_auto,es,628,0,
+5gMXdOfKyLY,ok,youtube_auto,es,416,0,
+oIJP9bgqYnQ,ok,youtube_auto,es,8268,0,
+Yiwg9kDjU2w,ok,youtube_auto,es,1960,0,
+kAu1orihcbw,ok,youtube_auto,es,18,0,
+3lmG0tiaRFE,ok,youtube_auto,es,13122,0,
+9T8fzOo1eCA,ok,youtube_auto,es,4631,0,
+f8yHB8mjOYE,ok,youtube_auto,es,501,0,
+oP-vqFzbr7g,ok,youtube_auto,es,1914,0,
+JQxBsHpTB9A,ok,youtube_auto,es,304,0,
+unpjouDa0nI,ok,youtube_auto,es,5420,0,
+LeyOgVpt_gc,ok,youtube_auto,es,2100,0,
+ViW-dnzoPWk,ok,youtube_auto,es,1052,0,
+sqa382YfyZk,ok,youtube_auto,es,2006,0,
+Nyq0zDsr-X0,ok,youtube_auto,es,3094,0,
+DaeFSP3OJvc,ok,youtube_auto,es,1146,0,
+tnOnNc5a9RY,ok,youtube_manual,es,6778,0,
+F1hPT5UDVyI,ok,youtube_auto,es,2017,0,
+SAfFkquO38k,ok,youtube_auto,es,375,0,
+yTqDd26jNfQ,ok,youtube_auto,es,2299,5,
+fGg_z0NkWdQ,ok,youtube_auto,es,772,0,
+2KlPxJ74jRs,ok,youtube_auto,es,3356,0,
+k0SWaSu0i3o,ok,youtube_auto,es,2101,0,
+ns_rZ0JSPsE,ok,youtube_auto,es,1675,8,
+fMdlt_DS1ng,ok,youtube_auto,es,2478,0,
+TbLDJXiaV2s,ok,youtube_auto,es,4802,0,
+O3YKcgE2Ahw,ok,youtube_auto,es,232,0,
+ZsXsPX5ncjo,ok,youtube_auto,es,5933,0,
+oFW6M-qVQzc,ok,youtube_manual,en-US,3657,11,
+0YvywqrQ9_w,ok,youtube_manual,es-US,529,0,
+OKR7ESzP7bk,ok,youtube_auto,es,1935,0,
+Il1mpf1rHzQ,ok,youtube_auto,es,405,0,
+SBnJympEo94,ok,youtube_auto,es,16932,0,
+5UgpYzWVpoI,ok,youtube_auto,es,2501,0,
+8hNvOrPnuz4,ok,youtube_auto,es,1999,0,
+WsRdc-FMrwE,ok,youtube_auto,es,5160,0,
+T0lHhu0skJ4,ok,youtube_auto,es,1089,0,
+kVl-vE4dSEU,ok,youtube_auto,es,354,0,
+fH-bT12XDy4,ok,youtube_auto,es,7338,0,
+JrpA6snKdYc,ok,youtube_auto,es,1588,0,
+HYf1avoKJxQ,ok,youtube_auto,es,135,0,
+KltQAIKNsAQ,ok,youtube_manual,es,755,9,
+Hk4asHvYFy0,ok,youtube_auto,es,34169,0,
+kD8YJxE3RY0,ok,youtube_auto,es,677,0,
+fu9LhQgWwUQ,ok,youtube_auto,es,380,0,
+Pcq_8Oqsm0c,ok,youtube_auto,es,1451,0,
+pqeI5-wreQY,ok,youtube_auto,es,1370,0,
+ytsu50Ugeow,ok,youtube_auto,es,12896,0,
+z6n6hFU1V2w,ok,youtube_auto,es,2763,3,
+9n-zjI5VCmg,ok,youtube_auto,es,1683,0,
+7QYjO9MpuJw,ok,youtube_auto,es,452,0,
+zZjEP1zdhGg,ok,youtube_auto,es,7562,0,
+SZoThOhqgIM,ok,youtube_auto,es,1224,0,
+f3NPAncHAjg,partial,,,0,0,"subs_api: VideoUnplayable: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=f3NPAncHAjg! This is most likely caused by:
+
+The video is unplayable for the following reason: This video is private
+
+Additional Details:
+ - If the owner of this video has granted you access, please 
+ - sign in
+ - .
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+e4GCeGYwBLM,ok,youtube_manual,es-uYU-mmqFLq8,9289,0,
+f3NPAncHAjg,partial,,,0,0,"subs_api: VideoUnplayable: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=f3NPAncHAjg! This is most likely caused by:
+
+The video is unplayable for the following reason: This video is private
+
+Additional Details:
+ - If the owner of this video has granted you access, please 
+ - sign in
+ - .
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+e4GCeGYwBLM,ok,youtube_manual,es-uYU-mmqFLq8,9289,0,
+f3NPAncHAjg,partial,,,0,0,"subs_api: VideoUnplayable: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=f3NPAncHAjg! This is most likely caused by:
+
+The video is unplayable for the following reason: This video is private
+
+Additional Details:
+ - If the owner of this video has granted you access, please 
+ - sign in
+ - .
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+6ZAlgJyDbys,ok,youtube_manual,es-ES,449,0,
+lfprQFzhDnQ,ok,youtube_auto,es,1353,0,
+fLI6fgoxA1k,ok,youtube_auto,es,1025,0,
+5wcc1Qn4tzc,ok,youtube_auto,es,33,0,
+ObNXpMxbCqs,ok,youtube_auto,es,3910,0,
+Jm55VOYxK7E,ok,youtube_auto,es,2072,0,
+pY-fhwTFIds,ok,youtube_auto,es,3287,0,
+GE4egSGxyBQ,ok,youtube_auto,es,1585,0,
+Y3_k5-XuLUc,ok,youtube_auto,es,8012,12,
+rwDB9FHzBR4,ok,youtube_auto,es,6162,0,
+vPOat-AZXfk,ok,youtube_auto,es,454,0,
+9HNFkdms72M,no_subs,,,0,0,"subs_api: TranscriptsDisabled: 
+Could not retrieve a transcript for the video https://www.youtube.com/watch?v=9HNFkdms72M! This is most likely caused by:
+
+Subtitles are disabled for this video
+
+If you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+8QtGULun1XY,ok,youtube_auto,es,1648,11,
+lAZARLOM9_s,ok,youtube_auto,es,3731,0,

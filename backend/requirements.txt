@@ -6,3 +6,5 @@ python-dotenv
 pydantic
 youtube-transcript-api
 textstat
+pandas
+numpy

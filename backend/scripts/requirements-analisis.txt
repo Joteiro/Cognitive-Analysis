@@ -1,0 +1,17 @@
+# Dependencias de los scripts de ANALISIS:
+#   nutriscore_features.py      calcula descriptores
+#   build_reference_scale.py    calcula la escala por estrato
+#   build_reference_corpus.py   muestrea el corpus (solo necesita requests)
+#
+# Separadas de requirements-enrich.txt por el mismo motivo que aquellas: el
+# enriquecimiento corre en tu maquina y no debe arrastrar pandas a Render.
+# Pero AMBAS van al mismo entorno: build_reference_scale.py necesita pandas
+# (para calcular) y psycopg2 (para leer Supabase) al mismo tiempo.
+#
+#   .venv\Scripts\python -m pip install -r requirements-analisis.txt
+
+pandas>=2.2
+numpy>=1.26
+psycopg2-binary>=2.9.9
+python-dotenv>=1.0.1
+requests>=2.32
