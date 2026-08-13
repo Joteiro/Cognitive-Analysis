@@ -1,74 +1,129 @@
 # app/transcript_api.py
 """
-Cliente para la API de transcripts de Supadata (https://supadata.ai).
-Resuelve el bloqueo de YouTube a las IPs de datacenter: Supadata obtiene el
-transcript por su cuenta (subtítulos nativos, con fallback a Whisper si el
-video no tiene captions).
+Cliente de Supadata para transcripciones.
 
-Si SUPADATA_API_KEY no está configurada, devuelve None sin crashear.
+TRES COSAS QUE ESTA VERSION ARREGLA
+-----------------------------------
+1. PIDE EL IDIOMA. Antes no lo especificaba y Supadata elegia la pista que
+   quisiera: en un video con subtitulo manual en ingles y automatico en
+   espanol, devolvia el ingles. Y como el idioma no se guardaba, el calculo de
+   descriptores asumia espanol y le aplicaba los lexicos espanoles a un texto
+   en ingles. Los conectores, la atribucion y lo promocional de ese video salian
+   sin sentido, sin que nada avisara.
+
+2. mode=native. Prohibe el fallback a Whisper, que cobra POR MINUTO DE AUDIO.
+   El 2026-08-12 una sola llamada asi consumio 134 creditos y agoto el plan.
+   Un 202 es la senal de que Supadata arranco Whisper.
+
+3. DEVUELVE METADATOS, no solo texto. El idioma real, la fuente y el conteo de
+   palabras hacen falta para llenar transcript_lang, transcript_source y
+   transcript_word_count, que hasta ahora quedaban en null.
+
+Si SUPADATA_API_KEY no esta configurada, devuelve un resultado vacio sin
+romper nada.
 """
-import os
 import logging
+import os
+
 import requests
 
 logger = logging.getLogger(__name__)
 
 SUPADATA_URL = "https://api.supadata.ai/v1/transcript"
 
+# Orden de preferencia. El corpus de referencia y toda la escala estan en
+# espanol, asi que una transcripcion en ingles no es equivalente: se acepta
+# como ultimo recurso pero queda marcada para poder filtrarla despues.
+IDIOMAS = ["es", None]      # None = lo que Supadata tenga
 
-def fetch_transcript(video_url: str, video_id: str | None = None) -> str | None:
-    """
-    Pide el transcript de un video a Supadata y devuelve el texto plano.
-    Devuelve None si no hay key, si falla, o si el video no tiene transcript.
+
+def _texto_de(data: dict) -> str:
+    c = data.get("content")
+    if isinstance(c, str):
+        t = c
+    elif isinstance(c, list):
+        t = " ".join(s.get("text", "") for s in c if isinstance(s, dict))
+    else:
+        return ""
+    return " ".join(t.split()).strip()
+
+
+def _pedir(video_url: str, api_key: str, lang: str | None, timeout: int) -> dict:
+    params = {"url": video_url, "text": "true", "mode": "native"}
+    if lang:
+        params["lang"] = lang
+    try:
+        r = requests.get(SUPADATA_URL, params=params,
+                         headers={"x-api-key": api_key}, timeout=timeout)
+    except Exception as e:
+        return {"estado": f"error_red: {e}"}
+
+    if r.status_code == 202:
+        # Whisper arrancado pese a mode=native: el video no tiene subtitulos
+        # nativos. No se espera el job — esos videos quedan fuera de la escala
+        # igual, y esperarlo cuesta creditos por minuto de audio.
+        return {"estado": "whisper_evitado"}
+    if r.status_code == 429:
+        return {"estado": "sin_creditos"}
+    if r.status_code != 200:
+        return {"estado": f"http_{r.status_code}", "detalle": r.text[:150]}
+    try:
+        d = r.json()
+    except ValueError:
+        return {"estado": "respuesta_no_json"}
+
+    texto = _texto_de(d)
+    if not texto:
+        return {"estado": "vacio"}
+    return {"estado": "ok", "texto": texto,
+            "lang": d.get("lang") or lang,
+            "disponibles": d.get("availableLangs")}
+
+
+def fetch_transcript_detallado(video_url: str, video_id: str | None = None,
+                               timeout: int = 45) -> dict:
+    """Devuelve un dict siempre, nunca lanza:
+
+        {"texto": str|None, "lang": str|None, "source": "supadata"|None,
+         "palabras": int, "estado": str, "es_espanol": bool}
+
+    Prueba primero en espanol; si no hay pista en espanol, acepta la que haya
+    pero lo deja registrado en `lang` para que se pueda filtrar despues.
     """
     api_key = os.getenv("SUPADATA_API_KEY")
     if not api_key:
         logger.warning("SUPADATA_API_KEY no configurada — se omite el transcript.")
-        return None
+        return {"texto": None, "estado": "sin_api_key", "palabras": 0}
 
-    try:
-        resp = requests.get(
-            SUPADATA_URL,
-            params={"url": video_url, "text": "true"},   # text=true → texto plano
-            headers={"x-api-key": api_key},
-            timeout=45,   # el fallback Whisper puede tardar en videos largos
-        )
-    except Exception as exc:
-        logger.warning(f"Error al pedir transcript a Supadata para {video_id}: {exc}")
-        return None
+    ultimo = {}
+    for lang in IDIOMAS:
+        res = _pedir(video_url, api_key, lang, timeout)
+        ultimo = res
+        if res.get("estado") == "ok":
+            devuelto = (res.get("lang") or "").lower()
+            if lang == "es" and devuelto and not devuelto.startswith("es"):
+                # Pedimos espanol y nos dio otra cosa: no insistir, pero avisar.
+                logger.warning(f"{video_id}: se pidio 'es' y devolvio '{devuelto}'")
+            texto = res["texto"]
+            return {
+                "texto": texto,
+                "lang": devuelto or (lang or "desconocido"),
+                "source": "supadata",
+                "palabras": len(texto.split()),
+                "estado": "ok",
+                "es_espanol": devuelto.startswith("es") if devuelto else (lang == "es"),
+                "disponibles": res.get("disponibles"),
+            }
+        # No tiene sentido reintentar en otro idioma si el problema es de cuota
+        # o de que el video directamente no tiene subtitulos nativos.
+        if res.get("estado") in ("sin_creditos", "whisper_evitado"):
+            break
 
-    if resp.status_code != 200:
-        logger.warning(
-            f"Supadata devolvió {resp.status_code} para {video_id}: {resp.text[:200]}"
-        )
-        return None
-
-    try:
-        data = resp.json()
-    except ValueError:
-        logger.warning(f"Respuesta no-JSON de Supadata para {video_id}")
-        return None
-
-    return _extract_text(data)
+    logger.warning(f"Transcript no disponible para {video_id}: {ultimo.get('estado')}")
+    return {"texto": None, "estado": ultimo.get("estado", "desconocido"),
+            "palabras": 0}
 
 
-def _extract_text(data: dict) -> str | None:
-    """
-    Normaliza la respuesta a texto plano.
-    Con text=true, `content` viene como string; sin él, como lista de segmentos.
-    Si viene un jobId (fallback Whisper asíncrono), por ahora se omite.
-    """
-    content = data.get("content")
-
-    if isinstance(content, str):
-        text = content
-    elif isinstance(content, list):
-        text = " ".join(seg.get("text", "") for seg in content if isinstance(seg, dict))
-    else:
-        # Respuesta asíncrona (job) u otro formato: no soportado en esta versión.
-        if data.get("jobId"):
-            logger.info("Supadata devolvió un job asíncrono; se omite (sin polling).")
-        return None
-
-    text = " ".join(text.split()).strip()
-    return text or None
+def fetch_transcript(video_url: str, video_id: str | None = None) -> str | None:
+    """Compatibilidad con el codigo viejo: solo el texto."""
+    return fetch_transcript_detallado(video_url, video_id).get("texto")

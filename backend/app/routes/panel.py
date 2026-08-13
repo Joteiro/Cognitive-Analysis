@@ -98,7 +98,11 @@ def calcular_descriptores(fila: dict) -> dict:
             r[c] = json.dumps(r[c]) if isinstance(r.get(c), (list, dict)) else ""
     tnorm = nf.norm(r.get("transcript") or "")
     toks = nf.words(tnorm)
-    lang = "en" if str(r.get("video_language") or "es").startswith("en") else "es"
+    # El idioma del LEXICO sale de la transcripcion, no del video: es el texto
+    # que se va a medir. video_language dice que idioma declara el canal, que no
+    # siempre es el de la pista que se bajo.
+    idioma = str(r.get("transcript_lang") or r.get("video_language") or "es").lower()
+    lang = "en" if idioma.startswith("en") else "es"
     val = nf.capa0_validez(r, toks)
     ind = nf.indicadores(r, toks, tnorm, lang, val)
     eti = nf.etiquetas(r, ind, val, lang)
@@ -280,6 +284,14 @@ def panel(video_id: str):
         "formato": fmt,
         "frame_version": escala["frame_version"],
         "descriptores": ubicar(desc, fmt),
+        # La escala de referencia se construyo con 344 videos en espanol. Si el
+        # texto medido esta en otro idioma, los percentiles siguen calculandose
+        # pero comparan contra una poblacion que no le corresponde. Se avisa en
+        # vez de ocultarlo.
+        "aviso_idioma": (None if str(fila.get("transcript_lang") or "es").lower().startswith("es")
+                         else f"La transcripción está en '{fila.get('transcript_lang')}'. "
+                              "La escala de referencia es de videos en español: "
+                              "los percentiles no son estrictamente comparables."),
         "etiquetas": {k: v for k, v in desc.items() if k.startswith("et_")},
         "nota": ("Los percentiles son relativos al corpus de referencia de "
                  "YouTube en espanol, agosto 2026. No son una calificacion."),

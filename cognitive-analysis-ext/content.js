@@ -86,6 +86,10 @@ function contenedor() {
             font-size:10.5px; color:#6b7280; }
     .vacio { padding:16px 14px; font-size:12.5px; color:#a8b0c2; }
     .cargando { padding:14px; font-size:12.5px; color:#8b93a7; }
+    /* Ambar, no rojo: es una advertencia de alcance, no un error. */
+    .aviso { margin:10px 14px 0; padding:8px 10px; border-radius:6px;
+             background:#2a2416; border:1px solid #4a3f1e; color:#d9c98a;
+             font-size:11px; line-height:1.4; }
   </style><div class="caja"></div>`;
   document.body.appendChild(host);
   return sh.querySelector('.caja');
@@ -175,8 +179,10 @@ function panelDatos(d) {
   const filas = (d.descriptores || []).map(fila).join('');
   const fuente = d.origen_transcripcion === 'base' ? 'transcripción ya almacenada'
                                                    : 'transcripción obtenida ahora';
+  const aviso = d.aviso_idioma
+    ? `<div class="aviso">⚠ ${d.aviso_idioma}</div>` : '';
   caja.insertAdjacentHTML('beforeend',
-    `<div class="cuerpo">${filas}</div>
+    `${aviso}<div class="cuerpo">${filas}</div>
      <div class="nota">Percentiles relativos al corpus de referencia de YouTube
      en español (${d.frame_version}), comparando contra videos del mismo formato
      cuando corresponde. <b>No es una calificación.</b><br>${fuente}.</div>`);

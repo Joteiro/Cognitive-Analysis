@@ -88,13 +88,33 @@ def run_enrichment(content_item_id: int):
         # resuelve el bloqueo de YouTube a las IPs de Render).
         transcript_text = item.transcript
         if not transcript_text:
-            from ..transcript_api import fetch_transcript
-            transcript_text = fetch_transcript(item.url, item.external_id)
+            from ..transcript_api import fetch_transcript_detallado
+            tr = fetch_transcript_detallado(item.url, item.external_id)
+            transcript_text = tr.get("texto")
             if transcript_text:
                 item.transcript = transcript_text
                 item.transcript_fetched_at = datetime.now(timezone.utc)
+                # Estas cuatro columnas quedaban en null. Sin transcript_lang,
+                # el calculo de descriptores asume espanol y le puede aplicar
+                # los lexicos espanoles a un texto en ingles; sin
+                # transcript_source no se puede filtrar por instrumento al
+                # analizar, que es una regla del proyecto.
+                item.transcript_source     = tr.get("source")
+                item.transcript_lang       = tr.get("lang")
+                item.transcript_word_count = tr.get("palabras")
+                # Supadata no informa si la pista es automatica o humana.
+                # Se deja en null a proposito en vez de inventar un valor:
+                # et_calidad_dato depende de esto y un dato falso es peor que
+                # un dato ausente.
+                item.transcript_is_generated = None
+                if not tr.get("es_espanol"):
+                    logger.warning(
+                        f"{item.external_id}: transcripcion en '{tr.get('lang')}', "
+                        f"no en espanol. La escala de referencia es en espanol.")
             else:
-                logger.warning(f"Transcript no disponible para {item.external_id}")
+                logger.warning(
+                    f"Transcript no disponible para {item.external_id}: "
+                    f"{tr.get('estado')}")
 
         # ── YouTube API metadata ───────────────────────────────────────────────
         yt_meta = fetch_video_metadata(item.external_id)
