@@ -62,6 +62,34 @@ ESTADO_A_ENRICHMENT = {
 }
 
 
+# Columnas que este modulo escribe o lee en ContentItem. Si alguna no esta
+# declarada en models.py, SQLAlchemy no avisa: escribirla no hace nada (queda
+# un atributo de Python suelto y la columna en null) y leerla tira
+# AttributeError, que adentro del try del enriquecimiento provoca un rollback
+# que se lleva puesto todo lo demas. Fue exactamente lo que paso el 2026-08-13.
+# Un chequeo al arrancar convierte un fallo silencioso en una linea de log.
+_REQUERIDAS = [
+    "transcript", "transcript_fetched_at", "transcript_source", "transcript_lang",
+    "transcript_word_count", "transcript_is_generated", "description", "tags",
+    "category_id", "category_name", "view_count", "like_count", "comment_count",
+    "stats_fetched_at", "channel_id", "video_language", "upload_date",
+    "enrichment_status", "enrichment_error", "enriched_at", "enricher_version",
+]
+
+
+def _verificar_modelo() -> None:
+    faltan = [c for c in _REQUERIDAS
+              if c not in models.ContentItem.__table__.columns]
+    if faltan:
+        logger.error(
+            "models.ContentItem no declara estas columnas, que existen en la "
+            "base y este modulo usa: %s. Hasta declararlas, lo que se escriba "
+            "en ellas se pierde en silencio.", ", ".join(faltan))
+
+
+_verificar_modelo()
+
+
 def _cap(valor, n: int):
     """Recorta antes de que lo haga Postgres — que no trunca, aborta.
 
