@@ -240,6 +240,17 @@ async function pedirPanel(videoId, intento = 0) {
       // apto === null es "todavia procesando": el enriquecimiento en background
       // no termino. Se sigue reintentando en vez de dar por perdido el panel.
       if (d.apto === null || d.estado === 'procesando') {
+        // El backend dice que el video NO esta en la base. O sea que el POST
+        // de registro se perdio, y esperar no lo va a arreglar: seguiriamos
+        // preguntando por algo que nadie mando. Se reintenta el registro una
+        // sola vez, para no entrar en un bucle de POSTs.
+        if (d.registrado === false && ultimoPayload
+            && ultimoPayload.video_id === videoId && !reintentoRegistro) {
+          reintentoRegistro = true;
+          console.warn('[CognitiveAnalysis] el video no figura en la base; '
+            + 'se reintenta el registro.');
+          sendToBackend(ultimoPayload);
+        }
         setTimeout(() => pedirPanel(videoId, intento + 1), esperaMs(intento));
         return;
       }
@@ -291,25 +302,58 @@ function extractVideoData() {
 }
 
 // ─── ENVIO ────────────────────────────────────────────────────────────────────
-async function sendToBackend(payload) {
-  try {
-    const res = await fetch(BACKEND_URL, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (res.ok) {
-      console.log(`%c[CognitiveAnalysis] ✓ tracked: "${payload.title}"`, 'color:#4ade80');
-      return true;
+
+// El ultimo payload armado, para poder reintentar el registro si el panel
+// avisa que el video no llego a la base.
+let ultimoPayload = null;
+
+async function sendToBackend(payload, intentos = 3) {
+  // POR QUE REINTENTA
+  // Si este POST falla, el video no existe en la base, y entonces el panel
+  // se queda pidiendo eternamente un video que nadie registro. Un fallo de
+  // un segundo —el servidor reiniciando por un deploy, la conexion
+  // parpadeando— dejaba el video perdido para siempre. Tres intentos con
+  // pausas crecientes cubren de sobra un reinicio de Render.
+  for (let i = 0; i < intentos; i++) {
+    try {
+      const res = await fetch(BACKEND_URL, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        console.log(`%c[CognitiveAnalysis] ✓ tracked: "${payload.title}"`, 'color:#4ade80');
+        return true;
+      }
+      console.warn(`[CognitiveAnalysis] Backend respondió ${res.status} `
+        + `(intento ${i + 1}/${intentos}):`, await res.text());
+    } catch (err) {
+      // Sintoma clasico y muy confuso: se recarga la extension desde
+      // chrome://extensions y las pestanas de YouTube que ya estaban
+      // abiertas siguen corriendo el script viejo, que ya no puede hacer
+      // nada. Todo "parece" andar y ningun pedido sale. Conviene decirlo.
+      if (String(err).includes('Extension context invalidated')) {
+        console.error('[CognitiveAnalysis] La extensión se recargó: esta '
+          + 'pestaña quedó con el script viejo. Recargá la página.');
+        panelSinDatos({
+          motivo: 'sin_respuesta',
+          mensaje: 'La extensión se recargó mientras esta pestaña estaba '
+                 + 'abierta. Recargá la página (F5) para reactivarla.',
+        });
+        return false;
+      }
+      console.error(`[CognitiveAnalysis] No se pudo alcanzar el backend `
+        + `(intento ${i + 1}/${intentos}).`, err);
     }
-    console.warn(`[CognitiveAnalysis] Backend respondió ${res.status}:`, await res.text());
-  } catch (err) {
-    console.error('[CognitiveAnalysis] No se pudo alcanzar el backend.', err);
+    if (i < intentos - 1) {
+      await new Promise((r) => setTimeout(r, 3000 * (i + 1)));
+    }
   }
   return false;
 }
 
 // ─── NAVEGACION ───────────────────────────────────────────────────────────────
 const trackedThisSession = new Set();
+let reintentoRegistro = false;
 
 function getDurationWhenReady(videoEl, timeoutMs = 5000) {
   return new Promise((resolve) => {
@@ -332,22 +376,34 @@ function getDurationWhenReady(videoEl, timeoutMs = 5000) {
 function handleNavigation() {
   if (window.location.pathname !== '/watch') return;
   quitarPanel();
+  reintentoRegistro = false;
 
   setTimeout(async () => {
     const data = extractVideoData();
     if (!data) return;
     panelCargando();
+    ultimoPayload = data;
 
     // El panel no depende del registro: se pide igual aunque el POST falle.
     // Son dos cosas distintas y no tienen por que caerse juntas.
     pedirPanel(data.video_id);
 
     if (trackedThisSession.has(data.video_id)) return;
+    // Se marca ANTES de mandar, no despues. YouTube dispara
+    // yt-navigate-finish mas de una vez por navegacion, y como el chequeo
+    // estaba antes de un await, las dos pasadas lo cruzaban antes de que
+    // ninguna terminara: salian dos POST identicos con 0,2 s de diferencia.
+    // Eso ademas lanzaba dos enriquecimientos en paralelo, que es de donde
+    // salio la fila con status 'ok' y error 'sin_creditos' a la vez.
+    trackedThisSession.add(data.video_id);
+
     if (data.duration_seconds === null) {
       data.duration_seconds = await getDurationWhenReady(
         document.querySelector('video.html5-main-video'));
     }
-    if (await sendToBackend(data)) trackedThisSession.add(data.video_id);
+    // Si fallaron los tres intentos se desmarca, para que un refresh de la
+    // pagina vuelva a intentarlo en vez de darlo por hecho.
+    if (!await sendToBackend(data)) trackedThisSession.delete(data.video_id);
   }, DELAY_MS);
 }
 
