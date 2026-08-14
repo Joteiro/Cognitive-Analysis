@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dieta cognitiva — historial de YouTube</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --surface-2:      #f2f1ec;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --muted:          #898781;
+    --grid:           #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --series-2:       #eb6834;
+    --series-3:       #1baf7a;
+    --band:           #cde2fb;
+    --band-mark:      #2a78d6;
+    --neutral-mark:   #c3c2b7;
+    --neutral-soft:   #dedcd3;
+    --callout-bg:     #fdf6e6;
+    --callout-br:     #e8d9a8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --surface-2:      #232322;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --muted:          #898781;
+      --grid:           #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-2:       #d95926;
+      --series-3:       #199e70;
+      --band:           #184f95;
+      --band-mark:      #86b6ef;
+      --neutral-mark:   #4a4a46;
+      --neutral-soft:   #35352f;
+      --callout-bg:     #241f12;
+      --callout-br:     #4a3f1e;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --surface-2:      #232322;
+    --page:           #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --muted:          #898781;
+    --grid:           #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --series-1:       #3987e5;
+    --series-2:       #d95926;
+    --series-3:       #199e70;
+    --band:           #184f95;
+    --band-mark:      #86b6ef;
+    --neutral-mark:   #4a4a46;
+    --neutral-soft:   #35352f;
+    --callout-bg:     #241f12;
+    --callout-br:     #4a3f1e;
+  }
+
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--page);
+    font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--text-primary);
+  }
+  .viz-root { background: var(--page); min-height: 100vh; padding: 28px 20px 60px; }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+
+  header.top { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 6px; }
+  h1 { font-size: 25px; line-height: 1.2; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--text-secondary); font-size: 14px; margin: 0 0 20px; max-width: 70ch; }
+  .toggle {
+    margin-left: auto; flex: none; cursor: pointer;
+    background: var(--surface-1); color: var(--text-secondary);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px 12px; font: inherit; font-size: 13px;
+  }
+  .toggle:hover { color: var(--text-primary); }
+
+  /* ── Controles ─────────────────────────────────────────────────────────── */
+  .controles {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 12px; padding: 13px 16px; margin-bottom: 16px;
+    display: flex; flex-wrap: wrap; gap: 18px 26px; align-items: flex-end;
+    box-shadow: 0 2px 10px rgba(0,0,0,.04);
+  }
+  .grupo { display: flex; flex-direction: column; gap: 6px; }
+  .grupo > label, .grupo > .glab {
+    font-size: 11.5px; color: var(--muted); letter-spacing: .02em; text-transform: uppercase;
+  }
+  .grupo .campos { display: flex; gap: 8px; align-items: center; }
+  input[type="date"], select {
+    font: inherit; font-size: 13px; color: var(--text-primary);
+    background: var(--page); border: 1px solid var(--border);
+    border-radius: 7px; padding: 6px 8px;
+  }
+  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .seg button {
+    font: inherit; font-size: 13px; cursor: pointer; padding: 6px 13px;
+    background: var(--page); color: var(--text-secondary); border: 0; border-right: 1px solid var(--border);
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button[aria-pressed="true"] { background: var(--band-mark); color: #fff; }
+  .btn-reset {
+    font: inherit; font-size: 13px; cursor: pointer; padding: 6px 12px;
+    background: var(--page); color: var(--text-secondary);
+    border: 1px solid var(--border); border-radius: 8px; margin-left: auto;
+  }
+  .btn-reset:hover { color: var(--text-primary); }
+
+  .estado {
+    display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline;
+    font-size: 13px; color: var(--text-secondary); margin: 0 0 18px; padding: 0 3px;
+  }
+  .estado b { color: var(--text-primary); font-variant-numeric: tabular-nums; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 22px; }
+  .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 15px 17px; }
+  .tile .v { font-size: 29px; line-height: 1.05; font-weight: 600; letter-spacing: -0.02em; }
+  .tile .l { color: var(--text-secondary); font-size: 12.5px; margin-top: 5px; }
+
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px 14px; margin-bottom: 20px; }
+  .card h2 { font-size: 16.5px; margin: 0 0 4px; letter-spacing: -0.005em; }
+  .card .note { color: var(--text-secondary); font-size: 13px; margin: 0 0 16px; max-width: 78ch; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 0 0 14px; font-size: 13px; color: var(--text-secondary); }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .sw { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+
+  svg { display: block; width: 100%; overflow: visible; }
+  svg text { font-family: inherit; }
+  .tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .rowlab { fill: var(--text-primary); font-size: 12.5px; }
+  .rowsub { fill: var(--muted); font-size: 10.5px; }
+  .vallab { fill: var(--text-secondary); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+  .gl { stroke: var(--grid); stroke-width: 1; }
+  .refline { stroke: var(--baseline); stroke-width: 1; }
+  .reflab { fill: var(--muted); font-size: 10.5px; }
+  .hit { fill: transparent; cursor: default; }
+
+  .callout {
+    background: var(--callout-bg); border: 1px solid var(--callout-br);
+    border-radius: 12px; padding: 15px 18px; margin-bottom: 20px;
+    font-size: 13.5px; color: var(--text-primary);
+  }
+  .callout > b { display: block; margin-bottom: 5px; font-size: 14px; }
+  .callout p { margin: 0 0 8px; color: var(--text-secondary); }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout[hidden] { display: none; }
+
+  .vacio { text-align: center; color: var(--text-secondary); font-size: 14px; padding: 26px 10px; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  th, td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; font-variant-numeric: normal; }
+  th { color: var(--text-secondary); font-weight: 600; font-size: 11.5px; position: sticky; top: 0; background: var(--surface-1); }
+  .tablewrap { max-height: 420px; overflow: auto; margin-top: 4px; }
+  details > summary { cursor: pointer; color: var(--text-secondary); font-size: 13.5px; padding: 4px 0; }
+  details > summary:hover { color: var(--text-primary); }
+
+  #tip {
+    position: fixed; pointer-events: none; opacity: 0; transition: opacity .1s;
+    background: var(--surface-1); color: var(--text-primary);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 9px 11px; font-size: 12.5px; line-height: 1.5;
+    box-shadow: 0 6px 22px rgba(0,0,0,.18); z-index: 50; max-width: 300px;
+  }
+  #tip .t { font-weight: 600; margin-bottom: 3px; }
+  #tip .r { color: var(--text-secondary); display: flex; gap: 10px; justify-content: space-between; }
+  #tip .r b { color: var(--text-primary); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .foot { color: var(--muted); font-size: 12px; margin-top: 26px; }
+  code { font-size: 11.5px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <h1>Dieta cognitiva: mi historial de YouTube</h1>
+      <p class="sub">
+        Cada descriptor se expresa como <b>percentil</b> respecto de un corpus de
+        referencia de 344 videos en español. Percentil 65 significa: más alto que el
+        65&nbsp;% de ese corpus. <b>No es una calificación</b> — un ritmo alto no es
+        mejor ni peor, depende de para qué estés mirando el video.
+      </p>
+    </div>
+    <button class="toggle" id="themeBtn" type="button">Modo oscuro</button>
+  </header>
+
+  <div class="controles">
+    <div class="grupo">
+      <span class="glab">Desde</span>
+      <div class="campos"><input type="date" id="fDesde"></div>
+    </div>
+    <div class="grupo">
+      <span class="glab">Hasta</span>
+      <div class="campos"><input type="date" id="fHasta"></div>
+    </div>
+    <div class="grupo">
+      <span class="glab">Formato</span>
+      <div class="campos">
+        <select id="fFormato">
+          <option value="">Todos</option>
+          <option value="informativo">Informativo</option>
+          <option value="entretenimiento">Entretenimiento</option>
+          <option value="deporte_gaming">Deporte y gaming</option>
+          <option value="practico_personal">Práctico y personal</option>
+        </select>
+      </div>
+    </div>
+    <div class="grupo">
+      <span class="glab">Contar por</span>
+      <div class="campos">
+        <div class="seg" id="fDenom" role="group" aria-label="Denominador">
+          <button type="button" data-v="videos"  aria-pressed="true">Videos</button>
+          <button type="button" data-v="minutos" aria-pressed="false">Minutos</button>
+        </div>
+      </div>
+    </div>
+    <button class="btn-reset" id="btnReset" type="button">Ver todo</button>
+  </div>
+
+  <p class="estado" id="estado"></p>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="callout" id="avisoN" hidden></div>
+  <div class="callout" id="avisoDom" hidden></div>
+
+  <div class="card">
+    <h2 id="t1">Dónde cae mi dieta frente a la mediana de YouTube</h2>
+    <p class="note" id="n1"></p>
+    <svg id="c1" role="img" aria-label="Percentil de mi historial por descriptor, comparado con la mediana del corpus de referencia"></svg>
+    <p class="note" id="n1b" style="margin:14px 0 4px"></p>
+  </div>
+
+  <div class="card">
+    <h2 id="t2">Por videos o por minutos: el mismo consumo, dos repartos</h2>
+    <p class="note" id="n2"></p>
+    <div class="legend" id="leg2"></div>
+    <svg id="c2" role="img" aria-label="Reparto del consumo contando videos y contando minutos"></svg>
+  </div>
+
+  <div class="card">
+    <h2>Cuándo miré cada cosa</h2>
+    <p class="note" id="n4">
+      Cada barra es una semana. Las claras quedan fuera del rango elegido: sirven para
+      ver qué parte del historial estás recortando, no para compararla.
+    </p>
+    <svg id="c4" role="img" aria-label="Consumo semanal a lo largo del historial, con el rango seleccionado destacado"></svg>
+  </div>
+
+  <div class="card">
+    <h2 id="t3">Concentración por canal</h2>
+    <p class="note" id="n3"></p>
+    <svg id="c3" role="img" aria-label="Reparto del consumo por canal"></svg>
+    <p class="note" id="n3b" style="margin:12px 0 4px"></p>
+  </div>
+
+  <div class="card">
+    <details>
+      <summary>Ver la tabla completa de canales</summary>
+      <div class="tablewrap">
+        <table id="tbl">
+          <thead><tr>
+            <th>Canal</th><th>Videos</th><th>Min.</th>
+            <th>Ritmo</th><th>Cifras</th><th>Fuentes</th><th>Vocab.</th>
+            <th>Conect.</th><th>Enlaces</th><th>Promo.</th><th>Título</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="note" id="nTabla" style="margin-top:10px"></p>
+    </details>
+  </div>
+
+  <p class="foot" id="pie"></p>
+</div>
+</div>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+// ─── DATOS ────────────────────────────────────────────────────────────────────
+// Filas: [titulo, canal, formato, fecha, minutos, palabras, p0..p7]
+// Los percentiles vienen calculados por el backend con nutriscore_features.py
+// contra escala_referencia.json. Este archivo NO mide nada: agrupa y ordena.
+const FILAS = [
+["¿Cuál es el problema matemático MÁS ANTIGUO que sigue sin resolverse?", "Derivando", "informativo", "2026-04-27", 8.4, 1570, 86, 97, null, 15, 88, null, 37, 61],
+["¿QUIÉN ES PAOLO ROCCA? | RADIOGRAFÍAS del PODER con Diego GENOUD", "GELATINA", "entretenimiento", "2026-04-27", 32.1, 5465, 73, 93, 88, 62, 53, 60, null, 39],
+["ASÍ CONTROLA SÁNCHEZ LOS MEDIOS mientras sus escándalos de corrupción se acumulan - @SoloFonseca", "Solo Fonseca", "informativo", "2026-04-27", 47.4, 8716, 86, 60, 61, 80, 80, 55, 87, 54],
+["LA BARRA BRAVA MAS GRANDE DEL MUNDO POR DENTRO | Gaviões da Fiel, Corinthians", "Joaco Santos ", "deporte_gaming", "2026-04-27", 34.3, 3471, 15, 30, 56, 72, 82, 47, null, 100],
+["MERNOSKETTI NOS DEBE PLATA Y ES EL DÍA DE LA TIERRA | #ParenLaMano Completo - 22/04 | VORTERIX", "Vorterix", "entretenimiento", "2026-04-27", 107.1, 17083, 63, 75, 48, 31, 44, 74, 0, 46],
+["San Andrés: Los piratas del Caribe colombiano 🇨🇴", "PlanetaJuan", "practico_personal", "2026-04-27", 30.0, 5490, 84, 56, 42, 72, 69, 84, 19, 100],
+["OTRO DÍA PERDIDO Y UN VIERNES ESPECIAL | #ParenLaMano Completo - 24/04 | VORTERIX", "Vorterix", "entretenimiento", "2026-04-27", 106.1, 17725, 68, 77, 74, 24, 43, 74, 10, 39],
+["No podré volver a Haití...", "PlanetaJuan", "practico_personal", "2026-06-07", 16.6, 3085, 86, 39, 62, 71, 63, 84, 52, 10],
+["QUÉ VA A PASAR CON RIQUELME? | #ParenLaMano Completo - 01/06 | VORTERIX", "Vorterix", "entretenimiento", "2026-06-08", 107.1, 17712, 67, 72, 43, 31, 45, 74, 0, 32],
+["EL DÍA DESPUÉS DE LA HUMILLACIÓN DE BOCA | #ParenLaMano Completo - 29/05 | VORTERIX", "Vorterix", "entretenimiento", "2026-06-08", 109.2, 18955, 76, 70, 7, 30, 53, 74, 0, 39],
+["PAREN EL FÚTBOL: GOLEADORES, RIQUELME Y EL DIBU | #ParenLaMano Completo - 03/06 | VORTERIX", "Vorterix", "entretenimiento", "2026-06-09", 108.7, 17024, 58, 91, 1, 29, 61, 77, 31, 26],
+["¿EL FIN DEL PETRISMO? el candidato que lo enfrenta fue abogado del chavismo - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-09", 26.6, 3454, 30, 81, 68, 83, 35, 55, 14, 43],
+["Argentina vs. Iceland | Full Game Highlights | ESPN FC", "ESPN FC", "deporte_gaming", "2026-06-10", 25.0, 3306, 30, 15, null, 97, 12, 47, null, 79],
+["SE VIENE EL DESCONTROL EN ESTADOS UNIDOS | #ParenLaMano Completo - 09/06 | VORTERIX", "Vorterix", "entretenimiento", "2026-06-10", 106.6, 16344, 56, 90, null, 32, 37, 77, null, 34],
+["ARMENIA SE ALEJA DE RUSIA y Putin no puede hacer nada - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-11", 25.5, 3085, 25, 60, 38, 99, 39, 85, 37, 34],
+["VENEZUELA se APAGA... y Trump quiere poner un parche - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-11", 32.5, 6020, 86, 64, 20, 89, 69, 85, 56, 45],
+["IRÁN DERROTA A TRUMP… sin ganar la guerra - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-12", 30.9, 5963, 91, 81, 26, 85, 66, 55, 38, 43],
+["HOY EMPEZÓ EL MUNDIAL", "Luquitas Rodriguez", "entretenimiento", "2026-06-12", 37.6, 5826, 57, 70, 4, 45, 45, 60, null, 39],
+["\"Me cuesta verme trabajando en otro lado que no sea Paren La Mano\" | Germán Beder en #Las26Del26", "Canal 26", "informativo", "2026-06-12", 30.2, 5459, 82, 45, null, 50, 81, 55, null, 43],
+["Estados Unidos vs Paraguay (4-1) | Resumen y goles | Highlights Copa Mundial de la FIFA 2026™", "DAZN ES", "deporte_gaming", "2026-06-13", 3.4, 571, 68, 6, null, 20, 23, 80, null, 18],
+["LA AMENAZA RUSA ES REAL… y Europa ni siquiera tiene las armas para plantar cara - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-13", 22.7, 3156, 42, 72, 34, 99, 29, 55, 53, 30],
+["SUPER TRIBUNERO MUNDIALISTA | #ParenLaMano Completo - 12/06 | VORTERIX", "Vorterix", "entretenimiento", "2026-06-14", 125.1, 17251, 40, 96, 1, 33, 35, 77, 13, 58],
+["¿Por qué NADIE visita Paraguay? 🇵🇾 El país olvidado de Sudamérica", "PlanetaJuan", "practico_personal", "2026-06-15", 27.9, 4961, 79, 73, 86, 79, 43, 84, 21, 51],
+["We’re Recreating a Lost Ecosystem", "Planet Wild", "practico_personal", "2026-06-16", 13.4, 2088, 57, 38, null, 98, 42, 84, 43, 51],
+["EL TRIBUNERO MUNDIALISTA EN KANSAS CITY | #ParenLaMano Completo - 16/06 | VORTERIX", "Vorterix", "entretenimiento", "2026-06-17", 61.9, 8917, 48, 82, 8, 31, 38, 74, 34, 46],
+["🔴 EN VIVO | LA CASA DEL KUN CON EL POLLO, LAVEZZI, GALLARDO, TEVEZ, FALCAO Y RUGGERI | MUNDIAL 2026", "ESPN Fans", "deporte_gaming", "2026-06-17", 89.8, 14680, 66, 45, null, 16, 73, 80, null, 62],
+["Austria vs Jordania (3-1) | Resumen y goles | Highlights Copa Mundial de la FIFA 2026™", "DAZN Fútbol", "deporte_gaming", "2026-06-17", 3.4, 462, 36, 48, null, 83, 77, 47, null, 11],
+["Francia vs Senegal  (3-1) | Resumen y goles | Highlights Copa Mundial de la FIFA 2026™", "DAZN ES", "deporte_gaming", "2026-06-17", 3.5, 495, 47, 51, null, 80, 28, 80, null, 20],
+["TRUMP SE RETIRA DE IRÁN pero Israel quiere seguir luchando - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-17", 30.6, 6169, 94, 37, 60, 76, 87, 55, 37, 54],
+["ESCÁNDALO en la BIENAL de VENECIA. La artista colgada de una campana que divide al arte", "Antonio García Villarán", "informativo", "2026-06-18", 12.0, 1992, 68, 37, null, 42, 93, 84, 94, 37],
+["El MUSEO MÁS RARO del MUNDO… y NADIE Cree Lo Que Hay Dentro 😳", "Antonio García Villarán", "informativo", "2026-06-18", 16.8, 2682, 63, 30, 23, 35, 89, 84, 63, 43],
+["NEWTON y el MUNDO ANTES de la FÍSICA CUÁNTICA | Juan Pablo PAZ en INDUSTRIA NACIONAL", "GELATINA", "entretenimiento", "2026-06-18", 59.2, 9042, 56, 80, 70, 12, 68, 60, null, 68],
+["Canadá vs Qatar  (6-0) | Resumen y goles | Highlights Copa Mundial de la FIFA 2026™", "DAZN Fútbol", "deporte_gaming", "2026-06-19", 3.5, 442, 27, 13, null, 34, 34, 47, null, 4],
+["LA TRAICIÓN DE DELCY: el chavismo entrega al Niño Guerrero - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-19", 22.3, 2796, 27, 47, 42, 90, 22, 55, 40, 45],
+["¿Dónde podríamos fundar un nuevo país?", "Un Mundo Inmenso", "practico_personal", "2026-06-19", 10.6, 1703, 65, 68, null, 97, 60, 76, 50, 100],
+["Internet Estaba A Semanas Del Desastre y Nadie Lo Sabía", "Veritasium en español", "informativo", "2026-06-22", 51.5, 8335, 65, 60, 88, 94, 42, 55, 12, 100],
+["PADRE BOLUDO, HIJO BOLUDO #1 con ROBERTO y EIAL MOLDAVSKY", "Corta", "informativo", "2026-06-23", 47.1, 6507, 40, 58, null, 61, 67, null, null, 43],
+["LA DERECHA ARRASA EN LATINOAMÉRICA y Fujimori es el último ejemplo de una tendencia - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-23", 21.3, 3945, 87, 83, 61, 96, 65, 87, 58, 13],
+["SÁNCHEZ ACORRALADO! El JUEZ ordena que RETIREN el PASAPORTE a su MUJER - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-24", 28.0, 5498, 93, 40, 90, 78, 79, 84, 40, 37],
+["Suiza vs Canadá  (2-1) | Resumen y goles | Highlights Copa Mundial de la FIFA 2026™", "DAZN ES", "deporte_gaming", "2026-06-25", 3.5, 554, 63, 10, null, 73, 37, 80, null, 11],
+["MYKE TOWERS || BZRP Music Sessions #42/66", "Bizarrap", "entretenimiento", "2026-06-25", 6.6, 539, 7, 20, null, 62, 24, null, null, 3],
+["JORNADA MUNDIALISTA CON MANU OLIVARI | #ParenLaMano Completo - 24/06 | VORTERIX", "Vorterix", "entretenimiento", "2026-06-25", 110.3, 17450, 61, 83, 34, 50, 37, 74, 0, 46],
+["LA ECONOMÍA DE PUTIN SE DERRUMBA… su propio banco central se le está rompiendo. - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-25", 25.2, 4861, 91, 72, 51, 90, 73, 55, 44, 27],
+["PELEÓN, RÁCANO, ORGULLOSO Y EXCÉNTRICO. MIGUEL ÁNGEL ¿El MEJOR ARTISTA del RENACIMIENTO?", "Antonio García Villarán", "informativo", "2026-06-25", 10.8, 2016, 87, 38, null, 76, 98, 85, 82, 100],
+["PUTIN PIDE NEGOCIAR LA PAZ… porque Crimea se le escapa sin que pueda hacer nada - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-27", 27.1, 3757, 42, 83, null, 83, 42, 55, 30, 31],
+["EL MAYOR ERROR DE TRUMP: así ha terminado cediendo ante Irán - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-29", 22.9, 4588, 94, 42, 25, 89, 84, 71, 62, 45],
+["CRISIS EN REINO UNIDO Starmer dimite y Farage asciende - @SoloFonseca", "Solo Fonseca", "informativo", "2026-06-29", 27.9, 5161, 86, 35, 67, 93, 66, 55, 75, 37],
+["¿Por qué existen las guayanas?", "Un Mundo Inmenso", "practico_personal", "2026-06-29", 11.3, 1825, 66, 95, null, 92, 73, 80, null, 100],
+["ANARQUÍA EN VENEZUELA: Delcy bloquea la ayuda para el terremoto - @SoloFonseca", "Solo Fonseca", "informativo", "2026-07-02", 31.6, 6201, 92, 39, 36, 85, 81, 97, 54, 16],
+["Tengo 40 años, nadie me preparó para esto...", "PlanetaJuan", "practico_personal", "2026-07-03", 26.6, 5121, 90, 82, 43, 62, 38, 84, 36, 68],
+["TRUMP DESTRUYE LA IMAGEN DE EEUU y el turismo le está pasando factura - @SoloFonseca", "Solo Fonseca", "informativo", "2026-07-06", 27.0, 5089, 88, 72, 32, 89, 66, 85, 55, 27],
+["REBORD Y LA VERDAD SOBRE BLENDER - MOVISTAR ARENA HAGOVERO EL 19 DE OCTUBRE", "Tomás Rebord", "informativo", "2026-07-08", 129.7, 19287, 52, 38, 26, 39, 68, 55, null, 71],
+["Nuevo CHATGPT para Arquitectura e Interiorismo ▶ Proyectos completos", "bydavidparra", "informativo", "2026-07-10", 8.3, 1409, 71, 15, null, 68, 54, 55, 40, 64],
+["ANÁLISIS FUTBORDISTICO: ARGENTINA - INGLATERRA | SE VIENE ESPAÑA", "Tomás Rebord", "informativo", "2026-07-16", 53.0, 7405, 43, 20, 10, 13, 36, 55, 39, 64],
+["Así es la Nueva Ciudad Privada de Elon Musk", "HiClavero", "entretenimiento", "2026-07-16", 21.3, 3835, 81, 2, null, 72, 69, 60, null, 32],
+["RUBENS: RICO, EXCÉNTRICO, FAMOSO Y MUCHO MÁS...", "Unknown channel", "informativo", "2026-07-17", 16.6, 2904, 77, 44, 22, 42, 98, 84, 39, 100],
+["OTRO GIGANTE EN EUROPA: Por qué la UE duda teme la entrada de Ucrania - @SoloFonseca", "Solo Fonseca", "informativo", "2026-07-20", 30.3, 5706, 88, 62, 22, 89, 73, 93, 39, 45],
+["TAIWÁN APRENDE DE UCRANIA y sorprende a Xi Jinping - @SoloFonseca", "Solo Fonseca", "informativo", "2026-07-21", 23.3, 4301, 86, 81, 25, 92, 61, 55, 53, 9],
+["We Let Beavers Transform an Old Farm", "Unknown channel", "practico_personal", "2026-07-21", 14.0, 2095, 52, 9, null, 99, 3, 84, null, 0],
+["Isla Nula, ¿real o imaginaria?", "Un Mundo Inmenso", "practico_personal", "2026-08-04", 9.1, 1451, 63, 86, 88, 97, 63, 80, null, 100],
+["Tigre 1 vs. 0 River Plate | #TorneoClausura2026 | Resumen | Fecha 4", "AFA Play", "deporte_gaming", "2026-08-10", 12.3, 1312, 17, 8, null, 25, 5, 47, null, 11],
+["EMILIO MOREIRA: “Es muy difícil hablar porque voy a volver loco al país” | EL BUSCADOR", "HISPA", "entretenimiento", "2026-08-10", 79.7, 15290, 90, 90, 15, 63, 67, null, null, 79],
+["THE MOST FUTURISTIC CITY IN THE WORLD - TheGrefg", "TheGrefg", "entretenimiento", "2026-08-12", 27.2, 4284, 64, 66, null, 78, 60, 88, null, 68],
+["Trinidad y Tobago, ¿el 14° país sudamericano?", "Un Mundo Inmenso", "practico_personal", "2026-08-13", 9.5, 1523, 64, 83, 63, 90, 70, 76, 52, 100],
+["A TRUMP SE LE ACABA EL TIEMPO estas son las SALIDAS que TIENE - @SoloFonseca", "Solo Fonseca", "informativo", "2026-08-13", 34.9, 6733, 91, 64, 66, 92, 81, 55, 32, 34],
+["RICARDO DARÍN: \"Un tipo quiso abrir un local y ponerle 'EmpanaDarin'\" | EL BUSCADOR #13", "HISPA", "entretenimiento", "2026-08-13", 90.7, 14520, 63, 77, 42, 26, 66, null, 17, 80],
+["How Manu Chao Lost Everything... Then Made a Masterpiece", "Album Affairs", "entretenimiento", "2026-08-13", 14.2, 1267, 10, 5, null, 100, 35, 60, null, 100],
+["24 Juegos Perfectos 10/10 de NINTENDO SWITCH que Debes Jugar", "NikoJuegos", "deporte_gaming", "2026-08-13", 20.1, 3524, 78, 72, 56, 98, 32, null, 27, 61],
+["Istmo de Panamá, ¿el puente que conectó dos mundos?", "Unknown channel", "practico_personal", "2026-08-13", 10.0, 1640, 66, 60, 86, 93, 28, 76, 51, 72],
+["Qué es la subducción de placas que provocó el mayor terremoto en Colombia de la última década", "BBC News Mundo", "informativo", "2026-08-13", 4.8, 749, 58, 83, 96, 39, 60, 87, null, 54],
+["¿Qué pasa si un NIÑO nunca escucha HABLAR a nadie? | La Ratonera 06", "Hablando en Rata Podcast", "practico_personal", "2026-08-13", 28.4, 5285, 87, 39, 12, 43, 94, 80, 50, 82],
+["😱 ¿Por qué los economistas NUNCA se ponen de acuerdo? 💰 Hay una explicación científica 🤯", "Eduardo Garzón Espinosa", "entretenimiento", "2026-08-13", 15.6, 3035, 91, 38, 33, 62, 97, 60, 44, 58],
+["8 técnicas científicas para aprender algo nuevo o prepararse para un examen | BBC Mundo", "BBC News Mundo", "informativo", "2026-08-14", 9.5, 1271, 34, 34, 87, 99, 40, 85, 81, 31],
+["Qué es la \"Teoría del loco\" que está utilizando Trump y por qué está funcionando | BBC Mundo", "BBC News Mundo", "informativo", "2026-08-14", 6.5, 946, 51, 35, 98, 99, 4, 85, null, 43],
+["Así cambian las pantallas tu percepción del tiempo", "DW Tecnología y mundo digital", "informativo", "2026-08-14", 7.5, 1041, 40, 58, 96, 76, 39, null, null, 54],
+["IMAGINARIO elevado a IMAGINARIO = REAL, ¿ES POSIBLE?", "Mates Mike", "informativo", "2026-08-14", 10.7, 1947, 83, 84, null, 32, 97, null, 30, 54],
+["Who's purging the internet? 38% of it is gone and nobody noticed.", "Marc Vidal", "informativo", "2026-08-14", 21.6, 3426, 62, 67, 82, 98, 30, 84, null, 0],
+["Ebitda récord de $YPF, el dólar no desvela a los CEOs y salta el petróleo por Ormuz", "Bloomberg Línea", "informativo", "2026-08-14", 10.1, 1694, 75, 97, 75, 97, 17, 84, 32, 27],
+["Por Qué el Mar Más Mortal de Europa No Tiene Sentido", "Unknown channel", "practico_personal", "2026-08-14", 15.1, 2617, 76, 66, null, 99, 16, 76, null, 10]
+];
+const META  = {
+ "frame_version": "mm-2026-08-v1",
+ "corpus": {
+  "n_filas": 410,
+  "n_con_transcripcion": 394,
+  "n_apto_panel": 344
+ },
+ "descriptores": {
+  "ritmo_ppm": {
+   "tipo": "continuo",
+   "ambito": "global",
+   "unidad": "palabras/min",
+   "p_perm": 0.2625,
+   "ref": {
+    "_todos": {
+     "n": 344,
+     "p50": 145.35
+    }
+   }
+  },
+  "cifras_100w": {
+   "tipo": "continuo",
+   "ambito": "por_formato",
+   "unidad": "cifras/100 palabras",
+   "p_perm": 0.003,
+   "ref": {
+    "informativo": {
+     "n": 96,
+     "p50": 2.105
+    },
+    "entretenimiento": {
+     "n": 80,
+     "p50": 1.47
+    },
+    "deporte_gaming": {
+     "n": 87,
+     "p50": 2.09
+    },
+    "practico_personal": {
+     "n": 81,
+     "p50": 1.85
+    },
+    "_todos": {
+     "n": 344,
+     "p50": 1.835
+    }
+   }
+  },
+  "atribucion_1000w": {
+   "tipo": "presencia",
+   "ambito": "por_formato",
+   "unidad": "marcas/1000 palabras",
+   "p_perm": 0.0015,
+   "ref": {
+    "informativo": {
+     "n": 96,
+     "n_pres": 64,
+     "p_aus": 0.3333,
+     "med_pres": 0.76
+    },
+    "entretenimiento": {
+     "n": 80,
+     "n_pres": 37,
+     "p_aus": 0.5375,
+     "med_pres": 0.56
+    },
+    "deporte_gaming": {
+     "n": 87,
+     "n_pres": 36,
+     "p_aus": 0.5862,
+     "med_pres": 0.38
+    },
+    "practico_personal": {
+     "n": 81,
+     "n_pres": 31,
+     "p_aus": 0.6173,
+     "med_pres": 0.45
+    },
+    "_todos": {
+     "n": 344,
+     "n_pres": 168,
+     "p_aus": 0.5116,
+     "med_pres": 0.62
+    }
+   }
+  },
+  "mattr_200": {
+   "tipo": "continuo",
+   "ambito": "global",
+   "unidad": "0-1",
+   "p_perm": 0.6535,
+   "ref": {
+    "_todos": {
+     "n": 344,
+     "p50": 0.566
+    }
+   }
+  },
+  "conectores_1000w": {
+   "tipo": "continuo",
+   "ambito": "global",
+   "unidad": "marcas/1000 palabras",
+   "p_perm": 0.84,
+   "ref": {
+    "_todos": {
+     "n": 344,
+     "p50": 9.27
+    }
+   }
+  },
+  "enlaces_externos": {
+   "tipo": "presencia",
+   "ambito": "por_formato",
+   "unidad": "enlaces (absoluto)",
+   "p_perm": 0.0195,
+   "ref": {
+    "informativo": {
+     "n": 96,
+     "n_pres": 50,
+     "p_aus": 0.4792,
+     "med_pres": 1.0
+    },
+    "entretenimiento": {
+     "n": 80,
+     "n_pres": 36,
+     "p_aus": 0.55,
+     "med_pres": 1.0
+    },
+    "deporte_gaming": {
+     "n": 87,
+     "n_pres": 47,
+     "p_aus": 0.4598,
+     "med_pres": 2.0
+    },
+    "practico_personal": {
+     "n": 81,
+     "n_pres": 26,
+     "p_aus": 0.679,
+     "med_pres": 1.0
+    },
+    "_todos": {
+     "n": 344,
+     "n_pres": 159,
+     "p_aus": 0.5378,
+     "med_pres": 1.0
+    }
+   }
+  },
+  "promocional_1000w": {
+   "tipo": "presencia",
+   "ambito": "por_formato",
+   "unidad": "marcas/1000 palabras",
+   "p_perm": 0.004,
+   "ref": {
+    "informativo": {
+     "n": 96,
+     "n_pres": 37,
+     "p_aus": 0.6146,
+     "med_pres": 0.88
+    },
+    "entretenimiento": {
+     "n": 80,
+     "n_pres": 30,
+     "p_aus": 0.625,
+     "med_pres": 0.455
+    },
+    "deporte_gaming": {
+     "n": 87,
+     "n_pres": 54,
+     "p_aus": 0.3793,
+     "med_pres": 0.645
+    },
+    "practico_personal": {
+     "n": 81,
+     "n_pres": 33,
+     "p_aus": 0.5926,
+     "med_pres": 0.55
+    },
+    "_todos": {
+     "n": 344,
+     "n_pres": 154,
+     "p_aus": 0.5523,
+     "med_pres": 0.645
+    }
+   }
+  },
+  "cobertura_titulo": {
+   "tipo": "continuo",
+   "ambito": "por_formato",
+   "unidad": "0-1",
+   "p_perm": 0.008,
+   "ref": {
+    "informativo": {
+     "n": 96,
+     "p50": 0.75
+    },
+    "entretenimiento": {
+     "n": 80,
+     "p50": 0.6
+    },
+    "deporte_gaming": {
+     "n": 87,
+     "p50": 0.625
+    },
+    "practico_personal": {
+     "n": 81,
+     "p50": 0.667
+    },
+    "_todos": {
+     "n": 344,
+     "p50": 0.667
+    }
+   }
+  }
+ }
+};
+
+const DESC = [
+  { k: "ritmo_ppm",         nom: "Ritmo del habla",               i: 0 },
+  { k: "cifras_100w",       nom: "Densidad de cifras",            i: 1 },
+  { k: "atribucion_1000w",  nom: "Menciones de fuente",           i: 2 },
+  { k: "mattr_200",         nom: "Variedad de vocabulario",       i: 3 },
+  { k: "conectores_1000w",  nom: "Conectores lógicos",            i: 4 },
+  { k: "enlaces_externos",  nom: "Enlaces externos",              i: 5 },
+  { k: "promocional_1000w", nom: "Contenido promocional",         i: 6 },
+  { k: "cobertura_titulo",  nom: "Correspondencia con el título", i: 7 },
+];
+
+const NOM_FORMATO = {
+  informativo: "informativo", entretenimiento: "entretenimiento",
+  deporte_gaming: "deporte y gaming", practico_personal: "práctico y personal",
+};
+
+// Por debajo de este n, una mediana con banda intercuartil es ruido dibujado con
+// autoridad. El grafico cambia de forma: pasa a mostrar los videos uno por uno.
+const UMBRAL_N = 15;
+// Cuando un canal se lleva mas que esto del consumo filtrado, lo que se esta
+// mirando es ese canal, no la categoria. Se avisa.
+const UMBRAL_DOMINANCIA = 0.40;
+
+const FILAS_OBJ = FILAS.map((f) => ({
+  titulo: f[0], canal: f[1] || "(sin canal)", formato: f[2], fecha: f[3],
+  min: f[4], palabras: f[5], p: f.slice(6),
+}));
+const FECHA_MIN = FILAS_OBJ.reduce((a, f) => (f.fecha < a ? f.fecha : a), FILAS_OBJ[0].fecha);
+const FECHA_MAX = FILAS_OBJ.reduce((a, f) => (f.fecha > a ? f.fecha : a), FILAS_OBJ[0].fecha);
+
+const estado = { desde: FECHA_MIN, hasta: FECHA_MAX, formato: "", denom: "videos" };
+
+// ─── UTILIDADES ───────────────────────────────────────────────────────────────
+const SVGNS = "http://www.w3.org/2000/svg";
+const el = (n, a = {}) => { const e = document.createElementNS(SVGNS, n);
+  for (const k in a) e.setAttribute(k, a[k]); return e; };
+const css = (v) => getComputedStyle(document.querySelector(".viz-root")).getPropertyValue(v).trim();
+const num = (x, d = 0) => x.toLocaleString("es-ES", { minimumFractionDigits: d, maximumFractionDigits: d });
+const pct = (x) => Math.round(x * 100) + " %";
+
+function fechaCorta(iso) {
+  const [a, m, d] = iso.split("-");
+  return `${+d}/${+m}`;
+}
+function fechaLarga(iso) {
+  const [a, m, d] = iso.split("-");
+  return `${+d}/${+m}/${a}`;
+}
+
+// Cuantil ponderado, variante "inferior": ordena por valor, acumula pesos y
+// devuelve el primer valor donde el peso acumulado alcanza q. Con pesos todos
+// iguales a 1 coincide con el cuantil de siempre.
+function cuantilPond(items, q) {
+  if (!items.length) return null;
+  const arr = items.slice().sort((a, b) => a.v - b.v);
+  const total = arr.reduce((s, x) => s + x.w, 0);
+  if (total <= 0) return null;
+  let acc = 0;
+  for (const it of arr) { acc += it.w; if (acc >= q * total - 1e-9) return it.v; }
+  return arr[arr.length - 1].v;
+}
+
+const peso = (f) => (estado.denom === "minutos" ? f.min : 1);
+
+// ─── TOOLTIP ──────────────────────────────────────────────────────────────────
+const tip = document.getElementById("tip");
+function mostrar(ev, titulo, filas) {
+  tip.innerHTML = `<div class="t">${titulo}</div>` +
+    filas.map(([k, v]) => `<div class="r"><span>${k}</span><b>${v}</b></div>`).join("");
+  tip.style.opacity = 1; mover(ev);
+}
+function mover(ev) {
+  const r = tip.getBoundingClientRect();
+  let x = ev.clientX + 14, y = ev.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14;
+  if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+const ocultar = () => { tip.style.opacity = 0; };
+function conTip(nodo, titulo, filas) {
+  nodo.addEventListener("mouseenter", (e) => mostrar(e, titulo, filas));
+  nodo.addEventListener("mousemove", mover);
+  nodo.addEventListener("mouseleave", ocultar);
+  nodo.setAttribute("tabindex", "0");
+  nodo.addEventListener("focus", () => {
+    const b = nodo.getBoundingClientRect();
+    mostrar({ clientX: b.left + b.width / 2, clientY: b.top }, titulo, filas);
+  });
+  nodo.addEventListener("blur", ocultar);
+}
+
+// ─── EJE 0-100 COMPARTIDO ─────────────────────────────────────────────────────
+function ejePercentil(g, x0, w, yTop, yBot) {
+  [0, 25, 50, 75, 100].forEach((t) => {
+    const x = x0 + (t / 100) * w;
+    g.appendChild(el("line", { x1: x, x2: x, y1: yTop, y2: yBot,
+      class: t === 50 ? "refline" : "gl" }));
+    const lab = el("text", { x, y: yBot + 15, class: "tick", "text-anchor": "middle" });
+    lab.textContent = t; g.appendChild(lab);
+  });
+  const rl = el("text", { x: x0 + w / 2, y: yTop - 7, class: "reflab", "text-anchor": "middle" });
+  rl.textContent = "mediana del corpus"; g.appendChild(rl);
+}
+
+// ─── FILTRADO Y AGREGADOS ─────────────────────────────────────────────────────
+function filtrar() {
+  return FILAS_OBJ.filter((f) =>
+    f.fecha >= estado.desde && f.fecha <= estado.hasta &&
+    (!estado.formato || f.formato === estado.formato));
+}
+
+function agrupar(filas, clave) {
+  const m = new Map();
+  filas.forEach((f) => {
+    const k = clave(f);
+    if (!m.has(k)) m.set(k, { k, filas: [], n: 0, min: 0 });
+    const g = m.get(k); g.filas.push(f); g.n += 1; g.min += f.min;
+  });
+  return [...m.values()];
+}
+
+// Ambito de la escala con la que se comparo cada descriptor. Los percentiles ya
+// vienen calculados contra el corpus del formato del video en los estratificados,
+// asi que filtrar por formato no cambia la vara: la declara.
+function ambitoRef(d) {
+  const m = META.descriptores[d.k];
+  if (m.ambito === "global") return "_todos";
+  return estado.formato || "_todos";
+}
+
+// ─── GRÁFICO 1: panel de descriptores ─────────────────────────────────────────
+function grafico1(filas) {
+  const svg = document.getElementById("c1");
+  svg.textContent = "";
+  const ancho = svg.clientWidth || 900;
+  const izq = Math.min(220, ancho * 0.31), der = 46;
+  const w = ancho - izq - der, fila = 46, top = 26;
+  const alto = top + DESC.length * fila + 26;
+  svg.setAttribute("viewBox", `0 0 ${ancho} ${alto}`);
+  svg.setAttribute("height", alto);
+
+  ejePercentil(svg, izq, w, top - 2, top + DESC.length * fila);
+
+  DESC.forEach((d, i) => {
+    const meta = META.descriptores[d.k];
+    const yc = top + i * fila + fila / 2;
+    const conRasgo = filas.filter((f) => f.p[d.i] !== null)
+      .map((f) => ({ v: f.p[d.i], w: peso(f), f }));
+    const sinRasgo = filas.filter((f) => f.p[d.i] === null);
+
+    const nom = el("text", { x: izq - 14, y: yc - 4, class: "rowlab", "text-anchor": "end" });
+    nom.textContent = d.nom; svg.appendChild(nom);
+    const sub = el("text", { x: izq - 14, y: yc + 11, class: "rowsub", "text-anchor": "end" });
+    sub.textContent = (meta.ambito === "global" ? "escala global" : "escala por formato") +
+      (sinRasgo.length ? ` · ${sinRasgo.length} sin el rasgo` : "");
+    svg.appendChild(sub);
+
+    if (!conRasgo.length) {
+      const t = el("text", { x: izq + 4, y: yc + 4, class: "rowsub" });
+      t.textContent = "ningún video del recorte tiene este rasgo";
+      svg.appendChild(t);
+      return;
+    }
+
+    const nEfectivo = conRasgo.length;
+    if (nEfectivo >= UMBRAL_N) {
+      // Suficientes casos: mediana + mitad central.
+      const q1 = cuantilPond(conRasgo, 0.25), med = cuantilPond(conRasgo, 0.5),
+            q3 = cuantilPond(conRasgo, 0.75);
+      const xq1 = izq + (q1 / 100) * w, xq3 = izq + (q3 / 100) * w;
+      svg.appendChild(el("rect", { x: xq1, y: yc - 5, width: Math.max(2, xq3 - xq1),
+        height: 10, rx: 4, fill: css("--band") }));
+      const xm = izq + (med / 100) * w;
+      svg.appendChild(el("rect", { x: xm - 3.5, y: yc - 11, width: 7, height: 22,
+        rx: 3, fill: css("--surface-1") }));
+      svg.appendChild(el("rect", { x: xm - 1.5, y: yc - 9, width: 3, height: 18,
+        rx: 1.5, fill: css("--band-mark") }));
+      const v = el("text", { x: izq + w + 10, y: yc + 4, class: "vallab" });
+      v.textContent = Math.round(med); svg.appendChild(v);
+
+      const hit = el("rect", { x: izq, y: yc - fila / 2, width: w, height: fila, class: "hit" });
+      conTip(hit, d.nom, [
+        ["Mediana", `percentil ${Math.round(med)}`],
+        ["Mitad central", `${Math.round(q1)} – ${Math.round(q3)}`],
+        ["Videos con el rasgo", nEfectivo],
+        ...(sinRasgo.length ? [["Sin el rasgo", sinRasgo.length]] : []),
+        ["Ponderado por", estado.denom === "minutos" ? "minutos" : "videos (1 c/u)"],
+      ]);
+      svg.appendChild(hit);
+    } else {
+      // Pocos casos: un punto por video. Que la escasez se vea.
+      const r = 4.5;
+      conRasgo.forEach((it, j) => {
+        const x = izq + (it.v / 100) * w;
+        const dy = ((j % 3) - 1) * 5.5;
+        const c = el("circle", { cx: x, cy: yc + dy, r,
+          fill: css("--band-mark"), "fill-opacity": 0.75 });
+        conTip(c, it.f.titulo, [
+          ["Canal", it.f.canal], ["Fecha", it.f.fecha],
+          ["Percentil", it.v], ["Duración", num(it.f.min, 1) + " min"],
+        ]);
+        svg.appendChild(c);
+      });
+      const v = el("text", { x: izq + w + 10, y: yc + 4, class: "vallab" });
+      v.textContent = "n=" + nEfectivo; svg.appendChild(v);
+    }
+  });
+}
+
+// ─── GRÁFICO 2: reparto videos vs minutos ─────────────────────────────────────
+function grafico2(filas) {
+  const svg = document.getElementById("c2");
+  svg.textContent = "";
+  const porFormato = !estado.formato;
+  const grupos = agrupar(filas, (f) => (porFormato ? f.formato : f.canal))
+    .sort((a, b) => b.min - a.min).slice(0, porFormato ? 4 : 10);
+  const totN = filas.length, totMin = filas.reduce((s, f) => s + f.min, 0);
+  if (!grupos.length || !totN) { svg.setAttribute("height", 0); return; }
+
+  const ancho = svg.clientWidth || 900;
+  const izq = Math.min(210, ancho * 0.29), der = 54;
+  const w = ancho - izq - der;
+  const barra = 12, gap = 3, grupo = 2 * barra + gap + 20, top = 10;
+  const alto = top + grupos.length * grupo + 12;
+  svg.setAttribute("viewBox", `0 0 ${ancho} ${alto}`);
+  svg.setAttribute("height", alto);
+
+  const maxShare = Math.max(...grupos.map((g) =>
+    Math.max(g.n / totN, totMin ? g.min / totMin : 0)));
+  const esc = (s) => (s / Math.max(maxShare, 0.0001)) * w;
+
+  grupos.forEach((g, i) => {
+    const y0 = top + i * grupo + 6;
+    const nombre = porFormato ? (NOM_FORMATO[g.k] || g.k) : g.k;
+    const lab = el("text", { x: izq - 14, y: y0 + 11, class: "rowlab", "text-anchor": "end" });
+    lab.textContent = nombre.length > 24 ? nombre.slice(0, 23) + "…" : nombre;
+    svg.appendChild(lab);
+
+    const sN = g.n / totN, sM = totMin ? g.min / totMin : 0;
+    const activo = estado.denom === "minutos";
+    [[sN, 0, "videos", !activo], [sM, 1, "minutos", activo]].forEach(([s, j, et, on]) => {
+      const y = y0 + j * (barra + gap);
+      svg.appendChild(el("rect", { x: izq, y, width: Math.max(2, esc(s)), height: barra, rx: 4,
+        fill: on ? css("--series-1") : css("--neutral-soft") }));
+      const t = el("text", { x: izq + esc(s) + 8, y: y + barra - 2, class: "vallab" });
+      t.textContent = pct(s); svg.appendChild(t);
+    });
+
+    const hit = el("rect", { x: izq, y: y0 - 4, width: w, height: 2 * barra + gap + 8, class: "hit" });
+    conTip(hit, nombre, [
+      ["Videos", `${g.n} (${pct(sN)})`],
+      ["Minutos", `${num(g.min)} (${pct(sM)})`],
+      ["Diferencia", (sM - sN >= 0 ? "+" : "") + Math.round((sM - sN) * 100) + " pp"],
+    ]);
+    svg.appendChild(hit);
+  });
+}
+
+function leyenda2() {
+  const activo = estado.denom === "minutos";
+  document.getElementById("leg2").innerHTML =
+    `<span><i class="sw" style="background:${activo ? css("--neutral-soft") : css("--series-1")}"></i>% de los videos</span>` +
+    `<span><i class="sw" style="background:${activo ? css("--series-1") : css("--neutral-soft")}"></i>% de los minutos</span>` +
+    `<span style="color:var(--muted)">el color lleno marca el denominador elegido</span>`;
+}
+
+// ─── GRÁFICO 3: concentración por canal ───────────────────────────────────────
+function grafico3(filas) {
+  const svg = document.getElementById("c3");
+  svg.textContent = "";
+  const canales = agrupar(filas, (f) => f.canal);
+  const val = (g) => (estado.denom === "minutos" ? g.min : g.n);
+  canales.sort((a, b) => val(b) - val(a));
+  const top10 = canales.slice(0, 10);
+  if (!top10.length) { svg.setAttribute("height", 0); return; }
+
+  const total = canales.reduce((s, g) => s + val(g), 0);
+  const max = val(top10[0]);
+  const ancho = svg.clientWidth || 900;
+  const izq = Math.min(210, ancho * 0.29), der = 62;
+  const w = ancho - izq - der, fila = 26, top = 8;
+  const alto = top + top10.length * fila + 8;
+  svg.setAttribute("viewBox", `0 0 ${ancho} ${alto}`);
+  svg.setAttribute("height", alto);
+
+  top10.forEach((g, i) => {
+    const yc = top + i * fila + fila / 2;
+    const lab = el("text", { x: izq - 14, y: yc + 4, class: "rowlab", "text-anchor": "end" });
+    lab.textContent = g.k.length > 24 ? g.k.slice(0, 23) + "…" : g.k;
+    svg.appendChild(lab);
+    // El color sigue a la entidad destacada (la que pasa el umbral de dominancia),
+    // no a su posicion en la lista.
+    const destacado = val(g) / total >= UMBRAL_DOMINANCIA / 2;
+    const anchoBarra = Math.max(3, (val(g) / max) * w);
+    svg.appendChild(el("rect", { x: izq, y: yc - 6, width: anchoBarra, height: 12, rx: 4,
+      fill: destacado ? css("--series-1") : css("--neutral-mark") }));
+    const v = el("text", { x: izq + anchoBarra + 9, y: yc + 4, class: "vallab" });
+    v.textContent = estado.denom === "minutos"
+      ? num(g.min) + " min" : g.n;
+    svg.appendChild(v);
+
+    const hit = el("rect", { x: izq, y: yc - fila / 2, width: w, height: fila, class: "hit" });
+    conTip(hit, g.k, [
+      ["Videos", g.n], ["Minutos", num(g.min)],
+      ["Del recorte", pct(val(g) / total)],
+    ]);
+    svg.appendChild(hit);
+  });
+
+  const resto = canales.length - top10.length;
+  const restoVal = canales.slice(10).reduce((s, g) => s + val(g), 0);
+  document.getElementById("n3b").textContent = resto > 0
+    ? `Los ${resto} canales restantes aportan ${estado.denom === "minutos"
+        ? num(restoVal) + " minutos" : restoVal + " videos"} entre todos: ` +
+      `un promedio de ${num(restoVal / resto, 1)} cada uno.`
+    : "";
+}
+
+// ─── GRÁFICO 4: línea de tiempo semanal ───────────────────────────────────────
+function lunesDe(iso) {
+  const d = new Date(iso + "T00:00:00Z");
+  const dow = (d.getUTCDay() + 6) % 7;          // 0 = lunes
+  d.setUTCDate(d.getUTCDate() - dow);
+  return d.toISOString().slice(0, 10);
+}
+
+function grafico4() {
+  const svg = document.getElementById("c4");
+  svg.textContent = "";
+  // Se dibuja TODO el historial (respetando solo el filtro de formato) para que
+  // el rango de fechas se vea en su contexto: que se sepa que se esta recortando.
+  const base = FILAS_OBJ.filter((f) => !estado.formato || f.formato === estado.formato);
+  if (!base.length) { svg.setAttribute("height", 0); return; }
+
+  const semanas = new Map();
+  const l0 = lunesDe(FECHA_MIN), l1 = lunesDe(FECHA_MAX);
+  for (let d = new Date(l0 + "T00:00:00Z"); d.toISOString().slice(0, 10) <= l1;
+       d.setUTCDate(d.getUTCDate() + 7)) {
+    semanas.set(d.toISOString().slice(0, 10), { n: 0, min: 0, dentro: 0 });
+  }
+  base.forEach((f) => {
+    const s = semanas.get(lunesDe(f.fecha));
+    if (!s) return;
+    s.n += 1; s.min += f.min;
+    if (f.fecha >= estado.desde && f.fecha <= estado.hasta) s.dentro += 1;
+  });
+
+  const claves = [...semanas.keys()].sort();
+  const val = (s) => (estado.denom === "minutos" ? s.min : s.n);
+  const max = Math.max(1, ...claves.map((k) => val(semanas.get(k))));
+  const ancho = svg.clientWidth || 900;
+  const izq = 34, der = 10, top = 10, altoBarras = 92;
+  const w = ancho - izq - der;
+  const paso = w / claves.length, bw = Math.max(3, paso * 0.7);
+  const alto = top + altoBarras + 34;
+  svg.setAttribute("viewBox", `0 0 ${ancho} ${alto}`);
+  svg.setAttribute("height", alto);
+
+  svg.appendChild(el("line", { x1: izq, x2: izq + w, y1: top + altoBarras,
+    y2: top + altoBarras, class: "gl" }));
+  const yl = el("text", { x: izq - 8, y: top + 10, class: "tick", "text-anchor": "end" });
+  yl.textContent = estado.denom === "minutos" ? num(max) : max;
+  svg.appendChild(yl);
+
+  claves.forEach((k, i) => {
+    const s = semanas.get(k);
+    const h = (val(s) / max) * altoBarras;
+    const x = izq + i * paso + (paso - bw) / 2;
+    const dentro = k >= lunesDe(estado.desde) && k <= lunesDe(estado.hasta) && s.dentro > 0;
+    if (val(s) > 0) {
+      svg.appendChild(el("rect", { x, y: top + altoBarras - h, width: bw, height: h, rx: 2,
+        fill: dentro ? css("--series-1") : css("--neutral-soft") }));
+    }
+    if (i % Math.ceil(claves.length / 8) === 0) {
+      const t = el("text", { x: x + bw / 2, y: top + altoBarras + 16, class: "tick",
+        "text-anchor": "middle" });
+      t.textContent = fechaCorta(k); svg.appendChild(t);
+    }
+    const hit = el("rect", { x: izq + i * paso, y: top, width: paso, height: altoBarras,
+      class: "hit" });
+    conTip(hit, "Semana del " + fechaCorta(k), [
+      ["Videos", s.n], ["Minutos", num(s.min)],
+      ["En el rango elegido", s.dentro + " de " + s.n],
+    ]);
+    svg.appendChild(hit);
+  });
+}
+
+// ─── TABLA ────────────────────────────────────────────────────────────────────
+function tabla(filas) {
+  const canales = agrupar(filas, (f) => f.canal);
+  const val = (g) => (estado.denom === "minutos" ? g.min : g.n);
+  canales.sort((a, b) => val(b) - val(a));
+  document.querySelector("#tbl tbody").innerHTML = canales.map((g) => {
+    const celdas = DESC.map((d) => {
+      const con = g.filas.filter((f) => f.p[d.i] !== null)
+        .map((f) => ({ v: f.p[d.i], w: peso(f) }));
+      if (!con.length) return "—";
+      return Math.round(cuantilPond(con, 0.5));
+    });
+    return `<tr><td>${g.k}</td><td>${g.n}</td><td>${num(g.min)}</td>` +
+      celdas.map((c) => `<td>${c}</td>`).join("") + `</tr>`;
+  }).join("");
+  document.getElementById("nTabla").textContent =
+    `Percentil mediano por canal, ponderado por ${estado.denom === "minutos" ? "minutos" : "videos"}. ` +
+    `Un guion significa que ningún video de ese canal tiene el rasgo: ahí el percentil no existe, ` +
+    `porque no se puede ubicar una ausencia en una escala de magnitud.`;
+}
+
+// ─── TEXTOS QUE DEPENDEN DEL FILTRO ───────────────────────────────────────────
+function textos(filas) {
+  const nMin = filas.reduce((s, f) => s + f.min, 0);
+  const canales = new Set(filas.map((f) => f.canal));
+  const grupos = agrupar(filas, (f) => f.formato);
+  const val = (g) => (estado.denom === "minutos" ? g.min : g.n);
+  const totalVal = estado.denom === "minutos" ? nMin : filas.length;
+  grupos.sort((a, b) => val(b) - val(a));
+
+  document.getElementById("estado").innerHTML =
+    `<span><b>${filas.length}</b> videos</span>` +
+    `<span><b>${num(nMin)}</b> minutos</span>` +
+    `<span>del <b>${fechaLarga(estado.desde)}</b> al <b>${fechaLarga(estado.hasta)}</b></span>` +
+    `<span>${estado.formato ? "formato: <b>" + NOM_FORMATO[estado.formato] + "</b>"
+                            : "<b>todos</b> los formatos"}</span>` +
+    `<span>contando por <b>${estado.denom}</b></span>`;
+
+  const dominante = grupos[0];
+  document.getElementById("tiles").innerHTML = [
+    [filas.length, "videos en el recorte"],
+    [canales.size, "canales distintos"],
+    [num(nMin / 60, 1) + " h", "de tiempo medido"],
+    [filas.length ? num(nMin / filas.length, 0) + " min" : "—", "duración promedio"],
+  ].map(([v, l]) => `<div class="tile"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+  // Aviso de n insuficiente.
+  const avisoN = document.getElementById("avisoN");
+  if (filas.length && filas.length < UMBRAL_N) {
+    avisoN.hidden = false;
+    avisoN.innerHTML = `<b>Pocos videos para una mediana</b>
+      <p>El recorte tiene <b>${filas.length} videos</b>. Por debajo de ${UMBRAL_N}, una mediana
+      con banda intercuartil es ruido dibujado con autoridad, así que el panel muestra
+      <b>los videos uno por uno</b>. Es el mismo motivo por el que el porcentaje de valor
+      diario de una etiqueta nutricional no dice nada sobre una miga: es calculable y es inútil.</p>`;
+  } else avisoN.hidden = true;
+
+  // Aviso de dominancia de canal: el canal disfrazado de categoria.
+  const avisoDom = document.getElementById("avisoDom");
+  const canalesG = agrupar(filas, (f) => f.canal).sort((a, b) => val(b) - val(a));
+  if (canalesG.length && totalVal > 0 && val(canalesG[0]) / totalVal >= UMBRAL_DOMINANCIA) {
+    const g = canalesG[0];
+    avisoDom.hidden = false;
+    avisoDom.innerHTML = `<b>Un canal domina este recorte</b>
+      <p><b>${g.k}</b> se lleva el <b>${pct(val(g) / totalVal)}</b> de
+      ${estado.denom === "minutos" ? "los minutos" : "los videos"} que estás mirando acá.
+      Lo que describe el panel es, en buena medida, ese canal
+      ${estado.formato ? "y no el formato «" + NOM_FORMATO[estado.formato] + "»" : "y no tu dieta en general"}.</p>
+      <p>Es el mismo patrón que ya apareció antes en el proyecto —el transcriptor colándose
+      en las palabras por frase, la duración en la riqueza léxica— pero ahora en la capa
+      del análisis: <b>el canal se disfraza de categoría</b>.</p>`;
+  } else avisoDom.hidden = true;
+
+  // Notas de cada grafico.
+  const suficiente = filas.length >= UMBRAL_N;
+  document.getElementById("n1").innerHTML = suficiente
+    ? `La marca vertical es la <b>mediana</b> del recorte; la barra clara abarca la mitad
+       central (percentil 25 a 75 de tus propios videos). La línea de referencia en 50 es
+       la mediana del corpus: todo lo que queda a su derecha es más alto que el YouTube
+       típico. ${estado.denom === "minutos"
+         ? "<b>Ponderado por minutos</b>: un podcast de dos horas pesa lo que ocupó, no uno."
+         : "Cada video pesa 1, sin importar si dura tres minutos o dos horas."}
+       Las filas con menos de ${UMBRAL_N} videos que tengan el rasgo se muestran
+       <b>punto por punto</b>, sin mediana.`
+    : `Cada punto es un video. Con tan pocos casos no se dibuja mediana: se muestran los
+       videos individuales, que es lo único que los datos sostienen.`;
+
+  const conAmbito = DESC.filter((d) => META.descriptores[d.k].ambito === "por_formato").length;
+  document.getElementById("n1b").innerHTML = estado.formato
+    ? `Los percentiles ya vienen calculados contra el corpus del formato de cada video en los
+       <b>${conAmbito} descriptores estratificados</b>, así que filtrar por «${NOM_FORMATO[estado.formato]}»
+       no cambia la vara: la declara. Los otros ${DESC.length - conAmbito} usan la escala global
+       porque la prueba de permutación no encontró diferencia entre formatos.`
+    : `${conAmbito} de los ${DESC.length} descriptores se comparan contra el corpus <b>del formato
+       de cada video</b> y los otros ${DESC.length - conAmbito} contra el corpus completo. No es una
+       elección de presentación: lo decidió una prueba de permutación sobre los 344 videos.`;
+
+  document.getElementById("t2").textContent = estado.formato
+    ? "Por videos o por minutos: los canales de este formato"
+    : "Por videos o por minutos: el mismo consumo, dos repartos";
+  document.getElementById("n2").innerHTML =
+    `Cambiar el denominador cambia la conclusión: contar videos trata igual a un resumen de
+     tres minutos y a un podcast de dos horas. Es el <b>por porción</b> contra el
+     <b>por 100 g</b> del envase. Cuando las dos barras de una fila difieren mucho, ahí está
+     la diferencia entre lo que mirás seguido y lo que te ocupa el tiempo.`;
+
+  document.getElementById("t3").textContent = "Concentración por canal";
+  document.getElementById("n3").innerHTML =
+    `Los diez canales con más ${estado.denom === "minutos" ? "minutos" : "videos"} del recorte.`;
+
+  document.getElementById("pie").innerHTML =
+    `Escala de referencia <code>${META.frame_version}</code> · ${META.corpus.n_apto_panel} videos ` +
+    `en español aptos para el panel · Historial completo: ${FILAS_OBJ.length} videos, ` +
+    `del ${FECHA_MIN} al ${FECHA_MAX} · Los descriptores de presencia (fuentes, enlaces, ` +
+    `promocional) sólo tienen percentil cuando el rasgo está presente.`;
+}
+
+// ─── CONTROLES ────────────────────────────────────────────────────────────────
+const iDesde = document.getElementById("fDesde");
+const iHasta = document.getElementById("fHasta");
+const iFormato = document.getElementById("fFormato");
+
+function inicializarControles() {
+  [iDesde, iHasta].forEach((i) => { i.min = FECHA_MIN; i.max = FECHA_MAX; });
+  iDesde.value = estado.desde; iHasta.value = estado.hasta;
+}
+iDesde.addEventListener("change", () => {
+  estado.desde = iDesde.value || FECHA_MIN;
+  if (estado.desde > estado.hasta) { estado.hasta = estado.desde; iHasta.value = estado.hasta; }
+  dibujar();
+});
+iHasta.addEventListener("change", () => {
+  estado.hasta = iHasta.value || FECHA_MAX;
+  if (estado.hasta < estado.desde) { estado.desde = estado.hasta; iDesde.value = estado.desde; }
+  dibujar();
+});
+iFormato.addEventListener("change", () => { estado.formato = iFormato.value; dibujar(); });
+document.getElementById("fDenom").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  estado.denom = b.dataset.v;
+  [...e.currentTarget.querySelectorAll("button")].forEach((x) =>
+    x.setAttribute("aria-pressed", String(x === b)));
+  dibujar();
+});
+document.getElementById("btnReset").addEventListener("click", () => {
+  estado.desde = FECHA_MIN; estado.hasta = FECHA_MAX; estado.formato = "";
+  iDesde.value = FECHA_MIN; iHasta.value = FECHA_MAX; iFormato.value = "";
+  dibujar();
+});
+
+// ─── TEMA ─────────────────────────────────────────────────────────────────────
+const btn = document.getElementById("themeBtn");
+function oscuroActivo() {
+  const t = document.documentElement.getAttribute("data-theme");
+  if (t) return t === "dark";
+  return matchMedia("(prefers-color-scheme: dark)").matches;
+}
+const sincronizarBoton = () => { btn.textContent = oscuroActivo() ? "Modo claro" : "Modo oscuro"; };
+btn.addEventListener("click", () => {
+  document.documentElement.setAttribute("data-theme", oscuroActivo() ? "light" : "dark");
+  sincronizarBoton(); dibujar();
+});
+
+// ─── ORQUESTA ─────────────────────────────────────────────────────────────────
+function dibujar() {
+  const filas = filtrar();
+  textos(filas);
+  leyenda2();
+  if (!filas.length) {
+    ["c1", "c2", "c3"].forEach((id) => {
+      const s = document.getElementById(id); s.textContent = ""; s.setAttribute("height", 0);
+    });
+    document.querySelector("#tbl tbody").innerHTML = "";
+    document.getElementById("n3b").textContent = "";
+    document.getElementById("n1").textContent =
+      "No hay videos en este rango. Ampliá las fechas o volvé a «Ver todo».";
+    grafico4();
+    return;
+  }
+  grafico1(filas); grafico2(filas); grafico3(filas); grafico4(); tabla(filas);
+}
+
+inicializarControles();
+sincronizarBoton();
+dibujar();
+addEventListener("resize", () => { clearTimeout(window._t); window._t = setTimeout(dibujar, 140); });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+  if (!document.documentElement.getAttribute("data-theme")) { sincronizarBoton(); dibujar(); }
+});
+</script>
+</body>
+</html>

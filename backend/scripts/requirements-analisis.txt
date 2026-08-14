@@ -15,3 +15,8 @@ numpy>=1.26
 psycopg2-binary>=2.9.9
 python-dotenv>=1.0.1
 requests>=2.32
+
+# build_dashboard.py corta las fechas de visionado en Europe/Paris. Windows no
+# trae base de zonas horarias, asi que zoneinfo la necesita como paquete. El
+# script tiene una regla de respaldo y anda igual sin esto, pero mejor tenerlo.
+tzdata>=2024.1
