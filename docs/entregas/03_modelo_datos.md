@@ -3,260 +3,229 @@
 > **Autor:** Juan Taraciuk
 > **Proyecto:** Cognitive Analysis — *Nutri-Score de Contenidos*
 > **Entregas previas:** [`01_ideas_producto.md`](01_ideas_producto.md) · [`02_datos_necesarios.md`](02_datos_necesarios.md)
+> **Actualizado:** agosto 2026 · escala `mm-2026-08-v1` · features `panel-1.0`
+
+> **Nota sobre la evolución del proyecto.** Este documento refleja el diseño de datos **vigente**, que cambió de forma sustancial respecto de lo descrito en la Entrega 2. Aquel documento planteaba un *Nutri-Score cognitivo* agregado (letra A–E y valor 0–100) producido por un scorer por reglas, con vistas a un modelo supervisado. Ese enfoque **se jubiló el 2026-08-13** por una razón que vale la pena registrar: la puntuación única correlacionaba 0,73 con el logaritmo de la duración —es decir, medía en buena parte "cuán largo es el video" disfrazado de "cuán valioso es"— y, sobre todo, **agregar y poner una letra es emitir un juicio** que el sistema no debería arrogarse. La Entrega 2 se conserva intacta como registro histórico de esa etapa; lo que sigue describe el modelo que la reemplazó.
 
 ---
 
 ## 1. Resumen de la idea y datos del proyecto
 
-**Problema.** Consumimos cada día una enorme cantidad de contenido digital —sobre todo video— sin ninguna señal que indique cuánto valor real aporta antes de invertir el tiempo. En alimentación existe la etiqueta nutricional; en contenido no hay nada equivalente. La analogía que guía el proyecto es exactamente esa: igual que quien quiere ganar músculo mira las proteínas y quien quiere adelgazar mira las calorías, quien quiere consumir de forma más consciente debería poder mirar un indicador simple del "valor cognitivo" de un video antes de darle play.
+**Problema.** Consumimos cada día una enorme cantidad de contenido digital —sobre todo video— sin ninguna señal que indique qué nos aporta antes de invertir el tiempo. En alimentación existe la etiqueta nutricional; en contenido no hay nada equivalente. La analogía sigue guiando el proyecto: igual que quien quiere ganar músculo mira las proteínas y quien quiere adelgazar mira las calorías, quien quiere consumir de forma más consciente debería poder mirar **una etiqueta con varios indicadores** antes de darle play —y decidir por sí mismo, según su objetivo.
 
-**Solución.** Calcular automáticamente un *Nutri-Score cognitivo* (letra A–E y valor 0–100) para cada video de YouTube. Una extensión de Chrome detecta el video que se está viendo y lo envía a un backend (FastAPI, desplegado en Render) que lo enriquece y lo puntúa. La puntuación hoy la produce un **motor por reglas** transparente (diez señales ponderadas sobre título, duración, transcripción, categoría, engagement y descripción); ese motor es además la base para etiquetar datos y, más adelante, entrenar un **modelo supervisado**. El MVP ya está operativo end-to-end (extensión + backend + PostgreSQL en Supabase, con ~85 videos capturados).
+**Solución (rediseñada).** En lugar de una nota única, el sistema calcula un **panel de 8 descriptores** medibles de cada video de YouTube y ubica cada uno como **percentil dentro de un corpus público de referencia** ("este video tiene más cifras por minuto que el 68 % de los videos comparables"). Deliberadamente **no hay letra, no hay puntuación agregada y no hay pesos**: cada descriptor se muestra por separado y la valoración la pone el usuario. Es el cambio conceptual central respecto de la Entrega 2 —de un *score que juzga* a un *panel que describe*—. Siguiendo la misma lógica, se descartaron las **métricas de audiencia** (visualizaciones, likes, comentarios): miden al canal y al algoritmo de recomendación, no al contenido en sí.
 
-**Fuentes de datos y qué aporta cada una.** El proyecto combina tres orígenes, ya descritos en la Entrega 2:
+Una extensión de Chrome detecta el video en pantalla, un backend FastAPI (desplegado en Render) lo enriquece y lo puntúa contra la escala, y el resultado se muestra en el navegador. El MVP está operativo end-to-end con base PostgreSQL en Supabase.
 
-- **YouTube Data API v3** (`videos.list`, `part=snippet,statistics`) — metadatos y estadísticas del video: descripción, `tags`, categoría, visualizaciones, "me gusta" y comentarios. Es una foto del momento.
-- **Supadata API** — la transcripción del video (subtítulos nativos, con *fallback* a Whisper). Resuelve el bloqueo de YouTube a las IPs de datacenter de Render. Es la materia prima del análisis de lenguaje.
-- **Extensión propia (first-party)** — el evento de consumo: qué video se vio y cuándo. Es lo que, acumulado, permite reconstruir la "dieta cognitiva" del usuario.
+**Fuentes de datos y qué aporta cada una.**
 
-A esto se suma una cuarta pieza que **no viene de ninguna fuente externa sino que se genera dentro del sistema**: el resultado del scorer (features + puntuación), que es lo que finalmente alimenta el análisis y el modelo.
+- **YouTube Data API v3** (`videos.list`, `part=snippet,statistics,contentDetails`) — metadatos: título, canal, descripción, `tags`, categoría, duración e idioma declarado. (Las estadísticas de audiencia se recogen pero ya **no** alimentan la medición.)
+- **Transcripción del video** — la materia prima del análisis lingüístico. Se obtiene por dos caminos calibrados como equivalentes: `youtube_transcript_api` + `yt-dlp` en un worker **local** (IP residencial, usado para construir el corpus de referencia y para el enriquecimiento por lotes) y **Supadata** en producción (modo `native`, nunca Whisper, para los videos que el usuario abre en vivo). La procedencia de cada transcripción se guarda como dato (`transcript_source`, `transcript_is_generated`, `transcript_lang`), porque cambia qué señales son calculables. La equivalencia de ambas fuentes se verificó de forma pareada sobre 7 videos (correlaciones de 0,996 a 1,000; ningún video cambia de tramo).
+- **Extensión propia (first-party)** — el evento de consumo (qué video se vio y cuándo). Es lo que, acumulado, forma el **historial** personal que alimenta el dashboard de "dieta cognitiva".
+- **Corpus de referencia** — una fuente nueva, generada por **muestreo estratificado** de videos públicos de YouTube (no es consumo del usuario). Es la población contra la que se calculan los percentiles, y se materializa en el artefacto versionado `escala_referencia.json`.
+
+A esto se suma la pieza que el sistema **genera** y que es el corazón de la entrega: la tabla `content_features`, la "etiqueta nutricional" calculada de cada video.
 
 ---
 
 ## 2. Tecnología o formato de almacenamiento elegido
 
-**Elección: base de datos relacional PostgreSQL (Supabase), con uso de columnas `JSONB` para las partes semiestructuradas.** No se opta por CSV/Excel/Parquet como almacenamiento primario, y la justificación es concreta para este proyecto:
+**Elección: base de datos relacional PostgreSQL (Supabase) con columnas `JSONB`, complementada por un fichero JSON versionado para la escala de referencia.** Es una **combinación de formatos**, y cada pieza está donde le corresponde:
 
-- **La ingesta es transaccional y continua, no un volcado.** Los datos no llegan como un fichero que se procesa una vez, sino como un goteo de eventos: cada vez que abro un video, la extensión hace un `POST` y el backend escribe una fila. Una base relacional con escritura concurrente y restricciones es el encaje natural; un CSV se corrompería con escrituras simultáneas y no ofrece integridad.
-- **Necesito deduplicar de forma fiable.** Un mismo video puede verse muchas veces, pero debe existir **un solo** registro de contenido. Esto se garantiza con una restricción `UNIQUE(external_id)` a nivel de motor —algo que un fichero plano no puede imponer— y que ya está implementada (`content_items.external_id UNIQUE`).
-- **Guardo historial de puntuaciones versionadas.** Cada corrida del scorer se guarda como una fila nueva etiquetada con `scorer_version`, lo que permite re-puntuar el catálogo con una versión mejorada del algoritmo y comparar. Ese patrón append-only con relación 1:N encaja en un modelo relacional, no en una hoja de cálculo.
-- **Los datos son mixtos: estructurados + semiestructurados.** Los metadatos (duración, categoría, contadores) son tabulares, pero hay tres piezas que no lo son: el *payload* crudo de la extensión, la lista de `tags`, y el *breakdown* de señales del scorer. PostgreSQL permite tener lo estructurado en columnas tipadas y lo semiestructurado en `JSONB` en la **misma** tabla, sin forzar un esquema rígido ni fragmentar en varios ficheros. Es justamente la combinación que pide un dato heterogéneo como éste.
-- **El volumen lo permite sin complejidad extra.** El objetivo del curso es del orden de **cientos a pocos miles de videos** (~500–1.500) más decenas/cientos de eventos de consumo. Es un volumen pequeño; no justifica un data warehouse ni Parquet particionado. Postgres lo maneja de sobra y ya está desplegado y funcionando, lo que además evita añadir infraestructura por gusto (criterio explícito de la entrega: no usar tecnología más compleja "porque sí").
+- **PostgreSQL para todo lo operativo, intermedio y la capa gold.** La ingesta es transaccional y continua (cada video abierto es un `POST` que escribe una fila), necesita deduplicación fiable a nivel de motor (`UNIQUE(external_id)`), funciona además como **cola de trabajo** con reintentos (columnas `attempts`, `next_attempt_at`, `enrichment_status`), y mezcla datos tabulares con semiestructurados (el `payload` crudo, los `tags`, los `transcript_segments`, el `panel` calculado) que `JSONB` resuelve en la misma tabla sin fragmentar en ficheros. El volumen —cientos a pocos miles de videos— es pequeño y no justifica un data warehouse ni Parquet; Postgres ya está desplegado y funcionando, lo que evita añadir tecnología "porque sí".
+- **Un fichero JSON (`escala_referencia.json`) para la escala de referencia.** La escala es un objeto pequeño, **inmutable y versionado** (`frame_version = "mm-2026-08-v1"`): 101 percentiles por descriptor más los parámetros del método. Tiene que (a) viajar con el deploy para que el panel en vivo y el estudio del TFM midan contra exactamente la misma población, y (b) quedar congelada bajo control de versiones, porque *percentiles de escalas distintas no son comparables*. Para ese rol —un artefacto de solo-lectura, portable y auditable— un fichero versionado es mejor medio que una tabla.
 
-**Sobre la capa gold en concreto.** La capa gold **no se exporta a ficheros**: se materializa como **vistas SQL dentro de la misma base PostgreSQL** (ver §4). Las fases posteriores —EDA en un notebook, entrenamiento del modelo, dashboard— la consumen leyendo directamente esas vistas por SQL (por ejemplo con `pandas.read_sql`). Así el "contrato de datos" vive en un único lugar, siempre consistente con las tablas de origen, sin copias desincronizadas ni un paso de exportación que mantener.
+**Matiz respecto de la Entrega 3 anterior.** En una versión previa de esta entrega la capa gold se planteó como *vistas SQL*. El diseño real evolucionó a una **tabla materializada** (`content_features`, ver §4) y no una vista, por dos motivos concretos del código: el sistema necesita **memoria** de lo que midió —para poder afirmar en la memoria del TFM "así se distribuyó mi historial", algo imposible si el panel se recalcula y se olvida en cada request— y necesita **cachear** un cálculo caro (importar pandas/numpy en el arranque en frío de Render cuesta 10–20 s). Cada cálculo del panel hace `upsert` en `content_features` (una fila por video, se pisa al recalcular).
 
 ---
 
 ## 3. Estructura de capas de datos
 
-El proyecto ya está organizado según una **arquitectura medallion de tres capas**, implementada como tres tablas en PostgreSQL (migración `001_three_layer_schema.sql`, aplicada el 2026-07-16). El mapeo con la nomenclatura `raw / processed / gold` de la guía es directo:
+El proyecto usa una **arquitectura medallion de tres capas** sobre PostgreSQL, más el fichero de escala como artefacto de referencia. El mapeo con la nomenclatura `raw / processed / gold` de la guía:
 
-| Capa (guía) | Equivalente medallion | Materialización real | Contenido |
-|---|---|---|---|
-| **Raw** | Bronze | Tabla `raw_events` | Ingesta cruda e inmutable. Guarda el `POST` verbatim de la extensión en una columna `JSONB`, append-only. Nunca se modifica: es la fuente de verdad para auditoría y para poder reprocesar. |
-| **Processed** | Silver | Tabla `content_items` | Un registro limpio y enriquecido por video único (dedup por `external_id`). Metadatos tipados de la extensión + YouTube API + transcripción. Es el "video" ya normalizado. |
-| **Intermedia / serving** | — | Tabla `content_scores` | Historial de puntuaciones: una fila por cada corrida del scorer sobre un `content_item`, etiquetada con `scorer_version`. Contiene la letra, el valor 0–100 y el *breakdown* de señales en `JSONB`. Alimenta la capa gold pero no es la gold en sí. |
-| **Gold** | Gold | **Vistas SQL** (`gold_video_features`, `gold_consumption_events`, `gold_cognitive_diet`) | Datasets finales, limpios y con el contrato estable que consumen EDA, modelo y dashboard. Se construyen sobre las tres tablas anteriores. |
+| Capa (guía) | Materialización real | Contenido |
+|---|---|---|
+| **Raw** (bronze) | Tabla `raw_events` | Ingesta cruda e inmutable: el `POST` verbatim de la extensión en `JSONB`, append-only. Fuente de verdad y semilla de la cola de enriquecimiento. |
+| **Processed** (silver) | Tabla `content_items` (44 columnas) | Un registro limpio y enriquecido por video único (dedup por `external_id`). Metadatos + transcripción con su procedencia + estado de la cola de enriquecimiento + separación de corpus (ver abajo). |
+| **Gold** | **Tabla `content_features`** | La "etiqueta nutricional": una fila por video con los 8 descriptores crudos, su percentil en la escala, el gate de aptitud y las etiquetas. Es el contrato de datos que consumen el dashboard, el análisis del TFM y la extensión. |
+| *Artefacto de referencia* | Fichero `escala_referencia.json` | La escala (101 percentiles por descriptor, por formato cuando corresponde) contra la que `content_features` ubica cada valor. Versionado por `frame_version`. |
+| *Retirada* | Tabla `content_scores` | Historial del viejo score A–E. **Sin filas nuevas desde 2026-08-13**; se conserva como evidencia de la etapa anterior. |
 
-Es decir, el flujo es:
+**Dos subpoblaciones dentro de `content_items`.** La columna `corpus` separa `historial` (lo que mira el usuario; tiene `watched_at`) de `referencia` (videos muestreados para construir la escala). **Nunca se mezclan al calcular percentiles**: medir el historial contra sí mismo sería circular. El historial personal de partida (94 videos, 41 % de un solo canal, casi todo *News & Politics* en español) es justamente lo que **no** puede servir de escala —"es un espejo del consumo de una persona, no una referencia"— y por eso existe el corpus separado.
+
+**Flujo:**
 
 ```
-raw_events        →  content_items      →  content_scores    →  vistas gold_*
-(payload crudo)      (video limpio)         (features+score)     (datasets de consumo final)
-   bronze                silver                serving               gold
+raw_events   →   content_items          →   content_features
+(payload)        (video limpio + cola        (panel: 8 descriptores
+  bronze          + procedencia + corpus)     + percentiles + gate)
+                        silver                        gold
+                           │                            ▲
+                           │  subconjunto corpus=referencia
+                           ▼                            │
+                   muestreo estratificado  →  escala_referencia.json
+                                              (artefacto de referencia)
 ```
-
-**Matiz respecto a la migración.** El archivo de migración etiqueta hoy a `content_scores` como "gold". Para esta entrega refino esa definición: `content_scores` es una capa **de servicio / intermedia** (el output operativo del scorer que consume la extensión en tiempo real), mientras que la **gold analítica** —la que sirve de contrato para las fases de Data Science— son las **vistas derivadas** que aplanan y combinan las tres tablas en datasets listos para modelar y visualizar. Esta separación es coherente con la definición de la guía: la gold es "el conjunto de datos limpios, definidos y preparados que se utilizarán en análisis, modelado, visualización".
 
 ---
 
 ## 4. Definición de la capa gold
 
-La capa gold se compone de **tres vistas** en PostgreSQL, cada una con un consumidor claro. Las dos primeras son el núcleo de la entrega; la tercera es una agregación de conveniencia para el dashboard.
+La capa gold es **un único dataset: la tabla `content_features`**. Aguas arriba hay un modelo relacional pequeño que la alimenta (§5), pero lo que consumen las fases posteriores —dashboard, análisis, extensión— es esta sola tabla. No hay una segunda tabla gold de "consumo": el dashboard reconstruye la dieta cognitiva uniendo `content_features` con el `watched_at` de `content_items` (filtrando `corpus = 'historial'`) y **agregando al vuelo**, sin materializar un dataset aparte.
 
 ### 4.1. Tabla resumen
 
 | Dataset gold | Granularidad | Campos clave | Uso posterior |
 |---|---|---|---|
-| `gold_video_features` | Una fila por **video único** | `content_item_id`, `external_id`, features `f_*`, `score_numeric`, `score_letter`, `label_manual` | EDA + **modelo predictivo** |
-| `gold_consumption_events` | Una fila por **visualización** (usuario × video × instante) | `event_id`, `user_pseudo_id`, `content_item_id`, `watched_at`, `score_letter` | **Dashboard** de dieta cognitiva |
-| `gold_cognitive_diet` | Una fila por **usuario × semana** | `user_pseudo_id`, `week`, distribución A–E, minutos por franja de valor | Dashboard (agregado) |
+| `content_features` | Una fila por **video** (`content_item_id` único; se pisa al recalcular) | `content_item_id`, `apto`, los 8 `*_pct` (percentiles), `formato`, `frame_version` | **Dashboard** (dieta cognitiva) · **EDA / memoria TFM** · **extensión** (endpoint `/panel`) |
 
-### 4.2. `gold_video_features` — dataset de modelado
+### 4.2. `content_features` — especificación
 
-**Descripción funcional.** Una fila por video con su vector de características ya extraído más la variable objetivo. Es el dataset de entrenamiento/evaluación del modelo supervisado y la base del EDA. Se construye aplanando el `content_scores.score_details` (JSONB) más reciente de cada `content_item` y uniéndolo con los metadatos de `content_items`.
+**Descripción funcional.** La etiqueta nutricional de cada video: sus 8 descriptores en valor crudo, la posición de cada uno como percentil en la escala de referencia, si el video es **medible** (gate `apto`) y por qué no lo es cuando no lo es, más un conjunto de etiquetas categóricas auditables. Se calcula con `nutriscore_features.py` —el **mismo** módulo con el que se construyó la escala, para que el panel en vivo y el estudio no midan cosas distintas— y se persiste por `upsert`.
 
-**Granularidad.** Un registro por `content_item` (video único). Se toma **solo la puntuación más reciente por video** para una `scorer_version` fija (`DISTINCT ON (content_item_id) ... ORDER BY scored_at DESC`), de modo que el historial de re-scoring no duplique filas.
+**Granularidad.** Una fila por video (`UNIQUE (content_item_id)`), correspondiente al último cálculo. Está versionada por `features_version` (hoy `panel-1.0`) y `frame_version` (la escala usada).
 
-**Número aproximado de registros.** Hoy ~85; objetivo del curso ~500–1.500.
+**Número aproximado de registros.** Del orden de **varios cientos** hoy (historial ≈94 + corpus de referencia ≈410), y crece con cada video nuevo que se abre. Se guardan también las filas de videos **no aptos**: que un video no se pueda medir es un dato, no un vacío —el hallazgo de que los formatos difieren más en *si se pueden medir* que en *cómo puntúan* se sostiene sobre esas filas.
 
-**Clave primaria.** `content_item_id` (o `external_id` como clave natural de YouTube).
+**Clave primaria / identificador.** `content_item_id` (FK a `content_items.id`, `ON DELETE CASCADE`, con índice único → funciona como identificador natural de la fila).
 
 **Campos principales.**
 
 | Campo | Tipo | Descripción |
 |---|---|---|
-| `content_item_id` | `bigint` (PK) | Identificador interno del video. |
-| `external_id` | `varchar` | ID nativo de YouTube. Clave natural. |
-| `title` | `text` | Título del video. |
-| `channel` | `text` | Canal. |
-| `category_id` | `varchar` | ID de categoría de YouTube. |
-| `category_name` | `varchar` | Nombre legible de categoría (`Education`, `Comedy`, …). |
-| `duration_seconds` | `integer` | Duración en segundos. |
-| `duration_bucket` | `varchar` (derivado) | `short` / `very_short` / `medium` / `long` / `very_long`. |
-| `has_transcript` | `boolean` (derivado) | `true` si había transcripción utilizable (≥50 palabras). **Flag imprescindible** para no confundir señal real con imputación. |
-| `f_title` | `float` | Señal de título (0–1): penaliza mayúsculas, exclamaciones y palabras emocionales/clickbait. |
-| `f_duration` | `float` | Señal de duración (0–1). |
-| `f_lexical_richness` | `float` | Riqueza léxica: ratio de palabras únicas (0–1). |
-| `f_data_density` | `float` | Densidad de cifras por 100 palabras (0–1). |
-| `f_source_presence` | `float` | Presencia de referencias a fuentes/evidencia (0–1). |
-| `f_readability` | `float` | Legibilidad (Flesch) en rango óptimo (0–1). |
-| `f_repetition` | `float` | Ratio de bigramas únicos, poca repetición → mejor (0–1). |
-| `f_category` | `float` | Categoría como proxy de valor educativo (0–1). |
-| `f_engagement` | `float` | Combinación de ratios like/view y comment/view (0–1). |
-| `f_description` | `float` | Calidad de la descripción: longitud, links y fuentes (0–1). |
-| `like_ratio` | `float` (derivado) | `like_count / view_count`. |
-| `comment_ratio` | `float` (derivado) | `comment_count / view_count`. |
-| `flesch_score` | `float` (derivado) | Índice Flesch crudo. |
-| `scorer_version` | `varchar` | Versión del algoritmo que generó estas features. |
-| **`score_numeric`** | `float` | **Target actual (weak label):** puntuación 0–100 del scorer por reglas. |
-| **`score_letter`** | `char(1)` | **Target actual (weak label):** clase A–E. |
-| **`label_manual`** | `float` / `char(1)` *(nullable)* | **Target de referencia (ground truth):** etiqueta manual de "valor cognitivo" según rúbrica. Hoy vacío; se construye en la fase de etiquetado. |
-| `watched_at` | `timestamptz` | Cuándo se vio por primera vez. |
-| `scored_at` | `timestamptz` | Cuándo se calculó la puntuación. |
-
-**Variables objetivo / columnas relevantes.** El objetivo del modelo es `score_numeric` (regresión) o `score_letter` (clasificación). Distinción clave del proyecto: hoy el único target disponible es el **weak label** del propio scorer por reglas, y el `label_manual` (ground truth) es la columna que aún hay que poblar y que definirá la calidad real del modelo. Las diez columnas `f_*` son las variables predictoras.
-
-**Uso posterior.** EDA (distribución de scores, correlaciones entre señales, cobertura por categoría) y entrenamiento/validación del modelo supervisado.
-
-### 4.3. `gold_consumption_events` — dataset del dashboard
-
-**Descripción funcional.** Una fila por evento de visualización, para reconstruir la "dieta cognitiva" en el tiempo. Se construye desde `raw_events` (cada evento de consumo) uniendo con `content_items` y con la puntuación vigente del video.
-
-> **Estado: diseño previsto (parcialmente futuro).** Hoy `raw_events` guarda el `payload` de la extensión con `tracked_at`, pero **sin identificador de usuario** (el MVP opera sobre mi propio consumo). Este dataset define el campo `user_pseudo_id` como parte del diseño objetivo; mientras haya un solo usuario, toma un valor constante (`self`). Cuando la extensión incorpore un id seudónimo por usuario (con consentimiento, ver privacidad en Entrega 2), el dataset queda completo sin cambios de esquema.
-
-**Granularidad.** Un registro por `(user_pseudo_id, external_id, watched_at)` — cada vez que se ve un video. A diferencia de `gold_video_features`, aquí **sí** hay varias filas por video (una por visualización).
-
-**Número aproximado de registros.** Decenas a cientos por usuario; crece con el uso.
-
-**Clave primaria.** `event_id` (derivado de `raw_events.id`).
-
-**Campos principales.**
-
-| Campo | Tipo | Descripción |
-|---|---|---|
-| `event_id` | `bigint` (PK) | Identificador del evento (= `raw_events.id`). |
-| `user_pseudo_id` | `varchar` | Identificador seudónimo del usuario. Hoy `self`. |
-| `content_item_id` | `bigint` (FK) | Video visto → `content_items.id`. |
-| `external_id` | `varchar` | ID de YouTube del video. |
-| `watched_at` | `timestamptz` | Instante de la visualización (normalizado a UTC). |
-| `watched_date` | `date` (derivado) | Fecha, para agregación diaria/semanal. |
-| `category_name` | `varchar` | Categoría del video (desde `content_items`). |
+| `content_item_id` | `bigint` (FK, único) | Video al que corresponde el panel. |
+| `features_version` | `varchar` | Versión del calculador (`panel-1.0`). |
+| `frame_version` | `varchar` | Versión de la escala usada (`mm-2026-08-v1`). Los percentiles solo son comparables dentro de la misma. |
+| `formato` | `varchar` | Macroformato del video (`informativo` / `practico_personal` / `entretenimiento` / `deporte_gaming`). Necesario para leer los descriptores `por_formato`. |
+| `apto` | `boolean` | Gate: si el video es medible. `true` / `false` / (fila ausente → "procesando"). |
+| `cobertura_transcripcion` | `real` | Palabras reales ÷ esperadas (`duración_min × 150`). Base del gate. |
+| `motivo_no_apto` | `varchar` | Por qué no es medible (p. ej. `cobertura_de_habla_insuficiente`). |
+| `n_words` | `integer` | Palabras de la transcripción. |
 | `duration_seconds` | `integer` | Duración del video. |
-| `score_letter` | `char(1)` | Letra vigente del video. |
-| `score_numeric` | `float` | Valor 0–100 vigente del video. |
+| `lang` | `varchar` | Idioma del texto medido (`es` / `en`), derivado de la transcripción. |
+| `transcript_source` | `varchar` | `youtube_manual` / `youtube_auto` / `supadata` / `extension`. |
+| `has_description`, `has_tags` | `boolean` | Disponibilidad de descripción y tags. |
+| `ritmo_ppm` … `cobertura_titulo` | `real` | Los **8 descriptores** en valor crudo (ver tabla 4.3). |
+| `ritmo_ppm_pct` … `cobertura_titulo_pct` | `real` | El **percentil 0–100** de cada descriptor en la escala. **Son las columnas que se muestran y se analizan.** |
+| `panel` | `jsonb` | El panel completo tal como lo devuelve el endpoint (por descriptor: valor, unidad, ámbito, estado, percentil). |
+| `etiquetas` | `jsonb` | Etiquetas categóricas `et_*` (porción de duración, formato editorial, trazabilidad, caducidad, calidad del dato, etc.). |
+| `computed_at` | `timestamptz` | Cuándo se calculó. |
 
-**Uso posterior.** Dashboard personal de dieta cognitiva: distribución de scores A–E consumidos, mezcla por categoría, evolución semanal, tiempo dedicado a contenido de alto vs. bajo valor.
+**Variables relevantes y ausencia de variable objetivo.** Aquí está el cambio de fondo respecto de la Entrega 2: **no hay variable objetivo (`target`)**, porque el proyecto ya no es un problema de predicción sino de **descripción**. Las columnas centrales para el análisis son los **ocho percentiles `*_pct`** (lo que se muestra al usuario y se agrega en el dashboard), el gate **`apto`** (variable clave del estudio: qué proporción de cada formato es medible) y **`formato`** (dimensión de estratificación). No hay letra, no hay score agregado, no hay etiqueta a aprender.
 
-### 4.4. `gold_cognitive_diet` — agregado del dashboard *(conveniencia)*
+**Uso posterior.** (a) La **extensión**, que lee el panel en tiempo real vía `GET /panel/{video_id}`; (b) el **dashboard** de dieta cognitiva, que agrega el historial en el tiempo (distribución de percentiles, mezcla de formatos, evolución); (c) el **análisis / EDA de la memoria del TFM** (cómo se distribuyó el consumo, qué formatos caen fuera del gate).
 
-**Descripción funcional.** Agregación de `gold_consumption_events` por usuario y semana, para alimentar directamente los gráficos del dashboard sin recalcular en el cliente. **Granularidad:** una fila por `(user_pseudo_id, week)`. **Campos:** conteo de videos por letra (`n_A`…`n_E`), minutos totales, minutos en contenido de alto valor (A/B) vs. bajo (D/E), score medio, categoría dominante. **Uso:** dashboard (series temporales y KPIs). Es opcional: si se prefiere, el dashboard agrega al vuelo sobre `gold_consumption_events`.
+### 4.3. Los 8 descriptores
+
+Todos se calculan sobre la transcripción o la descripción, **normalizados** (por 100 o 1000 palabras, por minuto, o en ventana fija) para no medir duración disfrazada. Ninguno depende de que la transcripción tenga puntuación. Cada uno es de tipo **continuo** (se ubica por su percentil en el corpus) o de **presencia** (primero "tiene / no tiene", y si tiene, su percentil entre los que tienen), y de ámbito **global** o **por formato** (decidido por una prueba estadística, §8).
+
+| Descriptor | Qué mide | Cálculo / unidad | Tipo · Ámbito |
+|---|---|---|---|
+| `ritmo_ppm` | Velocidad del habla | palabras ÷ minutos · *palabras/min* | continuo · global |
+| `cifras_100w` | Densidad de cantidades verificables | (dígitos + números escritos) por 100 palabras · *cifras/100w* | continuo · por formato |
+| `atribucion_1000w` | Marcas de fuente/atribución ("según", "un estudio", "según…") | léxico por 1000 palabras · *marcas/1000w* | presencia · por formato |
+| `mattr_200` | Diversidad léxica insensible a la longitud | *Moving-Average Type-Token Ratio*, ventana fija de 200 tokens, paso 50 · *0–1* | continuo · global |
+| `conectores_1000w` | Conectores lógicos entre ideas ("porque", "sin embargo", "por lo tanto") | léxico por 1000 palabras · *marcas/1000w* | continuo · global |
+| `enlaces_externos` | URLs en la descripción que no son redes propias | conteo **absoluto** (no se normaliza: la descripción es un artefacto fijo, no un flujo) · *enlaces* | presencia · por formato |
+| `promocional_1000w` | "Azúcares añadidos": llamadas a la acción + patrocinio | léxico (CTA + patrocinio) por 1000 palabras · *marcas/1000w* | presencia · por formato |
+| `cobertura_titulo` | Correspondencia promesa↔contenido | fracción de palabras clave del título (>3 letras, sin stopwords) presentes en la transcripción · *0–1* | continuo · por formato |
+
+### 4.4. El gate de aptitud (capa 0)
+
+Antes de medir, `capa0_validez` decide si el video es **apto** para el panel. `apto = true` requiere las tres condiciones: **hay transcripción** (`n_words > 0`), la transcripción está **completa** (`cobertura_transcripcion` entre 0,45 y 1,6 respecto de las palabras esperadas a 150 wpm) y **hay metadatos** (`category_id` no nulo). Si falla, el video se marca `apto = false` con su `motivo_no_apto` (típicamente `cobertura_de_habla_insuficiente`: música, gameplay sin comentario, tomas sin voz) y **nunca** se rellena con un cero ni una letra: se responde "Sin datos suficientes". La distinción entre "todavía procesando" (fila inexistente o sin transcripción reciente) y "no se va a poder medir" (gate en `false`) es explícita, para no dejar la etiqueta girando indefinidamente.
 
 ---
 
 ## 5. Relaciones entre datos
 
-El proyecto **sí** usa varias tablas relacionadas; no es un dataset único. Las entidades y sus relaciones:
+El proyecto **sí** tiene un modelo relacional; lo que es único es el **dataset gold consumido** (`content_features`), no las tablas.
 
-**Tablas/datasets existentes.**
-
-- `raw_events` (eventos crudos de consumo)
-- `content_items` (videos únicos)
-- `content_scores` (puntuaciones, historial)
-- vistas gold: `gold_video_features`, `gold_consumption_events`, `gold_cognitive_diet`
+**Tablas / artefactos.** `raw_events`, `content_items`, `content_features`, el fichero `escala_referencia.json` y la tabla retirada `content_scores`.
 
 **Claves y cardinalidades.**
 
 ```
-content_items.id  1 ──── N  content_scores.content_item_id     (FK real, ON DELETE CASCADE)
-content_items.external_id  1 ──── N  raw_events (por external_id dentro del payload; enlace lógico, sin FK)
-content_items.id  1 ──── 1  gold_video_features                (una fila por video)
-content_items.id  1 ──── N  gold_consumption_events            (una fila por visualización)
+content_items.id  1 ── 1  content_features.content_item_id   (FK, UNIQUE, ON DELETE CASCADE)
+content_items.external_id  1 ── N  raw_events                 (enlace lógico vía external_id dentro del payload JSONB)
+content_items.id  1 ── N  content_scores                     (retirada; sin filas nuevas)
+content_items.corpus  →  {historial | referencia}            (partición de la misma tabla, no una relación)
 ```
 
-- **`content_items` 1:N `content_scores`.** Un video tiene muchas puntuaciones (una por corrida/versión del scorer). Es una FK real con borrado en cascada. La gold toma **la más reciente** por video.
-- **`content_items` 1:N `raw_events`.** Un mismo video puede generar varios eventos de consumo (se vio varias veces). El enlace es lógico, por el `external_id` que viaja dentro del `payload` JSONB del evento, no una FK física —porque `raw_events` es deliberadamente inmutable y agnóstico al esquema.
-- **`gold_video_features` 1:1 `content_items`.** Aplana metadatos + features + target por video.
-- **`gold_consumption_events` N:1 `content_items`.** Cada evento apunta a un video; un video aparece en muchos eventos.
+- **`content_items` 1:1 `content_features`.** Una etiqueta nutricional por video (índice único + `upsert`).
+- **`content_items` 1:N `raw_events`.** Un video puede verse muchas veces (varios eventos); el enlace es **lógico**, por el `external_id` que viaja dentro del `payload` JSONB, no una FK física —`raw_events` es deliberadamente inmutable y agnóstico al esquema—.
+- **Ubicación en la escala (no es un join SQL sino un *lookup* contra el fichero).** Cada descriptor de `content_features` se ubica en `escala_referencia.json` por su clave, su `frame_version` y —para los descriptores `por_formato`— por el `formato` del video. Los continuos usan una grilla de percentiles (`grid`); los de presencia usan la grilla **solo de los que tienen** (`grid_presentes`) más `p_ausencia` ("% que no lo tiene").
 
-**Joins, agregaciones y cruces necesarios.**
+**Cruces, agregaciones y problemas al combinar.**
 
-- `gold_video_features` = `content_items` ⋈ (último `content_scores` por `content_item_id`), con aplanado del JSON `score_details`.
-- `gold_consumption_events` = `raw_events` ⋈ `content_items` (por `external_id`) ⋈ (último `content_scores`).
-- `gold_cognitive_diet` = agregación `GROUP BY user_pseudo_id, week` sobre la vista anterior.
-
-**Problemas al combinar fuentes.** El cruce delicado es el de **`raw_events` con `content_items`**: la clave (`external_id`) vive dentro de un `JSONB` en el evento y como columna en el video, así que hay que extraerla y castearla, y tolerar eventos antiguos cuyo payload tenga otro nombre de campo. El segundo punto frágil es el **aplanado de `content_scores.score_details`**: es un JSON cuya forma puede cambiar entre versiones del scorer (si se renombra o añade una señal), lo que rompería la vista `gold_video_features` si no se fija la `scorer_version` y se versiona también la vista.
+- El **dashboard** hace `content_features ⋈ content_items` (por `content_item_id`) filtrando `corpus = 'historial'` y agrupando por semana/formato sobre `watched_at`.
+- **Problema 1 — clave dentro de JSON:** el `external_id` que enlaza `raw_events` con `content_items` vive dentro de un `JSONB`; hay que extraerlo y tolerar payloads antiguos con otro nombre de campo.
+- **Problema 2 — comparabilidad de escalas:** percentiles de `frame_version` distintas no son comparables; cruzar filas medidas contra escalas diferentes daría lecturas falsas. Por eso `content_features` guarda su `frame_version` y la caché se invalida si cambia.
+- **Problema 3 — no mezclar corpus:** los percentiles se calculan **solo** sobre `corpus = 'referencia'`; incorporar el historial a la escala sería circular.
+- **Problema 4 — formato desconocido:** los descriptores `por_formato` necesitan el `formato`, derivado de `category_id` antes de enriquecer; si la categoría falta, el descriptor cae al ámbito `_todos` (menos preciso).
 
 ---
 
 ## 6. Diccionario de datos inicial
 
-Campos principales que consumen el modelo y el dashboard (no se documentan todas las columnas internas):
+Campos principales que consumen el panel, el dashboard y el análisis (no se documentan todas las columnas internas):
 
-| Campo | Descripción | Tipo de dato | Fuente | Obligatorio | Observaciones |
+| Campo | Descripción | Tipo | Fuente | Obligatorio | Observaciones |
 |---|---|---|---|---|---|
-| `external_id` | ID nativo del video en YouTube | `varchar(100)` | Extensión / YouTube | Sí | Clave natural; `UNIQUE`. |
-| `title` | Título del video | `text` | Extensión / YouTube | Sí | Materia prima de la señal de clickbait. |
-| `channel` | Canal que publica | `text` | Extensión / YouTube | No | Puede venir vacío. |
-| `duration_seconds` | Duración en segundos | `integer` | Extensión | No | `<60s` = short; base de `duration_bucket`. |
-| `category_id` | ID de categoría YouTube | `varchar(10)` | YouTube API | No | Vacío → señal de categoría cae a neutro 0.5. |
-| `category_name` | Nombre de categoría | `varchar(50)` | YouTube API | No | `Other` si el id no está mapeado. |
-| `view_count` | Nº de visualizaciones | `bigint` | YouTube API | No | Snapshot del momento; preferir sobre el scraping de la extensión. |
-| `like_count` | Nº de "me gusta" | `integer` | YouTube API | No | Puede estar deshabilitado; dislikes ya no existen. |
-| `comment_count` | Nº de comentarios | `integer` | YouTube API | No | Proxy de reflexión generada. |
-| `transcript` | Transcripción completa | `text` | Supadata | No | Irregular: no todos los videos la tienen → degrada NLP. |
-| `watched_at` | Instante de visualización | `timestamptz` | Extensión | Sí (consumo) | Normalizar a UTC (`YYYY-MM-DDThh:mm:ssZ`). |
-| `f_data_density` … `f_description` | Vector de 10 señales del scorer | `float` (0–1) | Generado (scorer) | Sí (modelo) | Ver §4.2; extraídas de `score_details`. |
-| `has_transcript` | ¿Había transcripción utilizable? | `boolean` | Generado | Sí (modelo) | Distingue señal real de imputación neutra. |
-| `score_numeric` | Puntuación 0–100 (weak label) | `float` | Generado (scorer) | Sí (modelo) | Target actual. |
-| `score_letter` | Clase A–E (weak label) | `char(1)` | Generado (scorer) | Sí (modelo) | Umbrales: A≥80, B≥60, C≥40, D≥20, E<20. |
-| `label_manual` | Etiqueta manual de valor cognitivo | `float`/`char(1)` | Etiquetado manual | No (aún) | **Ground truth pendiente**; define la calidad del modelo. |
-| `scorer_version` | Versión del algoritmo | `varchar(20)` | Generado | Sí | Permite comparar/reproducir. |
-| `user_pseudo_id` | Usuario seudónimo | `varchar` | Extensión (previsto) | Sí (consumo) | Hoy `self`; sin datos identificativos. |
+| `external_id` | ID nativo del video en YouTube | `varchar(100)` | Extensión / YouTube | Sí | Clave natural; `UNIQUE` en `content_items`. |
+| `transcript` | Transcripción completa | `text` | youtube_transcript_api / Supadata | Sí (para medir) | Sin ella el video es no apto; no se imputa nada. |
+| `transcript_source` | Procedencia de la transcripción | `varchar(20)` | Enriquecimiento | Sí | `youtube_manual/auto`, `supadata`, `extension`. |
+| `transcript_is_generated` | ¿Subtítulos automáticos (ASR)? | `boolean` | Enriquecimiento | No | Los automáticos no traen puntuación. |
+| `transcript_lang` | Código de la pista de subtítulos | `varchar(40)` | Enriquecimiento | No | No siempre ISO 639 (pistas manuales: `es-uYU-mmqFLq8`); agrupar con `split_part(...,'-',1)`. |
+| `category_id` | ID de categoría de YouTube | `varchar(10)` | YouTube API | Sí (para el gate) | Determina el `formato`; su ausencia deja el video no apto. |
+| `corpus` | Subpoblación del video | `varchar(20)` | Muestreo / ingesta | Sí | `historial` o `referencia`; nunca se mezclan en los percentiles. |
+| `watched_at` | Instante de visualización | `timestamptz` | Extensión | Sí (historial) | Base de la agregación temporal del dashboard (UTC). |
+| `apto` | ¿Video medible? | `boolean` | Generado (gate) | Sí | Variable clave del estudio. |
+| `cobertura_transcripcion` | Palabras reales ÷ esperadas (150 wpm) | `real` | Generado | Sí | Completa si ∈ [0,45 ; 1,6]. |
+| `ritmo_ppm` … `cobertura_titulo` | Los 8 descriptores (valor crudo) | `real` | Generado (nutriscore_features) | Sí | Ver §4.3; unidades por 100/1000 palabras, por minuto o 0–1. |
+| `*_pct` (8 columnas) | Percentil 0–100 de cada descriptor | `real` | Generado (escala) | Sí | Lo que se muestra y se analiza; comparable solo dentro de un `frame_version`. |
+| `formato` | Macroformato del video | `varchar(40)` | Derivado de `category_id` | Sí | 4 valores; necesario para descriptores `por_formato`. |
+| `frame_version` | Versión de la escala | `varchar(40)` | Escala | Sí | `mm-2026-08-v1`. |
+| `panel`, `etiquetas` | Panel completo y etiquetas `et_*` | `jsonb` | Generado | No | Lo que no entra en columnas tipadas. |
 
 ---
 
 ## 7. Problemas de calidad esperados
 
-Aterrizados al caso concreto, no genéricos:
+Aterrizados al caso concreto:
 
-- **Valores nulos que en realidad son imputaciones.** Cuando falta la transcripción, el scorer **no** deja las señales de NLP vacías: las rellena con un valor neutro `0.5` (`lexical_richness`, `data_density`, `source_presence`, `readability`, `repetition`). Ese `0.5` no es una observación real y contaminaría el modelo si se trata como tal. Es el problema de calidad número uno del dataset. Mitigación: el flag `has_transcript`.
-- **Nulos reales en metadatos.** `category_id` puede venir vacío (`""`) → la señal de categoría cae a 0.5; `description` vacía → 0.2; `like_count`/`comment_count` pueden ser 0 o ausentes (YouTube ocultó los dislikes y algunos creadores deshabilitan los likes).
-- **Duplicados.** Dos niveles. (a) Un video visto N veces genera N `raw_events` —correcto, son eventos distintos— pero **un solo** `content_item` (garantizado por `UNIQUE(external_id)`). (b) Re-puntuar genera **varias** filas en `content_scores`; si la vista gold no toma solo la más reciente por video, se duplican las features. Por eso `gold_video_features` usa `DISTINCT ON (content_item_id)`.
-- **Inconsistencia de categorías.** `category_name` está denormalizado como texto; los ids no mapeados caen en `Other`; YouTube puede cambiar la categoría asignada a un video.
-- **Fechas mal formateadas / desfasadas.** `watched_at` llega como string desde la extensión y puede traer zona horaria distinta → normalizar a UTC. Además `stats_fetched_at` (cuándo se leyó la API) ≠ `watched_at` (cuándo se vio): las estadísticas son un snapshot que puede quedar desactualizado respecto al momento del consumo.
-- **Unidades / doble fuente de la misma métrica.** Las visualizaciones existen dos veces: `view_count_raw` (string tipo "1,2 M" que la extensión scrapea del DOM) y `view_count` (entero de la API). Se debe **preferir siempre el entero de la API** y descartar el string.
-- **Cambios de definición entre fuentes.** Métricas de engagement de la extensión (scraping del DOM) vs. YouTube API: la API es la fuente de verdad. Los dislikes ya no están disponibles públicamente.
-- **Datos desactualizados.** `view_count`, `like_count` y `comment_count` cambian con el tiempo y no se refrescan: son foto del primer enriquecimiento.
-- **Falta de histórico.** El consumo por usuario recién empieza a acumularse; para el dashboard hace falta que pasen semanas. Hoy hay ~85 videos frente al objetivo de 500–1.500.
-- **Sesgos de cobertura.** El catálogo refleja **mi** consumo (auto-datos): sesgo hacia mis intereses, idioma (es/en) y quizá sobre-representación de categorías educativas. El dataset no es una muestra representativa de YouTube.
-- **Outliers.** Videos virales con `view_count` enorme distorsionan los ratios de engagement; los *shorts* (<60s) reciben `format=short` y quedan penalizados por diseño; transcripciones muy largas en videos de horas.
-- **Problemas al cruzar fuentes.** (i) `external_id` como clave entre `raw_events` (dentro del JSON) y `content_items` (columna); (ii) el esquema de `score_details` puede variar entre versiones del scorer y romper el aplanado a features.
-- **Campos relevantes no disponibles.** El más importante: `label_manual` (el ground truth de valor cognitivo) todavía no existe y hay que construirlo. También faltan señales deseables mencionadas en la Entrega 2 (dislikes, señales de audio, texto de comentarios).
+- **Transcripción ausente o incompleta.** Es el principal límite de cobertura. Videos sin subtítulos, o con transcripción truncada (`cobertura_transcripcion` fuera de [0,45 ; 1,6]), o sin voz (música, gameplay) caen en `apto = false`. A diferencia del scorer viejo —que rellenaba las señales faltantes con un `0.5` neutro que contaminaba todo—, aquí **un dato ausente se muestra como "no disponible", nunca se imputa**.
+- **Subtítulos automáticos sin puntuación.** Los ASR de YouTube no traen puntuación; algunos indicadores fuera del panel (frases por oración, preguntas) no son calculables. Los 8 del panel se diseñaron para **no** depender de puntuación, pero la diferencia se guarda (`transcript_is_generated`) para no mezclarla en el análisis.
+- **Idioma.** La escala se construyó con 344 videos **en español**. Una transcripción en otro idioma se mide igual pero sus percentiles comparan contra una población que no le corresponde; el endpoint lo **avisa** (`aviso_idioma`) en vez de ocultarlo. Además `transcript_lang` no siempre es ISO 639 (pistas manuales con identificadores largos), lo que ya rompió inserts hasta ensanchar la columna a `varchar(40)`.
+- **Duplicados.** Un video visto N veces genera N `raw_events` (correcto), pero **un** `content_item` (`UNIQUE(external_id)`) y **una** fila en `content_features` (`upsert` que se pisa). Sin el `upsert`, cada apertura acumularía una fila y la tabla dejaría de servir para contar.
+- **Sesgo de cobertura.** El historial personal es un espejo (94 videos, 41 % un canal, casi todo *News & Politics* en español): por eso **no** puede ser la escala. El corpus de referencia lo corrige con muestreo estratificado, pero sigue acotado a español y a regiones AR/ES; no es una muestra universal de YouTube.
+- **Comparabilidad entre escalas.** Percentiles de `frame_version` distintas no son comparables. Si cambian las semillas de muestreo, las categorías o los cortes, sube la versión y **no** se cruzan lecturas de marcos distintos.
+- **Corpus chico por celda.** El diseño reparte ~28–33 videos por cada una de las 12 celdas (4 formatos × 3 duraciones); con ese n, el error típico de una correlación ronda 0,2 y los percentiles por estrato tienen incertidumbre. El anexo por celda usa el corte global cuando una celda tiene menos de 15 videos útiles.
+- **Categoría faltante → formato desconocido.** Sin `category_id` no hay `formato`, y los descriptores `por_formato` caen al ámbito `_todos`, menos afinado.
+- **Dependencia de servicios de transcripción.** Supadata puede quedarse sin crédito (`exhausted`) o limitar por ritmo (`rate_limit`); `youtube_transcript_api` sufre bloqueos desde IPs de datacenter. Ambos dejan huecos que el gate refleja como no apto o "procesando".
 
 ---
 
 ## 8. Decisiones de limpieza y transformación previstas
 
-Hipótesis iniciales (pueden ajustarse en fases posteriores):
-
-- **Valores nulos.** Regla central: **distinguir "ausente" de "neutro".** En el dataset de modelado se expondrán las señales tal como las calcula el scorer **junto al flag `has_transcript`** (y, si se decide, `is_stats_reliable` cuando `view_count < 100`), de modo que el EDA/modelo pueda tratar el `0.5` imputado de forma diferenciada (p. ej. excluir esos videos, o dar la información al modelo como variable extra). No se rellenan huecos con medias ciegas.
-- **Duplicados.** Videos: la unicidad ya está garantizada por `UNIQUE(external_id)`. Scores: `gold_video_features` toma **una sola** puntuación por video (`DISTINCT ON (content_item_id) ORDER BY scored_at DESC`) fijando `scorer_version`. Eventos de consumo: **no** se deduplican (cada visualización es un dato legítimo).
-- **Normalización.** Fechas → `timestamptz` en UTC. Categoría → mantener `category_id` + `category_name` canónico. `tags` (`JSONB`) → lista de strings en minúsculas. Visualizaciones → usar el entero de la API y descartar `view_count_raw`.
-- **Variables derivadas.** `has_transcript`, `duration_bucket`, `like_ratio`, `comment_ratio`, `is_educational` (categoría ∈ {27, 28}), y el aplanado de las diez `f_*` desde `score_details`. Target: `score_numeric`/`score_letter` (weak label del scorer) y, cuando exista, `label_manual` (ground truth).
-- **Agregaciones.** Para el dashboard, agregación por `usuario × semana`: distribución A–E, minutos en alto vs. bajo valor, mezcla por categoría y evolución temporal (vista `gold_cognitive_diet`).
-- **Datos que se descartan.** `view_count_raw` (redundante e inconsistente); registros de prueba; opcionalmente los *shorts* del dataset de modelado si distorsionan (o mantenerlos con flag). Nunca se descartan `raw_events` (auditoría).
-- **Criterio de registro válido.** Para la capa processed: `external_id` y `title` no nulos. Para el modelo: además tener al menos una puntuación; y preferentemente `has_transcript = true` (o, si se incluyen sin transcript, marcarlos para no mezclar imputaciones con observaciones).
+- **Valores nulos: no se imputan.** Regla central heredada del rediseño: distinguir "ausente" de "medido". Un indicador sin dato se muestra "no disponible"; el **gate `apto`** decide si el video entra al panel y `cobertura_transcripcion` decide si la transcripción es completa. Se eliminó por completo el relleno con valores neutros.
+- **Normalización.** Todo indicador va **por 100 palabras, por 1000 palabras, por minuto o en ventana fija** (`mattr_200` fija 200 tokens), nunca en total —un total mide duración disfrazada, el defecto que motivó todo el rediseño—. Única excepción justificada: `enlaces_externos` en conteo absoluto, porque la descripción es un artefacto fijo y dividir por minutos metía la inversa de la duración dentro del indicador.
+- **Deduplicación.** `UNIQUE(external_id)` en `content_items`; `UNIQUE(content_item_id)` con `upsert` en `content_features`; los eventos de consumo **no** se deduplican (cada visualización es un dato).
+- **Normalización de campos.** Fechas a `timestamptz` UTC; idioma agrupado con `split_part(transcript_lang,'-',1)`; `formato` derivado de `category_id` con `bucket_formato` **antes** de enriquecer (el estrato debe conocerse en el momento del muestreo).
+- **Variables derivadas.** Los 8 descriptores y sus 8 percentiles; el gate (`apto`, `cobertura_transcripcion`, `motivo_no_apto`); las etiquetas `et_*` categóricas y auditables (porción de duración, formato editorial, caducidad, tipo de promesa del título, trazabilidad de fuentes, navegabilidad, calidad del dato, idioma, categoría).
+- **Construcción de la escala (transformación estadística).** Sobre `corpus = 'referencia'`: para cada descriptor se calcula una **grilla de 101 percentiles**; una **prueba de permutación** (2000 remuestreos, α = 0,05) decide si el descriptor se mide **global** o **por formato** (si los formatos difieren significativamente); y la regla **`umbral_cero = 1/3`** decide si es de **presencia** (cuando más de un tercio del corpus vale exactamente 0, el tercil "bajo" dejaría de ser tercil) usando `grid_presentes` + `p_ausencia`. El historial se mide **contra** la escala sin entrar en ella.
+- **Descartes.** En el muestreo, videos fuera de [2 min, 3 h] y tope de 2 videos por canal (anti-concentración); descriptores descartados del panel por correlacionar con la duración (p. ej. `hapax_ratio`, −0,82). La tabla `content_scores` se retiró (no se borró). Se conservan las filas **no aptas** en `content_features`: son parte del hallazgo.
+- **Criterio de registro válido.** Para medir: transcripción presente + completa (0,45–1,6) + metadatos (`apto = true`). Para la escala: `corpus = 'referencia'`, con transcripción y estrato conocido.
 
 ---
 
 ## 9. Riesgos del modelo de datos
 
-**¿Qué parte está más clara?** Las capas raw → processed → serving. Ya existen, funcionan y contienen ~85 videos reales; el pipeline de ingesta, enriquecimiento (YouTube API + Supadata) y puntuación está operativo. `gold_video_features` es en gran medida un **aplanado directo de datos que ya se están guardando**, no algo por inventar.
+**¿Qué está más claro?** El flujo raw → processed → gold ya funciona y tiene datos reales. `content_features` es un `upsert` de valores calculados por un **único** cuerpo de reglas (`nutriscore_features.py`) compartido entre el estudio y el panel en vivo, de modo que ambos miden lo mismo por construcción.
 
-**¿Qué genera más incertidumbre?** El **target real del modelo**. Hoy el único objetivo disponible es el propio score por reglas (weak label): si se entrena así sin más, el modelo aprenderá a **imitar las reglas**, no a predecir "valor cognitivo". La incertidumbre está en construir `label_manual` con una rúbrica defendible y consistente. La segunda fuente de incertidumbre es la **estabilidad del esquema `score_details`** entre versiones del scorer, del que depende la vista de features.
+**¿Qué genera más incertidumbre?** La **validez y estabilidad de la escala de referencia**. Al abandonar la nota agregada desapareció el riesgo anterior (definir un "valor cognitivo" subjetivo como *ground truth*), pero aparece otro: que el corpus sea suficientemente representativo (hoy español, AR/ES, ~28 por celda) y que `frame_version` se gestione con disciplina. Un percentil solo significa algo respecto de la población que lo generó.
 
-**¿Qué fuente o tabla puede dar más problemas?** Dos: (i) `content_scores.score_details`, por ser JSON semiestructurado que cambia de forma entre versiones y sostiene el aplanado a features; y (ii) la dependencia de **Supadata** para la transcripción, que es un tercero de pago y deja huecos (`has_transcript = false`) que degradan medio dataset de señales de NLP.
+**¿Qué fuente o tabla puede dar más problemas?** Dos. La **transcripción**, por su dependencia de servicios externos y por dejar formatos enteros fuera del gate (sin voz → no medibles). Y el fichero **`escala_referencia.json`**: si cambia el corpus, cambian *todos* los percentiles a la vez; hay que versionarlo y no comparar lecturas entre versiones.
 
-**¿Qué ocurriría si no se puede construir la gold como está definida?** El sistema sigue siendo entregable. *Fallback* inmediato: usar `content_scores` tal cual (letra + valor) como gold mínima, sin el vector de features aplanado; o exportar las tres tablas a CSV y hacer el aplanado en pandas dentro del notebook, fuera de la vista SQL. En ambos casos se pierde elegancia pero no capacidad de análisis.
+**¿Qué ocurriría si no se puede construir la gold como está definida?** El sistema sigue siendo entregable. *Fallbacks*: mostrar los 8 descriptores en **valor crudo normalizado sin percentil** (se pierde la referencia poblacional pero el panel sigue informando), o quedarse con `content_features` sin el ámbito `por_formato` (que es lo que exige el muestreo estratificado).
 
-**¿Qué alternativa hay para simplificar el modelo si fuera necesario?** Colapsar a **una sola tabla gold ancha a nivel de video** (features + target) y posponer el dataset de consumo/dashboard a una fase posterior —el dataset de modelado es el crítico—. Y, en el límite, mantener el **scorer por reglas como producto final** (calibrado y validado contra la muestra etiquetada manualmente) sin modelo supervisado, ruta ya contemplada en la Entrega 2 que reduce el riesgo global del proyecto.
+**¿Qué alternativa hay para simplificar?** Reducir el panel a los descriptores **globales** (evitando la estratificación y el muestreo por celdas), sustituir la grilla de 101 percentiles por **cortes en tercios** (bajo/medio/alto) contra el mismo corpus, o —en el límite— prescindir del corpus de referencia y mostrar solo valores absolutos normalizados. Cualquiera de las tres mantiene la idea central —describir sin juzgar— con mucha menos maquinaria.
