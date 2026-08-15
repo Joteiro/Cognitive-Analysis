@@ -1,0 +1,707 @@
+[
+  {
+    "content_item_id": 84,
+    "external_id": "YU3PbQj4JJc",
+    "titulo": "REBORD Y LA VERDAD SOBRE BLENDER - MOVISTAR ARENA HAGOVERO EL 19 DE OCTUBRE",
+    "canal": "Tomás Rebord",
+    "formato": "informativo",
+    "n_palabras": 19287,
+    "transcripcion_recortada": true,
+    "modelo": "llama-3.3-70b-versatile",
+    "version": "quiz-piloto-0.1",
+    "generado_at": "2026-08-15T17:40:26.648011+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuántas personas están mirando la transmisión clandestina según Tomás Rebord?",
+        "opciones": [
+          "Más de 40.000 personas",
+          "Más de 30.000 personas",
+          "Más de 60.000 personas",
+          "Más de 50.000 personas"
+        ],
+        "cita": "somos más de 40,000 personas mirando esta transmisión clandestina",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "3_de_3",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "baja",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Qué plataforma de transmisión va a utilizar Tomás Rebord además de YouTube?",
+        "opciones": [
+          "Kick",
+          "Twitch",
+          "Instagram Live",
+          "Facebook Live"
+        ],
+        "cita": "Voy a inaugurar otro canal. Este otro canal será en la plataforma Kick",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "parcial_8_de_13",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": false,
+        "control_eleccion": 1,
+        "control_seguridad": "alta",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Qué día y hora va a realizar Tomás Rebord transmisiones oficiales?",
+        "opciones": [
+          "Los lunes a las 21 horas",
+          "Los lunes a las 20 horas",
+          "Los martes a las 20 horas",
+          "Los martes a las 21 horas"
+        ],
+        "cita": "los días lunes a las 21 horas yo hago una transmisión formal",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "3_de_3",
+        "trivial": false,
+        "control_eleccion": 3,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Por qué Tomás Rebord considera que el movimiento agobero ha entrado en la clandestinidad?",
+        "opciones": [
+          "Por un atentado",
+          "Por una amenaza externa",
+          "Por una pérdida de apoyo popular",
+          "Por una decisión política"
+        ],
+        "cita": "nos comimos un atentado, ground cero, el ground cero del agoberismo",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": false,
+        "control_eleccion": 2,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Qué va a hacer Tomás Rebord con el sistema Agob?",
+        "opciones": [
+          "Va a utilizarlo para hacer donaciones a organizaciones benéficas",
+          "Va a utilizarlo para promocionar su canal de YouTube",
+          "Va a utilizarlo para crear un nuevo partido político",
+          "Va a utilizarlo para generar un fondo de desempleo"
+        ],
+        "cita": "el sistema Agob lo que ha permitido hasta ahora es básicamente generar un fondo de desempleboard",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": false,
+        "motivo_justificacion": "solo_2_de_5",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Qué tipo de contenido va a ofrecer Tomás Rebord en la plataforma Kick?",
+        "opciones": [
+          "Contenido espontáneo y fresco",
+          "Análisis políticos y sociales",
+          "Entrevistas con personalidades públicas",
+          "Transmisiones formales y planificadas"
+        ],
+        "cita": "va a ser espontáneo, fresco y divertido",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "2_de_3",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 37,
+    "external_id": "kgaS_kikD2E",
+    "titulo": "TRUMP SE RETIRA DE IRÁN pero Israel quiere seguir luchando - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 6169,
+    "transcripcion_recortada": true,
+    "modelo": "llama-3.3-70b-versatile",
+    "version": "quiz-piloto-0.1",
+    "generado_at": "2026-08-15T17:41:11.089108+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuál es el cuarto punto que Irán quiere cumplir para terminar la guerra?",
+        "opciones": [
+          "Terminar con el régimen de los ayatolas",
+          "Terminar con los misiles balísticos",
+          "El fin del conflicto en todos los frentes, incluyendo a todos los grupos de resistencia en la región",
+          "Terminar con su plan nuclear"
+        ],
+        "cita": "la cuarta condición de Irán para terminar esta guerra es el fin del conflicto en todos los frentes, incluyendo a todos los grupos de resistencia en la región",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "9_de_9",
+        "trivial": true,
+        "control_eleccion": 2,
+        "control_seguridad": "baja",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿Cuánto dinero podría recibir Irán para la reconstrucción del país según el vicepresidente de Estados Unidos?",
+        "opciones": [
+          "400,000 millones de dólares",
+          "200,000 millones de dólares",
+          "300,000 millones de dólares",
+          "100,000 millones de dólares"
+        ],
+        "cita": "el vicepresidente de Estados Unidos, Jotas Divans, dijo este lunes que Irán podría acceder a unos 300,000 millones de dólares para la reconstrucción del país",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "4_de_4",
+        "trivial": false,
+        "control_eleccion": 3,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿Por qué Israel no se ve afectado por el cierre del estrecho de Ormud?",
+        "opciones": [
+          "Porque importa petróleo de Azerbaiyán",
+          "Porque no importa petróleo",
+          "Porque no tiene relación con el estrecho de Ormud",
+          "Porque exporta petróleo por el estrecho de Ormud"
+        ],
+        "cita": "el tema del estrecho de Ormud les da igual, Quiero decir, ellos consiguen su petróleo principalmente de Azerbaiyán",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "parcial_17_de_18",
+        "justificada": true,
+        "motivo_justificacion": "2_de_4",
+        "trivial": false,
+        "control_eleccion": 1,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Qué podría suceder en Irán si la gente percibe que la devastación y los miles de muertos no valieron la pena?",
+        "opciones": [
+          "Que se firme un acuerdo de paz con Israel",
+          "Que se declare la guerra con Estados Unidos",
+          "Que se produzcan manifestaciones en contra del gobierno",
+          "Que se produzcan manifestaciones a favor del gobierno"
+        ],
+        "cita": "si termina la guerra y los iraníes perciben que la devastación y los miles de muertos que dejó el conflicto no valieron la pena, puede que veamos otra ronda de manifestaciones",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": false,
+        "motivo_justificacion": "solo_1_de_4",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿Qué dijo Trump a Netanyahu en una llamada según el diario de Guardian?",
+        "opciones": [
+          "Que Netanyahu debería retirarse del sur del Líbano",
+          "Que estás y si no fuera por mí estarías en la cárcel",
+          "Que no estaba contento con el acuerdo",
+          "Que estaba contento con el acuerdo"
+        ],
+        "cita": "Trump llegó a decirle a Netanyahu y cito textualmente, Abro comillas, estás y si no fuera por mí estarías en la cárcel",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "6_de_6",
+        "trivial": false,
+        "control_eleccion": 2,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Qué podría suceder con el precio del petróleo si se llega a un acuerdo de paz?",
+        "opciones": [
+          "Que baje a $50",
+          "Que se quede en $80",
+          "Que llegue a los $67 que estaban antes del inicio de la guerra",
+          "Que suba a $100"
+        ],
+        "cita": "el barril de Brand se ha quedado en $80, es decir, no ha llegado a los $67 que estaban antes del inicio de la guerra",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "5_de_6",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 2
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 81,
+    "external_id": "2RY_r8Cn9jE",
+    "titulo": "TRUMP DESTRUYE LA IMAGEN DE EEUU y el turismo le está pasando factura - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 5089,
+    "transcripcion_recortada": true,
+    "modelo": "llama-3.3-70b-versatile",
+    "version": "quiz-piloto-0.1",
+    "generado_at": "2026-08-15T17:41:58.109142+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuál es el porcentaje de descenso en la llegada de visitantes internacionales a Estados Unidos en el año 2025?",
+        "opciones": [
+          "4,2%",
+          "7,5%",
+          "9,4%",
+          "3,1%"
+        ],
+        "cita": "En el año 2025 el número de visitantes internacionales cayó un 4,2%.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": false,
+        "motivo_justificacion": "respuesta_vacia",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuál es la razón principal por la que el Mundial de fútbol no genera tantos ingresos en Estados Unidos?",
+        "opciones": [
+          "La competencia con otros eventos",
+          "El propio Mundial de fútbol",
+          "La política de Donald Trump",
+          "La guerra comercial"
+        ],
+        "cita": "La razón es el propio mundial de fútbol.",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "3_de_3",
+        "trivial": false,
+        "control_eleccion": 2,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Cuánto equivale la pérdida proyectada de 12,500 millones de dólares para el sector turístico estadounidense en términos del PIB de un país?",
+        "opciones": [
+          "El PIB de un país como Albania",
+          "El PIB de un país como Francia",
+          "El PIB de un país como Bulgaria",
+          "El PIB de un país como España"
+        ],
+        "cita": "12,500 millones de dólares equivale a todo el PIB de un país como el Bania.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "3_de_4",
+        "trivial": false,
+        "control_eleccion": 2,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuál es el porcentaje de estadounidenses que cree que el ICE ha ido demasiado lejos?",
+        "opciones": [
+          "62%",
+          "70%",
+          "54%",
+          "65%"
+        ],
+        "cita": "La cifra ha subido del 54% al 65% en solamente un año",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Cuál es el programa que ha salvado más de 26 millones de vidas previniendo los contagios de VIH o de Sida?",
+        "opciones": [
+          "PEPFAR",
+          "CDC",
+          "USAID",
+          "UNICEF"
+        ],
+        "cita": "La administración también está recortando el PEPFAR, que es el programa que ha salvado más de 26 millones de vidas previniendo los contagios de VIH o de Sida.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Qué concepto se refiere a la capacidad de un país para atraer y seducir a otros países sin necesidad de recurrir a la fuerza?",
+        "opciones": [
+          "Poder blando",
+          "Poder militar",
+          "Poder económico",
+          "Poder duro"
+        ],
+        "cita": "Es un arma de seducción masiva en lugar de destrucción. Y Estados Unidos tenía las dos. Trump está destruyendo uno de estos poderes a una velocidad impresionante.",
+        "tipo": "definicion",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": false,
+        "motivo_justificacion": "solo_0_de_2",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 0
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 25,
+    "external_id": "6gLF7KuRLiE",
+    "titulo": "LA AMENAZA RUSA ES REAL… y Europa ni siquiera tiene las armas para plantar cara - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 3156,
+    "transcripcion_recortada": true,
+    "modelo": "llama-3.3-70b-versatile",
+    "version": "quiz-piloto-0.1",
+    "generado_at": "2026-08-15T17:42:39.288269+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuántos sistemas Patriot tenía Qatar cuando una sexta parte de sus instalaciones de gas fueron destruidas?",
+        "opciones": [
+          "60",
+          "50",
+          "40",
+          "34"
+        ],
+        "cita": "Qatar tenía 34 sistemas Patriot y nada de eso impidió que una sexta parte de sus instalaciones de gas fuera destruida",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Cuál es el nombre del programa de defensa franco-alemán que pretende sustituir los carros de combate principales por un sistema de combate terrestre multiplataforma para el año 2040?",
+        "opciones": [
+          "MGCS",
+          "Patriot",
+          "THAAD",
+          "Leopard 2"
+        ],
+        "cita": "MGCS es un programa de defensa franco-alemán que pretende sustituir los carros de combate principales Leopard 2 y Leclerc por un sistema de combate terrestre multiplataforma para el año 2040",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Por qué la guerra de drones ha cambiado radicalmente la forma en que se libran las guerras?",
+        "opciones": [
+          "Porque los drones son muy grandes y fáciles de derribar",
+          "Porque los drones son muy lentos y no pueden ser utilizados en combate",
+          "Porque los drones son muy baratos y difíciles de detectar",
+          "Porque los drones son muy caros y difíciles de detectar"
+        ],
+        "cita": "Los drones son muy baratos y en una guerra de desgaste tienen las de ganar",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "3_de_6",
+        "trivial": true,
+        "control_eleccion": 2,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿Cuántos drones FPV produce Ucrania al año?",
+        "opciones": [
+          "6 millones",
+          "2 millones",
+          "4 millones",
+          "8 millones"
+        ],
+        "cita": "Ucrania produce unos 4 millones de drones FPV al año",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿Cuál es el nombre del módulo de visión artificial de la empresa ucraniana que cuesta 70 dólares y ha aumentado la efectividad de una brigada ucraniana del 20% al 80%?",
+        "opciones": [
+          "Bumblebee",
+          "NORDA Dynamics",
+          "Fourth Law",
+          "Underdog"
+        ],
+        "cita": "Un módulo de visión artificial de la empresa ucraniana Fourth Law cuesta 70 dólares",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "2_de_2",
+        "trivial": true,
+        "control_eleccion": 2,
+        "control_seguridad": "baja",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿Por qué la OTAN tiene un sistema de adquisiciones que tarda años en aprobar un tornillo, mientras que Ucrania puede innovar y mejorar sus drones en semanas o días?",
+        "opciones": [
+          "Porque la OTAN no tiene la presión de una guerra en curso",
+          "Porque la OTAN tiene un sistema de adquisiciones más complejo",
+          "Porque la OTAN tiene más recursos que Ucrania",
+          "Porque la OTAN tiene un enfoque más tradicional en la guerra"
+        ],
+        "cita": "La OTAN tiene un sistema de adquisiciones que tarda AÑOS en aprobar un tornillo",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": false,
+        "motivo_justificacion": "solo_2_de_6",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 3
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 611,
+    "external_id": "Fz8bn06RXp0",
+    "titulo": "IMAGINARIO elevado a IMAGINARIO = REAL, ¿ES POSIBLE?",
+    "canal": "Mates Mike",
+    "formato": "informativo",
+    "n_palabras": 1947,
+    "transcripcion_recortada": false,
+    "modelo": "llama-3.3-70b-versatile",
+    "version": "quiz-piloto-0.1",
+    "generado_at": "2026-08-15T17:43:27.606626+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuál es el módulo del número y?",
+        "opciones": [
+          "2",
+          "0",
+          "1",
+          "Menos 1"
+        ],
+        "cita": "y tiene módulo 1",
+        "tipo": "dato",
+        "anclada": false,
+        "motivo_anclaje": "cita_demasiado_corta_4_palabras",
+        "justificada": null,
+        "motivo_justificacion": null,
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_verificable",
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿Qué sucede cuando se da una vuelta entera en el plano complejo?",
+        "opciones": [
+          "Se queda en el mismo sitio",
+          "Se cambia el ángulo del número",
+          "Se cambia el módulo del número",
+          "Se cambia el número complejo"
+        ],
+        "cita": "resulta que nos quedamos en el mismo sitio",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "2_de_3",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuántos valores puede tener la expresión y elevado a y?",
+        "opciones": [
+          "Infinitos",
+          "1",
+          "4",
+          "2"
+        ],
+        "cita": "y elevado y admite infinitos valores",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "parcial_4_de_6",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Por qué la función exponencial es periódica en el plano complejo?",
+        "opciones": [
+          "Porque la función exponencial es periódica con periodo 2 pi",
+          "Porque la función exponencial es lineal",
+          "Porque el ángulo es periódico",
+          "Porque el módulo es periódico"
+        ],
+        "cita": "la función exponencial es periódica en el plano complejo con periodo 2 pi",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "parcial_12_de_13",
+        "justificada": true,
+        "motivo_justificacion": "5_de_6",
+        "trivial": false,
+        "control_eleccion": 2,
+        "control_seguridad": "alta",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuántos valores puede tener la expresión 2 elevada a 1/3?",
+        "opciones": [
+          "2",
+          "3",
+          "1",
+          "Infinitos"
+        ],
+        "cita": "8 elevado a un tercio nos da tres valores posibles",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": false,
+        "motivo_justificacion": "respuesta_vacia",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuántos valores puede tener la expresión un número complejo elevado a un irracional?",
+        "opciones": [
+          "2",
+          "1",
+          "Infinitos",
+          "4"
+        ],
+        "cita": "admite infinitos valores posibles",
+        "tipo": "argumento",
+        "anclada": false,
+        "motivo_anclaje": "cita_demasiado_corta_4_palabras",
+        "justificada": null,
+        "motivo_justificacion": null,
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_verificable",
+        "correcta": 2
+      }
+    ],
+    "error": null
+  }
+]

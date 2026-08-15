@@ -284,8 +284,9 @@ def main() -> int:
             if sin_panel:
                 print(f"  {sin_panel} con transcripcion pero sin panel  ->  python backfill_panel.py")
             if sin_txt:
-                print(f"  {sin_txt} sin transcripcion todavia          ->  python enrich_local.py"
-                      "   (ojo: este gasta creditos de Supadata)")
+                print(f"  {sin_txt} sin transcripcion todavia          ->  python enrich_local.py")
+                print("     (baja subtitulos con yt_dlp; no gasta creditos de Supadata, pero va")
+                print("      lento a proposito: 10 por hora para no despertar al antibot)")
     return 0
 
 

@@ -1,0 +1,457 @@
+[
+  {
+    "content_item_id": 84,
+    "external_id": "YU3PbQj4JJc",
+    "titulo": "REBORD Y LA VERDAD SOBRE BLENDER - MOVISTAR ARENA HAGOVERO EL 19 DE OCTUBRE",
+    "canal": "Tomás Rebord",
+    "formato": "informativo",
+    "n_palabras": 19287,
+    "transcripcion_recortada": true,
+    "modelo": "llama-3.3-70b-versatile",
+    "version": "quiz-piloto-0.1",
+    "generado_at": "2026-08-15T11:31:57.513381+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuántas personas están viendo la transmisión clandestina?",
+        "opciones": [
+          "Más de 40,000",
+          "Más de 30,000",
+          "Más de 60,000",
+          "Más de 50,000"
+        ],
+        "cita": "somos más de 40,000 personas mirando esta transmisión clandestina",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "baja",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿En qué plataforma se transmitirán los mensajes oficiales los lunes?",
+        "opciones": [
+          "Kick",
+          "YouTube",
+          "Twitch",
+          "Instagram"
+        ],
+        "cita": "los días lunes a las 21 horas yo hago una transmisión formal como venimos haciendo hace ya muchos años",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Qué es lo que se ha habilitado para que las personas puedan contribuir al sistema Agob?",
+        "opciones": [
+          "Un fondo de desempleo",
+          "Una cuenta de PayPal",
+          "Un sistema de donaciones",
+          "Una cuenta de Kickstarter"
+        ],
+        "cita": "Hemos habilitado la posibilidad de pagar desde el exterior por PayPal",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": false,
+        "control_eleccion": 2,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Dónde se realizará la despedida a la altura de la historia del movimiento agobero?",
+        "opciones": [
+          "Teatro Colón",
+          "Estadio de River",
+          "Plaza de Mayo",
+          "Movistar Arena"
+        ],
+        "cita": "Hay una fecha oficial del Movistar Arena",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 37,
+    "external_id": "kgaS_kikD2E",
+    "titulo": "TRUMP SE RETIRA DE IRÁN pero Israel quiere seguir luchando - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 6169,
+    "transcripcion_recortada": true,
+    "modelo": "llama-3.3-70b-versatile",
+    "version": "quiz-piloto-0.1",
+    "generado_at": "2026-08-15T11:32:37.980244+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuánto dinero podría recibir Irán según el vicepresidente de Estados Unidos, J. Bans?",
+        "opciones": [
+          "300,000 millones de dólares",
+          "400,000 millones de dólares",
+          "500,000 millones de dólares",
+          "200,000 millones de dólares"
+        ],
+        "cita": "el vicepresidente de Estados Unidos, Jotas Divans, dijo este lunes que Irán podría acceder a unos 300,000 millones de dólares",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "baja",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuál es el cuarto punto que Irán quiere cumplir según el acuerdo?",
+        "opciones": [
+          "Terminar con su plan nuclear",
+          "Terminar con los misiles balísticos",
+          "Reabrir el estrecho de Ormud",
+          "Terminar con el régimen de los ayatolas"
+        ],
+        "cita": "la cuarta condición de Irán para terminar esta guerra es el fin del conflicto en todos los frentes, incluyendo a todos los grupos de resistencia en la región, y reabrir el estrecho de Ormud",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "parcial_28_de_34",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿Cuántos días llevan las petromonarquías con su economía bloqueada?",
+        "opciones": [
+          "90 días",
+          "107 días",
+          "120 días",
+          "100 días"
+        ],
+        "cita": "llevan 107 días de bloqueo",
+        "tipo": "dato",
+        "anclada": false,
+        "motivo_anclaje": "cita_demasiado_corta_5_palabras",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_verificable",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Cuál es el precio actual del barril de petróleo?",
+        "opciones": [
+          "$80",
+          "$67",
+          "$70",
+          "$60"
+        ],
+        "cita": "el barril de petróleo ya está por debajo de los $80",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": false,
+        "control_eleccion": 1,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 0
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 81,
+    "external_id": "2RY_r8Cn9jE",
+    "titulo": "TRUMP DESTRUYE LA IMAGEN DE EEUU y el turismo le está pasando factura - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 5089,
+    "transcripcion_recortada": true,
+    "modelo": "llama-3.3-70b-versatile",
+    "version": "quiz-piloto-0.1",
+    "generado_at": "2026-08-15T11:33:14.373189+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuál es la pérdida proyectada para el sector turístico estadounidense?",
+        "opciones": [
+          "12,500 millones de dólares",
+          "10,000 millones de dólares",
+          "20,000 millones de dólares",
+          "15,000 millones de dólares"
+        ],
+        "cita": "con una pérdida proyectada de 12,500 millones para el sector turístico estadounidense",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": false,
+        "control_eleccion": 3,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuánto porcentaje del PIB de Estados Unidos representa el turismo?",
+        "opciones": [
+          "11%",
+          "9%",
+          "7%",
+          "5%"
+        ],
+        "cita": "Donald Trump está destruyendo una de las industrias más importantes de todo Estados Unidos, una que representa casi el 9% de su PIB",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": false,
+        "control_eleccion": 2,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Cuántos millones de empleos sostiene el turismo en Estados Unidos?",
+        "opciones": [
+          "20 millones",
+          "20,4 millones",
+          "15 millones",
+          "10 millones"
+        ],
+        "cita": "Y es que veréis, el turismo aporta el 9% del PIB de Estados Unidos y sostiene 20,4 millones de empleos",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Cuánto porcentaje de la ayuda humanitaria en la República Democrática del Congo financiaba USAID?",
+        "opciones": [
+          "60%",
+          "70%",
+          "80%",
+          "50%"
+        ],
+        "cita": "USAID financiaba el 70% de la ayuda humanitaria en la República Democrática del Congo",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": false,
+        "control_eleccion": 2,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 1
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 25,
+    "external_id": "6gLF7KuRLiE",
+    "titulo": "LA AMENAZA RUSA ES REAL… y Europa ni siquiera tiene las armas para plantar cara - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 3156,
+    "transcripcion_recortada": true,
+    "modelo": "llama-3.3-70b-versatile",
+    "version": "quiz-piloto-0.1",
+    "generado_at": "2026-08-15T11:33:55.513610+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuántos vehículos blindados simularon destruir los ucranianos en medio día?",
+        "opciones": [
+          "17",
+          "20",
+          "25",
+          "15"
+        ],
+        "cita": "En medio día los ucranianos simularon la destrucción de 17 vehículos blindados",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "baja",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuál es el porcentaje del PIB que gasta Polonia en defensa?",
+        "opciones": [
+          "5.1%",
+          "4.7%",
+          "4.2%",
+          "3.7%"
+        ],
+        "cita": "El país que más gasta en defensa de toda la OTAN en proporción al PIB: un 4,7%",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Cuántos drones FPV produce Ucrania al año?",
+        "opciones": [
+          "2 millones",
+          "5 millones",
+          "3 millones",
+          "4 millones"
+        ],
+        "cita": "Ucrania produce unos 4 millones de drones FPV al año",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "baja",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Cuál es el nombre del programa de defensa franco-alemán que pretende sustituir los carros de combate principales?",
+        "opciones": [
+          "Patriot",
+          "THAAD",
+          "MGCS",
+          "Leopard"
+        ],
+        "cita": "MGCS es un programa de defensa franco-alemán que pretende sustituir los carros de combate principales Leopard 2 y Leclerc",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": true,
+        "control_eleccion": 2,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 2
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 611,
+    "external_id": "Fz8bn06RXp0",
+    "titulo": "IMAGINARIO elevado a IMAGINARIO = REAL, ¿ES POSIBLE?",
+    "canal": "Mates Mike",
+    "formato": "informativo",
+    "n_palabras": 1947,
+    "transcripcion_recortada": false,
+    "modelo": "llama-3.3-70b-versatile",
+    "version": "quiz-piloto-0.1",
+    "generado_at": "2026-08-15T11:34:34.734423+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuál es el módulo del número y?",
+        "opciones": [
+          "1",
+          "2",
+          "0",
+          "3"
+        ],
+        "cita": "y tiene módulo 1",
+        "tipo": "dato",
+        "anclada": false,
+        "motivo_anclaje": "cita_demasiado_corta_4_palabras",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_verificable",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuál es el ángulo que forma el número y con el eje real?",
+        "opciones": [
+          "pi/2",
+          "3pi/2",
+          "pi",
+          "pi/4"
+        ],
+        "cita": "y tiene módulo 1 y ángulo pi medios con el eje real",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "alta",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿Cuántos valores puede tener la expresión y elevado a y?",
+        "opciones": [
+          "infinitos",
+          "4",
+          "2",
+          "1"
+        ],
+        "cita": "y elevado y admite infinitos valores",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "parcial_4_de_6",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuántos valores puede tener la expresión 2 elevada a 1/4?",
+        "opciones": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "cita": "elevado a un cuarto admite exactamente cuatro valores",
+        "tipo": "dato",
+        "anclada": false,
+        "motivo_anclaje": "no_encontrada_max_4_palabras",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_verificable",
+        "correcta": 3
+      }
+    ],
+    "error": null
+  }
+]
