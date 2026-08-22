@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Quiz de retencion - Nutri-Score de Contenidos</title>
+<style>
+  :root { --tinta:#1a1a1a; --suave:#666; --linea:#e2e2e2; --fondo:#fbfbfa;
+          --acento:#2f5d50; --acento-claro:#eaf1ee; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:0 1rem 6rem; background:var(--fondo); color:var(--tinta);
+         font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .env { max-width:44rem; margin:0 auto; }
+  header { padding:2.5rem 0 1.5rem; border-bottom:1px solid var(--linea); margin-bottom:2rem; }
+  h1 { font-size:1.5rem; margin:0 0 .5rem; letter-spacing:-.01em; }
+  .sub { color:var(--suave); font-size:.95rem; margin:0; }
+  .aviso { background:var(--acento-claro); border-left:3px solid var(--acento);
+           padding:.9rem 1.1rem; margin:1.5rem 0; font-size:.92rem; border-radius:0 4px 4px 0; }
+  .video { background:#fff; border:1px solid var(--linea); border-radius:8px;
+           padding:1.5rem; margin-bottom:1.5rem; }
+  .video h2 { font-size:1.05rem; margin:0 0 .2rem; line-height:1.4; }
+  .canal { color:var(--suave); font-size:.85rem; margin:0 0 .5rem; }
+  .novi { font-size:.88rem; color:var(--suave); display:flex; align-items:center;
+          gap:.5rem; padding:.6rem 0; border-top:1px solid var(--linea); margin-top:.8rem; }
+  .video.excluido .preguntas { opacity:.35; pointer-events:none; }
+  .p { padding:1.1rem 0; border-top:1px solid var(--linea); }
+  .p .txt { font-weight:500; margin-bottom:.7rem; }
+  label { display:block; padding:.55rem .8rem; margin:.3rem 0; border:1px solid var(--linea);
+          border-radius:6px; cursor:pointer; background:#fff; transition:.12s; }
+  label:hover { border-color:var(--acento); background:var(--acento-claro); }
+  input[type=radio] { margin-right:.6rem; }
+  input:checked + span { font-weight:600; }
+  .barra { position:fixed; left:0; right:0; bottom:0; background:#fff;
+           border-top:1px solid var(--linea); padding:.9rem 1rem; }
+  .barra .env { display:flex; align-items:center; gap:1rem; justify-content:space-between; }
+  .prog { font-size:.9rem; color:var(--suave); }
+  button { background:var(--acento); color:#fff; border:0; border-radius:6px;
+           padding:.65rem 1.4rem; font-size:.95rem; cursor:pointer; font-weight:500; }
+  button:disabled { background:#bbb; cursor:not-allowed; }
+  #resultado { background:#fff; border:1px solid var(--linea); border-radius:8px;
+               padding:1.5rem; margin-bottom:1.5rem; display:none; }
+  table { border-collapse:collapse; width:100%; font-size:.92rem; margin-top:.8rem; }
+  td,th { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--linea); }
+  td:last-child,th:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+  .id { font-size:.85rem; color:var(--suave); }
+  input[type=text] { padding:.5rem .7rem; border:1px solid var(--linea);
+                     border-radius:6px; font-size:.95rem; width:14rem; }
+</style>
+<div class="env">
+<header>
+  <h1>Quiz de retencion</h1>
+  <p class="sub">Sobre videos que viste hace un tiempo. Generado el 2026-08-21 ·
+     3 videos · 14 preguntas</p>
+</header>
+
+<div class="aviso">
+  <strong>Antes de empezar.</strong> Contesta de memoria: no busques, no abras el video.
+  Si no te acuerdas, <strong>elige igual la que te parezca mas probable</strong> — hace falta
+  que contestes todas para que el resultado se pueda comparar con la linea de base.
+  Si un video no lo viste, marcalo con la casilla y sus preguntas quedan fuera.
+  No vas a ver si acertaste hasta el final.
+</div>
+
+<p class="id">Identificador (un seudonimo, no tu nombre):
+  <input type="text" id="persona" placeholder="p.ej. juan-01" value="juan-01"></p>
+
+<div id="resultado"></div>
+<div id="quiz"></div>
+</div>
+
+<div class="barra"><div class="env">
+  <span class="prog" id="prog">0 de 0 contestadas</span>
+  <button id="enviar" disabled>Terminar y descargar</button>
+</div></div>
+
+<script>
+const DATOS = [{"content_item_id": 515, "titulo": "Qué es la subducción de placas que provocó el mayor terremoto en Colombia de la última década", "canal": "BBC News Mundo", "url": "https://www.youtube.com/watch?v=Tc3UQoH2mIo", "watched_at": "2026-08-13T17:34:07.966000+00:00", "preguntas": [{"id": 138, "pregunta": "Según el texto, ¿cómo se define el movimiento de subducción entre placas tectónicas?", "opciones": ["Cuando las placas encajan perfectamente como un rompecabezas.", "Cuando las placas se mueven de forma lateral.", "Cuando las placas se alejan una de la otra.", "Cuando una placa se desliza por debajo de otra."], "correcta": 3, "tipo": "definicion", "dificil": false}, {"id": 139, "pregunta": "¿Qué tipo específico de movimiento de subducción ocurrió en Colombia, según el texto?", "opciones": ["De transformación, que ocurre cuando las placas se mueven de forma lateral.", "De compresión, que ocurre cuando una placa se mete debajo de la otra en un sistema profundo.", "Divergente, que ocurre cuando las placas se alejan una de la otra.", "Convergente, que ocurre cuando las placas se mueven una hacia la otra y una se desliza por debajo."], "correcta": 3, "tipo": "relacion", "dificil": false}, {"id": 140, "pregunta": "¿A qué ritmo anual avanza la placa de Nazca por debajo del continente, según el texto?", "opciones": ["Entre 55 y 60 milímetros por año.", "Entre 25 y 30 milímetros por año.", "Entre 40 y 50 milímetros por año.", "Entre 65 y 70 milímetros por año."], "correcta": 0, "tipo": "dato", "dificil": false}, {"id": 141, "pregunta": "¿Qué placas tectónicas interactúan en la zona donde se encuentra Colombia, según el texto?", "opciones": ["La Suramericana y la del Caribe, pero no la de Nazca.", "La del Pacífico, la Suramericana y la de Nazca.", "La de Nazca, la Suramericana y la del Caribe.", "La de Nazca y la Suramericana, pero no la del Caribe."], "correcta": 2, "tipo": "relacion", "dificil": false}, {"id": 142, "pregunta": "Según el experto Feliciano de Santis, ¿cuál es la relación entre el terremoto de Colombia y el doble terremoto de Venezuela?", "opciones": ["No tienen relación alguna, a pesar de compartir fronteras y geografía.", "Comparten un sistema de fallas profundo que los interconecta directamente.", "La conexión entre los sismos es muy indirecta, aunque compartan placas.", "Están directamente conectados por la interacción de la placa del Caribe."], "correcta": 2, "tipo": "argumento", "dificil": false}, {"id": 143, "pregunta": "¿Cuál es la principal diferencia en los sistemas de fallas entre Colombia y Venezuela, según el experto?", "opciones": ["Ambos países tienen sistemas de fallas superficiales, pero con diferentes tipos de roca.", "El sistema de Colombia es superficial con roce lateral, y el de Venezuela es profundo con compresión.", "El sistema de Colombia es más profundo con compresión, mientras que el de Venezuela es más superficial con roce lateral.", "Ambos países tienen sistemas de fallas profundos, pero con diferentes velocidades de movimiento."], "correcta": 2, "tipo": "relacion", "dificil": false}]}, {"content_item_id": 509, "titulo": "A TRUMP SE LE ACABA EL TIEMPO estas son las SALIDAS que TIENE - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=MLZZCeoYmsg", "watched_at": "2026-08-13T08:38:15.475000+00:00", "preguntas": [{"id": 7, "pregunta": "¿Qué expresión utiliza el narrador para describir las repetidas marchas atrás de Donald Trump en sus amenazas a Irán?", "opciones": ["su clásico taco", "cantar victoria en Iranja", "la política inestable", "una tremenda ofensiva"], "correcta": 0, "tipo": "definicion", "dificil": true}, {"id": 8, "pregunta": "Según el narrador, ¿cuál es el arma principal de Irán que le permite poner en jaque a Estados Unidos?", "opciones": ["Sus misiles balísticos de combustible sólido que pueden maniobrar.", "La opacidad, al no saberse cuántas cartas tiene Irán ni poder verificar los ataques.", "El control del estrecho de Ormuz y el sistema de peaje.", "Su capacidad de producir más de 5.000 drones al mes."], "correcta": 1, "tipo": "argumento", "dificil": true}, {"id": 9, "pregunta": "¿Cuál es la principal desventaja económica de los sistemas de defensa antimisiles de EE. UU. frente a los drones iraníes, según el video?", "opciones": ["La hora de vuelo de un F-35 es de 42.000 dólares, mientras que un dron iraní solo cuesta 35.000 dólares.", "Cada misil Patriot cuesta 4 millones de dólares, mientras que un dron iraní cuesta alrededor de 35.000 dólares.", "Estados Unidos ha usado el 80% de sus interceptores, mientras que Irán retiene el 70% de sus misiles.", "Un misil Patriot tarda un año en fabricarse, mientras que un dron iraní sale de un taller en una semana."], "correcta": 1, "tipo": "relacion", "dificil": false}, {"id": 10, "pregunta": "¿Qué ventaja clave tienen los misiles de combustible sólido iraníes sobre los de combustible líquido, según la explicación del narrador?", "opciones": ["Emiten muy poco calor, lo que los hace difíciles de rastrear por los sistemas enemigos.", "Son mucho más baratos de producir y transportar en grandes cantidades.", "Ya van cargados de fábrica, lo que permite un lanzamiento rápido sin un proceso de carga largo y tóxico.", "Pueden maniobrar para esquivar las defensas antiaéreas antes de golpear su objetivo."], "correcta": 2, "tipo": "definicion", "dificil": false}]}, {"content_item_id": 91, "titulo": "TAIWÁN APRENDE DE UCRANIA y sorprende a Xi Jinping - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=FvxHvj6C3_8", "watched_at": "2026-07-21T11:06:01.845000+00:00", "preguntas": [{"id": 169, "pregunta": "¿Cuál es la razón principal, según el narrador, por la que la administración de Donald Trump está congelando la venta de armas a Taiwán?", "opciones": ["Por miedo a que las armas de última generación caigan en manos equivocadas.", "Para priorizar la guerra con Irán y otros conflictos en Oriente Medio.", "Para conseguir mejores condiciones en su guerra arancelaria y comercial con China.", "Para evitar enfadar a China y mantener la estabilidad regional."], "correcta": 2, "tipo": "relacion", "dificil": true}, {"id": 170, "pregunta": "¿Qué elementos del \"lenguaje no verbal\" de China, según la analogía del método Andrew Tate, son usados para \"decretar la realidad\" que vivirá Taiwán?", "opciones": ["Presiones económicas y bloqueos comerciales en la región.", "Ejercicios militares y silos de misiles nucleares.", "Amenazas de aranceles y recortes de visados de estudiante.", "Declaraciones de reunificación imparable y patrullas marítimas."], "correcta": 1, "tipo": "definicion", "dificil": false}, {"id": 171, "pregunta": "¿Cuál es la característica geográfica principal de Taiwán que el narrador destaca como su mayor aliado defensivo?", "opciones": ["La presencia de cientos de silos de misiles y búnkeres en sus costas.", "La escasez de playas aptas para un asalto anfibio a gran escala.", "Sus zonas superpobladas y pantanos que dificultan el movimiento de tropas terrestres.", "La cordillera central que la recorre de arriba a abajo con cumbres de más de 4,000 metros."], "correcta": 3, "tipo": "dato", "dificil": false}, {"id": 172, "pregunta": "¿Cuál es la intención principal de Taiwán al desarrollar una flota masiva de drones, según el narrador?", "opciones": ["Ganar la guerra de forma convencional contra China con tecnología avanzada.", "Disuadir completamente a China de cualquier intento de invasión.", "Entorpecer el avance chino hasta que llegue la ayuda de posibles aliados.", "Reemplazar todas las armas tradicionales por vehículos no tripulados."], "correcta": 2, "tipo": "argumento", "dificil": false}]}];
+// Clave de guardado atada al conjunto de preguntas: dos tandas distintas no se
+// pisan, y si se regenera el quiz con otras preguntas no se restaura basura.
+const CLAVE = 'quiz_' + DATOS.map(v => v.content_item_id).join('_');
+
+let resp = {};               // id de pregunta -> {eleccion, segundos, respondido_at}
+let excluidos = new Set();   // videos marcados como no vistos
+// El cronometro mide desde la ULTIMA interaccion, no desde que se abrio la
+// pagina. Antes se ponia el mismo instante de arranque para TODAS las
+// preguntas, con lo cual "segundos" en la pregunta 50 era el tiempo acumulado
+// desde que se abrio el archivo. No medía nada.
+let ultimoEvento = Date.now();
+
+function guardar() {
+  try {
+    localStorage.setItem(CLAVE, JSON.stringify({
+      resp, excluidos: [...excluidos],
+      persona: document.getElementById('persona').value || ''
+    }));
+  } catch (e) { /* modo privado o sin permiso: se sigue sin autoguardado */ }
+}
+
+function restaurar() {
+  let g = null;
+  try { g = JSON.parse(localStorage.getItem(CLAVE) || 'null'); } catch (e) {}
+  if (!g) return false;
+  resp = g.resp || {};
+  excluidos = new Set(g.excluidos || []);
+  if (g.persona) document.getElementById('persona').value = g.persona;
+  return Object.keys(resp).length > 0 || excluidos.size > 0;
+}
+
+function pintar() {
+  const cont = document.getElementById('quiz');
+  DATOS.forEach(v => {
+    const d = document.createElement('div');
+    d.className = 'video'; d.id = 'v' + v.content_item_id;
+    let html = `<h2>${esc(v.titulo)}</h2><p class="canal">${esc(v.canal || '')}</p>
+      <div class="preguntas">`;
+    v.preguntas.forEach(p => {
+      html += `<div class="p"><div class="txt">${esc(p.pregunta)}</div>`;
+      p.opciones.forEach((o, i) => {
+        html += `<label><input type="radio" name="q${p.id}" value="${i}">
+                 <span>${esc(o)}</span></label>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div><label class="novi"><input type="checkbox" class="novi-chk">
+             No vi este video (o no lo recuerdo en absoluto)</label>`;
+    d.innerHTML = html;
+    cont.appendChild(d);
+
+    const chk = d.querySelector('.novi-chk');
+    if (excluidos.has(v.content_item_id)) { chk.checked = true; d.classList.add('excluido'); }
+    chk.addEventListener('change', e => {
+      if (e.target.checked) { excluidos.add(v.content_item_id); d.classList.add('excluido'); }
+      else { excluidos.delete(v.content_item_id); d.classList.remove('excluido'); }
+      guardar();
+      progreso();
+    });
+    v.preguntas.forEach(p => {
+      // restaurar lo ya contestado
+      if (resp[p.id] !== undefined) {
+        const prev = d.querySelector(`input[name=q${p.id}][value="${resp[p.id].eleccion}"]`);
+        if (prev) prev.checked = true;
+      }
+      d.querySelectorAll(`input[name=q${p.id}]`).forEach(r => {
+        r.addEventListener('change', () => {
+          const ahora = Date.now();
+          resp[p.id] = { eleccion: +r.value,
+                         segundos: Math.round((ahora - ultimoEvento) / 1000),
+                         respondido_at: ahora };
+          ultimoEvento = ahora;
+          guardar();
+          progreso();
+        });
+      });
+    });
+  });
+  progreso();
+}
+
+function pendientes() {
+  let n = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => { if (resp[p.id] === undefined) n++; });
+  });
+  return n;
+}
+
+function progreso() {
+  const falta = pendientes();
+  const activas = DATOS.reduce((a, v) =>
+      a + (excluidos.has(v.content_item_id) ? 0 : v.preguntas.length), 0);
+  document.getElementById('prog').textContent =
+      `${activas - falta} de ${activas} contestadas` + (falta ? ` · faltan ${falta}` : '');
+  document.getElementById('enviar').disabled = falta > 0 || activas === 0;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+document.getElementById('enviar').addEventListener('click', () => {
+  const persona = (document.getElementById('persona').value || '').trim();
+  if (!persona) { alert('Falta el identificador'); return; }
+  const salida = { persona_id: persona,
+                   completado_at: new Date().toISOString(),
+                   videos_excluidos: [...excluidos], respuestas: [] };
+  let ok = 0, okDif = 0, nDif = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => {
+      const r = resp[p.id];
+      // Los dias se calculan contra el instante en que se contesto ESA
+      // pregunta, no contra la carga de la pagina: con autoguardado, una tanda
+      // puede empezarse un dia y terminarse otro.
+      const dias = v.watched_at
+        ? ((r.respondido_at || Date.now()) - new Date(v.watched_at).getTime()) / 86400000
+        : null;
+      const acierto = r.eleccion === p.correcta;
+      if (acierto) ok++;
+      if (p.dificil) { nDif++; if (acierto) okDif++; }
+      salida.respuestas.push({ pregunta_id: p.id, eleccion: r.eleccion, acierto,
+                               segundos: r.segundos,
+                               dias_transcurridos: dias === null ? null : +dias.toFixed(2) });
+    });
+  });
+  const n = salida.respuestas.length;
+  const caja = document.getElementById('resultado');
+  caja.style.display = 'block';
+  caja.innerHTML = `<h2 style="margin-top:0;font-size:1.05rem">Listo</h2>
+    <table>
+      <tr><th>Preguntas contestadas</th><td>${n}</td></tr>
+      <tr><th>Aciertos</th><td>${ok} (${(100*ok/n).toFixed(0)} %)</td></tr>
+      <tr><th>Aciertos en el subconjunto dificil</th>
+          <td>${nDif ? `${okDif} de ${nDif} (${(100*okDif/nDif).toFixed(0)} %)` : 'sin items'}</td></tr>
+      <tr><th>Videos excluidos por no haberlos visto</th><td>${excluidos.size}</td></tr>
+    </table>
+    <p class="id" style="margin-top:1rem">El archivo se descargo. Cargalo con
+    <code>cargar_quiz.py --respuestas</code>. El porcentaje de aqui arriba es
+    orientativo: la retencion corregida por la linea de base se calcula en la base
+    de datos.</p>`;
+  caja.scrollIntoView({ behavior: 'smooth' });
+  try { localStorage.removeItem(CLAVE); } catch (e) {}
+
+  const blob = new Blob([JSON.stringify(salida, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `respuestas_${persona}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+});
+
+const habia = restaurar();
+pintar();
+document.getElementById('persona').addEventListener('input', guardar);
+if (habia) {
+  const a = document.createElement('div');
+  a.className = 'aviso';
+  a.innerHTML = '<strong>Se recupero tu avance.</strong> Podes cerrar y volver cuando quieras: ' +
+                'se guarda en este navegador a medida que contestas.';
+  document.querySelector('#quiz').before(a);
+}
+window.addEventListener('beforeunload', e => {
+  if (pendientes() > 0 && Object.keys(resp).length > 0) { e.preventDefault(); e.returnValue = ''; }
+});
+</script>
+</html>

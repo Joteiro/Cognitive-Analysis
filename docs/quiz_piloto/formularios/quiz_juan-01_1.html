@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Quiz de retencion - Nutri-Score de Contenidos</title>
+<style>
+  :root { --tinta:#1a1a1a; --suave:#666; --linea:#e2e2e2; --fondo:#fbfbfa;
+          --acento:#2f5d50; --acento-claro:#eaf1ee; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:0 1rem 6rem; background:var(--fondo); color:var(--tinta);
+         font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .env { max-width:44rem; margin:0 auto; }
+  header { padding:2.5rem 0 1.5rem; border-bottom:1px solid var(--linea); margin-bottom:2rem; }
+  h1 { font-size:1.5rem; margin:0 0 .5rem; letter-spacing:-.01em; }
+  .sub { color:var(--suave); font-size:.95rem; margin:0; }
+  .aviso { background:var(--acento-claro); border-left:3px solid var(--acento);
+           padding:.9rem 1.1rem; margin:1.5rem 0; font-size:.92rem; border-radius:0 4px 4px 0; }
+  .video { background:#fff; border:1px solid var(--linea); border-radius:8px;
+           padding:1.5rem; margin-bottom:1.5rem; }
+  .video h2 { font-size:1.05rem; margin:0 0 .2rem; line-height:1.4; }
+  .canal { color:var(--suave); font-size:.85rem; margin:0 0 .5rem; }
+  .novi { font-size:.88rem; color:var(--suave); display:flex; align-items:center;
+          gap:.5rem; padding:.6rem 0; border-top:1px solid var(--linea); margin-top:.8rem; }
+  .video.excluido .preguntas { opacity:.35; pointer-events:none; }
+  .p { padding:1.1rem 0; border-top:1px solid var(--linea); }
+  .p .txt { font-weight:500; margin-bottom:.7rem; }
+  label { display:block; padding:.55rem .8rem; margin:.3rem 0; border:1px solid var(--linea);
+          border-radius:6px; cursor:pointer; background:#fff; transition:.12s; }
+  label:hover { border-color:var(--acento); background:var(--acento-claro); }
+  input[type=radio] { margin-right:.6rem; }
+  input:checked + span { font-weight:600; }
+  .barra { position:fixed; left:0; right:0; bottom:0; background:#fff;
+           border-top:1px solid var(--linea); padding:.9rem 1rem; }
+  .barra .env { display:flex; align-items:center; gap:1rem; justify-content:space-between; }
+  .prog { font-size:.9rem; color:var(--suave); }
+  button { background:var(--acento); color:#fff; border:0; border-radius:6px;
+           padding:.65rem 1.4rem; font-size:.95rem; cursor:pointer; font-weight:500; }
+  button:disabled { background:#bbb; cursor:not-allowed; }
+  #resultado { background:#fff; border:1px solid var(--linea); border-radius:8px;
+               padding:1.5rem; margin-bottom:1.5rem; display:none; }
+  table { border-collapse:collapse; width:100%; font-size:.92rem; margin-top:.8rem; }
+  td,th { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--linea); }
+  td:last-child,th:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+  .id { font-size:.85rem; color:var(--suave); }
+  input[type=text] { padding:.5rem .7rem; border:1px solid var(--linea);
+                     border-radius:6px; font-size:.95rem; width:14rem; }
+</style>
+<div class="env">
+<header>
+  <h1>Quiz de retencion</h1>
+  <p class="sub">Sobre videos que viste hace un tiempo. Generado el 2026-08-19 ·
+     5 videos · 25 preguntas</p>
+</header>
+
+<div class="aviso">
+  <strong>Antes de empezar.</strong> Contesta de memoria: no busques, no abras el video.
+  Si no te acuerdas, <strong>elige igual la que te parezca mas probable</strong> — hace falta
+  que contestes todas para que el resultado se pueda comparar con la linea de base.
+  Si un video no lo viste, marcalo con la casilla y sus preguntas quedan fuera.
+  No vas a ver si acertaste hasta el final.
+</div>
+
+<p class="id">Identificador (un seudonimo, no tu nombre):
+  <input type="text" id="persona" placeholder="p.ej. juan-01" value="juan-01"></p>
+
+<div id="resultado"></div>
+<div id="quiz"></div>
+</div>
+
+<div class="barra"><div class="env">
+  <span class="prog" id="prog">0 de 0 contestadas</span>
+  <button id="enviar" disabled>Terminar y descargar</button>
+</div></div>
+
+<script>
+const DATOS = [{"content_item_id": 613, "titulo": "Ebitda récord de $YPF, el dólar no desvela a los CEOs y salta el petróleo por Ormuz", "canal": "Bloomberg Línea", "url": "https://www.youtube.com/watch?v=4LlGJcHueV0", "watched_at": "2026-08-14T10:26:54.156000+00:00", "preguntas": [{"id": 115, "pregunta": "Según el informe de Telecom, ¿cuál fue la principal razón que explicó el salto en su utilidad durante el primer semestre?", "opciones": ["El resultado financiero, específicamente las diferencias de cambio.", "Una mejora generalizada en los márgenes de negocio.", "El aumento real del 13,4% en las ventas consolidadas.", "La incorporación de Telefónica Móviles Argentina."], "correcta": 0, "tipo": "argumento", "dificil": true}, {"id": 116, "pregunta": "¿Qué porcentaje de su capacidad instalada está utilizando Loma Negra, según el análisis presentado?", "opciones": ["Un 80% de los directivos espera una mejor situación económica.", "Apenas el 40% de la capacidad instalada.", "Un 72% de los ejecutivos lo considera un obstáculo.", "Un 19% de sobreevaluación del peso argentino."], "correcta": 1, "tipo": "dato", "dificil": false}, {"id": 117, "pregunta": "Según el relevamiento del índice de clima empresarial del LIDE Argentina, ¿cuál es el tema más preocupante del escenario actual para los empresarios sondeados?", "opciones": ["El tipo de cambio, con un 15,2%.", "La política, señalada por el 65,7%.", "El nivel de demanda, que afecta al 42% de las empresas.", "La inflación, con un 14,3%."], "correcta": 1, "tipo": "relacion", "dificil": false}, {"id": 118, "pregunta": "¿Cuál fue la principal razón mencionada para el salto en el precio del petróleo, con el WTI subiendo 5,1%?", "opciones": ["Las demandas de Irán por compensaciones de guerra.", "El enfriamiento del mercado laboral en Estados Unidos.", "La falta de un acuerdo para reabrir el estrecho de Ormuz.", "Los temores de que la Reserva Federal suba las tasas."], "correcta": 2, "tipo": "relacion", "dificil": false}, {"id": 119, "pregunta": "¿Para qué fin principal Edenor utilizará los 963 millones de dólares en obligaciones negociables que colocó en julio?", "opciones": ["Para cubrir una ganancia neta de 1,205 millones de dólares.", "En adquisiciones de nuevos negocios, incluyendo el 70% del capital de Metrogas.", "Para reducir su endeudamiento neto a 1,09 veces.", "Para financiar la producción de petróleo no convencional de YPF."], "correcta": 1, "tipo": "argumento", "dificil": true}]}, {"content_item_id": 612, "titulo": "Who's purging the internet? 38% of it is gone and nobody noticed.", "canal": "Marc Vidal", "url": "https://www.youtube.com/watch?v=CEay-7CiLEg", "watched_at": "2026-08-13T23:04:00.300000+00:00", "preguntas": [{"id": 68, "pregunta": "Según la interpretación del narrador sobre Orwell, ¿cómo fabrica el poder el presente?", "opciones": ["Editando el presente para que coincida con la línea oficial.", "Controlando los servidores de internet y el registro intelectual.", "Degradando la desinformación y regulando la prominencia.", "Borrando el pasado para definir un futuro falso."], "correcta": 3, "tipo": "argumento", "dificil": true}, {"id": 69, "pregunta": "¿A qué se refiere el término \"Link Rot\" según los investigadores mencionados en el video?", "opciones": ["A la \"nada invisible\" que se produce cuando la IA no encuentra una fuente.", "A la \"nada administrativa\" que representa un error 404.", "Al \"agujero de la memoria\" de Orwell, donde se incineraban documentos.", "A la podredumbre de enlaces, donde las páginas web dejan de ser accesibles."], "correcta": 3, "tipo": "definicion", "dificil": false}, {"id": 71, "pregunta": "Según la charla de Julian Assange citada en el video, ¿cuál es la principal diferencia de los archivos electrónicos en Occidente respecto a los analógicos?", "opciones": ["Permiten borrar información sin dejar ninguna cicatriz visible, a diferencia del papel.", "Su existencia depende de decisiones presupuestarias, convirtiendo la memoria en un gasto corriente.", "Cuando algo desaparece de ellos, lo hace para siempre debido a su centralización y las leyes de derechos de autor.", "Son más vulnerables a ciberataques y a la pérdida de datos de millones de usuarios."], "correcta": 2, "tipo": "relacion", "dificil": true}, {"id": 72, "pregunta": "¿Qué consecuencia tiene la inteligencia artificial en el problema de la memoria, según el narrador?", "opciones": ["Hace que la memoria digital dependa de una sola entidad con presupuestos limitados.", "Centraliza los archivos de información, impidiendo que se copien legalmente en otros lugares.", "Obliga a degradar la desinformación y a regular qué relatos aparecen primero.", "Genera una \"nada invisible\" donde la ausencia de información no se percibe porque la respuesta parece completa."], "correcta": 3, "tipo": "argumento", "dificil": false}]}, {"content_item_id": 611, "titulo": "IMAGINARIO elevado a IMAGINARIO = REAL, ¿ES POSIBLE?", "canal": "Mates Mike", "url": "https://www.youtube.com/watch?v=Fz8bn06RXp0", "watched_at": "2026-08-13T22:51:19.549000+00:00", "preguntas": [{"id": 109, "pregunta": "¿Qué aspecto de la expresión \"i elevado a i\" se presenta como \"bastante sorprendente\" al inicio del video?", "opciones": ["Que puede ser igual a un número real.", "Que es el número complejo por excelencia.", "Que está relacionada con el número de Euler y el número pi.", "Que admite infinitos valores posibles."], "correcta": 0, "tipo": "argumento", "dificil": false}, {"id": 110, "pregunta": "Según el video, ¿cómo permite la función exponencial escribir un número complejo z en su fórmula polar?", "opciones": ["Como su módulo dividido por e elevado al ángulo por i.", "Como su módulo sumado al ángulo multiplicado por i.", "Como su módulo elevado al ángulo multiplicado por i.", "Como su módulo multiplicado por e elevado al ángulo por i."], "correcta": 3, "tipo": "definicion", "dificil": false}, {"id": 112, "pregunta": "¿Cuál es la característica sorprendente de todos los infinitos valores que puede tomar la expresión \"i elevado a i\", según la conclusión del video?", "opciones": ["Son todos números reales sin parte imaginaria.", "Son todos números complejos con diferentes partes imaginarias.", "Son una mezcla de números reales y complejos.", "Son un conjunto finito de números reales."], "correcta": 0, "tipo": "comprension", "dificil": false}, {"id": 113, "pregunta": "¿Qué ejemplo de la secundaria utiliza el video para ilustrar el concepto de función multi-valuada, donde elevar un número a otro puede dar varios valores?", "opciones": ["La potencia de 2 elevado a 4 (2^4).", "La raíz cuadrada de 2 (2^(1/2)).", "La raíz cúbica de 8 (8^(1/3)).", "La expresión i elevado a i."], "correcta": 1, "tipo": "dato", "dificil": true}]}, {"content_item_id": 610, "titulo": "Así cambian las pantallas tu percepción del tiempo", "canal": "DW Tecnología y mundo digital", "url": "https://www.youtube.com/watch?v=8zHwQcaRq54", "watched_at": "2026-08-13T22:38:57.613000+00:00", "preguntas": [{"id": 126, "pregunta": "Según el video, ¿cuánto tiempo promedio pasan las personas frente a una pantalla al día?", "opciones": ["Seis horas y 40 minutos.", "Ocho horas y 20 minutos.", "Cinco horas y 30 minutos.", "Siete horas y 10 minutos."], "correcta": 0, "tipo": "dato", "dificil": true}, {"id": 127, "pregunta": "¿Cómo describe el video la forma en que los humanos perciben el tiempo?", "opciones": ["Mediante la atención consciente a cada instante que pasa.", "Surge únicamente en el cerebro, que lo reconstruye a partir de los acontecimientos.", "Por medio de la luz y las voces, como el oído.", "A través de un órgano sensorial especializado, similar a la vista."], "correcta": 1, "tipo": "definicion", "dificil": false}, {"id": 128, "pregunta": "Según el video, ¿cuál es la diferencia en la percepción del tiempo entre el entorno físico y el virtual?", "opciones": ["En el virtual, los acontecimientos son independientes y se presta menos atención al paso del tiempo.", "En el físico, el cerebro procesa la información más rápido que en el virtual.", "En el físico, cada acontecimiento está cargado de emociones.", "En el virtual, el cerebro puede seguir el paso del tiempo a su propio ritmo."], "correcta": 0, "tipo": "relacion", "dificil": false}, {"id": 129, "pregunta": "Según el catedrático Philipp Staab, ¿cuál es una de las razones principales de la creciente dependencia del mundo digital?", "opciones": ["La búsqueda de evasión y refugio ante un futuro incierto y múltiples crisis.", "La necesidad de acelerar el tiempo para ser más productivos.", "El deseo de estar constantemente conectado con otras personas.", "La facilidad para acceder a información y contenidos variados."], "correcta": 0, "tipo": "argumento", "dificil": true}, {"id": 130, "pregunta": "¿Qué resultado clave arrojó el experimento sobre la percepción del tiempo en situaciones activas, similares a las redes sociales?", "opciones": ["El tiempo se subestima significativamente, percibiéndose casi un 60% más corto.", "El tiempo se percibe de forma más precisa, sin grandes variaciones.", "El tiempo se sobrestima, pareciendo más largo de lo que realmente es.", "El efecto de subestimación fue menor que en la visualización pasiva."], "correcta": 0, "tipo": "relacion", "dificil": false}, {"id": 131, "pregunta": "¿Cómo explica el video que los recuerdos de lo que se ve en medios digitales sean menos concretos y el tiempo parezca haber pasado rápido?", "opciones": ["La sobrecarga de información impide que el cerebro procese los eventos.", "El cerebro agrupa muchos videos distintos usando el mismo mecanismo, sin dejar nada concreto a lo que aferrarse.", "Los medios digitales no activan las zonas del cerebro responsables de la memoria a largo plazo.", "El cerebro almacena cada detalle de los videos, lo que dificulta la recuperación."], "correcta": 1, "tipo": "argumento", "dificil": false}]}, {"content_item_id": 609, "titulo": "Qué es la \"Teoría del loco\" que está utilizando Trump y por qué está funcionando | BBC Mundo", "canal": "BBC News Mundo", "url": "https://www.youtube.com/watch?v=6nsEXkB71Gc", "watched_at": "2026-08-13T22:38:24.729000+00:00", "preguntas": [{"id": 132, "pregunta": "Según la transcripción, ¿en qué consiste la \"teoría del loco\" en política?", "opciones": ["Convencer al adversario de que se es capaz de hacer cualquier cosa para conseguir concesiones.", "Generar confusión en los oponentes para que no puedan prepararse ni reaccionar.", "Desesperar deliberadamente al oponente para parecer irracional y caótico.", "Exagerar las demandas iniciales para conseguir que la contraparte ceda más de lo previsto."], "correcta": 0, "tipo": "definicion", "dificil": true}, {"id": 133, "pregunta": "Según el experto James Boyce, ¿cómo se describe la estrategia de la \"teoría del loco\"?", "opciones": ["Implica actuar de forma caótica para evitar cualquier preparación.", "Se basa en la impredecibilidad para desorientar a los adversarios.", "Responde a un razonamiento lógico, aunque su apariencia sea irracional.", "Es una táctica que busca desesperar deliberadamente al oponente."], "correcta": 2, "tipo": "argumento", "dificil": true}, {"id": 134, "pregunta": "Según James Boynes, ¿cómo aplicaba Trump la táctica de la \"teoría del loco\" en sus negocios?", "opciones": ["Generando incertidumbre sobre sus acciones futuras para desorientar a los socios.", "Poniendo en duda su compromiso con acuerdos previos para aumentar la presión.", "Amenazando con acciones extremas para forzar una respuesta rápida de la otra parte.", "Exagerando sus demandas iniciales para lograr que la contraparte cediera más de lo previsto."], "correcta": 3, "tipo": "relacion", "dificil": true}, {"id": 135, "pregunta": "¿Qué acción específica realizó Trump, aplicando la \"teoría del loco\", en relación con la OTAN?", "opciones": ["Puso en duda la defensa de Europa ante un ataque ruso y exigió a los países europeos gastar más en defensa.", "Amenazó con retirarse de la Alianza para presionar a los países europeos a cumplir sus demandas.", "Exigió a los países europeos elevar su inversión militar al 5% del PIB para 2035.", "Impulsó la creación de un nuevo pacto de defensa con países europeos seleccionados."], "correcta": 0, "tipo": "relacion", "dificil": true}, {"id": 136, "pregunta": "¿Cuál de los siguientes presidentes estadounidenses, según la transcripción, utilizó la \"teoría del loco\" antes de Donald Trump?", "opciones": ["Eisenhower y Nixon.", "Hitler y Putin.", "James Boyce y Michael Des.", "Thomas Sterling y Daniel Eilsberg."], "correcta": 0, "tipo": "dato", "dificil": false}, {"id": 137, "pregunta": "Según los analistas mencionados en el video, ¿cuál es uno de los riesgos advertidos sobre la aplicación de la \"teoría del loco\"?", "opciones": ["El empuje a regímenes como el iraní a avanzar más rápido en sus programas nucleares.", "La ineficacia de la estrategia frente a líderes como Putin que no ceden.", "La pérdida de credibilidad no solo frente a enemigos, sino también con aliados.", "El deterioro de las relaciones comerciales con China, Canadá y México."], "correcta": 2, "tipo": "argumento", "dificil": false}]}];
+// Clave de guardado atada al conjunto de preguntas: dos tandas distintas no se
+// pisan, y si se regenera el quiz con otras preguntas no se restaura basura.
+const CLAVE = 'quiz_' + DATOS.map(v => v.content_item_id).join('_');
+
+let resp = {};               // id de pregunta -> {eleccion, segundos, respondido_at}
+let excluidos = new Set();   // videos marcados como no vistos
+// El cronometro mide desde la ULTIMA interaccion, no desde que se abrio la
+// pagina. Antes se ponia el mismo instante de arranque para TODAS las
+// preguntas, con lo cual "segundos" en la pregunta 50 era el tiempo acumulado
+// desde que se abrio el archivo. No medía nada.
+let ultimoEvento = Date.now();
+
+function guardar() {
+  try {
+    localStorage.setItem(CLAVE, JSON.stringify({
+      resp, excluidos: [...excluidos],
+      persona: document.getElementById('persona').value || ''
+    }));
+  } catch (e) { /* modo privado o sin permiso: se sigue sin autoguardado */ }
+}
+
+function restaurar() {
+  let g = null;
+  try { g = JSON.parse(localStorage.getItem(CLAVE) || 'null'); } catch (e) {}
+  if (!g) return false;
+  resp = g.resp || {};
+  excluidos = new Set(g.excluidos || []);
+  if (g.persona) document.getElementById('persona').value = g.persona;
+  return Object.keys(resp).length > 0 || excluidos.size > 0;
+}
+
+function pintar() {
+  const cont = document.getElementById('quiz');
+  DATOS.forEach(v => {
+    const d = document.createElement('div');
+    d.className = 'video'; d.id = 'v' + v.content_item_id;
+    let html = `<h2>${esc(v.titulo)}</h2><p class="canal">${esc(v.canal || '')}</p>
+      <div class="preguntas">`;
+    v.preguntas.forEach(p => {
+      html += `<div class="p"><div class="txt">${esc(p.pregunta)}</div>`;
+      p.opciones.forEach((o, i) => {
+        html += `<label><input type="radio" name="q${p.id}" value="${i}">
+                 <span>${esc(o)}</span></label>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div><label class="novi"><input type="checkbox" class="novi-chk">
+             No vi este video (o no lo recuerdo en absoluto)</label>`;
+    d.innerHTML = html;
+    cont.appendChild(d);
+
+    const chk = d.querySelector('.novi-chk');
+    if (excluidos.has(v.content_item_id)) { chk.checked = true; d.classList.add('excluido'); }
+    chk.addEventListener('change', e => {
+      if (e.target.checked) { excluidos.add(v.content_item_id); d.classList.add('excluido'); }
+      else { excluidos.delete(v.content_item_id); d.classList.remove('excluido'); }
+      guardar();
+      progreso();
+    });
+    v.preguntas.forEach(p => {
+      // restaurar lo ya contestado
+      if (resp[p.id] !== undefined) {
+        const prev = d.querySelector(`input[name=q${p.id}][value="${resp[p.id].eleccion}"]`);
+        if (prev) prev.checked = true;
+      }
+      d.querySelectorAll(`input[name=q${p.id}]`).forEach(r => {
+        r.addEventListener('change', () => {
+          const ahora = Date.now();
+          resp[p.id] = { eleccion: +r.value,
+                         segundos: Math.round((ahora - ultimoEvento) / 1000),
+                         respondido_at: ahora };
+          ultimoEvento = ahora;
+          guardar();
+          progreso();
+        });
+      });
+    });
+  });
+  progreso();
+}
+
+function pendientes() {
+  let n = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => { if (resp[p.id] === undefined) n++; });
+  });
+  return n;
+}
+
+function progreso() {
+  const falta = pendientes();
+  const activas = DATOS.reduce((a, v) =>
+      a + (excluidos.has(v.content_item_id) ? 0 : v.preguntas.length), 0);
+  document.getElementById('prog').textContent =
+      `${activas - falta} de ${activas} contestadas` + (falta ? ` · faltan ${falta}` : '');
+  document.getElementById('enviar').disabled = falta > 0 || activas === 0;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+document.getElementById('enviar').addEventListener('click', () => {
+  const persona = (document.getElementById('persona').value || '').trim();
+  if (!persona) { alert('Falta el identificador'); return; }
+  const salida = { persona_id: persona,
+                   completado_at: new Date().toISOString(),
+                   videos_excluidos: [...excluidos], respuestas: [] };
+  let ok = 0, okDif = 0, nDif = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => {
+      const r = resp[p.id];
+      // Los dias se calculan contra el instante en que se contesto ESA
+      // pregunta, no contra la carga de la pagina: con autoguardado, una tanda
+      // puede empezarse un dia y terminarse otro.
+      const dias = v.watched_at
+        ? ((r.respondido_at || Date.now()) - new Date(v.watched_at).getTime()) / 86400000
+        : null;
+      const acierto = r.eleccion === p.correcta;
+      if (acierto) ok++;
+      if (p.dificil) { nDif++; if (acierto) okDif++; }
+      salida.respuestas.push({ pregunta_id: p.id, eleccion: r.eleccion, acierto,
+                               segundos: r.segundos,
+                               dias_transcurridos: dias === null ? null : +dias.toFixed(2) });
+    });
+  });
+  const n = salida.respuestas.length;
+  const caja = document.getElementById('resultado');
+  caja.style.display = 'block';
+  caja.innerHTML = `<h2 style="margin-top:0;font-size:1.05rem">Listo</h2>
+    <table>
+      <tr><th>Preguntas contestadas</th><td>${n}</td></tr>
+      <tr><th>Aciertos</th><td>${ok} (${(100*ok/n).toFixed(0)} %)</td></tr>
+      <tr><th>Aciertos en el subconjunto dificil</th>
+          <td>${nDif ? `${okDif} de ${nDif} (${(100*okDif/nDif).toFixed(0)} %)` : 'sin items'}</td></tr>
+      <tr><th>Videos excluidos por no haberlos visto</th><td>${excluidos.size}</td></tr>
+    </table>
+    <p class="id" style="margin-top:1rem">El archivo se descargo. Cargalo con
+    <code>cargar_quiz.py --respuestas</code>. El porcentaje de aqui arriba es
+    orientativo: la retencion corregida por la linea de base se calcula en la base
+    de datos.</p>`;
+  caja.scrollIntoView({ behavior: 'smooth' });
+  try { localStorage.removeItem(CLAVE); } catch (e) {}
+
+  const blob = new Blob([JSON.stringify(salida, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `respuestas_${persona}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+});
+
+const habia = restaurar();
+pintar();
+document.getElementById('persona').addEventListener('input', guardar);
+if (habia) {
+  const a = document.createElement('div');
+  a.className = 'aviso';
+  a.innerHTML = '<strong>Se recupero tu avance.</strong> Podes cerrar y volver cuando quieras: ' +
+                'se guarda en este navegador a medida que contestas.';
+  document.querySelector('#quiz').before(a);
+}
+window.addEventListener('beforeunload', e => {
+  if (pendientes() > 0 && Object.keys(resp).length > 0) { e.preventDefault(); e.returnValue = ''; }
+});
+</script>
+</html>

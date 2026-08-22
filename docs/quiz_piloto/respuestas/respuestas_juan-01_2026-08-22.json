@@ -1,0 +1,119 @@
+{
+  "persona_id": "juan-01",
+  "completado_at": "2026-08-22T08:38:43.146Z",
+  "videos_excluidos": [],
+  "respuestas": [
+    {
+      "pregunta_id": 37,
+      "eleccion": 0,
+      "acierto": true,
+      "segundos": 14,
+      "dias_transcurridos": 32.11
+    },
+    {
+      "pregunta_id": 38,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 20,
+      "dias_transcurridos": 32.11
+    },
+    {
+      "pregunta_id": 39,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 7,
+      "dias_transcurridos": 32.11
+    },
+    {
+      "pregunta_id": 40,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 23,
+      "dias_transcurridos": 32.11
+    },
+    {
+      "pregunta_id": 41,
+      "eleccion": 1,
+      "acierto": false,
+      "segundos": 23,
+      "dias_transcurridos": 32.11
+    },
+    {
+      "pregunta_id": 42,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 22,
+      "dias_transcurridos": 32.11
+    },
+    {
+      "pregunta_id": 85,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 53369,
+      "dias_transcurridos": 35.79
+    },
+    {
+      "pregunta_id": 86,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 15,
+      "dias_transcurridos": 35.79
+    },
+    {
+      "pregunta_id": 87,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 15,
+      "dias_transcurridos": 35.79
+    },
+    {
+      "pregunta_id": 88,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 42,
+      "dias_transcurridos": 35.79
+    },
+    {
+      "pregunta_id": 90,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 24,
+      "dias_transcurridos": 35.79
+    },
+    {
+      "pregunta_id": 151,
+      "eleccion": 1,
+      "acierto": false,
+      "segundos": 36,
+      "dias_transcurridos": 46.85
+    },
+    {
+      "pregunta_id": 152,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 25,
+      "dias_transcurridos": 46.85
+    },
+    {
+      "pregunta_id": 153,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 13,
+      "dias_transcurridos": 46.85
+    },
+    {
+      "pregunta_id": 154,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 15,
+      "dias_transcurridos": 46.85
+    },
+    {
+      "pregunta_id": 155,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 3,
+      "dias_transcurridos": 46.85
+    }
+  ]
+}

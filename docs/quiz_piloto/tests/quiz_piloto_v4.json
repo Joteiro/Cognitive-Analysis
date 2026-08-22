@@ -1,0 +1,298 @@
+[
+  {
+    "content_item_id": 4,
+    "external_id": "u2Y-cJFcoP0",
+    "titulo": "ASÍ CONTROLA SÁNCHEZ LOS MEDIOS mientras sus escándalos de corrupción se acumulan - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 8716,
+    "transcripcion_recortada": true,
+    "modelo": "openai/gpt-oss-120b",
+    "version": "quiz-0.7",
+    "generado_at": "2026-08-17T14:13:39.171148+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuántos pagos a medios accedió por primera vez El Confidencial según el video?",
+        "opciones": [
+          "40 años",
+          "más de 6900 pagos",
+          "cerca de 500 millones de euros",
+          "8,3 millones de euros"
+        ],
+        "cita": "Por primera vez el confidencial accede a más de 6900 pagos a medios realizados desde Moncloa.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_2_de_2",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Hasta cuánto dinero recibió la Cadena SER según la información mostrada?",
+        "opciones": [
+          "más de 6900 pagos",
+          "8,3 millones de euros",
+          "40 años",
+          "cerca de 500 millones de euros"
+        ],
+        "cita": "la izquierdista Cadena SER ha recibido hasta 8,3 millones de euros, más del doble que la conservadora COPE.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_2_de_2",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "Según el hablante, ¿por qué el gobierno prefiere dar dinero a ciertos medios?",
+        "opciones": [
+          "para evitar dar explicaciones",
+          "porque le son más afines",
+          "para controlar la versión",
+          "para elegir su dirección en pandemia"
+        ],
+        "cita": "Y como ya os podéis imaginar, el gobierno prefiere darle el dinero a los medios que le son más afines.",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_2_de_3",
+        "trivial": false,
+        "control_eleccion": 2,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Qué ocurre cuando un medio “se desmarca” según el relato?",
+        "opciones": [
+          "se le pone publicidad institucional",
+          "se le cambia el titular",
+          "se duplica el presupuesto",
+          "empieza el festival, menos foco, menos voz o directamente a callar"
+        ],
+        "cita": "Y si alguno se desmarca, empieza el festival, menos foco, menos voz o directamente a callar.",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_8_de_8",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Qué tipo de vídeos se describen como “Only FS” en el programa?",
+        "opciones": [
+          "una opinión que quiero soltar del momento",
+          "una noticia que acaba de pasar",
+          "vídeos normales",
+          "vídeos con mayor latencia, vídeos perennes"
+        ],
+        "cita": "Los vídeos como este que acabáis de ver están pensados para ser vídeos con mayor latencia, vídeos perennes que se llama.",
+        "tipo": "definicion",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_5_de_5",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 3
+      },
+      {
+        "pregunta": "Según el presentador, ¿por qué la distribución de publicidad institucional no es pública?",
+        "opciones": [
+          "para duplicar el presupuesto",
+          "para controlar la versión",
+          "para elegir su dirección en pandemia",
+          "porque no se está contratando a los medios directamente"
+        ],
+        "cita": "De esta forma, esta distribución no es pública porque no se está contratando a los medios directamente y así es como el gobierno se evita tener que dar explicaciones.",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_5_de_5",
+        "trivial": false,
+        "control_eleccion": 1,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 3
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 81,
+    "external_id": "2RY_r8Cn9jE",
+    "titulo": "TRUMP DESTRUYE LA IMAGEN DE EEUU y el turismo le está pasando factura - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 5089,
+    "transcripcion_recortada": true,
+    "modelo": "openai/gpt-oss-120b",
+    "version": "quiz-0.7",
+    "generado_at": "2026-08-17T14:15:12.647016+00:00",
+    "preguntas": [],
+    "error": "generacion: HTTP 400 (no se reintenta): {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n"
+  },
+  {
+    "content_item_id": 88,
+    "external_id": "fq-myE7beiQ",
+    "titulo": "RUBENS: RICO, EXCÉNTRICO, FAMOSO Y MUCHO MÁS...",
+    "canal": "Unknown channel",
+    "formato": "informativo",
+    "n_palabras": 2904,
+    "transcripcion_recortada": true,
+    "modelo": "openai/gpt-oss-120b",
+    "version": "quiz-0.7",
+    "generado_at": "2026-08-17T14:15:57.917161+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿En qué año nació Rubens según el video?",
+        "opciones": [
+          "157",
+          "159",
+          "160",
+          "158"
+        ],
+        "cita": "Rubens nació en una familia acomodada en 157 en Siegen.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_1_de_1",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuáles son los cuatro idiomas que Rubens sabía?",
+        "opciones": [
+          "español, latín, inglés y francés",
+          "italiano, latín, alemán y francés",
+          "español, griego, alemán y francés",
+          "español, latín, alemán y francés"
+        ],
+        "cita": "sabía cuatro idiomas: español, latín, alemán y francés.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_4_de_4",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Cómo describe el hablante la explosión de color en los cuadros de Rubens?",
+        "opciones": [
+          "superponía el color al dibujo",
+          "una explosión brutal de color",
+          "era muy cercano al poder",
+          "blanqueaba imágenes de gente"
+        ],
+        "cita": "sus cuadros son una explosión brutal de color, aunque ya te digo, en sus cuadros hay mucho dibujo",
+        "tipo": "definicion",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_3_de_3",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "Según el video, ¿por qué Rubens pintaba tantos desnudos?",
+        "opciones": [
+          "porque quería provocar escándalo",
+          "porque buscaba vender más obras",
+          "porque eran encargos de la corte",
+          "porque los consideraba dioses de la mitología clásica"
+        ],
+        "cita": "él pintaba muchos desnudos, tanto hombres como mujeres, y decía, 'No, no, pero es que es que estos son dioses, es que esto es de la mitología clásica'",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_3_de_5",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Cuál es la relación que el hablante establece entre el arte de Rubens y el poder?",
+        "opciones": [
+          "era un gran diplomático",
+          "hacía cuadrito al contrario que Goya",
+          "era el rey del exceso",
+          "estaba al servicio del poder"
+        ],
+        "cita": "su arte era publicitario y sobre todo que era muy cercano al poder, o sea, que estaba al servicio del poder",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_3_de_3",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Dónde pasó Rubens sus últimos días según el video?",
+        "opciones": [
+          "un palacio brutal",
+          "una guardilla",
+          "una fábrica",
+          "una finca en el campo"
+        ],
+        "cita": "acabó en una finca en el campo que se compró porque dijo, 'Mira, yo ya me he pasado el juego'",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_2_de_2",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      }
+    ],
+    "error": null
+  }
+]

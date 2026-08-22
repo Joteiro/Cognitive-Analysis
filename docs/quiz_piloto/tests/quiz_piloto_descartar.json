@@ -1,0 +1,143 @@
+[
+  {
+    "content_item_id": 4,
+    "external_id": "u2Y-cJFcoP0",
+    "titulo": "ASÍ CONTROLA SÁNCHEZ LOS MEDIOS mientras sus escándalos de corrupción se acumulan - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 8716,
+    "transcripcion_recortada": false,
+    "modelo": "gemini-2.5-flash",
+    "version": "quiz-0.7",
+    "generado_at": "2026-08-18T14:47:06.393007+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Quiénes fueron los pioneros en la política de la televisión pública, según el video?",
+        "opciones": [
+          "Los países europeos",
+          "Los nazis",
+          "España",
+          "Estados Unidos"
+        ],
+        "cita": "La televisión pública apareció en la década de los años 30. Y venga, a ver si adivináis quiénes fueron los pioneros en esta política. Los nazis.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_1_de_1",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Cuál fue el presupuesto de Televisión Española en el año 2025, según el video?",
+        "opciones": [
+          "1220 millones de euros",
+          "840 millones de euros",
+          "5000 millones de dólares",
+          "2500 millones de dólares"
+        ],
+        "cita": "Pero es que en el año 2025 el presupuesto de Televisión Española alcanzó los 1220 millones de euros.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_3_de_3",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Cuál fue la razón principal por la que los gobiernos europeos decidieron crear monopolios estatales de televisión en sus inicios?",
+        "opciones": [
+          "No eran rentables en la economía privada",
+          "La idea de tener medios estatales les sonaba un poco nazi",
+          "Había muy pocas frecuencias para emitir imagen en vivo",
+          "Para evitar la anarquía de televisiones libres"
+        ],
+        "cita": "Además, en aquella época solamente se podía emitir imagen en vivo por muy pocas frecuencias. Por tanto, los gobiernos decidieron que lo mejor era crear monopolios estatales...",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_6_de_7",
+        "trivial": true,
+        "control_eleccion": 2,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 2
+      },
+      {
+        "pregunta": "Según Fonseca, ¿cuál es el problema fundamental con el presupuesto de producción de un canal como Playz, financiado por RTVE?",
+        "opciones": [
+          "Tiene menos audiencia que el canal Solo Fonseca",
+          "Sus ingresos por publicidad no serían suficientes para cubrir esa producción",
+          "Utiliza tres tiros de cámara y varios operadores",
+          "Tiene una línea editorial claramente de izquierdas"
+        ],
+        "cita": "Simple y llanamente los ingresos por publicidad no dan para esta producción. Pero esto no es lo peor.",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_3_de_7",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Qué importante escándalo destapó Pedro J. Ramírez cuando estaba al frente del diario 16 en los años 80?",
+        "opciones": [
+          "Los papeles de las cuentas en B del caso Máas",
+          "El escándalo de Los GAL",
+          "El Watergate",
+          "El caso Gürtel"
+        ],
+        "cita": "Pues bien, en el año 1980 estaba al frente de uno de los primeros periódicos que surgieron después del franquismo, el diario 16. ¿Y qué hizo? Pues destapar el mayor escándalo del Partido Socialista en aquel entonces, el escándalo de Losgal.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_1_de_2",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Qué consecuencia tuvo el cambio en la ley que permitió que la dirección de Televisión Española se eligiera por mayoría simple?",
+        "opciones": [
+          "Pedro Sánchez ya no tiene que pactar con la oposición para elegir a la dirección",
+          "La velocidad de aprobación contrastó con la ayuda a la Comunidad Valenciana",
+          "RTVE se convirtió en un órgano de propaganda del gobierno",
+          "La oposición no estuvo presente en la votación"
+        ],
+        "cita": "Sin embargo, en esta votación se cambió por la mayoría simple. Es decir, que ahora Pedro Sánchez ya no tiene que pactar con la oposición, puede hacerlo con los partidos de su coalición de gobierno.",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_6_de_8",
+        "trivial": false,
+        "control_eleccion": 2,
+        "control_seguridad": "alta",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 0
+      }
+    ],
+    "error": null
+  }
+]

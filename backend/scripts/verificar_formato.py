@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-verificar_formato.py (v0.1) -- comprueba si la etiqueta de formato coincide
+verificar_formato.py (v0.2) -- comprueba si la etiqueta de formato coincide
 con lo que de verdad dice el video, y SENALA los desacuerdos sin corregirlos.
+
+NOVEDAD DE LA v0.2: DOBLE PASADA
+    La v0.1 confiaba en que el modelo declarara su propia confianza. Sobre 79
+    videos declaro "alta" las 79 veces: el campo no discriminaba nada y el
+    filtro que dependia de el excluia todos los desacuerdos por igual.
+    Ahora cada video se clasifica DOS veces con partes distintas de la
+    transcripcion, y solo cuenta el desacuerdo que se repite. La confianza
+    pasa a ser autoconsistencia medida en vez de autodeclarada.
 
 EL PROBLEMA
     La etiqueta `formato` (informativo / practico_personal / entretenimiento /
@@ -27,8 +35,11 @@ POR QUE ESTE SCRIPT NO REETIQUETA NADA
     Asi que aca el modelo SENALA y no decide:
       - la etiqueta oficial sigue siendo la de la regla;
       - el desacuerdo se guarda aparte, como "posible clasificacion diferente";
-      - el quiz se salta los videos senalados, que es una decision de uso,
-        no un cambio de dato;
+      - el quiz se salta los videos con desacuerdo FIRME (repetido en las dos
+        pasadas), que es una decision de uso, no un cambio de dato. Los que el
+        modelo no clasifica igual dos veces NO se saltan: no hay nada firme que
+        decir de ellos, y excluirlos seria castigar al video por la indecision
+        del verificador;
       - y la CONCORDANCIA regla<->modelo se mide y se informa (acuerdo bruto
         y kappa de Cohen), con lo cual el modelo pasa a ser un evaluador mas
         medido contra el instrumento, nunca la verdad de referencia.
@@ -73,7 +84,31 @@ from pathlib import Path
 # que no quiere logica duplicada.
 from generar_quiz import (Groq, normalizar, recortar_transcripcion, RAIZ, DOCS)
 
-VERSION = "verificar-formato-0.1"
+VERSION = "verificar-formato-0.2"
+
+# Posiciones (como fraccion del video) donde empieza cada ventana de muestreo,
+# una tupla por pasada.
+#
+# POR QUE DOS PASADAS. En la v0.1 se le pedia al modelo que declarara su propia
+# confianza (alta/media/baja). Resultado real sobre 79 videos: dijo "alta" las
+# 79 veces. La confianza autodeclarada no discrimina nada -- es un problema
+# conocido de los modelos de lenguaje, y el filtro que dependia de ese campo
+# estaba, sin saberlo, excluyendo TODOS los desacuerdos.
+#
+# La sustituye una senal medida en vez de declarada: se clasifica el mismo
+# video dos veces mostrandole PARTES DISTINTAS de la transcripcion, y solo se
+# considera firme el desacuerdo que se repite. Es la diferencia entre
+# preguntarle a un testigo "que tan seguro estas" y tomarle declaracion dos
+# veces para ver si se contradice: lo primero es una opinion sobre si mismo,
+# lo segundo es conducta observable.
+#
+# De paso da una medida de fiabilidad test-retest del instrumento, que es el
+# mismo criterio que el proyecto ya tenia previsto aplicar a los evaluadores
+# humanos (re-test intra-evaluador).
+FRACCIONES = [
+    (0.00, 0.50, 1.00),
+    (0.15, 0.42, 0.78),
+]
 
 FORMATOS = ["informativo", "practico_personal", "entretenimiento", "deporte_gaming"]
 
@@ -99,6 +134,25 @@ Se te da una MUESTRA de la transcripcion, no el video entero. Si la muestra no a
 
 Devuelve SOLO un objeto json con esta forma:
 {"formato": "informativo|practico_personal|entretenimiento|deporte_gaming", "confianza": "alta|media|baja", "motivo": "una frase corta"}"""
+
+
+def muestrear(texto: str, palabras: int, fracciones: tuple) -> str:
+    """Toma varias ventanas del texto empezando en las posiciones dadas.
+
+    Se muestrea en vez de truncar porque truncar por el principio sesgaria la
+    lectura hacia los primeros minutos, que es donde casi todos los videos se
+    parecen (presentacion, saludo, anuncio del tema).
+    """
+    p = texto.split()
+    n = len(p)
+    tam = max(30, palabras // len(fracciones))
+    if n <= palabras:
+        return texto
+    trozos = []
+    for f in fracciones:
+        ini = min(max(0, int(f * (n - tam))), n - tam)
+        trozos.append(" ".join(p[ini:ini + tam]))
+    return "\n[...]\n".join(trozos)
 
 
 def prompt(video: dict, muestra: str) -> list:
@@ -178,9 +232,19 @@ def informe(datos: list, ruta: Path, modelo: str) -> None:
     pares = [(d["formato"], d["formato_observado"]) for d in verificados]
     acuerdos = [d for d in verificados if d["formato"] == d["formato_observado"]]
     desacuerdos = [d for d in verificados if d["formato"] != d["formato_observado"]]
-    firmes = [d for d in desacuerdos if d["confianza"] == "alta"]
+    firmes = desacuerdos          # ya lo son: solo llegan aca los autoconsistentes
     sin_respaldo = [d for d in datos if d["sin_respaldo"]]
     k = kappa_cohen(pares)
+
+    consistentes = [d for d in datos if d.get("autoconsistente")]
+    inconsistentes = [d for d in datos if d.get("autoconsistente") is False]
+    intra = [(d["formatos_por_pasada"][0], d["formatos_por_pasada"][1])
+             for d in datos if len(d.get("formatos_por_pasada") or []) >= 2]
+    k_intra = kappa_cohen(intra)
+
+    declaradas = [c for d in datos for c in (d.get("confianza_declarada") or []) if c]
+    n_declara = len(declaradas)
+    declara_alta = sum(1 for c in declaradas if c == "alta")
 
     def pct(a, b):
         return f"{100.0 * a / b:.0f} %" if b else "n/d"
@@ -211,7 +275,31 @@ def informe(datos: list, ruta: Path, modelo: str) -> None:
         "eje de tema y `et_formato` de forma— pero si significa que la etiqueta no tiene",
         "ningun respaldo en el contenido.",
         "",
-        "## 3. Capa 2 — concordancia entre la regla y el modelo",
+        "## 3. Fiabilidad del instrumento (test-retest)",
+        "",
+        "Cada video se clasifico **dos veces mostrando partes distintas de la transcripcion**.",
+        "Solo se considera firme el desacuerdo que se repite en ambas pasadas.",
+        "",
+        "El motivo es un hallazgo de la version anterior: se le pedia al modelo que declarara",
+        f"su propia confianza y contesto **\"alta\" en el {pct(declara_alta, n_declara)} de los casos**. La",
+        "confianza autodeclarada no discriminaba nada, y el filtro que dependia de ella estaba",
+        "excluyendo todos los desacuerdos sin distinguir. La autoconsistencia entre pasadas es",
+        "una senal **medida** en vez de declarada — el mismo criterio de re-test que el proyecto",
+        "tiene previsto aplicar a los evaluadores humanos.",
+        "",
+        "| | n | |",
+        "|---|---:|---:|",
+        f"| Coincide consigo mismo | {len(consistentes)} | {pct(len(consistentes), len(datos))} |",
+        f"| Se contradice entre pasadas | {len(inconsistentes)} | {pct(len(inconsistentes), len(datos))} |",
+        "",
+        f"**Kappa intra-evaluador (pasada 1 vs pasada 2): {k_intra:.2f}** "
+        f"({interpretar_kappa(k_intra)}).",
+        "",
+        "Los videos que se contradicen **no se excluyen del quiz**: el instrumento no tiene",
+        "nada firme que decir sobre ellos, y excluirlos seria castigar al video por la",
+        "indecision del verificador.",
+        "",
+        "## 4. Capa 2 — concordancia entre la regla y el modelo",
         "",
         "| | n | |",
         "|---|---:|---:|",
@@ -237,7 +325,7 @@ def informe(datos: list, ruta: Path, modelo: str) -> None:
                 for fc in FORMATOS]
         L.append(f"| **{fr}** | " + " | ".join(fila) + " |")
 
-    L += ["", "## 4. Desacuerdos con confianza alta", ""]
+    L += ["", "## 5. Desacuerdos firmes (se repiten en las dos pasadas)", ""]
     if not firmes:
         L.append("_Ninguno._")
     for d in firmes:
@@ -247,7 +335,7 @@ def informe(datos: list, ruta: Path, modelo: str) -> None:
               f"> {d['motivo']}", ""]
 
     L += [
-        "## 5. Como se usa",
+        "## 6. Como se usa",
         "",
         "`generar_quiz.py` lee `formato_verificado.json` y **se salta** los videos donde el",
         "modelo discrepa con confianza alta, avisando por pantalla. Es una decision de uso",
@@ -265,6 +353,13 @@ def main() -> int:
     ap.add_argument("--corpus", default="historial", help="historial | referencia | todos")
     ap.add_argument("--max", type=int, default=0)
     ap.add_argument("--modelo", default=None)
+    # Defecto 1 y no 2: la doble pasada sobre 79 videos (158 llamadas, ~95k
+    # tokens) choco con un limite DIARIO de tokens y tardo mas de tres horas
+    # sin terminar. El test-retest queda disponible con --pasadas 2 para
+    # cuando haya cupo, no como comportamiento por defecto.
+    ap.add_argument("--pasadas", type=int, default=1,
+                    help="clasificaciones por video con ventanas distintas (defecto 1). "
+                         "Con 2 se mide autoconsistencia, pero cuesta el doble de tokens")
     ap.add_argument("--dry-run", action="store_true", help="solo la capa 1, sin gastar tokens")
     args = ap.parse_args()
 
@@ -300,6 +395,10 @@ def main() -> int:
                                  and v["et_formato"] in SIN_RESPALDO),
             "formato_observado": None,
             "confianza": None,
+            "confianza_declarada": None,
+            "autoconsistente": None,
+            "formatos_por_pasada": [],
+            "pasadas": [],
             "motivo": None,
         })
 
@@ -322,21 +421,42 @@ def main() -> int:
     groq = Groq(api_key, args.modelo)
     print(f"\nCAPA 2 con {groq.modelo}")
 
+    fracciones = FRACCIONES[:max(1, min(args.pasadas, len(FRACCIONES)))]
+
     for i, (v, d) in enumerate(zip(videos, datos), 1):
-        muestra, _ = recortar_transcripcion(v["transcript"], PALABRAS_MUESTRA)
-        try:
-            r = json.loads(groq.pedir(prompt(v, muestra), temperatura=0.0))
-            f = (r.get("formato") or "").strip()
-            d["formato_observado"] = f if f in FORMATOS else None
-            d["confianza"] = r.get("confianza")
-            d["motivo"] = r.get("motivo")
-        except Exception as e:
-            d["motivo"] = f"fallo: {e}"
-        marca = "  <-- DISCREPA" if (d["formato_observado"]
-                                     and d["formato_observado"] != d["formato"]) else ""
+        for fr in fracciones:
+            muestra = muestrear(v["transcript"], PALABRAS_MUESTRA, fr)
+            try:
+                r = json.loads(groq.pedir(prompt(v, muestra), temperatura=0.0))
+                f = (r.get("formato") or "").strip()
+                d["pasadas"].append({
+                    "formato": f if f in FORMATOS else None,
+                    "confianza_declarada": r.get("confianza"),
+                    "motivo": r.get("motivo"),
+                })
+            except Exception as e:
+                d["pasadas"].append({"formato": None, "confianza_declarada": None,
+                                     "motivo": f"fallo: {e}"})
+            time.sleep(1.0)
+
+        vistos = [p["formato"] for p in d["pasadas"] if p["formato"]]
+        # Autoconsistente = todas las pasadas coinciden entre si. Ese, y no el
+        # que el modelo declara, es el criterio de confianza que usa el filtro.
+        d["autoconsistente"] = bool(vistos) and len(set(vistos)) == 1
+        d["formato_observado"] = vistos[0] if d["autoconsistente"] else None
+        d["formatos_por_pasada"] = vistos
+        d["confianza"] = "alta" if d["autoconsistente"] else "baja"
+        d["confianza_declarada"] = [p["confianza_declarada"] for p in d["pasadas"]]
+        d["motivo"] = next((p["motivo"] for p in d["pasadas"] if p["motivo"]), None)
+
+        if not d["autoconsistente"]:
+            marca = f"  <-- SE CONTRADICE {vistos}"
+        elif d["formato_observado"] != d["formato"]:
+            marca = "  <-- DISCREPA (firme)"
+        else:
+            marca = ""
         print(f"[{i}/{len(videos)}] regla={d['formato']:<18} modelo="
-              f"{str(d['formato_observado']):<18} ({d['confianza']}){marca}")
-        time.sleep(1.0)
+              f"{str(d['formato_observado']):<18}{marca}")
 
     DOCS.mkdir(exist_ok=True)
     (DOCS / "formato_verificado.json").write_text(

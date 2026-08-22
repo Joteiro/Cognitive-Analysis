@@ -1,0 +1,44 @@
+[
+  {
+    "content_item_id": 4,
+    "external_id": "u2Y-cJFcoP0",
+    "titulo": "ASÍ CONTROLA SÁNCHEZ LOS MEDIOS mientras sus escándalos de corrupción se acumulan - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 8716,
+    "transcripcion_recortada": true,
+    "modelo": "openai/gpt-oss-120b",
+    "version": "quiz-0.7",
+    "generado_at": "2026-08-18T14:52:55.142768+00:00",
+    "preguntas": [],
+    "error": "generacion: HTTP 400 (no se reintenta): {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n"
+  },
+  {
+    "content_item_id": 81,
+    "external_id": "2RY_r8Cn9jE",
+    "titulo": "TRUMP DESTRUYE LA IMAGEN DE EEUU y el turismo le está pasando factura - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 5089,
+    "transcripcion_recortada": true,
+    "modelo": "openai/gpt-oss-120b",
+    "version": "quiz-0.7",
+    "generado_at": "2026-08-18T14:53:12.071170+00:00",
+    "preguntas": [],
+    "error": "generacion: HTTP 400 (no se reintenta): {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n"
+  },
+  {
+    "content_item_id": 88,
+    "external_id": "fq-myE7beiQ",
+    "titulo": "RUBENS: RICO, EXCÉNTRICO, FAMOSO Y MUCHO MÁS...",
+    "canal": "Unknown channel",
+    "formato": "informativo",
+    "n_palabras": 2904,
+    "transcripcion_recortada": false,
+    "modelo": "openai/gpt-oss-120b",
+    "version": "quiz-0.7",
+    "generado_at": "2026-08-18T14:54:07.093588+00:00",
+    "preguntas": [],
+    "error": "generacion: HTTP 400 (no se reintenta): {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}\n"
+  }
+]

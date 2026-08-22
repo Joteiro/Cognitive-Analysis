@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Quiz de retencion - Nutri-Score de Contenidos</title>
+<style>
+  :root { --tinta:#1a1a1a; --suave:#666; --linea:#e2e2e2; --fondo:#fbfbfa;
+          --acento:#2f5d50; --acento-claro:#eaf1ee; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:0 1rem 6rem; background:var(--fondo); color:var(--tinta);
+         font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .env { max-width:44rem; margin:0 auto; }
+  header { padding:2.5rem 0 1.5rem; border-bottom:1px solid var(--linea); margin-bottom:2rem; }
+  h1 { font-size:1.5rem; margin:0 0 .5rem; letter-spacing:-.01em; }
+  .sub { color:var(--suave); font-size:.95rem; margin:0; }
+  .aviso { background:var(--acento-claro); border-left:3px solid var(--acento);
+           padding:.9rem 1.1rem; margin:1.5rem 0; font-size:.92rem; border-radius:0 4px 4px 0; }
+  .video { background:#fff; border:1px solid var(--linea); border-radius:8px;
+           padding:1.5rem; margin-bottom:1.5rem; }
+  .video h2 { font-size:1.05rem; margin:0 0 .2rem; line-height:1.4; }
+  .canal { color:var(--suave); font-size:.85rem; margin:0 0 .5rem; }
+  .novi { font-size:.88rem; color:var(--suave); display:flex; align-items:center;
+          gap:.5rem; padding:.6rem 0; border-top:1px solid var(--linea); margin-top:.8rem; }
+  .video.excluido .preguntas { opacity:.35; pointer-events:none; }
+  .p { padding:1.1rem 0; border-top:1px solid var(--linea); }
+  .p .txt { font-weight:500; margin-bottom:.7rem; }
+  label { display:block; padding:.55rem .8rem; margin:.3rem 0; border:1px solid var(--linea);
+          border-radius:6px; cursor:pointer; background:#fff; transition:.12s; }
+  label:hover { border-color:var(--acento); background:var(--acento-claro); }
+  input[type=radio] { margin-right:.6rem; }
+  input:checked + span { font-weight:600; }
+  .barra { position:fixed; left:0; right:0; bottom:0; background:#fff;
+           border-top:1px solid var(--linea); padding:.9rem 1rem; }
+  .barra .env { display:flex; align-items:center; gap:1rem; justify-content:space-between; }
+  .prog { font-size:.9rem; color:var(--suave); }
+  button { background:var(--acento); color:#fff; border:0; border-radius:6px;
+           padding:.65rem 1.4rem; font-size:.95rem; cursor:pointer; font-weight:500; }
+  button:disabled { background:#bbb; cursor:not-allowed; }
+  #resultado { background:#fff; border:1px solid var(--linea); border-radius:8px;
+               padding:1.5rem; margin-bottom:1.5rem; display:none; }
+  table { border-collapse:collapse; width:100%; font-size:.92rem; margin-top:.8rem; }
+  td,th { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--linea); }
+  td:last-child,th:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+  .id { font-size:.85rem; color:var(--suave); }
+  input[type=text] { padding:.5rem .7rem; border:1px solid var(--linea);
+                     border-radius:6px; font-size:.95rem; width:14rem; }
+</style>
+<div class="env">
+<header>
+  <h1>Quiz de retencion</h1>
+  <p class="sub">Sobre videos que viste hace un tiempo. Generado el 2026-08-21 ·
+     3 videos · 16 preguntas</p>
+</header>
+
+<div class="aviso">
+  <strong>Antes de empezar.</strong> Contesta de memoria: no busques, no abras el video.
+  Si no te acuerdas, <strong>elige igual la que te parezca mas probable</strong> — hace falta
+  que contestes todas para que el resultado se pueda comparar con la linea de base.
+  Si un video no lo viste, marcalo con la casilla y sus preguntas quedan fuera.
+  No vas a ver si acertaste hasta el final.
+</div>
+
+<p class="id">Identificador (un seudonimo, no tu nombre):
+  <input type="text" id="persona" placeholder="p.ej. juan-01" value="juan-01"></p>
+
+<div id="resultado"></div>
+<div id="quiz"></div>
+</div>
+
+<div class="barra"><div class="env">
+  <span class="prog" id="prog">0 de 0 contestadas</span>
+  <button id="enviar" disabled>Terminar y descargar</button>
+</div></div>
+
+<script>
+const DATOS = [{"content_item_id": 89, "titulo": "OTRO GIGANTE EN EUROPA: Por qué la UE duda teme la entrada de Ucrania - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=h3nLSlxZ9g0", "watched_at": "2026-07-20T15:10:17.885000+00:00", "preguntas": [{"id": 37, "pregunta": "Según el video, ¿cuál fue la razón principal de la disputa diplomática entre Polonia y Ucrania que llevó a la retirada de la condecoración a Zelenski?", "opciones": ["La decisión de renombrar una unidad militar ucraniana en honor a la UPA, responsable de masacres de civiles polacos.", "El discurso crítico de Zelenski en Davos hacia los líderes europeos, que ofendió a Polonia.", "La negativa de Ucrania a resolver los derechos de la minoría polaca en su territorio.", "El bloqueo de la frontera por parte de agricultores polacos debido a la competencia de grano ucraniano."], "correcta": 0, "tipo": "relacion", "dificil": false}, {"id": 38, "pregunta": "¿Por qué, según el narrador, los partidos de base agraria en varios países europeos se oponen al ingreso de Ucrania en la Unión Europea?", "opciones": ["Creen que la entrada de Ucrania desestabilizaría los precios de los productos lácteos en el mercado común.", "No quieren que Ucrania reciba fondos de la PAC, que ellos mismos necesitan para subsistir.", "Temen la competencia con la alta capacidad de producción agrícola de Ucrania, conocida como el \"granero de Europa\".", "Consideran que los agricultores ucranianos son en su mayoría pro-Putin y eso genera desconfianza."], "correcta": 2, "tipo": "argumento", "dificil": false}, {"id": 39, "pregunta": "¿Qué oferta específica hizo Ucrania para facilitar su entrada en la Unión Europea, a pesar de la oposición de algunos de sus propios agricultores?", "opciones": ["Comprometerse a no exportar productos agrícolas a la UE por 10 años.", "Renunciar a las ayudas de la Política Agrícola Común (PAC) durante 15 años.", "Ofrecer una reducción del 50% en los aranceles a las importaciones europeas.", "Aceptar un periodo de transición de 20 años sin derecho a voto en decisiones agrícolas."], "correcta": 1, "tipo": "dato", "dificil": false}, {"id": 40, "pregunta": "Si Ucrania entrara en la Unión Europea, ¿qué países serían los más afectados económicamente por la reasignación de los fondos de cohesión, según el video?", "opciones": ["República Checa, Eslovaquia, Bulgaria y Croacia.", "Grecia, Portugal, Irlanda y Malta.", "Polonia, Rumanía, Hungría y los países Bálticos.", "Francia, Alemania, España e Italia."], "correcta": 2, "tipo": "relacion", "dificil": true}, {"id": 41, "pregunta": "El narrador menciona que la entrada de Ucrania en la Unión Europea genera tres miedos importantes que \"nadie dice en voz alta\". ¿Cuáles son estos miedos?", "opciones": ["El dinero, la seguridad y el equilibrio de poder.", "La migración descontrolada, la corrupción y el crimen organizado.", "El aumento de impuestos, la pérdida de soberanía y la amenaza de conflictos internos.", "La pérdida de liderazgo agrícola, la burocracia y la parálisis en la toma de decisiones."], "correcta": 0, "tipo": "argumento", "dificil": true}, {"id": 42, "pregunta": "¿Qué modelo alternativo de membresía propone el SFR para Ucrania, según el video?", "opciones": ["Una integración económica total, pero sin participación en la política de defensa común.", "Una membresía inmediata con derechos que se desbloquean progresivamente a medida que se realizan reformas.", "Un estatus de observador permanente hasta que se resuelvan todos los conflictos territoriales.", "Una membresía asociada que le otorgaría voz, pero sin voto en las decisiones clave."], "correcta": 1, "tipo": "definicion", "dificil": true}]}, {"content_item_id": 88, "titulo": "RUBENS: RICO, EXCÉNTRICO, FAMOSO Y MUCHO MÁS...", "canal": "Unknown channel", "url": "https://www.youtube.com/watch?v=fq-myE7beiQ", "watched_at": "2026-07-17T13:42:33.223000+00:00", "preguntas": [{"id": 85, "pregunta": "Ante la alta demanda de su obra, ¿qué estrategia implementó Rubens para su producción artística?", "opciones": ["Limitó la producción a encargos muy específicos y de alto valor.", "Se dedicó a copiar obras de otros maestros para satisfacer a sus clientes.", "Contrató a varios artistas famosos para que pintaran bajo su nombre.", "Montó un taller con una cadena de montaje donde él dirigía las composiciones y daba los toques finales."], "correcta": 3, "tipo": "relacion", "dificil": false}, {"id": 86, "pregunta": "Según el narrador, ¿qué artistas italianos influyeron en el estilo de Rubens y qué elementos tomó de cada uno?", "opciones": ["Caravaggio (musculatura), Tintoretto (composición), y Tiziano (claroscuro).", "Veronese (dramatismo), Miguel Ángel (color), y Tiziano (pincelada).", "Tiziano (composición), Veronese (color), y Miguel Ángel (dramatismo).", "Miguel Ángel (musculatura), Caravaggio (claroscuro y dramatismo), y Tintoretto (color y pincelada)."], "correcta": 3, "tipo": "relacion", "dificil": false}, {"id": 87, "pregunta": "¿Cuál fue el objetivo principal del encargo del ciclo de 24 cuadros de María de Médici a Rubens?", "opciones": ["Documentar eventos históricos importantes de su reinado.", "Exhibir la riqueza y el poder de la monarquía francesa.", "Mejorar la mala fama y la percepción de María de Médici en la corte.", "Celebrar sus victorias militares y alianzas políticas."], "correcta": 2, "tipo": "argumento", "dificil": true}, {"id": 88, "pregunta": "Según el narrador, ¿cuáles fueron algunas de las críticas que se le hicieron a Rubens en su época?", "opciones": ["Su desinterés por la mitología clásica, la rigidez de sus figuras y la palidez de su paleta de colores.", "Su amoralidad por pintar desnudos, la excesiva carnalidad, superponer el color al dibujo y su arte publicitario.", "La falta de originalidad en sus temas, el uso excesivo de sombras y su escasa habilidad para el retrato.", "La lentitud en la entrega de encargos, su tendencia a la abstracción y la falta de detalle en los fondos."], "correcta": 1, "tipo": "argumento", "dificil": false}, {"id": 90, "pregunta": "Al copiar el cuadro de Adán y Eva de Tiziano, Rubens realizó varias correcciones. ¿Cuáles de las siguientes son mencionadas por el narrador?", "opciones": ["Eliminación de Eva, cambio del fondo por un paisaje urbano y reducción de la musculatura de Adán.", "Postura de Adán más natural, miradas de Adán y Eva \"en complot\", la adición de un loro rojo y colores más vivos.", "Inclusión de un perro, cambio de la fruta prohibida y un cielo más oscuro.", "Añadió un río en primer plano, cambió la expresión de Eva a tristeza y usó tonos más apagados."], "correcta": 1, "tipo": "dato", "dificil": false}]}, {"content_item_id": 81, "titulo": "TRUMP DESTRUYE LA IMAGEN DE EEUU y el turismo le está pasando factura - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=2RY_r8Cn9jE", "watched_at": "2026-07-06T12:15:37.938000+00:00", "preguntas": [{"id": 151, "pregunta": "Según el narrador, ¿qué tipo de actividades culturales financió en secreto la CIA durante la Guerra Fría para promover la imagen de Estados Unidos?", "opciones": ["Becas para estudiantes extranjeros en universidades de élite y programas de intercambio cultural.", "Giras de músicos de jazz y artistas de vanguardia patrocinadas por el Departamento de Estado.", "Producción de películas de Hollywood y documentales sobre el \"sueño americano\".", "Revistas literarias, exposiciones de arte, conciertos de jazz y giras de orquestras sinfónicas."], "correcta": 3, "tipo": "relacion", "dificil": false}, {"id": 152, "pregunta": "¿Cuál es la razón principal que el narrador atribuye a que el Mundial de fútbol en Estados Unidos no esté generando los ingresos turísticos esperados, según el video?", "opciones": ["La obsesión de Donald Trump contra la inmigración está disuadiendo a los visitantes internacionales.", "Los mundiales de fútbol no son el exitazo en turismo que la gente piensa, al igual que los Juegos Olímpicos.", "Las reservas de hotel para el mundial son decepcionantes por la falta de interés en el \"soccer\".", "El alto sobrecoste de los vuelos internacionales debido al encarecimiento del combustible de aviación."], "correcta": 1, "tipo": "argumento", "dificil": true}, {"id": 153, "pregunta": "¿Qué incidente específico menciona el narrador como ejemplo de la obsesión de Donald Trump contra la inmigración, afectando a un grupo particular?", "opciones": ["Un famoso streamer pianista fue impedido de entrar porque la policía no entendía por qué la contrataban a ella.", "Al delantero iraquí Aimed Husin le retuvieron 7 horas en el aeropuerto y su fotógrafo fue deportado.", "Dos adolescentes alemanas fueron consideradas una tapadera para trabajar ilegalmente y se les negó la entrada.", "La selección de Uruguay fue sometida a un estricto protocolo de seguridad con binomios caninos a su llegada."], "correcta": 3, "tipo": "relacion", "dificil": false}, {"id": 154, "pregunta": "Según el narrador, ¿cuál fue una de las consecuencias directas del desmantelamiento de USAID en la República Democrática del Congo?", "opciones": ["Se registró un aumento del 10% en la violencia, incluyendo disturbios y muertes en combate.", "Los recortes de ayuda ya han costado más de 750,000 vidas en todo el mundo.", "El programa PEPFAR, que previene contagios de VIH/Sida, sufrió recortes significativos.", "Nadie detectó a tiempo un brote de ébola que se convirtió en el tercer peor de toda la historia."], "correcta": 3, "tipo": "relacion", "dificil": true}, {"id": 155, "pregunta": "¿Qué porcentaje de estadounidenses, según el narrador, cree que el ICE ha ido demasiado lejos en sus acciones de inmigración?", "opciones": ["El 54%, lo que representa un aumento significativo en un año.", "El 62%, quienes se sienten menos seguros por sus acciones.", "El 70%, que es la financiación humanitaria en el Congo.", "El 65%, incluyendo demócratas y republicanos."], "correcta": 3, "tipo": "dato", "dificil": true}]}];
+// Clave de guardado atada al conjunto de preguntas: dos tandas distintas no se
+// pisan, y si se regenera el quiz con otras preguntas no se restaura basura.
+const CLAVE = 'quiz_' + DATOS.map(v => v.content_item_id).join('_');
+
+let resp = {};               // id de pregunta -> {eleccion, segundos, respondido_at}
+let excluidos = new Set();   // videos marcados como no vistos
+// El cronometro mide desde la ULTIMA interaccion, no desde que se abrio la
+// pagina. Antes se ponia el mismo instante de arranque para TODAS las
+// preguntas, con lo cual "segundos" en la pregunta 50 era el tiempo acumulado
+// desde que se abrio el archivo. No medía nada.
+let ultimoEvento = Date.now();
+
+function guardar() {
+  try {
+    localStorage.setItem(CLAVE, JSON.stringify({
+      resp, excluidos: [...excluidos],
+      persona: document.getElementById('persona').value || ''
+    }));
+  } catch (e) { /* modo privado o sin permiso: se sigue sin autoguardado */ }
+}
+
+function restaurar() {
+  let g = null;
+  try { g = JSON.parse(localStorage.getItem(CLAVE) || 'null'); } catch (e) {}
+  if (!g) return false;
+  resp = g.resp || {};
+  excluidos = new Set(g.excluidos || []);
+  if (g.persona) document.getElementById('persona').value = g.persona;
+  return Object.keys(resp).length > 0 || excluidos.size > 0;
+}
+
+function pintar() {
+  const cont = document.getElementById('quiz');
+  DATOS.forEach(v => {
+    const d = document.createElement('div');
+    d.className = 'video'; d.id = 'v' + v.content_item_id;
+    let html = `<h2>${esc(v.titulo)}</h2><p class="canal">${esc(v.canal || '')}</p>
+      <div class="preguntas">`;
+    v.preguntas.forEach(p => {
+      html += `<div class="p"><div class="txt">${esc(p.pregunta)}</div>`;
+      p.opciones.forEach((o, i) => {
+        html += `<label><input type="radio" name="q${p.id}" value="${i}">
+                 <span>${esc(o)}</span></label>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div><label class="novi"><input type="checkbox" class="novi-chk">
+             No vi este video (o no lo recuerdo en absoluto)</label>`;
+    d.innerHTML = html;
+    cont.appendChild(d);
+
+    const chk = d.querySelector('.novi-chk');
+    if (excluidos.has(v.content_item_id)) { chk.checked = true; d.classList.add('excluido'); }
+    chk.addEventListener('change', e => {
+      if (e.target.checked) { excluidos.add(v.content_item_id); d.classList.add('excluido'); }
+      else { excluidos.delete(v.content_item_id); d.classList.remove('excluido'); }
+      guardar();
+      progreso();
+    });
+    v.preguntas.forEach(p => {
+      // restaurar lo ya contestado
+      if (resp[p.id] !== undefined) {
+        const prev = d.querySelector(`input[name=q${p.id}][value="${resp[p.id].eleccion}"]`);
+        if (prev) prev.checked = true;
+      }
+      d.querySelectorAll(`input[name=q${p.id}]`).forEach(r => {
+        r.addEventListener('change', () => {
+          const ahora = Date.now();
+          resp[p.id] = { eleccion: +r.value,
+                         segundos: Math.round((ahora - ultimoEvento) / 1000),
+                         respondido_at: ahora };
+          ultimoEvento = ahora;
+          guardar();
+          progreso();
+        });
+      });
+    });
+  });
+  progreso();
+}
+
+function pendientes() {
+  let n = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => { if (resp[p.id] === undefined) n++; });
+  });
+  return n;
+}
+
+function progreso() {
+  const falta = pendientes();
+  const activas = DATOS.reduce((a, v) =>
+      a + (excluidos.has(v.content_item_id) ? 0 : v.preguntas.length), 0);
+  document.getElementById('prog').textContent =
+      `${activas - falta} de ${activas} contestadas` + (falta ? ` · faltan ${falta}` : '');
+  document.getElementById('enviar').disabled = falta > 0 || activas === 0;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+document.getElementById('enviar').addEventListener('click', () => {
+  const persona = (document.getElementById('persona').value || '').trim();
+  if (!persona) { alert('Falta el identificador'); return; }
+  const salida = { persona_id: persona,
+                   completado_at: new Date().toISOString(),
+                   videos_excluidos: [...excluidos], respuestas: [] };
+  let ok = 0, okDif = 0, nDif = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => {
+      const r = resp[p.id];
+      // Los dias se calculan contra el instante en que se contesto ESA
+      // pregunta, no contra la carga de la pagina: con autoguardado, una tanda
+      // puede empezarse un dia y terminarse otro.
+      const dias = v.watched_at
+        ? ((r.respondido_at || Date.now()) - new Date(v.watched_at).getTime()) / 86400000
+        : null;
+      const acierto = r.eleccion === p.correcta;
+      if (acierto) ok++;
+      if (p.dificil) { nDif++; if (acierto) okDif++; }
+      salida.respuestas.push({ pregunta_id: p.id, eleccion: r.eleccion, acierto,
+                               segundos: r.segundos,
+                               dias_transcurridos: dias === null ? null : +dias.toFixed(2) });
+    });
+  });
+  const n = salida.respuestas.length;
+  const caja = document.getElementById('resultado');
+  caja.style.display = 'block';
+  caja.innerHTML = `<h2 style="margin-top:0;font-size:1.05rem">Listo</h2>
+    <table>
+      <tr><th>Preguntas contestadas</th><td>${n}</td></tr>
+      <tr><th>Aciertos</th><td>${ok} (${(100*ok/n).toFixed(0)} %)</td></tr>
+      <tr><th>Aciertos en el subconjunto dificil</th>
+          <td>${nDif ? `${okDif} de ${nDif} (${(100*okDif/nDif).toFixed(0)} %)` : 'sin items'}</td></tr>
+      <tr><th>Videos excluidos por no haberlos visto</th><td>${excluidos.size}</td></tr>
+    </table>
+    <p class="id" style="margin-top:1rem">El archivo se descargo. Cargalo con
+    <code>cargar_quiz.py --respuestas</code>. El porcentaje de aqui arriba es
+    orientativo: la retencion corregida por la linea de base se calcula en la base
+    de datos.</p>`;
+  caja.scrollIntoView({ behavior: 'smooth' });
+  try { localStorage.removeItem(CLAVE); } catch (e) {}
+
+  const blob = new Blob([JSON.stringify(salida, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `respuestas_${persona}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+});
+
+const habia = restaurar();
+pintar();
+document.getElementById('persona').addEventListener('input', guardar);
+if (habia) {
+  const a = document.createElement('div');
+  a.className = 'aviso';
+  a.innerHTML = '<strong>Se recupero tu avance.</strong> Podes cerrar y volver cuando quieras: ' +
+                'se guarda en este navegador a medida que contestas.';
+  document.querySelector('#quiz').before(a);
+}
+window.addEventListener('beforeunload', e => {
+  if (pendientes() > 0 && Object.keys(resp).length > 0) { e.preventDefault(); e.returnValue = ''; }
+});
+</script>
+</html>

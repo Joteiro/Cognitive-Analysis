@@ -1,0 +1,185 @@
+[
+  {
+    "content_item_id": 4,
+    "external_id": "u2Y-cJFcoP0",
+    "titulo": "ASÍ CONTROLA SÁNCHEZ LOS MEDIOS mientras sus escándalos de corrupción se acumulan - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 8716,
+    "transcripcion_recortada": false,
+    "modelo": "gemini-2.5-flash",
+    "version": "quiz-0.8",
+    "generado_at": "2026-08-18T16:10:13.454096+00:00",
+    "preguntas": [
+      {
+        "pregunta": "Según el narrador, ¿cuál fue el presupuesto de Radio Televisión Española en el año 2025, después de la llegada de Pedro Sánchez al poder?",
+        "opciones": [
+          "840 millones de euros",
+          "1220 millones de euros",
+          "11 millones de euros",
+          "250 millones de euros"
+        ],
+        "cita": "Pero es que en el año 2025 el presupuesto de Televisión Española alcanzó los 1220 millones de euros. Es decir, que desde que llegó Pedro Sánchez al poder, el presupuesto de Televisión Española ha aumentado un 25%.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_3_de_3",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "baja",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Cuáles fueron las dos razones principales por las que los países europeos, a diferencia de Estados Unidos, optaron por crear televisiones públicas en sus inicios?",
+        "opciones": [
+          "La influencia de los nazis y el deseo de competir con Estados Unidos.",
+          "La doctrina económica keynesiana y la escasez de frecuencias de emisión.",
+          "El modelo de la BBC y la alta rentabilidad del sector.",
+          "La necesidad de ofrecer programas educativos y la falta de interés privado."
+        ],
+        "cita": "Pues la excusa que encontraron fue la tecnología. No olvidéis que aquellos años eran la era de oro del keinesenismo económico... Además, en aquella época solamente se podía emitir imagen en vivo por muy pocas frecuencias.",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "parcial_21_de_36",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_1_de_6",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Quiénes fueron los pioneros en la política de la televisión pública, según lo mencionado en la transcripción?",
+        "opciones": [
+          "Los países europeos",
+          "Los nazis",
+          "Estados Unidos",
+          "España bajo Franco"
+        ],
+        "cita": "La televisión pública apareció en la década de los años 30. Y venga, a ver si adivináis quiénes fueron los pioneros en esta política. Los nazis.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_1_de_1",
+        "trivial": true,
+        "control_eleccion": 1,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 1
+      },
+      {
+        "pregunta": "Según el narrador, ¿cuál es el verdadero objetivo de la publicidad institucional que el gobierno reparte entre los medios de comunicación?",
+        "opciones": [
+          "Informar a los ciudadanos sobre los servicios públicos.",
+          "Promover el turismo en las comunidades autónomas.",
+          "Competir con los grandes anunciantes privados como P&G.",
+          "Asegurar que los medios no muerdan la mano del que les da de comer."
+        ],
+        "cita": "Como ya os podéis imaginar, estos anuncios no están ahí para animar a que la gente haga turismo, no están ahí para que estos medios no muerdan la mano del que les da de comer.",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_6_de_7",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Cuánto costó a los españoles el contrato de David Broncano para su programa \"La Revuelta\" en Televisión Española?",
+        "opciones": [
+          "25 euros",
+          "40 millones de euros",
+          "8,3 millones de euros",
+          "14 millones de euros"
+        ],
+        "cita": "Conclusión: Pedro Sánchez se quiso vengar del hormiguero contratando a David Broncano en la televisión española y esta vengancita costó a los españoles 14 millones de euros.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_3_de_3",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Cuál fue la consecuencia directa del cambio en la ley que regulaba el órgano de gobierno de Televisión Española, aprobado por mayoría simple durante la tragedia de la Dana?",
+        "opciones": [
+          "Se aprobaron paquetes de ayuda urgentes para la Comunidad Valenciana.",
+          "El presupuesto de RTVE se disparó un 25% de inmediato.",
+          "La presidenta y el director de contenidos de RTVE fueron destituidos.",
+          "El gobierno ya no necesita pactar con la oposición para elegir a la dirección de RTVE."
+        ],
+        "cita": "Pues que antes para cambiar el gobierno de Televisión Española se necesitaban 3/5 del Parlamento... Sin embargo, en esta votación se cambió por la mayoría simple. Es decir, que ahora Pedro Sánchez ya no tiene que pactar con la oposición...",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "parcial_25_de_41",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_4_de_8",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Cuál fue la razón estratégica por la que Mariano Rajoy permitió que Antena 3 absorbiera La Sexta, a pesar de que esta última tenía una línea editorial favorable a la izquierda?",
+        "opciones": [
+          "Mantenerla como un faro de izquierdas, pero controlada por el Partido Popular.",
+          "Fortalecer el voto de izquierdas para debilitar al PSOE.",
+          "Permitir que Antena 3 se convirtiera en el grupo mediático más grande.",
+          "Evitar la quiebra de una gran cadena de televisión española."
+        ],
+        "cita": "Sin embargo, con esta operación, la sexta se mantenía como un faro de izquierdas, pero controlada por el Partido Popular. Es decir, hablamos de disidencia controlada.",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "inferencia_7_de_8",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿En cuántas personas ha aumentado la plantilla de Televisión Española desde el año 2018, según el narrador?",
+        "opciones": [
+          "1000 canales",
+          "28 personas",
+          "100 canales",
+          "500 personas"
+        ],
+        "cita": "Y eso por no hablar del número de trabajadores. Desde el año 2018, Televisión Española ha aumentado su plantilla en 500 personas...",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "dato_2_de_2",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      }
+    ],
+    "error": null
+  }
+]

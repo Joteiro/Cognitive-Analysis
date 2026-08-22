@@ -1,0 +1,425 @@
+[
+  {
+    "content_item_id": 4,
+    "external_id": "u2Y-cJFcoP0",
+    "titulo": "ASÍ CONTROLA SÁNCHEZ LOS MEDIOS mientras sus escándalos de corrupción se acumulan - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 8716,
+    "transcripcion_recortada": true,
+    "modelo": "openai/gpt-oss-120b",
+    "version": "quiz-0.6",
+    "generado_at": "2026-08-17T09:58:21.602775+00:00",
+    "preguntas": [
+      {
+        "pregunta": "Según el vídeo, ¿cuántos pagos a medios realizó el gobierno que reveló El Confidencial?",
+        "opciones": [
+          "8,3 millones",
+          "6900",
+          "40 años",
+          "500 millones"
+        ],
+        "cita": "Por primera vez el confidencial accede a más de 6900 pagos a medios realizados desde Moncloa.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Por qué el autor afirma que Pedro Sánchez ha convertido a RTVE en su propia televisión?",
+        "opciones": [
+          "Porque aumenta la publicidad institucional en medios privados",
+          "Porque controla el presupuesto y la dirección de la cadena",
+          "Porque reduce el número de canales públicos",
+          "Porque elimina la competencia desleal en el sector"
+        ],
+        "cita": "Pedro Sánchez ha convertido a Radio Televisión Española en su propia televisión. Durante su gobierno, el presupuesto anual de la televisión pública ha duplicado el coste de la película más cara de la historia.",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": false,
+        "motivo_justificacion": "solo_1_de_5",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Qué se entiende por \"publicidad institucional\" según el vídeo?",
+        "opciones": [
+          "Anuncios de instituciones educativas en televisión",
+          "Dinero público que el gobierno destina a medios afines",
+          "Campañas de concienciación sobre salud pública",
+          "Publicidad de empresas privadas en espacios públicos"
+        ],
+        "cita": "Un gasto en publicidad que es totalmente opaco y que favorece a los medios de comunicación afines.",
+        "tipo": "definicion",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": false,
+        "motivo_justificacion": "solo_2_de_6",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Cómo evita el gobierno la transparencia al repartir la publicidad institucional?",
+        "opciones": [
+          "Distribuyendo el dinero directamente entre los medios más grandes",
+          "Publicando los criterios de reparto en el Boletín Oficial del Estado",
+          "Utilizando una plataforma digital de acceso público",
+          "Contratando a una empresa externa que envía una lista de candidatos"
+        ],
+        "cita": "Una táctica que suele utilizar el gobierno es contratar a una empresa externa que se encargue del reparto. Así queda aún más opaco.",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": false,
+        "motivo_justificacion": "solo_2_de_6",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Qué partido ha gobernado Castilla y León durante 40 años según el creador del vídeo?",
+        "opciones": [
+          "Partido Socialista Obrero Español",
+          "Ciudadanos",
+          "Vox",
+          "Partido Popular"
+        ],
+        "cita": "una comunidad autónoma que ha sido gobernada durante 40 años por el mismo partido, el Partido Popular, el partido de derechas en España.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "2_de_2",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Qué consecuencia menciona el autor al describir el control de los medios mientras se acumulan escándalos de corrupción?",
+        "opciones": [
+          "Aumenta la confianza del público en la información oficial",
+          "Se reducen los gastos en publicidad institucional",
+          "Mejora la independencia editorial de los canales privados",
+          "Los escándalos se acumulan sin que los medios los denuncien"
+        ],
+        "cita": "Y todo esto ocurre mientras se enfrenta a una avalancha de casos de corrupción. ... los medios cuentan historias, pero no todas igual.",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "parcial_14_de_22",
+        "justificada": false,
+        "motivo_justificacion": "solo_1_de_5",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 3
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 81,
+    "external_id": "2RY_r8Cn9jE",
+    "titulo": "TRUMP DESTRUYE LA IMAGEN DE EEUU y el turismo le está pasando factura - @SoloFonseca",
+    "canal": "Solo Fonseca",
+    "formato": "informativo",
+    "n_palabras": 5089,
+    "transcripcion_recortada": true,
+    "modelo": "openai/gpt-oss-120b",
+    "version": "quiz-0.6",
+    "generado_at": "2026-08-17T09:59:45.306526+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿Cuál es la pérdida proyectada en dólares para el sector turístico estadounidense según el video?",
+        "opciones": [
+          "12,500 millones de dólares",
+          "9,800 millones de dólares",
+          "15,200 millones de dólares",
+          "7,000 millones de dólares"
+        ],
+        "cita": "una pérdida proyectada de 12,500 millones dó para el sector turístico estadounidense",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "3_de_4",
+        "trivial": true,
+        "control_eleccion": 0,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Qué porcentaje del PIB de EE. UU. representa la industria del turismo según el hablante?",
+        "opciones": [
+          "cerca del 3%",
+          "aproximadamente el 5%",
+          "alrededor del 12%",
+          "casi el 9%"
+        ],
+        "cita": "una que representa casi el 9% de su PIB",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "Según el video, ¿por qué la llegada de turistas aéreos a EE. UU. descendió un 7,5% en enero de 2026?",
+        "opciones": [
+          "Problemas de seguridad en los aeropuertos",
+          "Tensión global por la guerra comercial",
+          "Restricciones sanitarias por el COVID‑19",
+          "Aumento de los precios de los vuelos"
+        ],
+        "cita": "El descenso se debe a la tensión global por la guerra comercial. ... en enero del presente año la llegada de turistas aéreos ... se registró un descenso de 7.5%",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "parcial_12_de_29",
+        "justificada": true,
+        "motivo_justificacion": "4_de_4",
+        "trivial": false,
+        "control_eleccion": 3,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 1
+      },
+      {
+        "pregunta": "¿Qué consecuencia argumenta el hablante que tiene la reducción de visados de estudiante en EE. UU.?",
+        "opciones": [
+          "Se incrementa la oferta de empleo en sectores tecnológicos",
+          "Se reducen los ingresos fiscales de los estados del sur",
+          "Aumenta la demanda de programas de intercambio cultural en Europa",
+          "Se pierde la próxima generación de líderes mundiales educados en valores americanos"
+        ],
+        "cita": "ha recortado visados de estudiante ... pierden la próxima generación de líderes mundiales que habrían sido educados en valores americanos",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "parcial_14_de_19",
+        "justificada": true,
+        "motivo_justificacion": "7_de_8",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Qué evento cultural se promociona para el 3‑5 de julio de 2026 en Cartagena, España?",
+        "opciones": [
+          "Feria Internacional de Turismo",
+          "Concierto de Badanny",
+          "Festival de Jazz de Murcia",
+          "Rock Imperium"
+        ],
+        "cita": "Venga, tío, deja de pelártela... Empieza este viernes 3 de julio y termina el domingo 5 de julio... Rock Imperium en Cartagena, España",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "parcial_13_de_23",
+        "justificada": true,
+        "motivo_justificacion": "2_de_2",
+        "trivial": false,
+        "control_eleccion": 0,
+        "control_seguridad": "media",
+        "sobrevive": true,
+        "descarte": null,
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Cuál es la cadena de efectos que el video describe al cortar la ayuda de USAID en zonas de África?",
+        "opciones": [
+          "Reducción de la mortalidad por ébola, incremento de la inversión extranjera, mejora de la imagen de EE. UU.",
+          "Desplazamiento de población rural a ciudades, mayor demanda de turismo interno, caída del PIB",
+          "Mejora de la seguridad sanitaria, aumento de la cooperación internacional, disminución de la violencia",
+          "Aumento del 10% en la violencia, más refugiados, discursos antiinmigrantes, más recortes de ayuda"
+        ],
+        "cita": "el cierre abrupto de USAID provocó un aumento del 10% en la violencia. Eso incluye disturbios y muertes en combate. ... la violencia genera más refugiados y los refugiados alimentan los discursos antiinmigrantes y los discursos antiigrantes justifican más recortes de ayuda",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "parcial_21_de_41",
+        "justificada": true,
+        "motivo_justificacion": "8_de_8",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      }
+    ],
+    "error": null
+  },
+  {
+    "content_item_id": 88,
+    "external_id": "fq-myE7beiQ",
+    "titulo": "RUBENS: RICO, EXCÉNTRICO, FAMOSO Y MUCHO MÁS...",
+    "canal": "Unknown channel",
+    "formato": "informativo",
+    "n_palabras": 2904,
+    "transcripcion_recortada": true,
+    "modelo": "openai/gpt-oss-120b",
+    "version": "quiz-0.6",
+    "generado_at": "2026-08-17T10:00:13.363312+00:00",
+    "preguntas": [
+      {
+        "pregunta": "¿En cuántos idiomas decía el narrador que Rubens era capaz de comunicarse?",
+        "opciones": [
+          "tres",
+          "cinco",
+          "seis",
+          "cuatro"
+        ],
+        "cita": "Rubens, que no solo fue un pintor... era un intelectual porque sabía cuatro idiomas: español, latín, alemán y francés.",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "parcial_12_de_19",
+        "justificada": true,
+        "motivo_justificacion": "1_de_1",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Cuál fue la causa que, según el narrador, cambió el rumbo artístico de Rubens?",
+        "opciones": [
+          "Su formación con Tobías WerH",
+          "Su trabajo como diplomático en la corte",
+          "Su matrimonio con una mujer de 16 años",
+          "Su viaje a Italia y el encuentro con la obra de Miguel Ángel"
+        ],
+        "cita": "¿Qué fue lo que le cambió el chip a Rubens? Pues su viaje a Italia y claro, viaja a Italia, ve ... eso fresco de Miguel Ángel y dice, \"Uh! Esto...\"",
+        "tipo": "relacion",
+        "anclada": true,
+        "motivo_anclaje": "parcial_21_de_30",
+        "justificada": true,
+        "motivo_justificacion": "4_de_6",
+        "trivial": true,
+        "control_eleccion": 3,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 3
+      },
+      {
+        "pregunta": "¿Qué crítica se le hacía a Rubens respecto a la relación entre color y dibujo en sus obras?",
+        "opciones": [
+          "Que superponía el color al dibujo",
+          "Que sus colores eran apagados",
+          "Que usaba demasiado blanco",
+          "Que sus bocetos eran demasiado detallados"
+        ],
+        "cita": "También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que era muy cercano al poder, ... También le criticaba mucho que su arte era publicitario y sobre todo que es...",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "parcial_18_de_1670",
+        "justificada": false,
+        "motivo_justificacion": "solo_0_de_3",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 0
+      },
+      {
+        "pregunta": "¿Qué argumento da el narrador para explicar por qué Rubens pintaba desnudos sin que le importara la moral de la época?",
+        "opciones": [
+          "Era una forma de protestar contra la Iglesia",
+          "Le pagaban mucho por esos encargos",
+          "Los consideraba representaciones de dioses de la mitología clásica",
+          "Quería vender más obras al público popular"
+        ],
+        "cita": "Él pintaba muchos desnudos, tanto hombres como mujeres, y decía, \"No, no, pero es que estos son dioses, es que esto es de la mitología clásica...\"",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "parcial_15_de_26",
+        "justificada": true,
+        "motivo_justificacion": "3_de_5",
+        "trivial": true,
+        "control_eleccion": 2,
+        "control_seguridad": "alta",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿A qué edad Rubens contrajo su segundo matrimonio, según el relato?",
+        "opciones": [
+          "45 años",
+          "60 años",
+          "53 años",
+          "50 años"
+        ],
+        "cita": "Cuando él tenía 53 años, con una chica de 16 años con la que tuvo cinco hijos...",
+        "tipo": "dato",
+        "anclada": true,
+        "motivo_anclaje": "literal",
+        "justificada": true,
+        "motivo_justificacion": "2_de_2",
+        "trivial": true,
+        "control_eleccion": 2,
+        "control_seguridad": "media",
+        "sobrevive": false,
+        "descarte": "contestable_sin_ver_el_video",
+        "correcta": 2
+      },
+      {
+        "pregunta": "¿Cuál es la conclusión que el narrador extrae sobre la imagen del artista bohemio al comparar a Rubés con otros pintores?",
+        "opciones": [
+          "Que Rubens fue el único que vivió rico y famoso en vida",
+          "Que Rubens nunca fue reconocido hasta después de su muerte",
+          "Que solo los artistas bohemios mueren jóvenes y sus obras valen mucho",
+          "Que la fama post mortem no es exclusiva de Rubens, también ocurre con Velázquez y Goya"
+        ],
+        "cita": "¿qué tiene que ver con el artista bohemio este que conocemos, que se muere joven y sus obras valen mucho dinero... A partir de ahora, como me digas todos los artistas hacéis famosos cuando morís, pues no, no está Velázquez, está Rubens, está Goya.",
+        "tipo": "argumento",
+        "anclada": true,
+        "motivo_anclaje": "parcial_23_de_44",
+        "justificada": false,
+        "motivo_justificacion": "solo_3_de_9",
+        "trivial": null,
+        "control_eleccion": null,
+        "control_seguridad": null,
+        "sobrevive": false,
+        "descarte": "cita_no_justifica",
+        "correcta": 3
+      }
+    ],
+    "error": null
+  }
+]
