@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Pantalla secundaria — quiz</title>
+<style>
+  :root{--poster:#eef0f4;--tinta:#14161b;--suave:#5c6270;--linea:#d5d9e2;--acento:#d1490b;
+        /* paleta del quiz, tal como está en los formularios */
+        --q-tinta:#1a1a1a;--q-suave:#666;--q-linea:#e2e2e2;--q-fondo:#fbfbfa;
+        --q-ac:#2f5d50;--q-acl:#eaf1ee}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{width:1740px;background:var(--poster);color:var(--tinta);
+       font:15px/1.5 Inter,"Liberation Sans",sans-serif;-webkit-font-smoothing:antialiased}
+  .poster{padding:34px 36px 30px}
+  .ph{display:flex;align-items:flex-end;justify-content:space-between;
+      padding-bottom:15px;margin-bottom:22px;border-bottom:1px solid var(--linea)}
+  .ph h1{font-size:22px;font-weight:650;letter-spacing:-.015em}
+  .ph .s{font-size:13.5px;color:var(--suave);margin-top:4px}
+  .ph .r{font-size:12.5px;color:var(--suave);text-align:right;line-height:1.7}
+  .ph .r b{color:var(--tinta);font-weight:600}
+  .cols{display:grid;grid-template-columns:1150px 1fr;gap:32px;align-items:start}
+
+  .win{border-radius:11px;overflow:hidden;background:var(--q-fondo);position:relative;
+       border:1px solid var(--linea);
+       box-shadow:0 14px 40px rgba(20,25,40,.16),0 2px 6px rgba(20,25,40,.10)}
+  .chrome{height:36px;background:#e7e8eb;display:flex;align-items:center;gap:9px;padding:0 14px;
+          border-bottom:1px solid #d6d8dd}
+  .dot{width:10px;height:10px;border-radius:50%}
+  .url{flex:1;height:22px;background:#fff;border:1px solid #d6d8dd;border-radius:11px;margin-left:8px;
+       display:flex;align-items:center;padding:0 11px;font-size:11px;color:#6b7280}
+  .body{padding:30px 46px 34px;color:var(--q-tinta);
+        font:15px/1.6 Inter,"Liberation Sans",sans-serif}
+  .qh{border-bottom:1px solid var(--q-linea);padding-bottom:16px;margin-bottom:22px}
+  .qh h2{font-size:23px;letter-spacing:-.01em;margin-bottom:5px}
+  .qh .sub{color:var(--q-suave);font-size:13.5px}
+
+  .card{background:#fff;border:1px solid var(--q-linea);border-radius:8px;
+        padding:20px 22px;margin-bottom:16px;position:relative}
+  .card h3{font-size:15px;margin-bottom:4px}
+  .card .lead{color:var(--q-suave);font-size:12.5px;margin-bottom:16px}
+
+  .med{padding:13px 0;border-top:1px solid var(--q-linea)}
+  .med:first-of-type{border-top:none;padding-top:2px}
+  .med .l1{display:flex;align-items:baseline;gap:10px}
+  .med .nm{font-size:13.5px;font-weight:600;flex:1}
+  .med .big{font-size:23px;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .med .frac{font-size:12.5px;color:var(--q-suave);white-space:nowrap}
+  .track{position:relative;height:22px;margin-top:9px}
+  .track .ax{position:absolute;left:0;right:0;top:9px;height:4px;background:#eceeed;border-radius:2px}
+  .track .band{position:absolute;top:9px;height:4px;background:#b9cdc6;border-radius:2px}
+  .track .pt{position:absolute;top:4px;width:3px;height:14px;background:var(--q-ac);
+             border-radius:2px;transform:translateX(-50%)}
+  .track .tick{position:absolute;top:14px;font-size:9.5px;color:#9aa0a6}
+  .med .ic{font-size:11.5px;color:var(--q-suave);margin-top:11px}
+  .med.tenue .nm,.med.tenue .big{color:var(--q-suave);font-weight:500}
+  .med.tenue .big{font-size:17px}
+
+  .base{position:relative;background:var(--q-acl);border-left:3px solid var(--q-ac);border-radius:0 4px 4px 0;
+        padding:14px 16px;font-size:13px;line-height:1.6;margin-bottom:16px}
+  .base b{font-weight:650}
+
+  table{border-collapse:collapse;width:100%;font-size:13px;margin-top:6px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--q-linea)}
+  th{font-weight:600;font-size:11.5px;color:var(--q-suave);text-transform:uppercase;letter-spacing:.04em}
+  td:last-child,th:last-child,td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:none}
+  .vt{font-size:12.5px}
+  .vc{font-size:11px;color:var(--q-suave)}
+
+  .acc{display:flex;gap:9px;margin-top:4px}
+  .bq{background:var(--q-ac);color:#fff;border-radius:6px;padding:9px 16px;font-size:13px;font-weight:550}
+  .bq2{border:1px solid var(--q-linea);background:#fff;color:var(--q-tinta);
+       border-radius:6px;padding:9px 16px;font-size:13px}
+
+  .limite{position:relative;border:1px dashed #c9cec9;border-radius:8px;padding:15px 17px;font-size:12.5px;
+          line-height:1.6;color:var(--q-suave);background:#f6f7f5}
+  .limite b{color:var(--q-tinta)}
+
+  .n{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--acento);
+     color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;
+     justify-content:center;box-shadow:0 2px 8px rgba(20,25,40,.35);z-index:5;left:-40px}
+
+  .leg h2{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);
+          margin-bottom:12px;font-weight:650}
+  .li{display:flex;gap:11px;padding:11px 0;border-top:1px solid var(--linea)}
+  .li:first-of-type{border-top:none;padding-top:0}
+  .li .b{width:23px;height:23px;border-radius:50%;background:var(--acento);color:#fff;
+         font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+  .li .t{font-size:13.5px;line-height:1.47}
+  .li .t b{font-weight:650}
+  .li .t span{color:var(--suave)}
+  .bloque{margin-top:26px}
+  .bloque p{font-size:12.5px;color:var(--suave);line-height:1.55;margin-top:8px}
+  .bloque p b{color:var(--tinta)}
+  .foot{margin-top:22px;padding-top:13px;border-top:1px solid var(--linea);
+        font-size:12px;color:var(--suave);line-height:1.65}
+  .foot b{color:var(--tinta)}
+  code{font-family:"DejaVu Sans Mono",monospace;font-size:11px}
+</style>
+
+<div class="poster">
+  <div class="ph">
+    <div>
+      <h1>Pantalla secundaria — resultado del quiz de retención</h1>
+      <div class="s">Lo único predictivo del producto. Diseño; el formulario existe, esta vista de resultado todavía no.</div>
+    </div>
+    <div class="r">
+      <b>Momento:</b> semanas después de ver el video, sin avisar cuándo<br>
+      <b>Entrada:</b> una respuesta por pregunta, de memoria, sin volver al video<br>
+      <b>Resultado:</b> cuánto quedó, descontado lo que se puede adivinar
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="win">
+      <div class="chrome">
+        <div class="dot" style="background:#ff5f57"></div>
+        <div class="dot" style="background:#febc2e"></div>
+        <div class="dot" style="background:#28c840"></div>
+        <div class="url">quiz_juan-01_5.html</div>
+      </div>
+
+      <div class="body">
+        <div class="qh">
+          <h2>Qué te quedó</h2>
+          <div class="sub">juan-01 · 3 videos informativos · 16 preguntas · contestadas entre 52 y 55 días
+            después de haberlos visto · mediana de 16 s por pregunta</div>
+        </div>
+
+        <div class="card">
+          <div class="n" style="top:26px">1</div>
+          <h3>Retención</h3>
+          <div class="lead">Se informan las dos formas a propósito. Si divergen, la línea de base no
+            representa bien a esta persona — y eso también es un resultado.</div>
+
+          <div class="med">
+            <div class="l1"><span class="nm">Sobre los ítems que la línea de base falló</span>
+              <span class="frac">2 de 3</span><span class="big">67 %</span></div>
+            <div class="track">
+              <div class="ax"></div>
+              <div class="band" style="left:21%;width:73%"></div>
+              <div class="pt" style="left:67%"></div>
+              <span class="tick" style="left:0">0 %</span>
+              <span class="tick" style="left:50%;transform:translateX(-50%)">50 %</span>
+              <span class="tick" style="right:0">100 %</span>
+            </div>
+            <div class="ic">Interpretación directa. Intervalo del 95 %: <b>21 % a 94 %</b> — son tres ítems.</div>
+          </div>
+
+          <div class="med">
+            <div class="l1"><span class="nm">Sobre las 16, corregido por adivinación</span>
+              <span class="frac">(0,88 − 0,81) ÷ (1 − 0,81)</span><span class="big">33 %</span></div>
+            <div class="track">
+              <div class="ax"></div>
+              <div class="band" style="left:0;width:100%"></div>
+              <div class="pt" style="left:33%"></div>
+              <span class="tick" style="left:0">0 %</span>
+              <span class="tick" style="left:50%;transform:translateX(-50%)">50 %</span>
+              <span class="tick" style="right:0">100 %</span>
+            </div>
+            <div class="ic"><b>El intervalo cubre todo el rango.</b> Con 16 preguntas de una sola
+              persona, este número todavía no distingue nada de nada.</div>
+          </div>
+
+          <div class="med tenue">
+            <div class="l1"><span class="nm">Aciertos brutos</span>
+              <span class="frac">14 de 16</span><span class="big">88 %</span></div>
+            <div class="ic">No es retención: incluye todo lo que se contesta bien sin haber visto el
+              video. Se muestra al final y en gris por eso.</div>
+          </div>
+        </div>
+
+        <div class="base">
+          <div class="n" style="top:16px">2</div>
+          <b>La línea de base.</b> Un modelo <b>distinto del que escribió las preguntas</b> las
+          contestó sin acceso a la transcripción y acertó <b>13 de 16 (81 %)</b>. Ése es el suelo
+          contra el que se lee todo lo de arriba. Sobre temas de conocimiento público ninguna
+          pregunta bien construida es del todo inadivinable; por eso no se descartan los ítems
+          fáciles, se descuenta lo que se puede adivinar.
+        </div>
+
+        <div class="card">
+          <div class="n" style="top:26px">3</div>
+          <h3>Por video</h3>
+          <div class="lead">Sirve para ver dónde se perdió, no para rankear los videos.</div>
+          <table>
+            <tr><th>Video</th><th class="num">Días</th><th class="num">Aciertos</th>
+                <th class="num">De los que la base falló</th></tr>
+            <tr>
+              <td><div class="vt">ANARQUÍA EN VENEZUELA: Delcy bloquea la ayuda…</div>
+                  <div class="vc">Solo Fonseca</div></td>
+              <td class="num">52</td><td class="num">5 de 5</td><td class="num">—</td></tr>
+            <tr>
+              <td><div class="vt">CRISIS EN REINO UNIDO: Starmer dimite y Farage asciende</div>
+                  <div class="vc">Solo Fonseca</div></td>
+              <td class="num">55</td><td class="num">5 de 6</td><td class="num">—</td></tr>
+            <tr>
+              <td><div class="vt">EL MAYOR ERROR DE TRUMP: así ha terminado cediendo ante Irán</div>
+                  <div class="vc">Solo Fonseca</div></td>
+              <td class="num">55</td><td class="num">4 de 5</td><td class="num">2 de 3</td></tr>
+          </table>
+        </div>
+
+        <div class="card" style="padding-bottom:18px">
+          <div class="n" style="top:26px">4</div>
+          <h3>Qué podés hacer ahora</h3>
+          <div class="lead">La acción vuelve al panel: es el único punto donde el circuito se cierra.</div>
+          <div class="acc">
+            <span class="bq">Ver los descriptores de estos 3 videos</span>
+            <span class="bq2">Programar la próxima tanda</span>
+            <span class="bq2">Descargar mis respuestas</span>
+          </div>
+        </div>
+
+        <div class="limite">
+          <div class="n" style="top:16px">5</div>
+          <b>Qué no dice esto todavía.</b> Es un piloto de una persona sobre tres videos del mismo
+          canal. No permite relacionar la retención con los ocho descriptores: para eso hacen falta
+          decenas de videos y más de un respondiente, con validación agrupada por video.
+          <b>La retención es la variable objetivo declarada en la Entrega 4, no un resultado del proyecto.</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="leg">
+      <h2>Qué hace cada parte</h2>
+
+      <div class="li"><div class="b">1</div><div class="t">
+        <b>Dos números, nunca uno.</b> <span>El subconjunto difícil se interpreta directo pero tiene
+        n chico; la corrección por adivinación usa las 16 pero depende de que el modelo de control
+        se parezca a la persona. Mostrar sólo uno sería elegir el que queda mejor.</span></div></div>
+
+      <div class="li"><div class="b">2</div><div class="t">
+        <b>El suelo, explícito.</b> <span>Sin la línea de base, «88 % de aciertos» parece retención y
+        no lo es. El control es un modelo distinto del generador: cuando eran el mismo, acertaba el
+        100 % — reconocía su propia redacción.</span></div></div>
+
+      <div class="li"><div class="b">3</div><div class="t">
+        <b>Desglose sin ranking.</b> <span>Días transcurridos y aciertos por video. No se ordena por
+        resultado ni se colorea: tres videos no sostienen una comparación.</span></div></div>
+
+      <div class="li"><div class="b">4</div><div class="t">
+        <b>La acción cierra el circuito.</b> <span>Desde el resultado se vuelve al panel de esos
+        videos: es donde «qué compuso el contenido» y «qué me quedó» se miran juntos. Sin ese
+        camino, el quiz sería una encuesta suelta.</span></div></div>
+
+      <div class="li"><div class="b">5</div><div class="t">
+        <b>El límite, en la pantalla.</b> <span>No en un pie de página ni en la memoria: en el mismo
+        lugar donde se lee el número. Es la respuesta a «cómo se evita presentar una estimación como
+        una certeza».</span></div></div>
+
+      <div class="bloque">
+        <h2>Excepciones</h2>
+        <p><b>«No vi este video»:</b> una casilla lo excluye y sus preguntas no cuentan.
+        <b>Sin ítems difíciles:</b> si la base acertó todo, la primera fila dice «sin ítems» en vez
+        de un porcentaje inventado. <b>Se cierra a medias:</b> el avance se guarda en el navegador y
+        se recupera al volver. <b>Sin respuesta a todo:</b> el botón de terminar queda deshabilitado,
+        porque un cuestionario incompleto no se puede comparar con la línea de base.</p>
+      </div>
+
+      <div class="bloque">
+        <h2>Por qué el quiz y no una encuesta</h2>
+        <p>Preguntarle a alguien «¿te aportó?» devuelve una opinión, y el proyecto ya tiene el
+        problema de que el valor no se puede definir sin circularidad. <b>La retención es un hecho
+        medible</b> que no sale de una rúbrica escrita por el autor: por eso es la variable
+        dependiente del trabajo.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Los números son <b>reales</b>: salen de <code>docs/quiz_piloto/respuestas/respuestas_juan-01_2026-08-23.json</code>
+    y del cuestionario <code>quiz_juan-01_5.html</code> (16 preguntas sobre 3 videos, generadas por
+    <code>generar_quiz.py</code> v1.1). Los intervalos se calcularon sobre esos mismos datos —
+    Wilson para el subconjunto difícil, bootstrap de 20.000 remuestreos para la corregida.
+    <b>El formulario y la descarga funcionan hoy; esta pantalla de resultado es diseño.</b>
+  </div>
+</div>
+</html>

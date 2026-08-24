@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Mockup frontal</title>
+<style>
+  :root{
+    --poster:#eef0f4; --tinta:#14161b; --suave:#5c6270; --linea:#d5d9e2;
+    --acento:#d1490b;
+    /* panel: colores tomados de content.js, sin cambios */
+    --pn-bg:#12141a; --pn-bd:#2a2e3a; --pn-tx:#e8eaf0; --pn-mut:#8b93a7;
+    --pn-bar:#232733; --pn-marca:#7aa2f7; --pn-med:#4b5263; --pn-sep:#1c1f28;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{width:1900px;background:var(--poster);color:var(--tinta);
+       font:15px/1.5 Inter,"Liberation Sans",sans-serif;-webkit-font-smoothing:antialiased}
+  .poster{padding:34px 36px 30px}
+
+  .ph{display:flex;align-items:flex-end;justify-content:space-between;
+      padding-bottom:15px;margin-bottom:22px;border-bottom:1px solid var(--linea)}
+  .ph h1{font-size:22px;font-weight:650;letter-spacing:-.015em}
+  .ph .s{font-size:13.5px;color:var(--suave);margin-top:4px}
+  .ph .r{font-size:12.5px;color:var(--suave);text-align:right;line-height:1.7}
+  .ph .r b{color:var(--tinta);font-weight:600}
+
+  .cols{display:grid;grid-template-columns:1330px 1fr;gap:32px;align-items:start}
+
+  /* ── ventana ── */
+  .win{border-radius:11px;overflow:hidden;background:#0f0f0f;
+       box-shadow:0 14px 40px rgba(20,25,40,.22),0 2px 6px rgba(20,25,40,.12)}
+  .chrome{height:38px;background:#202124;display:flex;align-items:center;gap:9px;padding:0 14px}
+  .dot{width:11px;height:11px;border-radius:50%}
+  .url{flex:1;height:23px;background:#3b3d41;border-radius:12px;margin-left:8px;
+       display:flex;align-items:center;padding:0 12px;font-size:11.5px;color:#c8cbd2}
+  .ext{width:21px;height:21px;border-radius:5px;background:#7aa2f7;
+       display:flex;align-items:center;justify-content:center;
+       font-size:10.5px;font-weight:700;color:#12141a}
+  .mast{height:52px;background:#0f0f0f;display:flex;align-items:center;
+        padding:0 18px;gap:16px;border-bottom:1px solid #232323}
+  .ytlogo{display:flex;align-items:center;gap:6px;font-size:16px;font-weight:700;
+          color:#f1f1f1;letter-spacing:-.04em}
+  .play{width:26px;height:18px;background:#ff0033;border-radius:5px;position:relative}
+  .play:after{content:"";position:absolute;left:10px;top:5px;border-left:7px solid #fff;
+              border-top:4px solid transparent;border-bottom:4px solid transparent}
+  .search{flex:1;max-width:520px;height:32px;border:1px solid #303030;border-radius:16px;
+          margin:0 auto;display:flex;align-items:center;padding:0 15px;font-size:12.5px;color:#717171}
+  .mast .av{width:28px;height:28px;border-radius:50%;background:#3ea6ff;margin-left:auto}
+
+  .page{display:grid;grid-template-columns:1fr 340px;gap:22px;padding:18px;
+        position:relative;height:1120px}
+
+  .player{aspect-ratio:16/9;border-radius:10px;position:relative;overflow:hidden;
+          background:radial-gradient(120% 100% at 30% 25%,#1d2a3c 0%,#0c1119 62%,#05070b 100%)}
+  .player .grid{position:absolute;inset:0;
+    background:repeating-linear-gradient(115deg,rgba(122,162,247,.05) 0 2px,transparent 2px 26px)}
+  .player .glow{position:absolute;width:330px;height:330px;border-radius:50%;left:15%;top:5%;
+    background:radial-gradient(circle,rgba(120,180,255,.2),transparent 66%)}
+  .player .glow2{position:absolute;width:250px;height:250px;border-radius:50%;right:11%;bottom:3%;
+    background:radial-gradient(circle,rgba(255,140,90,.13),transparent 66%)}
+  .ctrl{position:absolute;left:0;right:0;bottom:0;padding:0 14px 10px;
+        background:linear-gradient(transparent,rgba(0,0,0,.72))}
+  .prog{height:3px;background:rgba(255,255,255,.28);border-radius:2px;position:relative;margin-bottom:9px}
+  .prog i{position:absolute;left:0;top:0;bottom:0;width:43%;background:#ff0033;border-radius:2px}
+  .prog b{position:absolute;left:43%;top:-3.5px;width:10px;height:10px;border-radius:50%;
+          background:#ff0033;transform:translateX(-50%)}
+  .crow{display:flex;align-items:center;gap:13px;color:#fff;font-size:11.5px;padding-bottom:2px}
+  .ico{width:13px;height:13px;opacity:.92}
+  .crow .t{margin-left:2px;font-variant-numeric:tabular-nums;opacity:.92}
+  .crow .sp{margin-left:auto}
+
+  .vtit{font-size:19px;font-weight:650;color:#f1f1f1;margin:14px 0 11px;letter-spacing:-.01em}
+  .vrow{display:flex;align-items:center;gap:11px}
+  .cav{width:38px;height:38px;border-radius:50%;
+       background:linear-gradient(140deg,#2b6cb0,#1a365d);flex:none}
+  .cname{color:#f1f1f1;font-size:14px;font-weight:600}
+  .csub{color:#aaa;font-size:11.5px;margin-top:1px}
+  .btn-d{background:#f1f1f1;color:#0f0f0f;border-radius:16px;padding:7px 15px;
+         font-size:12.5px;font-weight:600;margin-left:9px}
+  .pill{background:#272727;color:#f1f1f1;border-radius:16px;padding:7px 13px;font-size:12.5px}
+  .vrow .sp{margin-left:auto;display:flex;gap:7px}
+  .desc{background:#272727;border-radius:10px;padding:11px 13px;margin-top:13px;
+        color:#f1f1f1;font-size:12.5px;line-height:1.55}
+  .desc .m{color:#aaa}
+  .coms{margin-top:16px}
+  .coms .h{color:#f1f1f1;font-size:14px;font-weight:600;margin-bottom:12px}
+  .cm{display:flex;gap:10px;margin-bottom:11px}
+  .cm .a{width:28px;height:28px;border-radius:50%;flex:none}
+  .cm .l{height:8px;border-radius:4px;background:#2a2a2a}
+
+  .sug{display:flex;flex-direction:column;gap:10px}
+  .sug .it{display:flex;gap:9px}
+  .sug .th{width:150px;height:84px;border-radius:8px;flex:none}
+  .sug .tt{color:#f1f1f1;font-size:12.5px;line-height:1.32;font-weight:550}
+  .sug .cc{color:#aaa;font-size:11px;margin-top:4px}
+
+  /* ── panel ── */
+  .panel{position:absolute;right:18px;bottom:18px;width:352px;
+         background:var(--pn-bg);color:var(--pn-tx);border:1px solid var(--pn-bd);
+         border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.55);font-size:13px;line-height:1.45}
+  .p-cab{position:relative;display:flex;align-items:baseline;gap:8px;
+         padding:12px 14px 9px;border-bottom:1px solid var(--pn-bd)}
+  .p-tit{font-weight:600;font-size:13px;flex:1}
+  .p-fmt{font-size:11px;color:var(--pn-mut)}
+  .p-x{color:#6b7280;font-size:15px;line-height:1}
+  .p-obj{position:relative;padding:11px 14px 12px;border-bottom:1px solid var(--pn-sep)}
+  .p-obj-lab{font-size:11px;color:var(--pn-mut);margin-bottom:8px}
+  .chips{display:flex;gap:6px}
+  .chip{font-size:11.5px;padding:4px 11px;border-radius:13px;border:1px solid var(--pn-bd);color:var(--pn-mut)}
+  .chip.on{background:#1e2536;border-color:#3a4560;color:#cdd6f4;font-weight:600}
+  .p-obj-nota{font-size:10.5px;color:#6b7280;margin-top:9px}
+  .p-cuerpo{padding:2px 14px 10px}
+  .grupo{position:relative;font-size:10px;color:#6b7280;letter-spacing:.05em;
+         text-transform:uppercase;padding:12px 0 3px;border-top:1px solid var(--pn-sep);margin-top:4px}
+  .grupo:first-child{border-top:none;margin-top:0;padding-top:10px}
+  .fila{position:relative;padding:9px 0;border-bottom:1px solid var(--pn-sep)}
+  .fila:last-child{border-bottom:none}
+  .lin1{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .nom{font-size:12.5px}
+  .val{font-size:11px;color:var(--pn-mut);white-space:nowrap}
+  .barra{position:relative;height:5px;margin-top:7px;background:var(--pn-bar);border-radius:3px}
+  .marca{position:absolute;top:-3px;width:3px;height:11px;background:var(--pn-marca);
+         border-radius:2px;transform:translateX(-50%)}
+  .mediana{position:absolute;top:-2px;width:1.5px;height:9px;background:#68738c;
+           transform:translateX(-50%)}
+  .pie{font-size:10.5px;color:var(--pn-mut);margin-top:5px}
+  .p-acc{position:relative;display:flex;gap:8px;padding:11px 14px;border-top:1px solid var(--pn-bd)}
+  .b1{flex:1;text-align:center;background:#2a3550;border:1px solid #3a4560;color:#cdd6f4;
+      border-radius:7px;padding:7px 0;font-size:12px;font-weight:600}
+  .b2{flex:1;text-align:center;border:1px solid var(--pn-bd);color:var(--pn-mut);
+      border-radius:7px;padding:7px 0;font-size:12px}
+  .p-nota{position:relative;padding:10px 14px;border-top:1px solid var(--pn-bd);
+          font-size:10.5px;color:#6b7280;line-height:1.5}
+  .p-nota b{color:#8b93a7}
+
+  .n{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--acento);
+     color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;
+     justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.5);z-index:5;left:-32px}
+
+  /* ── leyenda ── */
+  .leg h2{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);
+          margin-bottom:12px;font-weight:650}
+  .li{display:flex;gap:11px;padding:10px 0;border-top:1px solid var(--linea)}
+  .li:first-of-type{border-top:none;padding-top:0}
+  .li .b{width:23px;height:23px;border-radius:50%;background:var(--acento);color:#fff;
+         font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+  .li .t{font-size:13.5px;line-height:1.47}
+  .li .t b{font-weight:650}
+  .li .t span{color:var(--suave)}
+
+  .estados{margin-top:26px}
+  .estados h2{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);
+              margin-bottom:12px;font-weight:650}
+  .ecard{background:var(--pn-bg);border:1px solid var(--pn-bd);border-radius:10px;
+         color:var(--pn-tx);overflow:hidden}
+  .ecab{display:flex;align-items:baseline;gap:8px;padding:9px 12px 7px;border-bottom:1px solid var(--pn-bd)}
+  .ecab .t{font-weight:600;font-size:12px;flex:1}
+  .ecab .x{color:#6b7280;font-size:13px}
+  .ebody{padding:11px 12px 12px;font-size:11.5px;line-height:1.52;color:#a8b0c2}
+  .ebody b{color:var(--pn-tx)}
+  .spin{display:inline-block;width:9px;height:9px;border:2px solid #3a4054;
+        border-top-color:var(--pn-marca);border-radius:50%;margin-right:7px;vertical-align:-1px}
+  .ecap{font-size:12px;color:var(--suave);margin:7px 0 16px;line-height:1.45}
+
+  .foot{margin-top:22px;padding-top:13px;border-top:1px solid var(--linea);
+        font-size:12px;color:var(--suave);line-height:1.65}
+  .foot b{color:var(--tinta)}
+  code{font-family:"DejaVu Sans Mono",monospace;font-size:11px}
+</style>
+
+<div class="poster">
+
+  <div class="ph">
+    <div>
+      <h1>Nutri-Score de Contenidos — pantalla principal</h1>
+      <div class="s">Panel de información del contenido, sobre la página del video. Mockup de la Entrega 5.</div>
+    </div>
+    <div class="r">
+      <b>Producto:</b> herramienta de exploración en contexto (extensión de navegador)<br>
+      <b>Usuario:</b> espectador de YouTube, antes y durante el video<br>
+      <b>Acción:</b> decidir si le dedica el tiempo, y con qué atención mirarlo
+    </div>
+  </div>
+
+  <div class="cols">
+
+    <div class="win">
+      <div class="chrome">
+        <div class="dot" style="background:#ff5f57"></div>
+        <div class="dot" style="background:#febc2e"></div>
+        <div class="dot" style="background:#28c840"></div>
+        <div class="url">youtube.com/watch?v=a62HpQpVBh8</div>
+        <div class="ext">CA</div>
+      </div>
+
+      <div class="mast">
+        <div class="ytlogo"><span class="play"></span>YouTube</div>
+        <div class="search">Buscar</div>
+        <div class="av"></div>
+      </div>
+
+      <div class="page">
+        <div>
+          <div class="player">
+            <div class="grid"></div><div class="glow"></div><div class="glow2"></div>
+            <div class="ctrl">
+              <div class="prog"><i></i><b></b></div>
+              <div class="crow">
+                <svg class="ico" viewBox="0 0 24 24" fill="#fff"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+                <svg class="ico" viewBox="0 0 24 24" fill="#fff"><path d="M4 12l9-7v14zM14 12l7-6v12z"/></svg>
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><path d="M3 9h4l5-4v14l-5-4H3zM16 8a5 5 0 010 8"/></svg>
+                <span class="t">22:14 / 51:30</span>
+                <span class="sp"></span>
+                <svg class="ico" viewBox="0 0 24 24" fill="#fff"><path d="M3 3h6v2H5v4H3zM15 3h6v6h-2V5h-4zM3 15h2v4h4v2H3zM19 15h2v6h-6v-2h4z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="vtit">Internet Estaba A Semanas Del Desastre y Nadie Lo Sabía</div>
+          <div class="vrow">
+            <div class="cav"></div>
+            <div>
+              <div class="cname">Veritasium en español</div>
+              <div class="csub">Divulgación · vídeo de 51:30</div>
+            </div>
+            <div class="btn-d">Suscribirse</div>
+            <div class="sp">
+              <div class="pill">Me gusta</div>
+              <div class="pill">Compartir</div>
+              <div class="pill">Guardar</div>
+            </div>
+          </div>
+          <div class="desc">
+            <b>442 caracteres de descripción · 1 enlace externo · sin capítulos</b><br>
+            <span class="m">La historia del fallo que estuvo a punto de dejar sin servicio a media red…</span>
+          </div>
+
+          <div class="coms">
+            <div class="h">Comentarios</div>
+            <div class="cm"><div class="a" style="background:#3c4a5e"></div>
+              <div style="flex:1"><div class="l" style="width:22%;margin-bottom:7px"></div>
+              <div class="l" style="width:78%;margin-bottom:6px"></div><div class="l" style="width:54%"></div></div></div>
+            <div class="cm"><div class="a" style="background:#4e3c52"></div>
+              <div style="flex:1"><div class="l" style="width:18%;margin-bottom:7px"></div>
+              <div class="l" style="width:64%;margin-bottom:6px"></div><div class="l" style="width:41%"></div></div></div>
+            <div class="cm"><div class="a" style="background:#3c523f"></div>
+              <div style="flex:1"><div class="l" style="width:25%;margin-bottom:7px"></div>
+              <div class="l" style="width:71%"></div></div></div>
+          </div>
+        </div>
+
+        <div class="sug">
+          <div class="it"><div class="th" style="background:linear-gradient(135deg,#3b4a63,#1c2534)"></div>
+            <div><div class="tt">El error de cálculo que casi apaga la red</div>
+            <div class="cc">Divulgación diaria · 412 mil vistas</div></div></div>
+        </div>
+
+        <!-- ── PANEL ── -->
+        <div class="panel">
+          <div class="p-cab">
+            <div class="n" style="top:11px">1</div>
+            <span class="p-tit">Información del contenido</span>
+            <span class="p-fmt">informativo</span>
+            <span class="p-x">×</span>
+          </div>
+
+          <div class="p-obj">
+            <div class="n" style="top:22px">2</div>
+            <div class="p-obj-lab">Estoy mirando esto para…</div>
+            <div class="chips">
+              <span class="chip on">Aprender</span>
+              <span class="chip">Entretenerme</span>
+              <span class="chip">Decidir algo</span>
+            </div>
+            <div class="p-obj-nota">Cambia el orden de la lista, no los números.</div>
+          </div>
+
+          <div class="p-cuerpo">
+            <div class="grupo"><div class="n" style="top:8px">3</div>Para aprender, mirá primero</div>
+
+            <div class="fila">
+              <div class="lin1"><span class="nom">Menciones de fuente</span>
+                <span class="val">2,52 marcas/1000 palabras</span></div>
+              <div class="barra"><div class="marca" style="left:88%"></div></div>
+              <div class="pie">Más que el 88 % de los 64 que tienen. El 33 % de los informativos no tiene ninguna.</div>
+            </div>
+
+            <div class="fila">
+              <div class="n" style="top:22px">4</div>
+              <div class="lin1"><span class="nom">Densidad de cifras</span>
+                <span class="val">2,35 cifras/100 palabras</span></div>
+              <div class="barra"><div class="mediana" style="left:50%"></div>
+                <div class="marca" style="left:60%"></div></div>
+              <div class="pie">Más que el 60 % de los videos comparables.</div>
+            </div>
+
+            <div class="fila">
+              <div class="lin1"><span class="nom">Correspondencia con el título</span>
+                <span class="val">1,00</span></div>
+              <div class="barra"><div class="mediana" style="left:50%"></div>
+                <div class="marca" style="left:100%"></div></div>
+              <div class="pie">Más que todos los videos comparables.</div>
+            </div>
+
+            <div class="fila">
+              <div class="lin1"><span class="nom">Variedad de vocabulario</span>
+                <span class="val">0,63 MATTR-200</span></div>
+              <div class="barra"><div class="mediana" style="left:50%"></div>
+                <div class="marca" style="left:94%"></div></div>
+              <div class="pie">Más que el 94 % de los videos comparables.</div>
+            </div>
+
+            <div class="grupo">Los otros cuatro</div>
+
+            <div class="fila">
+              <div class="lin1"><span class="nom">Ritmo del habla</span>
+                <span class="val">162 palabras/min</span></div>
+              <div class="barra"><div class="mediana" style="left:50%"></div>
+                <div class="marca" style="left:65%"></div></div>
+              <div class="pie">Más que el 65 % de los videos comparables.</div>
+            </div>
+
+            <div class="fila">
+              <div class="lin1"><span class="nom">Conectores lógicos</span>
+                <span class="val">8,15 marcas/1000 palabras</span></div>
+              <div class="barra"><div class="mediana" style="left:50%"></div>
+                <div class="marca" style="left:42%"></div></div>
+              <div class="pie">Más que el 42 % de los videos comparables.</div>
+            </div>
+
+            <div class="fila">
+              <div class="n" style="top:20px">5</div>
+              <div class="lin1"><span class="nom">Enlaces externos</span>
+                <span class="val">1 enlace</span></div>
+              <div class="barra"><div class="marca" style="left:55%"></div></div>
+              <div class="pie">Más que el 55 % de los 50 que tienen. El 48 % no tiene ninguno.</div>
+            </div>
+
+            <div class="fila">
+              <div class="lin1"><span class="nom">Contenido promocional</span>
+                <span class="val">0,24 marcas/1000 palabras</span></div>
+              <div class="barra"><div class="marca" style="left:12%"></div></div>
+              <div class="pie">Más que el 12 % de los 37 que tienen. El 61 % no tiene ninguno.</div>
+            </div>
+          </div>
+
+          <div class="p-acc">
+            <div class="n" style="top:14px">6</div>
+            <div class="b1">Medir qué retuve</div>
+            <div class="b2">Ver mi dieta</div>
+          </div>
+
+          <div class="p-nota">
+            <div class="n" style="top:16px">7</div>
+            Percentiles relativos al corpus de referencia de YouTube en español
+            (344 videos, <code>mm-2026-08-v1</code>), comparando contra videos del mismo
+            formato cuando corresponde. <b>No es una calificación.</b><br>
+            Transcripción ya almacenada.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── LEYENDA ── -->
+    <div class="leg">
+      <h2>Qué hace cada parte</h2>
+
+      <div class="li"><div class="b">1</div><div class="t">
+        <b>Punto de entrada.</b> <span>El recuadro aparece solo al abrir el video: el usuario
+        no busca nada ni pega ninguna URL. Se cierra con la ×, y el video sigue.</span></div></div>
+
+      <div class="li"><div class="b">2</div><div class="t">
+        <b>La única entrada del usuario.</b> <span>Para qué está mirando. Reordena y agrupa la
+        lista; no recalcula ni un número. Se recuerda entre videos y se cambia en cualquier
+        momento.</span></div></div>
+
+      <div class="li"><div class="b">3</div><div class="t">
+        <b>El resultado.</b> <span>Ocho descriptores medidos sobre la transcripción, con su valor
+        y su unidad. Sin letra, sin nota agregada, sin semáforo: lo único que informa es la
+        posición del marcador.</span></div></div>
+
+      <div class="li"><div class="b">4</div><div class="t">
+        <b>El contexto que lo hace interpretable.</b> <span>La marca fina es la mediana del corpus
+        del mismo formato; la gruesa, este video. Sin esa referencia, «2,35 cifras por 100
+        palabras» no significa nada.</span></div></div>
+
+      <div class="li"><div class="b">5</div><div class="t">
+        <b>Ausencia frente a cantidad.</b> <span>Lo que la mitad de los videos no tiene no admite
+        percentil: estas filas comparan sólo contra los que sí lo tienen, y dicen cuántos
+        no.</span></div></div>
+
+      <div class="li"><div class="b">6</div><div class="t">
+        <b>La acción posterior.</b> <span>Medir la retención con un quiz diferido, o abrir la dieta
+        acumulada. El panel describe un video; esas dos vistas son lo que el usuario hace con
+        eso.</span></div></div>
+
+      <div class="li"><div class="b">7</div><div class="t">
+        <b>Procedencia y límite.</b> <span>Contra qué corpus se compara, con qué versión de la
+        escala y de dónde salió la transcripción. «No es una calificación» es parte del
+        producto, no un descargo.</span></div></div>
+
+      <div class="estados">
+        <h2>El mismo recuadro, en sus otros estados</h2>
+
+        <div class="ecard">
+          <div class="ecab"><span class="t">Información del contenido</span><span class="x">×</span></div>
+          <div class="ebody"><span class="spin"></span>Analizando…</div>
+        </div>
+        <div class="ecap">Carga. La espera sube de 3 s a 15 s por intento en vez de repetir
+          cada 4 s: si a los dos minutos no llegó, machacar el servidor no lo apura.</div>
+
+        <div class="ecard">
+          <div class="ecab"><span class="t">Información del contenido</span><span class="x">×</span></div>
+          <div class="ebody"><b>Sin datos suficientes.</b><br>
+            El video tiene muy poca habla para su duración (cobertura 0,21).<br><br>
+            No es una puntuación baja: estos descriptores miden el habla, y hay videos
+            —música, tomas sin voz— a los que sencillamente no les aplican.</div>
+        </div>
+        <div class="ecap">El video se midió y no llegó al mínimo. Se distingue a propósito del
+          fallo técnico: culpar al contenido de un error del sistema confunde.</div>
+
+        <div class="ecard">
+          <div class="ecab"><span class="t">Información del contenido</span><span class="x">×</span></div>
+          <div class="ebody"><b>No se pudo analizar.</b><br>
+            El análisis está tardando más de lo normal. Recargá la página: la primera consulta
+            del día despierta el servidor y puede demorar un par de minutos.</div>
+        </div>
+        <div class="ecap">Fallo del sistema. Nunca desaparece en silencio: antes se apagaba a los
+          80 s sin decir nada, y era indistinguible de una extensión rota.</div>
+      </div>
+
+      <div class="estados">
+        <h2>Por qué ésta es la pantalla principal</h2>
+        <div class="ecap" style="margin-bottom:0">Porque la decisión ocurre acá: antes de
+          invertir 51 minutos, no después. Las otras dos vistas —la dieta acumulada y el quiz
+          de retención— sólo tienen sentido con el video ya visto, y por eso son secundarias.
+          Un panel que exigiera abrir otra aplicación y pegar una URL no se usaría nunca en el
+          momento en que sirve.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    Los ocho valores del panel son <b>reales</b>: corresponden al video <code>a62HpQpVBh8</code>
+    («Internet Estaba A Semanas Del Desastre y Nadie Lo Sabía», Veritasium en español, 51:30,
+    formato <i>informativo</i>), medidos con <code>nutriscore_features.py</code> y comparados contra la
+    escala <code>mm-2026-08-v1</code> (344 videos del corpus de referencia). Las métricas propias de
+    YouTube (vistas, sugerencias, comentarios) son ilustrativas.
+    <b>El selector de objetivo (2) y los botones de acción (6) son diseño todavía no implementado;
+    el resto del panel funciona hoy.</b>
+  </div>
+
+</div>
+</html>

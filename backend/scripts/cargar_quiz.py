@@ -113,6 +113,42 @@ def cargar_preguntas(cur, datos: list) -> tuple:
     return filas, saltadas
 
 
+def resolver_respuestas(nombre: str):
+    """Encuentra el archivo de respuestas, mire donde mire el usuario.
+
+    El .json baja a la carpeta de Descargas del navegador, y de ahi se mueve (o
+    no) a respuestas/. La version anterior fallaba con un traceback crudo si el
+    nombre no resolvia. Aca se prueban, en orden: la ruta tal cual, dentro de
+    respuestas/, y por ultimo una busqueda por patron en respuestas/. Si no
+    aparece, se dice claramente que hay disponible en vez de reventar.
+    """
+    p = Path(nombre)
+    if p.exists():
+        return p
+    if (RESPUESTAS / p.name).exists():
+        return RESPUESTAS / p.name
+    # busqueda tolerante: "juan-01" encuentra respuestas_juan-01_*.json
+    candidatos = sorted(RESPUESTAS.glob(f"*{p.stem}*.json"))
+    if len(candidatos) == 1:
+        return candidatos[0]
+    if len(candidatos) > 1:
+        print(f"'{nombre}' coincide con varios; se especifico cual:")
+        for c in candidatos:
+            print(f"  {c.name}")
+        return None
+    print(f"No se encontro '{nombre}'.")
+    hay = sorted(RESPUESTAS.glob("respuestas_*.json"))
+    if hay:
+        print(f"En {RESPUESTAS} hay:")
+        for c in hay:
+            print(f"  {c.name}")
+        print("Pasa uno de esos, o usa --todas para cargar todos.")
+    else:
+        print(f"La carpeta {RESPUESTAS} esta vacia. Mové ahi el .json que "
+              "descargaste del quiz.")
+    return None
+
+
 def cargar_respuestas(cur, datos: dict) -> int:
     persona = datos["persona_id"]
     filas = 0
@@ -134,7 +170,12 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Carga el quiz en Supabase")
     ap.add_argument("--etiqueta", default="final")
     ap.add_argument("--respuestas", default=None, metavar="RUTA",
-                    help="cargar un json de respuestas del quiz HTML")
+                    help="cargar un json de respuestas del quiz HTML (nombre suelto, "
+                         "ruta, o el archivo tal cual salio de Descargas)")
+    ap.add_argument("--todas", action="store_true",
+                    help="cargar TODOS los respuestas_*.json de la carpeta respuestas/. "
+                         "Es idempotente: re-cargar no duplica. La forma segura de no "
+                         "olvidarse una tanda.")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -149,24 +190,54 @@ def main() -> int:
         print(f"No hay DATABASE_URL en {env}")
         return 2
 
-    if args.respuestas:
-        ruta = Path(args.respuestas)
-        if not ruta.is_absolute():
-            # Se busca primero en respuestas/, que es donde deberian estar, y
-            # si no en el directorio actual: lo normal es arrastrar el archivo
-            # recien descargado desde la carpeta de descargas.
-            ruta = RESPUESTAS / ruta if (RESPUESTAS / ruta).exists() else Path(args.respuestas)
-        datos = json.loads(ruta.read_text(encoding="utf-8"))
-        print(f"{len(datos['respuestas'])} respuestas de '{datos['persona_id']}'")
+    if args.todas or args.respuestas:
+        # Reunir la lista de archivos a cargar.
+        if args.todas:
+            archivos = sorted(RESPUESTAS.glob("respuestas_*.json"))
+            if not archivos:
+                print(f"No hay ningun respuestas_*.json en {RESPUESTAS}")
+                return 1
+        else:
+            archivos = [resolver_respuestas(args.respuestas)]
+            if archivos[0] is None:
+                return 2   # el mensaje ya se imprimio
+
+        # Cargar cada uno. Idempotente por el ON CONFLICT: re-cargar no duplica.
+        total = 0
+        datasets = []
+        for ruta in archivos:
+            try:
+                d = json.loads(ruta.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError) as e:
+                print(f"  {ruta.name}: NO se pudo leer ({e})")
+                continue
+            if "respuestas" not in d or "persona_id" not in d:
+                print(f"  {ruta.name}: no parece un archivo de respuestas (faltan claves)")
+                continue
+            ok = sum(1 for r in d["respuestas"] if r["acierto"])
+            print(f"  {ruta.name}: {len(d['respuestas'])} respuestas de "
+                  f"'{d['persona_id']}' · {ok} aciertos")
+            datasets.append(d)
+            total += len(d["respuestas"])
+
+        if not datasets:
+            print("Nada valido para cargar.")
+            return 1
         if args.dry_run:
-            ok = sum(1 for r in datos["respuestas"] if r["acierto"])
-            print(f"  aciertos: {ok}/{len(datos['respuestas'])} "
-                  f"({100 * ok / len(datos['respuestas']):.0f} %)")
+            print(f"(dry-run: {total} respuestas en {len(datasets)} archivos, no se escribe)")
             return 0
+
         import psycopg2
-        with psycopg2.connect(dsn) as c, c.cursor() as cur:
-            n = cargar_respuestas(cur, datos)
-        print(f"{n} respuestas cargadas")
+        try:
+            with psycopg2.connect(dsn, connect_timeout=20) as c, c.cursor() as cur:
+                cargadas = sum(cargar_respuestas(cur, d) for d in datasets)
+                cur.execute("select count(*) from quiz_respuestas")
+                en_base = cur.fetchone()[0]
+        except psycopg2.Error as e:
+            # El error real de la base, sin el traceback de Python encima.
+            print(f"\nERROR de la base: {str(e).strip().splitlines()[0]}")
+            return 1
+        print(f"\n{cargadas} respuestas cargadas · quiz_respuestas tiene {en_base} filas")
         return 0
 
     origen = SALIDA / f"quiz_piloto_{args.etiqueta}.json"

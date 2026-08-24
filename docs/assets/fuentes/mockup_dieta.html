@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Pantalla secundaria — dieta</title>
+<style>
+  :root{--poster:#eef0f4;--tinta:#14161b;--suave:#5c6270;--linea:#d5d9e2;--acento:#d1490b}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{width:1740px;background:var(--poster);color:var(--tinta);
+       font:15px/1.5 Inter,"Liberation Sans",sans-serif;-webkit-font-smoothing:antialiased}
+  .poster{padding:34px 36px 30px}
+  .ph{display:flex;align-items:flex-end;justify-content:space-between;
+      padding-bottom:15px;margin-bottom:22px;border-bottom:1px solid var(--linea)}
+  .ph h1{font-size:22px;font-weight:650;letter-spacing:-.015em}
+  .ph .s{font-size:13.5px;color:var(--suave);margin-top:4px}
+  .ph .r{font-size:12.5px;color:var(--suave);text-align:right;line-height:1.7}
+  .ph .r b{color:var(--tinta);font-weight:600}
+  .cols{display:grid;grid-template-columns:1160px 1fr;gap:32px;align-items:start}
+  .shot{border-radius:11px;overflow:hidden;border:1px solid var(--linea);
+        box-shadow:0 14px 40px rgba(20,25,40,.16),0 2px 6px rgba(20,25,40,.10);position:relative}
+  .shot img{display:block;width:1160px}
+  .n{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--acento);
+     color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;
+     justify-content:center;box-shadow:0 2px 8px rgba(20,25,40,.35);z-index:5}
+  .leg h2{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);
+          margin-bottom:12px;font-weight:650}
+  .li{display:flex;gap:11px;padding:11px 0;border-top:1px solid var(--linea)}
+  .li:first-of-type{border-top:none;padding-top:0}
+  .li .b{width:23px;height:23px;border-radius:50%;background:var(--acento);color:#fff;
+         font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+  .li .t{font-size:13.5px;line-height:1.47}
+  .li .t b{font-weight:650}
+  .li .t span{color:var(--suave)}
+  .bloque{margin-top:26px}
+  .bloque p{font-size:12.5px;color:var(--suave);line-height:1.55;margin-top:8px}
+  .bloque p b{color:var(--tinta)}
+  .foot{margin-top:22px;padding-top:13px;border-top:1px solid var(--linea);
+        font-size:12px;color:var(--suave);line-height:1.65}
+  .foot b{color:var(--tinta)}
+  code{font-family:"DejaVu Sans Mono",monospace;font-size:11px}
+</style>
+
+<div class="poster">
+  <div class="ph">
+    <div>
+      <h1>Pantalla secundaria — «Mi dieta cognitiva»</h1>
+      <div class="s">Vista retrospectiva del consumo propio. Captura del dashboard real, no un mockup.</div>
+    </div>
+    <div class="r">
+      <b>Momento:</b> después, no antes: revisar cómo quedó repartido el consumo<br>
+      <b>Entrada:</b> tres filtros — periodo, formato y denominador<br>
+      <b>Acción:</b> reequilibrar qué se mira, o cambiar el denominador y volver a leer
+    </div>
+  </div>
+
+  <div class="cols">
+    <div class="shot">
+      <img src="05_captura_dashboard.png">
+      <div class="n" style="left:14px;top:200px">1</div>
+      <div class="n" style="left:14px;top:274px">2</div>
+      <div class="n" style="left:14px;top:442px">3</div>
+      <div class="n" style="left:14px;top:730px">4</div>
+      <div class="n" style="left:14px;top:1000px">5</div>
+    </div>
+
+    <div class="leg">
+      <h2>Qué hace cada parte</h2>
+
+      <div class="li"><div class="b">1</div><div class="t">
+        <b>Las tres entradas.</b> <span>Periodo, formato y denominador. El formato es un
+        <i>filtro</i>, nunca una comparación entre formatos: los percentiles ya vienen calculados
+        contra el corpus del mismo formato, así que filtrar no cambia la vara — la declara. Cada
+        fila dice debajo si usa escala global o por formato.</span></div></div>
+
+      <div class="li"><div class="b">2</div><div class="t">
+        <b>El recorte, escrito con palabras.</b> <span>«37 videos, 993 minutos, del 27/4 al 14/8,
+        formato informativo, contando por minutos». Sin esa línea, cuatro controles dejan al
+        usuario sin saber qué está mirando.</span></div></div>
+
+      <div class="li"><div class="b">3</div><div class="t">
+        <b>Protección: aviso de dominancia.</b> <span>Si un canal se lleva más del 40 % del recorte,
+        se lo nombra. Acá <b>Solo Fonseca es el 54 % de los minutos</b>: lo que el panel describe
+        es ese canal disfrazado de categoría. Antes se detectaba a mano; ahora salta solo.</span></div></div>
+
+      <div class="li"><div class="b">4</div><div class="t">
+        <b>Protección: piso de n = 15.</b> <span>Las filas con menos de 15 videos que tengan el rasgo
+        dejan de mostrar mediana y banda, y pasan a un punto por video. Una mediana sobre ocho casos
+        es ruido dibujado con autoridad. Cuántos no tienen el rasgo se declara en cada fila
+        («8 sin el rasgo»).</span></div></div>
+
+      <div class="li"><div class="b">5</div><div class="t">
+        <b>El resultado.</b> <span>Mediana y mitad central de cada descriptor frente a la mediana del
+        corpus (la línea del 50). Mismo criterio que el panel de un video: posición, no color, y
+        ninguna nota agregada. El orden de las ocho filas es fijo: si se reordenaran al cambiar un
+        filtro, se perdería la comparación entre recortes.</span></div></div>
+
+      <div class="bloque">
+        <h2>El denominador cambia la lectura</h2>
+        <p>Es el «por porción» frente al «por 100 g» del envase, y no es cosmético: al pasar de
+        videos a minutos, <b>la variedad de vocabulario cae del percentil 76 al 43</b> y la densidad
+        de cifras sube del 60 al 72. Un podcast de dos horas pesa lo que ocupó, no uno.</p>
+      </div>
+
+      <div class="bloque">
+        <h2>Excepciones</h2>
+        <p><b>Recorte vacío:</b> si los filtros no dejan ningún video, la línea de estado lo dice y
+        los gráficos no se dibujan — no hay ejes vacíos ni medianas de cero. <b>Recorte pequeño:</b>
+        el piso de n cambia la forma del gráfico en vez de ocultarlo. <b>Videos sin panel:</b> el
+        script avisa al terminar cuántos vistos quedaron afuera y por qué (sin transcripción, o sin
+        panel calculado todavía).</p>
+      </div>
+
+      <div class="bloque">
+        <h2>Estado y actualización</h2>
+        <p>El HTML es una <b>foto, no un espejo</b>: trae los datos incrustados, por eso abre sin
+        servidor ni credenciales. El script que lo genera termina diciendo cuántos videos vistos
+        quedaron afuera y por qué — sin ese aviso, «79 videos» da sensación de completo cuando hay
+        decenas esperando.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Captura del archivo <code>docs/dieta_cognitiva.html</code> generado por
+    <code>backend/scripts/build_dashboard.py</code>, con el filtro de formato en «informativo» y el
+    denominador en minutos. <b>Todo lo que se ve en esta pantalla está implementado y funciona hoy.</b>
+    Los percentiles no se calculan en el navegador: vienen de <code>content_features.panel</code>,
+    medidos por el mismo módulo que usa el panel del video.
+  </div>
+</div>
+</html>

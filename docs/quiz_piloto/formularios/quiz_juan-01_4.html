@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Quiz de retencion - Nutri-Score de Contenidos</title>
+<style>
+  :root { --tinta:#1a1a1a; --suave:#666; --linea:#e2e2e2; --fondo:#fbfbfa;
+          --acento:#2f5d50; --acento-claro:#eaf1ee; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:0 1rem 6rem; background:var(--fondo); color:var(--tinta);
+         font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .env { max-width:44rem; margin:0 auto; }
+  header { padding:2.5rem 0 1.5rem; border-bottom:1px solid var(--linea); margin-bottom:2rem; }
+  h1 { font-size:1.5rem; margin:0 0 .5rem; letter-spacing:-.01em; }
+  .sub { color:var(--suave); font-size:.95rem; margin:0; }
+  .aviso { background:var(--acento-claro); border-left:3px solid var(--acento);
+           padding:.9rem 1.1rem; margin:1.5rem 0; font-size:.92rem; border-radius:0 4px 4px 0; }
+  .video { background:#fff; border:1px solid var(--linea); border-radius:8px;
+           padding:1.5rem; margin-bottom:1.5rem; }
+  .video h2 { font-size:1.05rem; margin:0 0 .2rem; line-height:1.4; }
+  .canal { color:var(--suave); font-size:.85rem; margin:0 0 .5rem; }
+  .novi { font-size:.88rem; color:var(--suave); display:flex; align-items:center;
+          gap:.5rem; padding:.6rem 0; border-top:1px solid var(--linea); margin-top:.8rem; }
+  .video.excluido .preguntas { opacity:.35; pointer-events:none; }
+  .p { padding:1.1rem 0; border-top:1px solid var(--linea); }
+  .p .txt { font-weight:500; margin-bottom:.7rem; }
+  label { display:block; padding:.55rem .8rem; margin:.3rem 0; border:1px solid var(--linea);
+          border-radius:6px; cursor:pointer; background:#fff; transition:.12s; }
+  label:hover { border-color:var(--acento); background:var(--acento-claro); }
+  input[type=radio] { margin-right:.6rem; }
+  input:checked + span { font-weight:600; }
+  .barra { position:fixed; left:0; right:0; bottom:0; background:#fff;
+           border-top:1px solid var(--linea); padding:.9rem 1rem; }
+  .barra .env { display:flex; align-items:center; gap:1rem; justify-content:space-between; }
+  .prog { font-size:.9rem; color:var(--suave); }
+  button { background:var(--acento); color:#fff; border:0; border-radius:6px;
+           padding:.65rem 1.4rem; font-size:.95rem; cursor:pointer; font-weight:500; }
+  button:disabled { background:#bbb; cursor:not-allowed; }
+  #resultado { background:#fff; border:1px solid var(--linea); border-radius:8px;
+               padding:1.5rem; margin-bottom:1.5rem; display:none; }
+  table { border-collapse:collapse; width:100%; font-size:.92rem; margin-top:.8rem; }
+  td,th { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--linea); }
+  td:last-child,th:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+  .id { font-size:.85rem; color:var(--suave); }
+  input[type=text] { padding:.5rem .7rem; border:1px solid var(--linea);
+                     border-radius:6px; font-size:.95rem; width:14rem; }
+</style>
+<div class="env">
+<header>
+  <h1>Quiz de retencion</h1>
+  <p class="sub">Sobre videos que viste hace un tiempo. Generado el 2026-08-23 ·
+     3 videos · 16 preguntas</p>
+</header>
+
+<div class="aviso">
+  <strong>Antes de empezar.</strong> Contesta de memoria: no busques, no abras el video.
+  Si no te acuerdas, <strong>elige igual la que te parezca mas probable</strong> — hace falta
+  que contestes todas para que el resultado se pueda comparar con la linea de base.
+  Si un video no lo viste, marcalo con la casilla y sus preguntas quedan fuera.
+  No vas a ver si acertaste hasta el final.
+</div>
+
+<p class="id">Identificador (un seudonimo, no tu nombre):
+  <input type="text" id="persona" placeholder="p.ej. juan-01" value="juan-01"></p>
+
+<div id="resultado"></div>
+<div id="quiz"></div>
+</div>
+
+<div class="barra"><div class="env">
+  <span class="prog" id="prog">0 de 0 contestadas</span>
+  <button id="enviar" disabled>Terminar y descargar</button>
+</div></div>
+
+<script>
+const DATOS = [{"content_item_id": 77, "titulo": "ANARQUÍA EN VENEZUELA: Delcy bloquea la ayuda para el terremoto - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=XZzNOiU3dCM", "watched_at": "2026-07-02T08:05:54.923000+00:00", "preguntas": [{"id": 13, "pregunta": "¿Cómo describen las personas afectadas su situación inicial tras los sismos, según el video?", "opciones": ["Esperando la llegada inmediata de bomberos y equipos de rescate especializados.", "Recopilando información en redes sociales sobre los desaparecidos para coordinar ayuda.", "Organizando centros de acopio para recibir ayuda humanitaria de la diáspora.", "Trabajando con las manos porque no tenían equipo ni herramientas para el rescate."], "correcta": 3, "tipo": "relacion", "dificil": false}, {"id": 15, "pregunta": "¿Por qué, según el narrador, María Corina Machado es la única persona con credibilidad para canalizar la ayuda en este momento?", "opciones": ["Porque la diáspora venezolana no confía en los chavistas y no donaría dinero que iría a propaganda.", "Porque tiene una vasta experiencia previa en la gestión de desastres naturales en la región.", "Porque cuenta con el apoyo incondicional de Donald Trump y la Casa Blanca.", "Porque es la única líder opositora reconocida oficialmente por la ONU para esta tarea."], "correcta": 0, "tipo": "argumento", "dificil": false}, {"id": 16, "pregunta": "¿Qué declaración sorprendente hizo Donald Trump sobre Venezuela después del terremoto, según el narrador?", "opciones": ["Que el gobierno chavista había gestionado la crisis de manera ejemplar y eficiente.", "Que la situación era tan terrible que requería una intervención humanitaria internacional urgente.", "Que la gente en Venezuela estaba muy feliz y bailando por las calles de forma no irónica.", "Que Estados Unidos enviaría 10.000 millones de dólares para la reconstrucción inmediata."], "correcta": 2, "tipo": "dato", "dificil": false}, {"id": 17, "pregunta": "¿Cuál fue la respuesta del gobierno chavista a las advertencias de ingenieros y especialistas sobre la vulnerabilidad sísmica del país?", "opciones": ["Se implementó un Plan Nacional de reducción de la vulnerabilidad sísmica de edificaciones educativas.", "Se modernizó la norma antisísmica de construcción de edificios a nivel nacional.", "No se hicieron estudios y se otorgaron permisos de construcción en zonas de alto riesgo sísmico.", "Se invirtió en la creación de un Sistema de alerta de seísmos del Funvisis."], "correcta": 2, "tipo": "relacion", "dificil": false}, {"id": 18, "pregunta": "¿Qué programa de prevención sísmica fue desmantelado por falta de presupuesto, según el narrador?", "opciones": ["El Plan Nacional de reducción de la vulnerabilidad sísmica de edificaciones educativas.", "La modernización de la infraestructura pública en zonas de alto riesgo.", "El programa de educación sísmica en escuelas y lugares de trabajo.", "El Sistema de alerta de seísmos del Funvisis."], "correcta": 3, "tipo": "dato", "dificil": false}]}, {"content_item_id": 70, "titulo": "CRISIS EN REINO UNIDO Starmer dimite y Farage asciende - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=mZaAKXsolmU", "watched_at": "2026-06-29T08:42:48.299000+00:00", "preguntas": [{"id": 49, "pregunta": "Según el narrador, ¿cuál fue una de las razones específicas que contribuyó a la dimisión de Keir Starmer?", "opciones": ["Su incapacidad para formar una coalición de gobierno estable.", "Su falta de experiencia previa en cargos públicos relevantes.", "La polémica decisión de nombrar a Peter Mandelson como embajador.", "La aprobación de leyes impopulares sobre el medio ambiente."], "correcta": 2, "tipo": "relacion", "dificil": false}, {"id": 50, "pregunta": "¿Qué récord específico batió Liz Truss durante su mandato como primera ministra del Reino Unido?", "opciones": ["Logró el mayor superávit fiscal en la historia del país.", "Convocó elecciones generales en menos de un año.", "Fue la primera mujer en ocupar el cargo de primera ministra.", "Fue la primera ministra que duró 45 días en el cargo."], "correcta": 3, "tipo": "dato", "dificil": false}, {"id": 51, "pregunta": "¿Cuál era la estrategia principal de Nigel Farage como eurodiputado, según el narrador?", "opciones": ["Buscar alianzas con otros países para fortalecer la posición británica.", "Criticar a la Unión Europea para lograr la salida del Reino Unido.", "Promover reformas internas dentro de las instituciones europeas.", "Negociar acuerdos comerciales beneficiosos para el Reino Unido."], "correcta": 1, "tipo": "argumento", "dificil": false}, {"id": 52, "pregunta": "¿Qué característica distintiva del sistema parlamentario británico destaca el narrador sobre la caída de un primer ministro?", "opciones": ["Es común que renuncien por escándalos de corrupción financiera.", "Generalmente son derrocados por una moción de censura parlamentaria.", "La dimisión se produce tras un referéndum popular.", "Suelen caer por perder la confianza de su propio partido."], "correcta": 3, "tipo": "relacion", "dificil": false}, {"id": 53, "pregunta": "Según el narrador, ¿cuál es la razón principal del crecimiento de la popularidad del partido Reform UK, más allá de sus propuestas específicas?", "opciones": ["Presenta un plan económico detallado para el crecimiento del país.", "Ha logrado atraer a votantes jóvenes con nuevas ideas políticas.", "Su líder, Nigel Farage, es un experto en política internacional.", "Capitaliza el descontento de la población con el bipartidismo tradicional."], "correcta": 3, "tipo": "argumento", "dificil": false}, {"id": 54, "pregunta": "¿Cuál es la opinión personal del narrador sobre el Brexit, expresada en el video?", "opciones": ["Ha sido una muy, muy mala idea para el Reino Unido.", "Sus efectos aún no pueden evaluarse completamente.", "Es un paso necesario para el futuro del país.", "Ha fortalecido la soberanía y la economía británica."], "correcta": 0, "tipo": "opinion", "dificil": false}]}, {"content_item_id": 69, "titulo": "EL MAYOR ERROR DE TRUMP: así ha terminado cediendo ante Irán - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=i8yqCdI8NdQ", "watched_at": "2026-06-29T08:17:56.691000+00:00", "preguntas": [{"id": 162, "pregunta": "Según el narrador, ¿cuál es la principal crítica a las condiciones del acuerdo de paz propuesto por Donald Trump y JD Vans con Irán?", "opciones": ["Permite a Irán seguir desarrollando misiles balísticos sin restricciones.", "No garantiza que Israel deje de atacar a los grupos proxis iraníes en Líbano.", "Se firmó en el Palacio de Versalles, lo que evoca una rendición humillante.", "Ofrece a Irán su PIB completo y levanta sanciones sin que Irán ceda a las demandas clave."], "correcta": 3, "tipo": "argumento", "dificil": true}, {"id": 163, "pregunta": "Según el narrador, ¿qué cantidad de dinero está ofreciendo Donald Trump a Irán en el acuerdo de paz y qué representa esta cifra para el país?", "opciones": ["300.000 millones de dólares, que equivale al PIB actual de Irán.", "1,8 billones de dólares, una cantidad comparable al PIB de España.", "6.600 millones de dólares, la suma necesaria para su reconstrucción militar.", "Una cantidad no especificada, pero que duplica la riqueza del país."], "correcta": 0, "tipo": "dato", "dificil": true}, {"id": 164, "pregunta": "Según el narrador, ¿cuál es la razón principal por la que Irán ha logrado tener la \"fuerza de negociación\" (BATNA) a pesar de estar militarmente dañado?", "opciones": ["La comunidad internacional ha presionado a Estados Unidos para que ceda en las negociaciones.", "Las elecciones legislativas en Estados Unidos han limitado la capacidad de acción de Trump.", "Israel ha intensificado sus ataques en Líbano, complicando la situación regional.", "Han demostrado su capacidad para cerrar el estrecho de Ormuz y Trump carece de apoyo para una invasión terrestre."], "correcta": 3, "tipo": "relacion", "dificil": false}, {"id": 165, "pregunta": "¿Qué significado histórico le atribuye el narrador al hecho de que Donald Trump haya firmado el acuerdo de paz en el Palacio de Versalles?", "opciones": ["Sugiere que busca emular la grandeza de los tratados de paz históricos europeos.", "Lo compara con una rendición deshonrosa, aludiendo al tratado que Alemania aceptó en 1919.", "Lo ve como un símbolo de la victoria diplomática de Estados Unidos sobre Irán.", "Indica la intención de involucrar a Francia como mediador principal en el conflicto."], "correcta": 1, "tipo": "argumento", "dificil": false}, {"id": 166, "pregunta": "Según el narrador, ¿por qué Israel no depende del Estrecho de Ormuz para su suministro de gas y petróleo, a diferencia de otras naciones?", "opciones": ["Sus reservas estratégicas le permiten ignorar las fluctuaciones del tránsito.", "Ha logrado autosuficiencia energética a través de nuevas tecnologías.", "La mayoría de su gas y petróleo proviene de Azerbaiyán, sin necesidad de pasar por Ormuz.", "Tiene acuerdos de suministro exclusivos con países del Mediterráneo."], "correcta": 2, "tipo": "relacion", "dificil": true}]}];
+// Clave de guardado atada al conjunto de preguntas: dos tandas distintas no se
+// pisan, y si se regenera el quiz con otras preguntas no se restaura basura.
+const CLAVE = 'quiz_' + DATOS.map(v => v.content_item_id).join('_');
+
+let resp = {};               // id de pregunta -> {eleccion, segundos, respondido_at}
+let excluidos = new Set();   // videos marcados como no vistos
+// El cronometro mide desde la ULTIMA interaccion, no desde que se abrio la
+// pagina. Antes se ponia el mismo instante de arranque para TODAS las
+// preguntas, con lo cual "segundos" en la pregunta 50 era el tiempo acumulado
+// desde que se abrio el archivo. No medía nada.
+let ultimoEvento = Date.now();
+
+function guardar() {
+  try {
+    localStorage.setItem(CLAVE, JSON.stringify({
+      resp, excluidos: [...excluidos],
+      persona: document.getElementById('persona').value || ''
+    }));
+  } catch (e) { /* modo privado o sin permiso: se sigue sin autoguardado */ }
+}
+
+function restaurar() {
+  let g = null;
+  try { g = JSON.parse(localStorage.getItem(CLAVE) || 'null'); } catch (e) {}
+  if (!g) return false;
+  resp = g.resp || {};
+  excluidos = new Set(g.excluidos || []);
+  if (g.persona) document.getElementById('persona').value = g.persona;
+  return Object.keys(resp).length > 0 || excluidos.size > 0;
+}
+
+function pintar() {
+  const cont = document.getElementById('quiz');
+  DATOS.forEach(v => {
+    const d = document.createElement('div');
+    d.className = 'video'; d.id = 'v' + v.content_item_id;
+    let html = `<h2>${esc(v.titulo)}</h2><p class="canal">${esc(v.canal || '')}</p>
+      <div class="preguntas">`;
+    v.preguntas.forEach(p => {
+      html += `<div class="p"><div class="txt">${esc(p.pregunta)}</div>`;
+      p.opciones.forEach((o, i) => {
+        html += `<label><input type="radio" name="q${p.id}" value="${i}">
+                 <span>${esc(o)}</span></label>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div><label class="novi"><input type="checkbox" class="novi-chk">
+             No vi este video (o no lo recuerdo en absoluto)</label>`;
+    d.innerHTML = html;
+    cont.appendChild(d);
+
+    const chk = d.querySelector('.novi-chk');
+    if (excluidos.has(v.content_item_id)) { chk.checked = true; d.classList.add('excluido'); }
+    chk.addEventListener('change', e => {
+      if (e.target.checked) { excluidos.add(v.content_item_id); d.classList.add('excluido'); }
+      else { excluidos.delete(v.content_item_id); d.classList.remove('excluido'); }
+      guardar();
+      progreso();
+    });
+    v.preguntas.forEach(p => {
+      // restaurar lo ya contestado
+      if (resp[p.id] !== undefined) {
+        const prev = d.querySelector(`input[name=q${p.id}][value="${resp[p.id].eleccion}"]`);
+        if (prev) prev.checked = true;
+      }
+      d.querySelectorAll(`input[name=q${p.id}]`).forEach(r => {
+        r.addEventListener('change', () => {
+          const ahora = Date.now();
+          resp[p.id] = { eleccion: +r.value,
+                         segundos: Math.round((ahora - ultimoEvento) / 1000),
+                         respondido_at: ahora };
+          ultimoEvento = ahora;
+          guardar();
+          progreso();
+        });
+      });
+    });
+  });
+  progreso();
+}
+
+function pendientes() {
+  let n = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => { if (resp[p.id] === undefined) n++; });
+  });
+  return n;
+}
+
+function progreso() {
+  const falta = pendientes();
+  const activas = DATOS.reduce((a, v) =>
+      a + (excluidos.has(v.content_item_id) ? 0 : v.preguntas.length), 0);
+  document.getElementById('prog').textContent =
+      `${activas - falta} de ${activas} contestadas` + (falta ? ` · faltan ${falta}` : '');
+  document.getElementById('enviar').disabled = falta > 0 || activas === 0;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+document.getElementById('enviar').addEventListener('click', () => {
+  const persona = (document.getElementById('persona').value || '').trim();
+  if (!persona) { alert('Falta el identificador'); return; }
+  const salida = { persona_id: persona,
+                   completado_at: new Date().toISOString(),
+                   videos_excluidos: [...excluidos], respuestas: [] };
+  let ok = 0, okDif = 0, nDif = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => {
+      const r = resp[p.id];
+      // Los dias se calculan contra el instante en que se contesto ESA
+      // pregunta, no contra la carga de la pagina: con autoguardado, una tanda
+      // puede empezarse un dia y terminarse otro.
+      const dias = v.watched_at
+        ? ((r.respondido_at || Date.now()) - new Date(v.watched_at).getTime()) / 86400000
+        : null;
+      const acierto = r.eleccion === p.correcta;
+      if (acierto) ok++;
+      if (p.dificil) { nDif++; if (acierto) okDif++; }
+      salida.respuestas.push({ pregunta_id: p.id, eleccion: r.eleccion, acierto,
+                               segundos: r.segundos,
+                               dias_transcurridos: dias === null ? null : +dias.toFixed(2) });
+    });
+  });
+  const n = salida.respuestas.length;
+  const caja = document.getElementById('resultado');
+  caja.style.display = 'block';
+  caja.innerHTML = `<h2 style="margin-top:0;font-size:1.05rem">Listo</h2>
+    <table>
+      <tr><th>Preguntas contestadas</th><td>${n}</td></tr>
+      <tr><th>Aciertos</th><td>${ok} (${(100*ok/n).toFixed(0)} %)</td></tr>
+      <tr><th>Aciertos en el subconjunto dificil</th>
+          <td>${nDif ? `${okDif} de ${nDif} (${(100*okDif/nDif).toFixed(0)} %)` : 'sin items'}</td></tr>
+      <tr><th>Videos excluidos por no haberlos visto</th><td>${excluidos.size}</td></tr>
+    </table>
+    <p class="id" style="margin-top:1rem">El archivo se descargo. Cargalo con
+    <code>cargar_quiz.py --respuestas</code>. El porcentaje de aqui arriba es
+    orientativo: la retencion corregida por la linea de base se calcula en la base
+    de datos.</p>`;
+  caja.scrollIntoView({ behavior: 'smooth' });
+  try { localStorage.removeItem(CLAVE); } catch (e) {}
+
+  const blob = new Blob([JSON.stringify(salida, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `respuestas_${persona}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+});
+
+const habia = restaurar();
+pintar();
+document.getElementById('persona').addEventListener('input', guardar);
+if (habia) {
+  const a = document.createElement('div');
+  a.className = 'aviso';
+  a.innerHTML = '<strong>Se recupero tu avance.</strong> Podes cerrar y volver cuando quieras: ' +
+                'se guarda en este navegador a medida que contestas.';
+  document.querySelector('#quiz').before(a);
+}
+window.addEventListener('beforeunload', e => {
+  if (pendientes() > 0 && Object.keys(resp).length > 0) { e.preventDefault(); e.returnValue = ''; }
+});
+</script>
+</html>
