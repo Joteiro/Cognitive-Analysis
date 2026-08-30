@@ -113,6 +113,10 @@ def traer(dsn: str, max_videos: int, persona: str = "") -> tuple:
             "correcta": f["correcta"],
             "tipo": f["tipo"],
             "dificil": f["dificil"],
+            # La cita se muestra en la revision final, como evidencia de donde
+            # salio la respuesta. Ya no compromete la medicion: aparece solo
+            # DESPUES de enviar, con las respuestas ya guardadas.
+            "cita": f.get("cita"),
         })
     return [videos[v] for v in orden], info
 
@@ -162,6 +166,22 @@ PLANTILLA = """<!doctype html>
   .id { font-size:.85rem; color:var(--suave); }
   input[type=text] { padding:.5rem .7rem; border:1px solid var(--linea);
                      border-radius:6px; font-size:.95rem; width:14rem; }
+  /* --- revision de soluciones (aparece solo al terminar) --- */
+  #revision { margin-top:1.5rem; }
+  #revision .video { margin-bottom:1rem; }
+  .rev-p { padding:.8rem 0; border-top:1px solid var(--linea); }
+  .rev-p .txt { font-weight:500; margin-bottom:.5rem; }
+  .op { padding:.4rem .7rem; margin:.2rem 0; border-radius:6px; font-size:.93rem;
+        border:1px solid var(--linea); display:flex; gap:.5rem; align-items:baseline; }
+  .op .marca { flex:0 0 1.1rem; font-weight:700; }
+  .op.correcta { background:#e7f4ec; border-color:#8fc7a6; }
+  .op.correcta .marca { color:#1f7a45; }
+  .op.elegida-mal { background:#fbeaea; border-color:#e0a3a3; }
+  .op.elegida-mal .marca { color:#b23b3b; }
+  .cita { font-size:.85rem; color:var(--suave); margin:.4rem 0 0; font-style:italic;
+          border-left:2px solid var(--linea); padding-left:.7rem; }
+  .badge { display:inline-block; font-size:.75rem; padding:.1rem .5rem; border-radius:10px;
+           background:var(--acento-claro); color:var(--acento); margin-left:.5rem; }
 </style>
 <div class="env">
 <header>
@@ -183,9 +203,10 @@ PLANTILLA = """<!doctype html>
 
 <div id="resultado"></div>
 <div id="quiz"></div>
+<div id="revision"></div>
 </div>
 
-<div class="barra"><div class="env">
+<div class="barra" id="barra-inferior"><div class="env">
   <span class="prog" id="prog">0 de 0 contestadas</span>
   <button id="enviar" disabled>Terminar y descargar</button>
 </div></div>
@@ -293,6 +314,37 @@ function progreso() {
 
 function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 
+// Revision con soluciones, tras enviar. Recorre solo los videos que se
+// contestaron (no los excluidos) y muestra, por pregunta, las cuatro opciones
+// con la correcta marcada y --si se erro-- la que eligio la persona, mas la
+// cita del video como evidencia.
+function pintarRevision() {
+  const cont = document.getElementById('revision');
+  let html = '<h2 style="font-size:1.1rem">Soluciones</h2>';
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    html += `<div class="video"><h2>${esc(v.titulo)}</h2>`;
+    v.preguntas.forEach(p => {
+      const elegida = resp[p.id] ? resp[p.id].eleccion : null;
+      const bien = elegida === p.correcta;
+      html += `<div class="rev-p"><div class="txt">${esc(p.pregunta)}` +
+              (bien ? '<span class="badge">acertaste</span>'
+                    : '<span class="badge" style="background:#fbeaea;color:#b23b3b">fallaste</span>') +
+              `</div>`;
+      p.opciones.forEach((o, i) => {
+        let cls = 'op', marca = '';
+        if (i === p.correcta) { cls += ' correcta'; marca = '✓'; }
+        else if (i === elegida) { cls += ' elegida-mal'; marca = '✗'; }
+        html += `<div class="${cls}"><span class="marca">${marca}</span><span>${esc(o)}</span></div>`;
+      });
+      if (p.cita) html += `<p class="cita">En el video: «${esc(p.cita)}»</p>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  });
+  cont.innerHTML = html;
+}
+
 document.getElementById('enviar').addEventListener('click', () => {
   const persona = (document.getElementById('persona').value || '').trim();
   if (!persona) { alert('Falta el identificador'); return; }
@@ -332,7 +384,16 @@ document.getElementById('enviar').addEventListener('click', () => {
     <p class="id" style="margin-top:1rem">El archivo se descargo. Cargalo con
     <code>cargar_quiz.py --respuestas</code>. El porcentaje de aqui arriba es
     orientativo: la retencion corregida por la linea de base se calcula en la base
-    de datos.</p>`;
+    de datos.</p>
+    <p class="id">Abajo estan las soluciones de todo lo que contestaste.</p>`;
+
+  // Se oculta el cuestionario y se dibuja la revision con las respuestas
+  // correctas. Es seguro mostrarlas: la medicion ya quedo registrada arriba, y
+  // esta persona no vuelve a ver este video (las tandas lo excluyen).
+  document.getElementById('quiz').style.display = 'none';
+  document.querySelectorAll('.aviso').forEach(a => a.style.display = 'none');
+  document.getElementById('barra-inferior').style.display = 'none';
+  pintarRevision();
   caja.scrollIntoView({ behavior: 'smooth' });
   try { localStorage.removeItem(CLAVE); } catch (e) {}
 

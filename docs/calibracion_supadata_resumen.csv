@@ -1,9 +1,0 @@
-descriptor,n,corr_pearson,corr_spearman,cambio_relativo_mediano,desplaz_percentil_mediano,desplaz_percentil_p90,n_comparables,pct_cambian_de_tramo
-ritmo_ppm,7,1.0,0.964,0.002,1.0,1.4,7,0.0
-cifras_100w,7,1.0,1.0,0.0,0.0,1.0,7,0.0
-atribucion_1000w,7,1.0,1.0,0.004,0.0,0.0,7,0.0
-mattr_200,7,1.0,1.0,0.001,0.0,2.4,7,0.0
-conectores_1000w,7,0.996,1.0,0.005,0.0,3.8,7,0.0
-enlaces_externos,7,1.0,1.0,0.0,0.0,0.0,7,0.0
-promocional_1000w,7,1.0,1.0,0.0,0.0,0.4,7,0.0
-cobertura_titulo,7,1.0,1.0,0.0,0.0,0.0,7,0.0

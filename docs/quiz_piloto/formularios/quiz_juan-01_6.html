@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Quiz de retencion - Nutri-Score de Contenidos</title>
+<style>
+  :root { --tinta:#1a1a1a; --suave:#666; --linea:#e2e2e2; --fondo:#fbfbfa;
+          --acento:#2f5d50; --acento-claro:#eaf1ee; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:0 1rem 6rem; background:var(--fondo); color:var(--tinta);
+         font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .env { max-width:44rem; margin:0 auto; }
+  header { padding:2.5rem 0 1.5rem; border-bottom:1px solid var(--linea); margin-bottom:2rem; }
+  h1 { font-size:1.5rem; margin:0 0 .5rem; letter-spacing:-.01em; }
+  .sub { color:var(--suave); font-size:.95rem; margin:0; }
+  .aviso { background:var(--acento-claro); border-left:3px solid var(--acento);
+           padding:.9rem 1.1rem; margin:1.5rem 0; font-size:.92rem; border-radius:0 4px 4px 0; }
+  .video { background:#fff; border:1px solid var(--linea); border-radius:8px;
+           padding:1.5rem; margin-bottom:1.5rem; }
+  .video h2 { font-size:1.05rem; margin:0 0 .2rem; line-height:1.4; }
+  .canal { color:var(--suave); font-size:.85rem; margin:0 0 .5rem; }
+  .novi { font-size:.88rem; color:var(--suave); display:flex; align-items:center;
+          gap:.5rem; padding:.6rem 0; border-top:1px solid var(--linea); margin-top:.8rem; }
+  .video.excluido .preguntas { opacity:.35; pointer-events:none; }
+  .p { padding:1.1rem 0; border-top:1px solid var(--linea); }
+  .p .txt { font-weight:500; margin-bottom:.7rem; }
+  label { display:block; padding:.55rem .8rem; margin:.3rem 0; border:1px solid var(--linea);
+          border-radius:6px; cursor:pointer; background:#fff; transition:.12s; }
+  label:hover { border-color:var(--acento); background:var(--acento-claro); }
+  input[type=radio] { margin-right:.6rem; }
+  input:checked + span { font-weight:600; }
+  .barra { position:fixed; left:0; right:0; bottom:0; background:#fff;
+           border-top:1px solid var(--linea); padding:.9rem 1rem; }
+  .barra .env { display:flex; align-items:center; gap:1rem; justify-content:space-between; }
+  .prog { font-size:.9rem; color:var(--suave); }
+  button { background:var(--acento); color:#fff; border:0; border-radius:6px;
+           padding:.65rem 1.4rem; font-size:.95rem; cursor:pointer; font-weight:500; }
+  button:disabled { background:#bbb; cursor:not-allowed; }
+  #resultado { background:#fff; border:1px solid var(--linea); border-radius:8px;
+               padding:1.5rem; margin-bottom:1.5rem; display:none; }
+  table { border-collapse:collapse; width:100%; font-size:.92rem; margin-top:.8rem; }
+  td,th { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--linea); }
+  td:last-child,th:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+  .id { font-size:.85rem; color:var(--suave); }
+  input[type=text] { padding:.5rem .7rem; border:1px solid var(--linea);
+                     border-radius:6px; font-size:.95rem; width:14rem; }
+  /* --- revision de soluciones (aparece solo al terminar) --- */
+  #revision { margin-top:1.5rem; }
+  #revision .video { margin-bottom:1rem; }
+  .rev-p { padding:.8rem 0; border-top:1px solid var(--linea); }
+  .rev-p .txt { font-weight:500; margin-bottom:.5rem; }
+  .op { padding:.4rem .7rem; margin:.2rem 0; border-radius:6px; font-size:.93rem;
+        border:1px solid var(--linea); display:flex; gap:.5rem; align-items:baseline; }
+  .op .marca { flex:0 0 1.1rem; font-weight:700; }
+  .op.correcta { background:#e7f4ec; border-color:#8fc7a6; }
+  .op.correcta .marca { color:#1f7a45; }
+  .op.elegida-mal { background:#fbeaea; border-color:#e0a3a3; }
+  .op.elegida-mal .marca { color:#b23b3b; }
+  .cita { font-size:.85rem; color:var(--suave); margin:.4rem 0 0; font-style:italic;
+          border-left:2px solid var(--linea); padding-left:.7rem; }
+  .badge { display:inline-block; font-size:.75rem; padding:.1rem .5rem; border-radius:10px;
+           background:var(--acento-claro); color:var(--acento); margin-left:.5rem; }
+</style>
+<div class="env">
+<header>
+  <h1>Quiz de retencion</h1>
+  <p class="sub">Sobre videos que viste hace un tiempo. Generado el 2026-08-25 ·
+     6 videos · 32 preguntas</p>
+</header>
+
+<div class="aviso">
+  <strong>Antes de empezar.</strong> Contesta de memoria: no busques, no abras el video.
+  Si no te acuerdas, <strong>elige igual la que te parezca mas probable</strong> — hace falta
+  que contestes todas para que el resultado se pueda comparar con la linea de base.
+  Si un video no lo viste, marcalo con la casilla y sus preguntas quedan fuera.
+  No vas a ver si acertaste hasta el final.
+</div>
+
+<p class="id">Identificador (un seudonimo, no tu nombre):
+  <input type="text" id="persona" placeholder="p.ej. juan-01" value="juan-01"></p>
+
+<div id="resultado"></div>
+<div id="quiz"></div>
+<div id="revision"></div>
+</div>
+
+<div class="barra" id="barra-inferior"><div class="env">
+  <span class="prog" id="prog">0 de 0 contestadas</span>
+  <button id="enviar" disabled>Terminar y descargar</button>
+</div></div>
+
+<script>
+const DATOS = [{"content_item_id": 20, "titulo": "IRÁN DERROTA A TRUMP… sin ganar la guerra - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=UVvb4kS8jak", "watched_at": "2026-06-12T07:42:46.534000+00:00", "preguntas": [{"id": 31, "pregunta": "¿Cómo describe el narrador la definición de 'alto al fuego' de Donald Trump?", "opciones": ["Disparar de una manera más moderada.", "Establecer una tregua temporal para negociaciones.", "Detener completamente las hostilidades entre las partes.", "Reducir los ataques a objetivos militares específicos."], "correcta": 0, "tipo": "definicion", "dificil": true, "cita": "Un alto al fuego es cuando disparas de una manera más moderada. No es la definición que tenemos todos, pero bueno, es Trump, ya nos tiene acostumbrados."}, {"id": 32, "pregunta": "¿Cómo se ha reducido el tráfico de barcos en el Estrecho de Ormuz debido a los bloqueos, según el video?", "opciones": ["El tráfico se limitó de 100 barcos diarios a 10 barcos al día.", "El tráfico disminuyó de 150 barcos diarios a 25 barcos al día.", "El tráfico se redujo de 150 barcos diarios a solo 5 barcos al día.", "El tráfico bajó de 200 barcos diarios a 15 barcos al día."], "correcta": 2, "tipo": "dato", "dificil": false, "cita": "Ahora mismo solamente mueve cinco barcos al día. Esto no es nada si lo comparamos a los 150 barcos que pasaban antes del 28 de febrero."}, {"id": 33, "pregunta": "¿Cuál es la razón principal, según el narrador, por la que el precio del barril de petróleo no ha alcanzado los 150 dólares o más a pesar de la crisis?", "opciones": ["Una reducción inesperada en la demanda global de combustible.", "La firma de un acuerdo de paz duradero en Oriente Medio.", "El aumento significativo de la producción petrolera en Venezuela.", "La liberación de las reservas estratégicas de petróleo por parte de varios países."], "correcta": 3, "tipo": "argumento", "dificil": false, "cita": "El mercado petrolero tiene su freno de emergencia y ese freno se llama reservas estratégicas. Las preocupaciones en los mercados energéticos mostraron signos de alivio."}, {"id": 35, "pregunta": "¿Qué condición le puso Irán a Donald Trump para negociar un alto al fuego y una tregua?", "opciones": ["Que Trump frene la guerra tanto en el Estrecho de Ormuz como en el Líbano.", "Que Israel detenga sus bombardeos contra objetivos de Hezbolá.", "Que Estados Unidos levante las sanciones económicas contra Irán.", "Que Irán se comprometa a cerrar su programa nuclear."], "correcta": 0, "tipo": "relacion", "dificil": true, "cita": "Irán le dijo a Donald Trump que si quiere un alto el fuego, tiene que frenar la guerra en el estrecho de Ormuz y en el Líbano."}, {"id": 36, "pregunta": "¿Cuál fue el resultado de la votación en la Cámara de Representantes para limitar el poder del presidente Trump en la guerra de Irán?", "opciones": ["Una mayoría de 64% de la población que considera la guerra incorrecta.", "215 votos a favor y 208 en contra, con cuatro republicanos votando con los demócratas.", "208 votos a favor y 215 en contra, con tres republicanos en contra.", "Una votación de 53 a 47 en el Senado para limitar sus poderes."], "correcta": 1, "tipo": "dato", "dificil": false, "cita": "La votación terminó con 215 votos a favor y 208 en contra. Cuatro republicanos votaron junto a los demócratas que presentaron el proyecto."}]}, {"content_item_id": 19, "titulo": "VENEZUELA se APAGA... y Trump quiere poner un parche - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=SEdI-7bn6io", "watched_at": "2026-06-11T07:37:44.991000+00:00", "preguntas": [{"id": 25, "pregunta": "Según el narrador, ¿qué significa la palabra \"bajón\" en el contexto venezolano actual?", "opciones": ["Una interrupción en el suministro de electricidad.", "Una caída en la producción de petróleo.", "Una disminución en el estado de ánimo general.", "Una reducción en el nivel del agua de las represas."], "correcta": 0, "tipo": "definicion", "dificil": false, "cita": "Cuando un venezolano dice, 'Hubo un bajón', casi nunca habla de ánimo, habla de electricidad."}, {"id": 26, "pregunta": "¿Cuál es la principal fuente de energía en el mix energético de Venezuela, según el video?", "opciones": ["Centrales térmicas de gas natural.", "La energía hidroeléctrica, proveniente del agua.", "El petróleo, quemando zumo de dinosaurio.", "La energía solar, debido a su declinación."], "correcta": 1, "tipo": "dato", "dificil": false, "cita": "entre el 60% y el 78% de toda la electricidad que consumen los venezolanos viene del agua o mejor dicho de la energía hidroeléctrica"}, {"id": 27, "pregunta": "¿Qué estrategia implementó Hugo Chávez en 2010 para abordar la crisis eléctrica, según el narrador?", "opciones": ["Construir generadores eléctricos baratos de gas natural.", "Reparar la presa del Guri con ayuda de empresas extranjeras.", "Firmar acuerdos a largo plazo con Siemens y General Electric.", "Nacionalizar el servicio eléctrico y las telecomunicaciones."], "correcta": 0, "tipo": "argumento", "dificil": true, "cita": "¿cuál era el parche rápido? pues construir generadores eléctricos baratos, normalmente de gas natural por todas partes y además a toda presa."}, {"id": 28, "pregunta": "Según las estimaciones presentadas en el video, ¿cuál sería la inversión necesaria para reparar completamente el sector eléctrico de Venezuela?", "opciones": ["Entre 15,000 y 40,000 millones de dólares.", "Alrededor de 2,200 millones de dólares.", "Casi 1,000 millones de dólares.", "Entre 8,750 y 15,000 millones de dólares."], "correcta": 0, "tipo": "dato", "dificil": true, "cita": "que para repararlo todo haría falta una inversión de entre 15,000 y 40,000 millones de dólares."}, {"id": 29, "pregunta": "¿Cuál es el enfoque principal del plan de JD Vance para el sector eléctrico de Venezuela, según el narrador?", "opciones": ["Reparar la red hidroeléctrica con garantías a largo plazo.", "Fomentar que las petroleras generen su propia energía con turbinas modulares.", "Promover una transición democrática inspirada en el modelo español.", "Apoyar la nacionalización de servicios para evitar la injerencia extranjera."], "correcta": 1, "tipo": "argumento", "dificil": false, "cita": "el vicepresidente J. Divans. ... ahora quiere traer esta tecnología a Venezuela. Venezuela exige a las petroleras que generen su propia energía para sus proyectos."}, {"id": 30, "pregunta": "¿Cuál es una diferencia clave entre las posturas de Marco Rubio y JD Vance respecto a Venezuela, según el narrador?", "opciones": ["Rubio busca una transición democrática, Vance prefiere un chavismo domesticado.", "Rubio apoya la nacionalización, Vance la privatización.", "Rubio se opone a la guerra en Irán, Vance la apoya.", "Rubio favorece las centrales térmicas, Vance las hidroeléctricas."], "correcta": 0, "tipo": "relacion", "dificil": false, "cita": "Transición democrática en Venezuela. Marco Rubio está a favor. ... no es mejor tener una dictadura que dependa de ti para absolutamente todo"}]}, {"content_item_id": 18, "titulo": "ARMENIA SE ALEJA DE RUSIA y Putin no puede hacer nada - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=clR2HQ_QKAs", "watched_at": "2026-06-11T07:12:18.912000+00:00", "preguntas": [{"id": 79, "pregunta": "Según el video, ¿cuál fue la principal razón del giro de la opinión pública armenia respecto a Rusia?", "opciones": ["La promesa de la Unión Europea de ofrecer fondos y reformas a Armenia.", "La preferencia histórica de Pashinián por los valores europeos y occidentales.", "La incapacidad de Rusia para actuar como garante de seguridad en el conflicto de Nagorno Karabaj.", "Las sanciones económicas impuestas por Rusia a las exportaciones armenias."], "correcta": 2, "tipo": "relacion", "dificil": false, "cita": "Si apostamos por Rusia como garante de nuestra seguridad, y perdimos la guerra igualmente, entonces la ESTRATEGIA era la equivocada."}, {"id": 81, "pregunta": "Según el video, ¿qué representa el \"TRIPP\" o Ruta Trump para la Paz y la Prosperidad Internacional?", "opciones": ["Un plan de diversificación económica para Armenia propuesto por Estados Unidos.", "Una iniciativa de la Unión Europea para contrarrestar las amenazas híbridas en el Cáucaso.", "Un acuerdo de paz histórico entre Armenia y Azerbaiyán mediado por Donald Trump.", "Un corredor comercial que conectará Azerbaiyán con su exclave de Najicheván a través del sur de Armenia."], "correcta": 3, "tipo": "definicion", "dificil": false, "cita": "De ese acuerdo salió el TRIPP, la Ruta Trump para la Paz y la Prosperidad Internacional... estamos hablando de un corredor comercial que conectará Azerbaiyán con su exclave de Najicheván a través del sur de Armenia."}, {"id": 82, "pregunta": "¿Cuál es la estrategia que los analistas sugieren para Pashinián en su relación con Rusia, según el video?", "opciones": ["Multiplicar los socios internacionales de Armenia sin reemplazar a Rusia de golpe.", "Buscar la entrada inmediata de Armenia en la Unión Europea para asegurar su protección.", "Aceptar las demandas de Putin para evitar sanciones económicas y militares.", "Congelar la participación de Armenia en la OTSC y comprar armas exclusivamente a Occidente."], "correcta": 0, "tipo": "relacion", "dificil": false, "cita": "La estrategia más inteligente para Pashinián sería lo que los analistas llaman \"diversificación sin confrontación\". No reemplazar a Rusia por Occidente de golpe, sino contrarrestar a Rusia multiplicando los socios."}, {"id": 83, "pregunta": "¿Qué táctica de presión económica específica utilizó Rusia contra Armenia durante la campaña electoral, según el video?", "opciones": ["Advertir sobre la incompatibilidad de ser miembro de la Unión Económica Euroasiática y acercarse a la UE.", "Cancelar importaciones de productos armenios como flores y frutas, alegando problemas fitosanitarios.", "Subir el precio del gas y el combustible nuclear para la central de Metsamor.", "Desplegar 5.000 soldados rusos adicionales en la base de Gyumri."], "correcta": 1, "tipo": "dato", "dificil": false, "cita": "Rusia ha cancelado importaciones de flores armenias, frutas, agua mineral, brandy y vino alegando problemas fitosanitarios… Si fitosanitarios esa palabra existe."}, {"id": 84, "pregunta": "Según el video, ¿qué lección clave ha aprendido la Unión Europea de la situación en Georgia que aplica a su estrategia con Armenia?", "opciones": ["La importancia de apoyar a líderes carismáticos con presencia en redes sociales para ganar influencia.", "Evitar que un oligarca prorruso tome el control desde dentro del sistema, como ocurrió con Ivanishvili.", "La necesidad de enviar misiones de asociación para contrarrestar las amenazas híbridas y la desinformación.", "La dificultad de mantener un equilibrio entre la influencia rusa y la occidental en el Cáucaso."], "correcta": 1, "tipo": "argumento", "dificil": false, "cita": "No quieren que Armenia acabe como allí, donde el oligarca Ivanishvili consiguió dar un giro prorruso desde dentro del sistema. Pashinián es la oportunidad que Europa no puede permitirse perder."}]}, {"content_item_id": 15, "titulo": "¿EL FIN DEL PETRISMO? el candidato que lo enfrenta fue abogado del chavismo - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=yHRuRH0AK3Y", "watched_at": "2026-06-09T20:59:43.421000+00:00", "preguntas": [{"id": 174, "pregunta": "Según el narrador, ¿cómo reaccionó Gustavo Petro a los resultados de la primera vuelta electoral?", "opciones": ["Denunció irregularidades en la jornada electoral a través de su red en X.", "Celebró una victoria parcial y llamó a sus seguidores a la calma.", "Aceptó su derrota con deportividad y pidió unidad nacional.", "Se mantuvo en silencio esperando los resultados oficiales finales."], "correcta": 0, "tipo": "argumento", "dificil": true, "cita": "Mucha tensión. El presidente Gustavo Petro se acaba de pronunciar a través de su red en X y está poniéndole más sal a esta denuncia que ha hecho sobre las irregularidades que se presentaron durante la jornada electoral de la primera vuelta presidencial."}, {"id": 175, "pregunta": "¿Cuál es la razón principal por la que se le apoda a Abelardo de la Espriella como \"el Bukele Colombiano\" en el video?", "opciones": ["Por su pasado como abogado de figuras polémicas y su cambio de opinión.", "Por su carisma y su habilidad para usar las redes sociales en campaña.", "Por prometer mano dura contra los criminales y ser un outsider de la política.", "Por su propuesta de cárceles privadas en zonas remotas del país."], "correcta": 2, "tipo": "relacion", "dificil": false, "cita": "Al que están bautizando como el Bukele Colombiano ¿Por qué? Ya os podéis imaginar: promete mano dura contra los criminales y es un outsider de la política."}, {"id": 176, "pregunta": "¿Cuál de las siguientes conexiones polémicas de Abelardo de la Espriella se menciona explícitamente en el video?", "opciones": ["Su propuesta de prisiones privadas administradas por veteranos militares.", "Su falta de apoyo legislativo en el Congreso colombiano.", "Su relación con el exjefe paramilitar Mancuso durante su actividad.", "Haber sido abogado de Alex Saab, un hombre de confianza de Nicolás Maduro."], "correcta": 3, "tipo": "dato", "dificil": false, "cita": "Fue abogado de Alex Saab, uno de los hombres de confianza de Nicolás Maduro. Y aquí me vais a perdonar: yo creo en la justicia y en que todo el mundo tiene derecho a un abogado."}, {"id": 177, "pregunta": "Según el narrador, ¿qué acciones tomó Gustavo Petro al asumir la presidencia en relación con la lucha contra el narcotráfico?", "opciones": ["Se enfocó en la sustitución de cultivos por cacao y café con incentivos económicos.", "Negoció acuerdos de paz con los carteles y grupos guerrilleros desmovilizados.", "Limitó la acción de la DEA, dejó de fumigar y buscó promesas de desarme de guerrilleros.", "Implementó una estrategia de mano dura y aumentó la fumigación de cultivos."], "correcta": 2, "tipo": "argumento", "dificil": false, "cita": "apenas asumió la presidencia limitó la acción de la DEA, dejo de fumigar las zonas cocaleras para reducir los cultivos y se dedicó a hacerle prometer a los guerrilleros que iban a dejar las armas"}, {"id": 178, "pregunta": "Según los datos citados en el video, ¿cuántas hectáreas de hoja de coca se registraron en Colombia en 2025 y cuál era la cifra al asumir Petro en 2022?", "opciones": ["37.795 homicidios en 2025, frente a 40.663 homicidios en 2022.", "230.000 hectáreas en 2025, frente a 258.144 hectáreas en 2022.", "258.144 hectáreas en 2025, frente a 230.000 hectáreas en 2022.", "7.000 combatientes en 2025, frente a 27.000 combatientes en 2022."], "correcta": 2, "tipo": "dato", "dificil": false, "cita": "En 2026 y de acuerdo con la ONU llegó a las 258.144 hectáreas en 2025. Recordemos que Petro asume en junio de 2022 y que en ese año había 230.000 hectáreas de la hoja sagrada de los incas y los junkies."}, {"id": 179, "pregunta": "¿Cuál es la principal razón económica, según el narrador, por la que el cultivo de coca es preferido sobre el cacao o el café por los campesinos?", "opciones": ["El mercado internacional de la cocaína es más estable y predecible.", "Los carteles y grupos guerrilleros garantizan la compra de la producción de coca.", "La inversión inicial para la coca es significativamente menor que para otros cultivos.", "La coca ofrece una ganancia anual neta mucho mayor que el cacao o el café."], "correcta": 3, "tipo": "relacion", "dificil": false, "cita": "Una hectárea de coca deja una ganancia anual neta de entre 3.200 y 6.400 dólares con una inversión inicial de 1.200 dólares. Una de cacao o café entre 600 y 2.400 dólares."}]}, {"content_item_id": 4, "titulo": "ASÍ CONTROLA SÁNCHEZ LOS MEDIOS mientras sus escándalos de corrupción se acumulan - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=u2Y-cJFcoP0", "watched_at": "2026-04-27T14:56:21.488000+00:00", "preguntas": [{"id": 1, "pregunta": "Según el narrador, ¿qué medida específica tomó Pedro Sánchez para asegurar el control sobre la dirección de Radio Televisión Española?", "opciones": ["Duplicó el presupuesto anual de la televisión pública para aumentar su influencia.", "Aprobó una ley para cambiar el órgano de gobierno de RTVE durante una tragedia.", "Contrató a David Broncano para un programa de máxima audiencia en la televisión pública.", "Incrementó la plantilla de RTVE con más de 500 personas leales a su gobierno."], "correcta": 1, "tipo": "argumento", "dificil": false, "cita": "el gobierno aprovechó la tragedia para aprobar una única ley... una ley para cambiar el órgano de gobierno de Televisión Española."}, {"id": 3, "pregunta": "Según el narrador, ¿cuál fue la principal justificación que encontraron los países europeos para crear monopolios estatales de televisión?", "opciones": ["La necesidad de una fuente de información pura sin corrupción capitalista.", "La tecnología y la doctrina del keynesianismo económico.", "El deseo de promover la cultura nacional y la educación cívica.", "La competencia desleal de las cadenas privadas estadounidenses."], "correcta": 1, "tipo": "argumento", "dificil": true, "cita": "la excusa que encontraron fue la tecnología. No olvidéis que aquellos años eran la era de oro del keinesenismo económico."}, {"id": 4, "pregunta": "Según el narrador, ¿en qué porcentaje aumentó el presupuesto de Televisión Española desde que Pedro Sánchez asumió el poder?", "opciones": ["Un 10%.", "Un 50%.", "Se duplicó.", "Un 25%."], "correcta": 3, "tipo": "dato", "dificil": true, "cita": "desde que llegó Pedro Sánchez al poder, el presupuesto de Televisión Española ha aumentado un 25%."}, {"id": 5, "pregunta": "Según el narrador, ¿qué táctica utiliza el gobierno para que el reparto de la publicidad institucional sea más opaco y evitar dar explicaciones?", "opciones": ["No publicar los criterios de selección ni los límites de gasto.", "Priorizar a los medios de comunicación afines al gobierno.", "Reducir la inversión total en publicidad institucional.", "Contratar a una empresa externa para que se encargue del reparto."], "correcta": 3, "tipo": "relacion", "dificil": true, "cita": "Una táctica que suele utilizar el gobierno es contratar a una empresa externa que se encargue del reparto. Así queda aún más opaco."}, {"id": 6, "pregunta": "Según el narrador, ¿qué consecuencias enfrentó Pedro J. Ramírez después de que su periódico destapara el escándalo de los GAL?", "opciones": ["Recibió un premio Pulitzer y su trabajo fue reconocido internacionalmente.", "Su periódico fue adquirido por el Estado para silenciar futuras investigaciones.", "Fue nombrado director de un nuevo medio público para controlar su influencia.", "El gobierno presionó para que lo echaran de su periódico y le tendieron una trampa."], "correcta": 3, "tipo": "relacion", "dificil": false, "cita": "El gobierno presionó para que lo echaran de su propio periódico. Pero es que la cosa no se quedó aquí. También le tendieron una trampa."}]}, {"content_item_id": 1, "titulo": "¿Cuál es el problema matemático MÁS ANTIGUO que sigue sin resolverse?", "canal": "Derivando", "url": "https://www.youtube.com/watch?v=48cfbLUtkog", "watched_at": "2026-04-27T13:45:40.545000+00:00", "preguntas": [{"id": 120, "pregunta": "Según el video, ¿cómo se definen los números perfectos?", "opciones": ["aquellos que son iguales a la suma de sus divisores propios.", "aquellos que solo tienen un divisor propio, el uno.", "aquellos que son el resultado de multiplicar dos números primos.", "aquellos que son mayores que 10 elevado a 2200."], "correcta": 0, "tipo": "definicion", "dificil": false, "cita": "Los números perfectos ya aparecen definidos en los elementos de euclides son aquellos que son iguales a la suma de sus divisores propios"}, {"id": 121, "pregunta": "¿Cómo y cuándo, según el narrador, surgió la conjetura de Goldbach?", "opciones": ["En un tratado de Anaxágoras de Clazómenas hace 2500 años.", "En los trabajos de Riemann en el siglo XIX.", "En el libro \"Elementos\" de Euclides en el siglo III antes de Cristo.", "En una carta de Goldbach a Euler en 1742."], "correcta": 3, "tipo": "dato", "dificil": false, "cita": "el siguiente problema famoso que me viene a la cabeza es la conjetura de goldbach este problema tiene casi 300 años y surgió en una carta de goldbach a eiler en 1742"}, {"id": 122, "pregunta": "Según el video, ¿cuál fue la resolución final del problema de la cuadratura del círculo con regla y compás?", "opciones": ["Se demostró que era imposible mediante la prueba de que pi es trascendente.", "Se encontró un método para construir el círculo con un área igual a un cuadrado dado.", "Se estableció que su solución dependía de la existencia de números perfectos impares.", "Se resolvió satisfactoriamente en el siglo III antes de Cristo por Euclides."], "correcta": 0, "tipo": "relacion", "dificil": false, "cita": "se demostró que la cuadratura del círculo con regla y compás es imposible mediante la demostración de que pi es trascendente en fin que la geometría no nos da los problemas más antiguos"}, {"id": 123, "pregunta": "¿Qué característica comparten todos los 51 números perfectos conocidos por la humanidad hasta 2024, según el video?", "opciones": ["Son mayores que 10 elevado a 2200.", "Tienen al menos 10 factores primos distintos.", "Son números pares.", "Son números impares."], "correcta": 2, "tipo": "dato", "dificil": false, "cita": "Los 51 números perfectos que se conocen son pares y tienen una forma muy peculiar"}, {"id": 125, "pregunta": "¿Cuál es la opinión predominante entre los matemáticos sobre la existencia de números perfectos impares, según lo expresado en el video?", "opciones": ["La mayoría cree que sí existen y que pronto se encontrará uno.", "La mayoría está dividida y no hay un consenso claro al respecto.", "La mayoría ha dejado de investigar este problema por falta de progreso.", "La mayoría cree que no existen y que algún día se demostrará."], "correcta": 3, "tipo": "argumento", "dificil": true, "cita": "La mayoría de los matemáticos opinan que no existen números perfectos impares y que algún día esto se demostrará pero de momento no sabemos nada"}]}];
+// Clave de guardado atada al conjunto de preguntas: dos tandas distintas no se
+// pisan, y si se regenera el quiz con otras preguntas no se restaura basura.
+const CLAVE = 'quiz_' + DATOS.map(v => v.content_item_id).join('_');
+
+let resp = {};               // id de pregunta -> {eleccion, segundos, respondido_at}
+let excluidos = new Set();   // videos marcados como no vistos
+// El cronometro mide desde la ULTIMA interaccion, no desde que se abrio la
+// pagina. Antes se ponia el mismo instante de arranque para TODAS las
+// preguntas, con lo cual "segundos" en la pregunta 50 era el tiempo acumulado
+// desde que se abrio el archivo. No medía nada.
+let ultimoEvento = Date.now();
+
+function guardar() {
+  try {
+    localStorage.setItem(CLAVE, JSON.stringify({
+      resp, excluidos: [...excluidos],
+      persona: document.getElementById('persona').value || ''
+    }));
+  } catch (e) { /* modo privado o sin permiso: se sigue sin autoguardado */ }
+}
+
+function restaurar() {
+  let g = null;
+  try { g = JSON.parse(localStorage.getItem(CLAVE) || 'null'); } catch (e) {}
+  if (!g) return false;
+  resp = g.resp || {};
+  excluidos = new Set(g.excluidos || []);
+  if (g.persona) document.getElementById('persona').value = g.persona;
+  return Object.keys(resp).length > 0 || excluidos.size > 0;
+}
+
+function pintar() {
+  const cont = document.getElementById('quiz');
+  DATOS.forEach(v => {
+    const d = document.createElement('div');
+    d.className = 'video'; d.id = 'v' + v.content_item_id;
+    let html = `<h2>${esc(v.titulo)}</h2><p class="canal">${esc(v.canal || '')}</p>
+      <div class="preguntas">`;
+    v.preguntas.forEach(p => {
+      html += `<div class="p"><div class="txt">${esc(p.pregunta)}</div>`;
+      p.opciones.forEach((o, i) => {
+        html += `<label><input type="radio" name="q${p.id}" value="${i}">
+                 <span>${esc(o)}</span></label>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div><label class="novi"><input type="checkbox" class="novi-chk">
+             No vi este video (o no lo recuerdo en absoluto)</label>`;
+    d.innerHTML = html;
+    cont.appendChild(d);
+
+    const chk = d.querySelector('.novi-chk');
+    if (excluidos.has(v.content_item_id)) { chk.checked = true; d.classList.add('excluido'); }
+    chk.addEventListener('change', e => {
+      if (e.target.checked) { excluidos.add(v.content_item_id); d.classList.add('excluido'); }
+      else { excluidos.delete(v.content_item_id); d.classList.remove('excluido'); }
+      guardar();
+      progreso();
+    });
+    v.preguntas.forEach(p => {
+      // restaurar lo ya contestado
+      if (resp[p.id] !== undefined) {
+        const prev = d.querySelector(`input[name=q${p.id}][value="${resp[p.id].eleccion}"]`);
+        if (prev) prev.checked = true;
+      }
+      d.querySelectorAll(`input[name=q${p.id}]`).forEach(r => {
+        r.addEventListener('change', () => {
+          const ahora = Date.now();
+          resp[p.id] = { eleccion: +r.value,
+                         segundos: Math.round((ahora - ultimoEvento) / 1000),
+                         respondido_at: ahora };
+          ultimoEvento = ahora;
+          guardar();
+          progreso();
+        });
+      });
+    });
+  });
+  progreso();
+}
+
+function pendientes() {
+  let n = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => { if (resp[p.id] === undefined) n++; });
+  });
+  return n;
+}
+
+function progreso() {
+  const falta = pendientes();
+  const activas = DATOS.reduce((a, v) =>
+      a + (excluidos.has(v.content_item_id) ? 0 : v.preguntas.length), 0);
+  document.getElementById('prog').textContent =
+      `${activas - falta} de ${activas} contestadas` + (falta ? ` · faltan ${falta}` : '');
+  document.getElementById('enviar').disabled = falta > 0 || activas === 0;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+// Revision con soluciones, tras enviar. Recorre solo los videos que se
+// contestaron (no los excluidos) y muestra, por pregunta, las cuatro opciones
+// con la correcta marcada y --si se erro-- la que eligio la persona, mas la
+// cita del video como evidencia.
+function pintarRevision() {
+  const cont = document.getElementById('revision');
+  let html = '<h2 style="font-size:1.1rem">Soluciones</h2>';
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    html += `<div class="video"><h2>${esc(v.titulo)}</h2>`;
+    v.preguntas.forEach(p => {
+      const elegida = resp[p.id] ? resp[p.id].eleccion : null;
+      const bien = elegida === p.correcta;
+      html += `<div class="rev-p"><div class="txt">${esc(p.pregunta)}` +
+              (bien ? '<span class="badge">acertaste</span>'
+                    : '<span class="badge" style="background:#fbeaea;color:#b23b3b">fallaste</span>') +
+              `</div>`;
+      p.opciones.forEach((o, i) => {
+        let cls = 'op', marca = '';
+        if (i === p.correcta) { cls += ' correcta'; marca = '✓'; }
+        else if (i === elegida) { cls += ' elegida-mal'; marca = '✗'; }
+        html += `<div class="${cls}"><span class="marca">${marca}</span><span>${esc(o)}</span></div>`;
+      });
+      if (p.cita) html += `<p class="cita">En el video: «${esc(p.cita)}»</p>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  });
+  cont.innerHTML = html;
+}
+
+document.getElementById('enviar').addEventListener('click', () => {
+  const persona = (document.getElementById('persona').value || '').trim();
+  if (!persona) { alert('Falta el identificador'); return; }
+  const salida = { persona_id: persona,
+                   completado_at: new Date().toISOString(),
+                   videos_excluidos: [...excluidos], respuestas: [] };
+  let ok = 0, okDif = 0, nDif = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => {
+      const r = resp[p.id];
+      // Los dias se calculan contra el instante en que se contesto ESA
+      // pregunta, no contra la carga de la pagina: con autoguardado, una tanda
+      // puede empezarse un dia y terminarse otro.
+      const dias = v.watched_at
+        ? ((r.respondido_at || Date.now()) - new Date(v.watched_at).getTime()) / 86400000
+        : null;
+      const acierto = r.eleccion === p.correcta;
+      if (acierto) ok++;
+      if (p.dificil) { nDif++; if (acierto) okDif++; }
+      salida.respuestas.push({ pregunta_id: p.id, eleccion: r.eleccion, acierto,
+                               segundos: r.segundos,
+                               dias_transcurridos: dias === null ? null : +dias.toFixed(2) });
+    });
+  });
+  const n = salida.respuestas.length;
+  const caja = document.getElementById('resultado');
+  caja.style.display = 'block';
+  caja.innerHTML = `<h2 style="margin-top:0;font-size:1.05rem">Listo</h2>
+    <table>
+      <tr><th>Preguntas contestadas</th><td>${n}</td></tr>
+      <tr><th>Aciertos</th><td>${ok} (${(100*ok/n).toFixed(0)} %)</td></tr>
+      <tr><th>Aciertos en el subconjunto dificil</th>
+          <td>${nDif ? `${okDif} de ${nDif} (${(100*okDif/nDif).toFixed(0)} %)` : 'sin items'}</td></tr>
+      <tr><th>Videos excluidos por no haberlos visto</th><td>${excluidos.size}</td></tr>
+    </table>
+    <p class="id" style="margin-top:1rem">El archivo se descargo. Cargalo con
+    <code>cargar_quiz.py --respuestas</code>. El porcentaje de aqui arriba es
+    orientativo: la retencion corregida por la linea de base se calcula en la base
+    de datos.</p>
+    <p class="id">Abajo estan las soluciones de todo lo que contestaste.</p>`;
+
+  // Se oculta el cuestionario y se dibuja la revision con las respuestas
+  // correctas. Es seguro mostrarlas: la medicion ya quedo registrada arriba, y
+  // esta persona no vuelve a ver este video (las tandas lo excluyen).
+  document.getElementById('quiz').style.display = 'none';
+  document.querySelectorAll('.aviso').forEach(a => a.style.display = 'none');
+  document.getElementById('barra-inferior').style.display = 'none';
+  pintarRevision();
+  caja.scrollIntoView({ behavior: 'smooth' });
+  try { localStorage.removeItem(CLAVE); } catch (e) {}
+
+  const blob = new Blob([JSON.stringify(salida, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `respuestas_${persona}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+});
+
+const habia = restaurar();
+pintar();
+document.getElementById('persona').addEventListener('input', guardar);
+if (habia) {
+  const a = document.createElement('div');
+  a.className = 'aviso';
+  a.innerHTML = '<strong>Se recupero tu avance.</strong> Podes cerrar y volver cuando quieras: ' +
+                'se guarda en este navegador a medida que contestas.';
+  document.querySelector('#quiz').before(a);
+}
+window.addEventListener('beforeunload', e => {
+  if (pendientes() > 0 && Object.keys(resp).length > 0) { e.preventDefault(); e.returnValue = ''; }
+});
+</script>
+</html>

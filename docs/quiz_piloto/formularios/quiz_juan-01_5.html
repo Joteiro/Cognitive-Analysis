@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<title>Quiz de retencion - Nutri-Score de Contenidos</title>
+<style>
+  :root { --tinta:#1a1a1a; --suave:#666; --linea:#e2e2e2; --fondo:#fbfbfa;
+          --acento:#2f5d50; --acento-claro:#eaf1ee; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:0 1rem 6rem; background:var(--fondo); color:var(--tinta);
+         font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  .env { max-width:44rem; margin:0 auto; }
+  header { padding:2.5rem 0 1.5rem; border-bottom:1px solid var(--linea); margin-bottom:2rem; }
+  h1 { font-size:1.5rem; margin:0 0 .5rem; letter-spacing:-.01em; }
+  .sub { color:var(--suave); font-size:.95rem; margin:0; }
+  .aviso { background:var(--acento-claro); border-left:3px solid var(--acento);
+           padding:.9rem 1.1rem; margin:1.5rem 0; font-size:.92rem; border-radius:0 4px 4px 0; }
+  .video { background:#fff; border:1px solid var(--linea); border-radius:8px;
+           padding:1.5rem; margin-bottom:1.5rem; }
+  .video h2 { font-size:1.05rem; margin:0 0 .2rem; line-height:1.4; }
+  .canal { color:var(--suave); font-size:.85rem; margin:0 0 .5rem; }
+  .novi { font-size:.88rem; color:var(--suave); display:flex; align-items:center;
+          gap:.5rem; padding:.6rem 0; border-top:1px solid var(--linea); margin-top:.8rem; }
+  .video.excluido .preguntas { opacity:.35; pointer-events:none; }
+  .p { padding:1.1rem 0; border-top:1px solid var(--linea); }
+  .p .txt { font-weight:500; margin-bottom:.7rem; }
+  label { display:block; padding:.55rem .8rem; margin:.3rem 0; border:1px solid var(--linea);
+          border-radius:6px; cursor:pointer; background:#fff; transition:.12s; }
+  label:hover { border-color:var(--acento); background:var(--acento-claro); }
+  input[type=radio] { margin-right:.6rem; }
+  input:checked + span { font-weight:600; }
+  .barra { position:fixed; left:0; right:0; bottom:0; background:#fff;
+           border-top:1px solid var(--linea); padding:.9rem 1rem; }
+  .barra .env { display:flex; align-items:center; gap:1rem; justify-content:space-between; }
+  .prog { font-size:.9rem; color:var(--suave); }
+  button { background:var(--acento); color:#fff; border:0; border-radius:6px;
+           padding:.65rem 1.4rem; font-size:.95rem; cursor:pointer; font-weight:500; }
+  button:disabled { background:#bbb; cursor:not-allowed; }
+  #resultado { background:#fff; border:1px solid var(--linea); border-radius:8px;
+               padding:1.5rem; margin-bottom:1.5rem; display:none; }
+  table { border-collapse:collapse; width:100%; font-size:.92rem; margin-top:.8rem; }
+  td,th { text-align:left; padding:.4rem .6rem; border-bottom:1px solid var(--linea); }
+  td:last-child,th:last-child { text-align:right; font-variant-numeric:tabular-nums; }
+  .id { font-size:.85rem; color:var(--suave); }
+  input[type=text] { padding:.5rem .7rem; border:1px solid var(--linea);
+                     border-radius:6px; font-size:.95rem; width:14rem; }
+  /* --- revision de soluciones (aparece solo al terminar) --- */
+  #revision { margin-top:1.5rem; }
+  #revision .video { margin-bottom:1rem; }
+  .rev-p { padding:.8rem 0; border-top:1px solid var(--linea); }
+  .rev-p .txt { font-weight:500; margin-bottom:.5rem; }
+  .op { padding:.4rem .7rem; margin:.2rem 0; border-radius:6px; font-size:.93rem;
+        border:1px solid var(--linea); display:flex; gap:.5rem; align-items:baseline; }
+  .op .marca { flex:0 0 1.1rem; font-weight:700; }
+  .op.correcta { background:#e7f4ec; border-color:#8fc7a6; }
+  .op.correcta .marca { color:#1f7a45; }
+  .op.elegida-mal { background:#fbeaea; border-color:#e0a3a3; }
+  .op.elegida-mal .marca { color:#b23b3b; }
+  .cita { font-size:.85rem; color:var(--suave); margin:.4rem 0 0; font-style:italic;
+          border-left:2px solid var(--linea); padding-left:.7rem; }
+  .badge { display:inline-block; font-size:.75rem; padding:.1rem .5rem; border-radius:10px;
+           background:var(--acento-claro); color:var(--acento); margin-left:.5rem; }
+</style>
+<div class="env">
+<header>
+  <h1>Quiz de retencion</h1>
+  <p class="sub">Sobre videos que viste hace un tiempo. Generado el 2026-08-24 ·
+     10 videos · 55 preguntas</p>
+</header>
+
+<div class="aviso">
+  <strong>Antes de empezar.</strong> Contesta de memoria: no busques, no abras el video.
+  Si no te acuerdas, <strong>elige igual la que te parezca mas probable</strong> — hace falta
+  que contestes todas para que el resultado se pueda comparar con la linea de base.
+  Si un video no lo viste, marcalo con la casilla y sus preguntas quedan fuera.
+  No vas a ver si acertaste hasta el final.
+</div>
+
+<p class="id">Identificador (un seudonimo, no tu nombre):
+  <input type="text" id="persona" placeholder="p.ej. juan-01" value="juan-01"></p>
+
+<div id="resultado"></div>
+<div id="quiz"></div>
+<div id="revision"></div>
+</div>
+
+<div class="barra" id="barra-inferior"><div class="env">
+  <span class="prog" id="prog">0 de 0 contestadas</span>
+  <button id="enviar" disabled>Terminar y descargar</button>
+</div></div>
+
+<script>
+const DATOS = [{"content_item_id": 67, "titulo": "PUTIN PIDE NEGOCIAR LA PAZ… porque Crimea se le escapa sin que pueda hacer nada - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=LW8FlbUwixI", "watched_at": "2026-06-27T13:05:31.271000+00:00", "preguntas": [{"id": 61, "pregunta": "Según el narrador, ¿por qué está Vladimir Putin dispuesto a negociar la paz con Ucrania en este momento?", "opciones": ["Para revivir el espíritu de las negociaciones de Estambul de 2022.", "Debido a la escasez de personal en el frente de batalla.", "A pesar de los ataques masivos con drones y misiles.", "Como consecuencia de los ataques con drones ucranianos."], "correcta": 3, "tipo": "argumento", "dificil": false, "cita": "No es A PESAR de los ataques masivos. Le expresión debería ser Vladimir Putin está dispuesto a negociar, con MUCHAS COMILLAS, COMO CONSECUENCIA de los ataques con drones ucranianos."}, {"id": 62, "pregunta": "¿Cuál fue una de las consecuencias directas del ataque ucraniano a una refinería en Moscú la semana pasada?", "opciones": ["Se prohibió la venta de gasolina a personal civil en Crimea.", "La mitad del combustible de Moscú quedó inutilizable.", "La ciudad de Sebastopol sufrió un corte de electricidad.", "Se destruyeron cuatro radares del sistema antiaéreo S-400."], "correcta": 1, "tipo": "relacion", "dificil": false, "cita": "En este ataque, Moscú se quedó sin la mitad de su combustible. Eso significa que los moscovitas, a duras penas pueden usar el coche."}, {"id": 63, "pregunta": "¿Qué representa el Puente de Kerch para el Kremlin, más allá de su utilidad práctica?", "opciones": ["La mayor demostración de capacidad técnica de Rusia en décadas.", "La prueba tangible de que la península había “regresado” para siempre.", "El modo que encontró Putin para decir “mirad que larga la tengo”.", "El puente más largo de toda Europa, con 19 kilómetros de longitud."], "correcta": 1, "tipo": "definicion", "dificil": false, "cita": "más allá de su utilidad práctica, el Puente de Kerch tiene un ENORME valor simbólico para el Kremlin. Se presentó como la prueba tangible de que la península había “regresado” para siempre."}, {"id": 64, "pregunta": "¿Cuál es la estrategia actual de Ucrania antes de un ataque directo al Puente de Kerch?", "opciones": ["Debilitar las defensas del puente antes de atacarlo.", "Aumentar los ataques con drones en Moscú y San Petersburgo.", "Cortar el acceso a Crimea por el paso ferrovial de Chonhar.", "Realizar un asalto anfibio masivo en la península de Crimea."], "correcta": 0, "tipo": "argumento", "dificil": true, "cita": "Lo que está haciendo es tratar de debilitar las defensas del puente antes de atacarlo ¿Por qué? Simple cálculo."}, {"id": 65, "pregunta": "¿Por qué, según el narrador, Ucrania no ha destruido el Puente de Kerch de inmediato, a pesar de su importancia?", "opciones": ["Para dejarle al enemigo una oportunidad para huir de Crimea.", "Porque su valor militar es bajo, ya que solo permite el paso de vehículos livianos.", "Porque los controles de seguridad lo hacen imposible de atacar con camiones explosivos.", "Porque es una estructura demasiado grande y difícil de derrumbar."], "correcta": 0, "tipo": "argumento", "dificil": true, "cita": "en la lógica militar hay un principio fundamental: siempre le tienes que dejar a tu enemigo una oportunidad para huir."}, {"id": 66, "pregunta": "¿Cuál fue la medida principal tomada en Crimea debido a la crisis de combustible?", "opciones": ["La gente comenzó a cambiar lentamente a caballos.", "Sebastopol sufrió un corte de electricidad.", "La venta de gasolina a personal civil quedó suspendida.", "Los moscovitas apenas podían usar el coche."], "correcta": 2, "tipo": "relacion", "dificil": false, "cita": "La venta de gasolina en Crimea ocupada por Rusia ha quedado suspendida desde este domingo por la mañana mientras se agrava la crisis de combustible en la península."}]}, {"content_item_id": 65, "titulo": "PELEÓN, RÁCANO, ORGULLOSO Y EXCÉNTRICO. MIGUEL ÁNGEL ¿El MEJOR ARTISTA del RENACIMIENTO?", "canal": "Antonio García Villarán", "url": "https://www.youtube.com/watch?v=YPKcb4z-8Pk", "watched_at": "2026-06-25T11:36:55.321000+00:00", "preguntas": [{"id": 97, "pregunta": "¿Qué detalle específico de su infancia, según el narrador, conectó Miguel Ángel con su futura habilidad para esculpir?", "opciones": ["Entró en un taller de aprendiz a la temprana edad de 13 años.", "Su madre murió cuando él tenía seis años.", "Su padre le pegaba palizas por pasarse el día dibujando.", "Mamó las escarpas y los martillos con la leche de su nodriza."], "correcta": 3, "tipo": "relacion", "dificil": true, "cita": "juntamente con la leche de mi nodriza mamé también las escarpas y los martillos con los cuales después he esculpido mi figuras"}, {"id": 98, "pregunta": "Según el narrador, ¿cuál fue la razón principal por la que el padre de Miguel Ángel se oponía a que su hijo se dedicara al arte?", "opciones": ["Pensaba que Miguel Ángel no tenía el talento necesario para triunfar.", "Consideraba el arte un oficio de escala inferior para una familia noble.", "Creía que el arte no le proporcionaría suficiente estabilidad económica.", "Prefería que Miguel Ángel se dedicara a la abogacía, como era tradición familiar."], "correcta": 1, "tipo": "argumento", "dificil": true, "cita": "el padre no quería que se dedicara al arte por qué porque ellos venían de una antigua familia noble Aunque ahora era una familia venida menos y claro el padre le decía que eso de dedicarse a hacer arte era un oficio de una escala inferior"}, {"id": 99, "pregunta": "A pesar de su gran éxito y ganancias, ¿cómo se describe la forma en que Miguel Ángel vivía y manejaba su dinero?", "opciones": ["Gastaba su dinero en lujos para mantener su estatus social.", "Invertía su fortuna en la construcción de edificios religiosos.", "Ganaba 50 veces más que un obrero, pero vivía como un pobre.", "Donaba gran parte de sus ingresos a causas benéficas."], "correcta": 2, "tipo": "dato", "dificil": false, "cita": "él ganaba muchísimo dinero pero no gastaba nada que ya Ahora aquí en el chiste de parecía Catalán No hombre no los catalanes no son agarrados para nada para nada Un besito para que te hagas una idea él ganaba 50 veces más de lo que ganaba un obrero normal y ganaba 12 veces más de lo que el emperador le pagaba a ticiano claro ticiano era otra de las grandes estrellas artísticas de la época pero ya vamos a ver más adelante que Miguel Ángel vivía como un pobre"}, {"id": 100, "pregunta": "¿Qué método utilizaba Miguel Ángel para vengarse de los Papas que lo molestaban mientras trabajaba?", "opciones": ["Ponía la cara del Papa en personajes del infierno en sus obras.", "Se negaba a usar modelos femeninos para sus figuras religiosas.", "Dedicaba sonetos a sus amantes masculinos en secreto.", "Elegía personalmente las piedras en las canteras de Carrara."], "correcta": 0, "tipo": "relacion", "dificil": false, "cita": "Pero él se vengaba y cómo se vengaba Pues en sus obras A lo mejor en la capilla cistina uno de los personajes que estaba en el infierno ahí horas de los más malos que había de la Biblia pues le ponía la cara del papa"}, {"id": 101, "pregunta": "Al final del video, ¿qué conclusión expresa el narrador sobre la comparación entre Miguel Ángel y Leonardo da Vinci?", "opciones": ["Miguel Ángel lo superaba pero con mucho como artista.", "Leonardo era el mejor artista, aunque Miguel Ángel era más trabajador.", "El video no ofrece una conclusión definitiva sobre quién fue mejor.", "Ambos eran igual de buenos, pero Miguel Ángel tenía más defectos personales."], "correcta": 0, "tipo": "argumento", "dificil": false, "cita": "queréis saber mi opinión sobre cuál fue el mejor de los artistas de Renacimiento si Miguel Ángel o Leonardo Pues aquí lo tenéis para mí Miguel Ángel lo superaba pero con mucho"}, {"id": 102, "pregunta": "¿Por qué Miguel Ángel invertía su dinero principalmente en comprar tierras?", "opciones": ["Era una forma de tener un lugar tranquilo para trabajar sus esculturas.", "Buscaba asegurar la manutención de sus hermanos y su padre.", "Quería que su familia volviese a ser una familia noble.", "Consideraba la tierra una inversión más segura que el arte en tiempos de inestabilidad."], "correcta": 2, "tipo": "relacion", "dificil": true, "cita": "Pero por qué Porque en lo que invertía el dinero Miguel Ángel sobre todo era en comprar tierras él quería muchas tierras quería ser terrateniente para conseguir que su familia volviese a ser una familia noble no como la de antes"}]}, {"content_item_id": 64, "titulo": "LA ECONOMÍA DE PUTIN SE DERRUMBA… su propio banco central se le está rompiendo. - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=CxedzCj_aBQ", "watched_at": "2026-06-25T11:34:54.449000+00:00", "preguntas": [{"id": 157, "pregunta": "¿Cuál es una de las razones principales por las que, según el narrador, los rusos han empezado a sacar dinero de los bancos?", "opciones": ["La expectativa de un inminente \"corralito\" bancario.", "El miedo a la hiperinflación debido a la impresión masiva de billetes.", "El aumento de la carga fiscal y la necesidad de pagar salarios en negro.", "La preocupación por los cortes de internet que dificultan los pagos con tarjeta."], "correcta": 3, "tipo": "relacion", "dificil": true, "cita": "parte se debe a los cortes de internet. Y ahora imagina que uno de esos cortes te pilla mientras estás pagando con la tarjeta en el supermercado. ¿Qué haces? Pues claramente es mejor llevar algo de casa en el bolsillo."}, {"id": 158, "pregunta": "Según el video, ¿cuál es la razón principal por la que Rusia ha vendido más de 4000 millones de dólares en oro de sus reservas?", "opciones": ["Necesitan dinero líquido para financiar la guerra de Ucrania.", "Pretenden evitar que esos activos sean embargados por Occidente.", "Buscan estabilizar el valor del rublo en el mercado internacional.", "Quieren diversificar sus activos para reducir riesgos."], "correcta": 0, "tipo": "relacion", "dificil": true, "cita": "Rusia ha vendido este año más de 4000 millones de dólares en oro de sus reservas. ¿Por qué? Pues porque necesitan dinero líquido para pagar la guerra de Ucrania. No hay otra razón."}, {"id": 159, "pregunta": "¿Quiénes fueron algunos de los invitados destacados al Foro Económico de San Petersburgo, según el video?", "opciones": ["Elvira Nabiullina y Vladimir Putin.", "Mario Draghi y Angela Merkel.", "Andrew Tate y Steven Seagal.", "Dmitris Corobuto y Natalia Milchacova."], "correcta": 2, "tipo": "dato", "dificil": true, "cita": "han invitado a este señor. Sí, se han traído a Andrew Tate... ¿Os acordáis de Steven Sigal?... Así que para este foro económico, pues que se lo han vuelto a traer."}, {"id": 160, "pregunta": "Según el exredactor jefe de la televisión estatal rusa, Dmitris Corobuto, ¿por qué se especula que Elvira Nabiullina fue puesta bajo arresto domiciliario?", "opciones": ["Por su apoyo a la política de imprimir billetes a gran escala.", "Debido a su incapacidad para estabilizar la economía rusa.", "Para impedir que se pronuncie públicamente en contra de una movilización general.", "Para que no revelara información clasificada sobre las reservas de oro."], "correcta": 2, "tipo": "relacion", "dificil": true, "cita": "Al parecer, la veterana directora del Banco Central ha sido puesta bajo arresto domiciliario para impedir que se pronuncie públicamente en contra de una movilización general. Así lo afirma el exredactor jefe de la televisión estatal rusa, Dmitris Corobuto."}, {"id": 161, "pregunta": "¿Qué implica el \"nuevo ciclo de inversión\" que Putin quiere poner en marcha, según el narrador?", "opciones": ["Aumentar la supervisión de las retiradas de efectivo en los bancos.", "Vender más oro de las reservas para obtener liquidez.", "Reducir la carga fiscal para estimular las pequeñas y medianas empresas.", "Poner en marcha la máquina de imprimir billetes a gran escala."], "correcta": 3, "tipo": "definicion", "dificil": false, "cita": "Putin ha anunciado un plan radical, lo que llama el nuevo ciclo de inversión... significa una cosa muy concreta, que Putin quiere poner en marcha la máquina de imprimir billetes y además a gran escala."}]}, {"content_item_id": 54, "titulo": "SÁNCHEZ ACORRALADO! El JUEZ ordena que RETIREN el PASAPORTE a su MUJER - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=V5NIul16bMA", "watched_at": "2026-06-24T07:56:26.496000+00:00", "preguntas": [{"id": 43, "pregunta": "¿Qué medidas concretas ordenó el juez Peinado contra Begoña Gómez, según el video?", "opciones": ["Investigar un contrato público de 4 millones de euros vinculado a Juan Carlos Barravés.", "Abrir una nueva línea de investigación por prevaricación y fraude a la Unión Europea.", "Acusarla de tráfico de influencias, corrupción en los negocios y apropiación indebida.", "Retirarle el pasaporte, prohibirle salir del país y obligarla a comparecer cada 15 días."], "correcta": 3, "tipo": "dato", "dificil": false, "cita": "el juez Peinado, que ha decidido retirar el pasaporte a la esposa del presidente. le prohíbe además salir del país, le obliga a comparecer cada 15 días"}, {"id": 44, "pregunta": "¿Qué acusación principal se hizo sobre el uso que Begoña Gómez dio al software desarrollado bajo su cátedra, según el video?", "opciones": ["No consiguió que la plataforma ayudara a empresas y organizaciones a medir su impacto social.", "Lo empleó como instrumento para generar ingresos privados, a pesar de haber sido desarrollado con recursos públicos.", "Lo vendió a empresas extranjeras sin la autorización de la Universidad Complutense de Madrid.", "Lo utilizó para presionar a jueces que investigaban casos de corrupción del partido."], "correcta": 1, "tipo": "argumento", "dificil": false, "cita": "Peinado afirma que el software gratuito desarrollado para la UCM por varias empresas fue empleado por Begoña Gómez como instrumento de generación de ingresos privados."}, {"id": 45, "pregunta": "Según el video, ¿cuál fue la principal irregularidad señalada en el caso del hermano de Pedro Sánchez, David Sánchez?", "opciones": ["Tenía su residencia fiscal en Portugal para pagar menos impuestos, pero vivía en el Palacio de la Moncloa.", "Se le adjudicó una cátedra extraordinaria en una universidad pública sin ser doctor.", "Fue condenado a 24 años y 3 meses de cárcel por mordidas en la venta de mascarillas durante el COVID.", "Amenazó a una jueza con difundir fotos generadas por IA para evitar investigaciones."], "correcta": 0, "tipo": "relacion", "dificil": false, "cita": "el hermano de Pedro Sánchez pagaba impuestos en Portugal, pero no tenía ahí su residencia real. Y diréis, ¿dónde vivía? Estaba en el Palacio de la Moncloa"}, {"id": 47, "pregunta": "Según la opinión del narrador en el video, ¿cuál es el pronóstico más probable para la permanencia de Pedro Sánchez en la presidencia?", "opciones": ["Convocará elecciones anticipadas para aprovechar una oportunidad en el panorama internacional.", "Dimitará por su propia cuenta antes de las próximas elecciones para evitar más escándalos.", "Aguantará en el cargo hasta el final de la legislatura en el año 2027.", "Será destituido por una moción de censura exitosa de la oposición de derechas."], "correcta": 2, "tipo": "argumento", "dificil": true, "cita": "Así que si me preguntáis, yo creo que Pedro Sánchez aguantará hasta el final, o sea, hasta el año 2027."}, {"id": 48, "pregunta": "Según el video, ¿cuáles son los cuatro delitos específicos, denominados 'los cuatro jinetes del apocalipsis', por los que Begoña Gómez está siendo investigada?", "opciones": ["Enriquecimiento ilícito, evasión fiscal, coacciones y prevaricación.", "Abuso de autoridad, falsedad documental, revelación de secretos y desobediencia.", "Tráfico de influencias, corrupción en los negocios, apropiación indebida y malversación de fondos públicos.", "Prevaricación, fraude a los intereses de la Unión Europea, cohecho y blanqueo de capitales."], "correcta": 2, "tipo": "dato", "dificil": true, "cita": "Así que ya tenemos los cuatro delitos, los cuatro jinetes del apocalipsis. Tráfico de influencias, corrupción en los negocios, apropiación indebida y malversación de fondos públicos."}]}, {"content_item_id": 51, "titulo": "LA DERECHA ARRASA EN LATINOAMÉRICA y Fujimori es el último ejemplo de una tendencia - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=fwpF33rYgTo", "watched_at": "2026-06-23T09:48:12.729000+00:00", "preguntas": [{"id": 55, "pregunta": "¿Cuál fue la diferencia de votos que le dio la victoria a Keiko Fujimori sobre Roberto Sánchez en las recientes elecciones?", "opciones": ["11 votos.", "44.000 votos.", "4.209 votos.", "52 votos."], "correcta": 2, "tipo": "dato", "dificil": true, "cita": "Los resultados dan la victoria a la derechista Keiko Fujimori sobre el izquierdista Roberto Sánchez con solo 4209 votos."}, {"id": 56, "pregunta": "Según el narrador, ¿cuál fue la clave del éxito de Alberto Fujimori para derrotar a Mario Vargas Llosa en las elecciones de 1990?", "opciones": ["Contó con el apoyo de los principales diarios y canales de televisión del país.", "Su origen japonés le garantizó el voto de la élite limeña.", "Prometió una terapia de choque económica más suave que la de su oponente.", "Supo conectar con el cabreo de la calle y se presentó como un \"outsider\"."], "correcta": 3, "tipo": "argumento", "dificil": false, "cita": "Fue el primer político peruano que entendió que en democracia no gana el que tiene la mejor idea, sino el que mejor conecta con el cabreo de la calle."}, {"id": 57, "pregunta": "Según el narrador, ¿cuántos presidentes ha tenido Perú desde el año 2016?", "opciones": ["Ocho presidentes.", "Cuatro presidentes.", "Tres presidentes.", "Siete presidentes."], "correcta": 0, "tipo": "dato", "dificil": true, "cita": "Desde el año 2016 han tenido ocho presidentes."}, {"id": 58, "pregunta": "¿Por qué fue rechazado el intento de Roberto Sánchez de anular 2400 mesas electorales en Lima?", "opciones": ["El plazo legal estricto para presentar los recursos ya había caducado.", "No logró reunir la cantidad de dinero necesaria a través de su crowdfunding.", "No adjuntó el comprobante original del pago de la tasa legal requerida.", "El jurado electoral consideró que las acusaciones de fraude eran infundadas."], "correcta": 2, "tipo": "relacion", "dificil": true, "cita": "El jurado electoral lo ha rechazado. Ha rechazado todos los recursos de golpe porque no adjuntó el comprobante de pago."}, {"id": 59, "pregunta": "¿Cuál de las siguientes acciones NO se atribuye al gobierno de Alberto Fujimori en el video?", "opciones": ["Crear un aparato de propaganda para comprar medios de comunicación.", "Legalizar el matrimonio infantil para comunidades indígenas.", "Ordenar más de 8.000 esterilizaciones forzadas de mujeres indígenas.", "Cerrar el Congreso y reescribir la Constitución."], "correcta": 1, "tipo": "definicion", "dificil": false, "cita": "Y con este autogolpe de estado, Fujimori cerró el Congreso, reescribió la Constitución para poder ser reelegido y creó un aparato de propaganda para comprar a los medios de comunicación. [...] la leyenda de Fujimori también cuenta con más de 8,000 esterilizaciones forzadas de mujeres indígenas."}, {"id": 60, "pregunta": "Según el video, ¿cuál es la tendencia política general observada en América Latina en los últimos dos años?", "opciones": ["Un periodo de estabilidad política y consenso entre las diferentes fuerzas.", "Un fortalecimiento de los gobiernos socialistas y movimientos progresistas.", "Una clara retirada de la izquierda latinoamericana y victorias de candidatos de centro derecha y derecha.", "Un aumento de líderes populistas tanto de extrema izquierda como de extrema derecha."], "correcta": 2, "tipo": "relacion", "dificil": false, "cita": "En los últimos dos años solo han ganado candidatos de centro derecha y de derecha en toda América Latina. [...] la izquierda latinoamericana en general, esa que se reunió en Barcelona con Pedro Sánchez hace unos meses, está en clara retirada."}]}, {"content_item_id": 46, "titulo": "Internet Estaba A Semanas Del Desastre y Nadie Lo Sabía", "canal": "Veritasium en español", "url": "https://www.youtube.com/watch?v=a62HpQpVBh8", "watched_at": "2026-06-22T11:28:48.702000+00:00", "preguntas": [{"id": 144, "pregunta": "¿Qué evento específico llevó a Richard Stalman a comprender la problemática del software propietario?", "opciones": ["La negativa de Xerox a proporcionar el código fuente de una impresora atascada.", "La demanda de AT&T a la Universidad de California en Berkeley por derechos de autor.", "El descubrimiento de una debilidad fatal en el sistema operativo más importante del mundo.", "La exigencia de las empresas a sus empleados de firmar acuerdos de confidencialidad."], "correcta": 0, "tipo": "relacion", "dificil": true, "cita": "El único problema era que Zerox no les había dado el código fuente de la impresora y sin él, Stalman no podía escribir su código... me di cuenta de que no se trataba de un solo imbécil, sino de un fenómeno social importante."}, {"id": 146, "pregunta": "Según el video, ¿cuál es el \"gran problema\" con la Ley de Linus (\"con suficientes ojos todo error es superficial\") en el ecosistema de código abierto?", "opciones": ["La excesiva complejidad de los proyectos de código abierto que dificulta su auditoría.", "La falta de interés de los desarrolladores en revisar el código de proyectos pequeños.", "La dependencia de proyectos críticos en herramientas mantenidas por un solo voluntario.", "La dificultad para coordinar a miles de colaboradores en un ecosistema tan vasto."], "correcta": 2, "tipo": "argumento", "dificil": false, "cita": "El movimiento de código abierto no es solo un gran proyecto, es un ecosistema... Y de repente hay millones de máquinas que dependen del proyecto de una sola persona."}, {"id": 147, "pregunta": "En la analogía de la mezcla de pinturas para establecer un secreto compartido, ¿cuál es el principio clave que permite que funcione?", "opciones": ["La necesidad de acordar un color público compartido que sea conocido por todos.", "La imposibilidad de separar una mezcla de colores para deducir los tonos originales.", "El uso de números públicos grandes en lugar de colores para un intercambio real.", "La capacidad de deducir los colores secretos individuales a partir de la mezcla final."], "correcta": 1, "tipo": "definicion", "dificil": false, "cita": "Cabe señalar que se asume que estas mezclas no se pueden separar. Así que aunque conozcas este anaranjado y este rojo, no puedes deducir el tono exacto de amarillo."}, {"id": 148, "pregunta": "¿Qué fue lo que inicialmente alertó a Andres Freund sobre un posible problema con la versión inestable de Devian que estaba probando?", "opciones": ["La aparición de un nuevo mantenedor para el proyecto XZ llamado Yi.", "Una ralentización consistente en los tiempos de conexión del servidor.", "El descubrimiento de archivos binarios de prueba que nunca se utilizaron en una prueba.", "Un informe de error sobre escrituras inválidas en la pila de memoria."], "correcta": 1, "tipo": "relacion", "dificil": true, "cita": "Pero al verificar los tiempos de conexión del servidor notó algo extraño, una ralentización. No era mucho, en el peor de los casos era solo medio segundo."}, {"id": 149, "pregunta": "¿Qué argumento se utilizó en el video para defender el modelo de código abierto frente a las críticas surgidas tras el descubrimiento de la puerta trasera?", "opciones": ["Los sistemas de código cerrado son inherentemente más seguros debido al secretismo de su desarrollo.", "El incidente demuestra que el código abierto, a diferencia del cerrado, permite detectar estas vulnerabilidades.", "La comunidad de código abierto está mejor preparada para enfrentar ataques cibernéticos sofisticados.", "El código abierto permite que los desarrolladores reciban compensación por su trabajo."], "correcta": 1, "tipo": "argumento", "dificil": false, "cita": "Este factor, por el contrario, subraya el espíritu del código abierto. Solo piensa en lo que se necesitó para lograr esto en público."}]}, {"content_item_id": 44, "titulo": "LA TRAICIÓN DE DELCY: el chavismo entrega al Niño Guerrero - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=aQwTJjLX_TA", "watched_at": "2026-06-19T07:48:33.633000+00:00", "preguntas": [{"id": 91, "pregunta": "Según el video, ¿cuál fue la razón principal por la que el Tren de Aragua se convirtió en un \"problema\" para el gobierno venezolano?", "opciones": ["Exigieron una comisión demasiado alta sobre la extracción de oro.", "Se negaron a seguir reprimiendo las protestas contra el chavismo.", "Sus actividades criminales estaban atrayendo demasiada atención internacional.", "El levantamiento de sanciones de EE.UU. abrió la venta legal de oro."], "correcta": 3, "tipo": "argumento", "dificil": true, "cita": "el gobierno de los Estados Unidos anunció un nuevo y significativo levantamiento de sus sanciones contra el país sudamericano, esta vez con el objetivo de facilitar la explotación de sus vastos recursos mineros, con especial énfasis en el oro. ... Pero el Tren de Aragua se ha convertido en un problema tras esta reunión."}, {"id": 92, "pregunta": "Según el narrador, ¿quién confirmó la muerte de alias Niño Guerrero a través de su cuenta de Truth Social?", "opciones": ["El ministro de Defensa, Gustavo González López.", "Delcy y sus perros fieles.", "El presidente Donald Trump.", "El jefe del Comando Sur de EE.UU., Francis Donovan."], "correcta": 2, "tipo": "dato", "dificil": false, "cita": "el presidente Donald Trump acaba de confirmar a través de su cuenta de Truth Social la muerte de alias Niño Guerrero, señalado como el máximo líder de la organización criminal transnacional El Tren de Aragua."}, {"id": 93, "pregunta": "¿Cómo describe el narrador la cárcel de Tocorón bajo la influencia de Niño Guerrero?", "opciones": ["Un centro penitenciario de máxima seguridad.", "Una prisión modelo para la rehabilitación de criminales.", "Un lugar de reclusión con estrictas normas de orden.", "Un hotel de lujo con piscinas, discotecas y bares."], "correcta": 3, "tipo": "definicion", "dificil": false, "cita": "De allí a que en esa “cárcel” se vea como un hotel de lujo con piscinas, discotecas, bares… y cualquier cosa que os podáis imaginar: La prisión de lujo y las excentricidades con las que vivió el prófugo jefe del Tren de Aragua, conocido como “Niño Guerrero”, durante su supuesto encierro en la cárcel de Tocorón, en Venezuela, parecen haber superado a La Catedral de Pablo Escobar."}, {"id": 94, "pregunta": "Además del Tren de Aragua y el Cartel de los Soles, ¿qué otro socio clave participó en el negocio de la minería ilegal de oro en Venezuela, según el video?", "opciones": ["La Corporación Venezolana de Minería.", "El señor Prigozhin, dueño de Wagner.", "Las facciones de las FARC y el ELN.", "La Global Initiative Against Transnational Crime."], "correcta": 1, "tipo": "relacion", "dificil": true, "cita": "La administración era conjunta, el ser mitológico llamado cartel de los soles tenía su parte y la administraba, y el tren de Aragua tenía la suya. Y había otro socio que participaba del negocio. Hablamos del señor Prigozhin, el que era el dueño de Wagner."}, {"id": 95, "pregunta": "Según el video, ¿cuál fue la contribución específica de la Fuerza Armada Nacional Bolivariana (FANB) a la operación conjunta con EE.UU. contra el Niño Guerrero?", "opciones": ["Realizar el bombardeo y los combates directos en las minas.", "Negociar la entrega pacífica del líder criminal.", "Coordinar el desalojo de los enclaves mineros 72 horas antes.", "Proporcionar la información necesaria sobre los movimientos del Tren de Aragua."], "correcta": 3, "tipo": "relacion", "dificil": false, "cita": "Lo que les faltaba a las tropas del tío sam era la información necesaria para llevar a cabo la operación. Y quien mejor que las FANB para llevar a cabo dicha operación. Han sido MUCHOS AÑOS de estrecha relación y tenían la información necesaria para saber cada movimiento del Tren de Aragua."}, {"id": 96, "pregunta": "¿Cómo califica el narrador el resultado de la muerte del Niño Guerrero para el chavismo?", "opciones": ["Una traición por parte de Delcy que afectó sus alianzas internacionales.", "Un golpe de los EE.UU. *con* el chavismo para aumentar los beneficios mineros.", "Un golpe brutal que debilitó significativamente al régimen venezolano.", "El inicio de una lucha de poder interna en Venezuela por el control del oro."], "correcta": 1, "tipo": "argumento", "dificil": true, "cita": "Pero al contrario de lo que muchos piensan esto NO ES UN GOLPE AL CHAVISMO. Esto es un golpe de los iuesei CON el chavismo. ... Eliminado el socio hay menos que compartir en un negocio de protección a las mineras que puede crecer en escala con el apoyo de Trump y por lo tanto dejarles más dinero a los militares."}]}, {"content_item_id": 39, "titulo": "ESCÁNDALO en la BIENAL de VENECIA. La artista colgada de una campana que divide al arte", "canal": "Antonio García Villarán", "url": "https://www.youtube.com/watch?v=F8oSnscyq58", "watched_at": "2026-06-18T07:55:21.032000+00:00", "preguntas": [{"id": 103, "pregunta": "Según el presentador, ¿qué es la Bienal de Venecia?", "opciones": ["Un evento para mostrar las obras más vanguardistas y experimentales del arte actual.", "Una plataforma para que artistas de todo el mundo vendan sus creaciones más recientes.", "Un festival cultural que promueve el intercambio artístico entre diferentes naciones.", "Una exposición donde los países compiten por medallas de oro o por likes en TikTok."], "correcta": 3, "tipo": "definicion", "dificil": true, "cita": "Una exposición donde los países mandan a sus mejores artistas para competir por la medalla de oro o bien compiten por tener más likes en TikTok."}, {"id": 104, "pregunta": "¿Cómo describe el presentador la performance más viral de Florentina Holzinger con la campana?", "opciones": ["Una artista que, desnuda, golpea una campana con los brazos sueltos para generar un sonido impactante.", "Una mujer desnuda en una campana gigante, tocándola con su cuerpo de un lado a otro como si fuese un cuerpo muerto.", "Una mujer desnuda que, dentro de una campana, simula un ahogamiento como metáfora del cambio climático.", "Una figura desnuda colgando de una campana, que se activa con el movimiento de un motor de agua."], "correcta": 1, "tipo": "dato", "dificil": true, "cita": "No, no me diga que esa campana con una mujer desnuda, con los brazos así sueltos, haciéndola accionar, o sea, tocándola con su propio cuerpo de un lado a otro como si fuese un cuerpo muerto, ¿no?"}, {"id": 105, "pregunta": "Según el presentador, ¿cuál es el marco teórico que sustenta la obra de Florentina Holzinger en la Bienal?", "opciones": ["La exploración de los límites del cuerpo humano como lienzo.", "La crítica a la sociedad de consumo y la sobreexplotación de recursos.", "La utilización institucional para lanzar mensajes políticos.", "El cambio climático, como aviso de que Venecia se hunde."], "correcta": 3, "tipo": "argumento", "dificil": true, "cita": "el marco teórico que sustenta esta obra es, como no podía ser otro, el cambio climático."}, {"id": 106, "pregunta": "¿Cuál es la opinión del presentador sobre las performances de Florentina Holzinger?", "opciones": ["Considera que son un ejemplo de activismo con recursos, pero no las clasifica como arte en absoluto.", "Le parecen guay e inspiradoras, aunque las considera más cercanas al teatro experimental que al arte plástico.", "Las encuentra impactantes y brutales, pero cree que carecen de un marco teórico sólido que las justifique.", "Le resultan desagradables y sin sentido, aunque reconoce su capacidad para generar controversia en la red."], "correcta": 1, "tipo": "argumento", "dificil": true, "cita": "a mí no me desagradan, al contrario, me parecen guay, me parecen inspiradoras, pero creo que es de otro palo, desde mi punto de vista."}, {"id": 107, "pregunta": "¿Qué tradición menciona el presentador como influencia del arte austríaco que se muestra en la Bienal?", "opciones": ["La de los accionistas vieneses, que usaron su propio cuerpo al límite como lienzo.", "La de los grandes compositores como Mozart y Alma Mahler, que inspiraron obras visuales.", "La de la danza clásica y el teatro radical, que fusionan movimiento y performance.", "La de pintores expresionistas como Egon Schiele y Kokoschka, centrados en la figura humana."], "correcta": 0, "tipo": "relacion", "dificil": true, "cita": "ellos pusieron el cuerpo al límite, ellos usaron su propio cuerpo como lienzo y eso es un poco lo que lleva arrastrando, pienso, el arte austríaco hasta hoy."}, {"id": 108, "pregunta": "¿Cuál es el concepto central de la obra de Florentina Holzinger titulada \"Vivo en tu pece\"?", "opciones": ["La crítica a la higiene y las normas sociales, al exponer el cuerpo en contacto con la orina.", "La inmersión en la experiencia sensorial de los desechos humanos, a través de piscinas de orín.", "La purificación del agua contaminada, usando la orina como metáfora de la polución humana.", "El reciclaje de fluidos corporales, buceando en el orín filtrado de los visitantes de la Bienal."], "correcta": 3, "tipo": "definicion", "dificil": true, "cita": "el concepto de reciclaje de nuevo y se meten dentro y bucean en la orina de la gente que va a visitar la vinal."}]}, {"content_item_id": 37, "titulo": "TRUMP SE RETIRA DE IRÁN pero Israel quiere seguir luchando - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=kgaS_kikD2E", "watched_at": "2026-06-17T12:07:11.328000+00:00", "preguntas": [{"id": 19, "pregunta": "Según el narrador, ¿qué representa el \"memorándum of understanding\" (MOU) que se ha acordado entre Estados Unidos e Irán?", "opciones": ["Un documento secreto que solo las partes implicadas pueden consultar.", "Un compromiso para levantar las sanciones económicas a Irán de inmediato.", "Una lista de temas pendientes que se discutirán en futuras negociaciones.", "Un acuerdo de paz definitivo que pone fin a la guerra en la región."], "correcta": 2, "tipo": "definicion", "dificil": false, "cita": "Pero, pero, ¿qué es eso? Es decir, han acordado, por decirlo de algún modo, una lista de temas de los que van a hablar ese día en el que se pongan a hablar."}, {"id": 21, "pregunta": "Según el narrador, ¿por qué las navieras y aseguradoras no confían en el anuncio de Donald Trump sobre la apertura sin peajes del estrecho de Ormuz?", "opciones": ["Porque el estrecho sigue físicamente bloqueado por escombros de la guerra.", "Porque las sanciones internacionales aún prohíben el paso de barcos.", "Porque Irán ha insistido en cobrar un peaje marítimo a los buques.", "Porque esperan la confirmación oficial de las Naciones Unidas."], "correcta": 2, "tipo": "argumento", "dificil": false, "cita": "Trump dice que hay paso libre, pero los iraníes insisten en que la nueva realidad en el Golfo implica que van a cobrar peaje a cada navío que desfile frente a sus costas."}, {"id": 22, "pregunta": "¿Cuál es la principal preocupación de Israel respecto al acuerdo de paz propuesto por Trump con Irán, según el narrador?", "opciones": ["El acuerdo no incluye a Israel en las negociaciones sobre el estrecho de Ormuz.", "El acuerdo no exige a Irán cortar el apoyo a sus grupos terroristas proxis.", "El acuerdo obliga a Israel a retirarse por completo del sur del Líbano.", "El acuerdo le impide a Israel comprar petróleo de Azerbaiyán."], "correcta": 1, "tipo": "relacion", "dificil": false, "cita": "Netanahu también está furioso porque en la última temporada de la novela del acuerdo con Irán se olvidaron de incluir una cláusula que les obligue a cortar el apoyo a su ecosistema de grupos terroristas proxis."}, {"id": 23, "pregunta": "¿Cómo describe el narrador el acuerdo propuesto por Donald Trump con Irán en comparación con el pacto nuclear de Barack Obama?", "opciones": ["Es un pacto que se centra exclusivamente en la apertura del estrecho de Ormuz.", "Es un plagio del acuerdo de Obama, pero con menos apoyo internacional y un costo mayor.", "Es una solución completamente original que aborda nuevas amenazas regionales.", "Es un acuerdo más sólido y con mayores garantías de cumplimiento por parte de Irán."], "correcta": 1, "tipo": "relacion", "dificil": false, "cita": "Sí, es una solución que es un plagio en toda regla. ¿Por qué? ¿Acaso no es lo mismo que acordó Barack Obama con el anterior Ayatola, el Ayatola Hamenei padre? Pues sí, es exactamente lo mismo."}, {"id": 24, "pregunta": "¿Qué significado le atribuye el narrador al acrónimo \"Taco\" en relación con Donald Trump?", "opciones": ["\"Trump Avoids Costly Operations\" (Trump evita operaciones costosas).", "\"Trump Always Commands Orders\" (Trump siempre da órdenes).", "\"Trump Always Chickens Out\" (Trump siempre se acobarda).", "\"Trump Aims for Comprehensive Outcomes\" (Trump busca resultados exhaustivos)."], "correcta": 2, "tipo": "definicion", "dificil": false, "cita": "Taco son las siglas, las siglas en inglés de Trump Always Chickens Out, algo así como Trump siempre se acobarda."}]}, {"content_item_id": 25, "titulo": "LA AMENAZA RUSA ES REAL… y Europa ni siquiera tiene las armas para plantar cara - @SoloFonseca", "canal": "Solo Fonseca", "url": "https://www.youtube.com/watch?v=6gLF7KuRLiE", "watched_at": "2026-06-13T08:11:05.339000+00:00", "preguntas": [{"id": 74, "pregunta": "¿Cuál es la estrategia de Mykhailo Fedorov, ministro de Defensa de Ucrania, y cuáles son sus objetivos principales?", "opciones": ["\"Innovación y Resistencia\", priorizando el desarrollo tecnológico, la formación de tropas y la autosuficiencia económica.", "\"Cielo, Mar y Redes\", enfocada en la defensa aérea, ataques marítimos y guerra cibernética contra Rusia.", "\"Defensa Activa\", con el fin de proteger las fronteras, reclutar más personal y asegurar el apoyo occidental continuo.", "\"Tierra, aire y Economía\", buscando interceptar el 95% de drones rusos, matar más soldados rusos y destruir terminales de petróleo."], "correcta": 3, "tipo": "definicion", "dificil": true, "cita": "Fedorov asegura que los países que las posean estarán a salvo de todo. De hecho su estrategia, que se llama \"Tierra, aire y Economía\", tiene tres objetivos simultáneos."}, {"id": 75, "pregunta": "¿Según el narrador, ¿cuál fue la contribución más significativa de Ucrania al uso de drones en la guerra?", "opciones": ["Desarrollar drones de vigilancia de largo alcance para misiones de reconocimiento y espionaje.", "Establecer alianzas internacionales para la producción masiva de drones avanzados con IA.", "Democratizar su uso, permitiendo que cualquier unidad de infantería los fabricara, operara y mejorara.", "Crear drones kamikaze de bajo costo para ataques selectivos contra infraestructuras críticas."], "correcta": 2, "tipo": "definicion", "dificil": false, "cita": "Pero lo que hizo Ucrania fue DEMOCRATIZAR el uso del dron. Convertirlo en algo que cualquier unidad de infantería pudiera fabricar, operar y mejorar sobre la marcha."}, {"id": 76, "pregunta": "A pesar de que Polonia gasta el 4,7% de su PIB en defensa, ¿cuál es la principal debilidad de sus reservas de munición ante un posible ataque ruso?", "opciones": ["Solo permitirían a Polonia aguantar una o dos semanas de combate.", "Están compuestas principalmente por armamento obsoleto del siglo XX.", "Son insuficientes para equipar a todas las unidades de primera línea.", "Dependen en gran medida de importaciones de países no aliados."], "correcta": 0, "tipo": "dato", "dificil": false, "cita": "El jefe de la oficina de seguridad nacional polaco avisó el mes pasado de que las reservas de munición actuales solo permitirían a Polonia aguantar UNA O DOS SEMANAS contra un ataque ruso."}, {"id": 77, "pregunta": "Según la analogía del narrador con la Línea Maginot, ¿qué error fundamental está cometiendo Europa en su estrategia de defensa actual?", "opciones": ["Está gastando miles de millones en armamento tradicional que es la respuesta correcta a la pregunta equivocada.", "Está subestimando la capacidad de Rusia para desarrollar nuevas tácticas de guerra asimétrica.", "Está invirtiendo excesivamente en defensa estática en lugar de en fuerzas móviles y ofensivas.", "Está priorizando la defensa aérea y naval sobre la modernización de sus fuerzas terrestres."], "correcta": 0, "tipo": "argumento", "dificil": true, "cita": "La Línea Maginot era la respuesta correcta a la pregunta equivocada. Y eso es exactamente lo que está haciendo Europa ahora: gastarse miles de millones en Patriots y en fragatas..."}, {"id": 78, "pregunta": "¿Cuál es la finalidad específica del ambicioso programa ruso \"Rubicon\", iniciado en 2024?", "opciones": ["Desarrollar nuevos sistemas de defensa antiaérea para contrarrestar los drones ucranianos y occidentales.", "Capacitar a sus fuerzas especiales en el uso de drones para misiones de reconocimiento y sabotaje.", "Establecer una red de fabricación de drones a gran escala para superar la producción europea.", "Mejorar el manejo de drones, formar operadores, desarrollar tecnologías y crear doctrina para sus Fuerzas de Sistemas No Tripulados."], "correcta": 3, "tipo": "definicion", "dificil": false, "cita": "Se trata de un proyecto MUY AMBICIOSO iniciado en 2024 que tiene precisamente esta finalidad. Mejorar su manejo de los drones. Formar operadores de drones, desarrollar nuevas tecnologías, estrategias de combate y crear doctrina para las Fuerzas de Sistemas No Tripulados."}]}];
+// Clave de guardado atada al conjunto de preguntas: dos tandas distintas no se
+// pisan, y si se regenera el quiz con otras preguntas no se restaura basura.
+const CLAVE = 'quiz_' + DATOS.map(v => v.content_item_id).join('_');
+
+let resp = {};               // id de pregunta -> {eleccion, segundos, respondido_at}
+let excluidos = new Set();   // videos marcados como no vistos
+// El cronometro mide desde la ULTIMA interaccion, no desde que se abrio la
+// pagina. Antes se ponia el mismo instante de arranque para TODAS las
+// preguntas, con lo cual "segundos" en la pregunta 50 era el tiempo acumulado
+// desde que se abrio el archivo. No medía nada.
+let ultimoEvento = Date.now();
+
+function guardar() {
+  try {
+    localStorage.setItem(CLAVE, JSON.stringify({
+      resp, excluidos: [...excluidos],
+      persona: document.getElementById('persona').value || ''
+    }));
+  } catch (e) { /* modo privado o sin permiso: se sigue sin autoguardado */ }
+}
+
+function restaurar() {
+  let g = null;
+  try { g = JSON.parse(localStorage.getItem(CLAVE) || 'null'); } catch (e) {}
+  if (!g) return false;
+  resp = g.resp || {};
+  excluidos = new Set(g.excluidos || []);
+  if (g.persona) document.getElementById('persona').value = g.persona;
+  return Object.keys(resp).length > 0 || excluidos.size > 0;
+}
+
+function pintar() {
+  const cont = document.getElementById('quiz');
+  DATOS.forEach(v => {
+    const d = document.createElement('div');
+    d.className = 'video'; d.id = 'v' + v.content_item_id;
+    let html = `<h2>${esc(v.titulo)}</h2><p class="canal">${esc(v.canal || '')}</p>
+      <div class="preguntas">`;
+    v.preguntas.forEach(p => {
+      html += `<div class="p"><div class="txt">${esc(p.pregunta)}</div>`;
+      p.opciones.forEach((o, i) => {
+        html += `<label><input type="radio" name="q${p.id}" value="${i}">
+                 <span>${esc(o)}</span></label>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div><label class="novi"><input type="checkbox" class="novi-chk">
+             No vi este video (o no lo recuerdo en absoluto)</label>`;
+    d.innerHTML = html;
+    cont.appendChild(d);
+
+    const chk = d.querySelector('.novi-chk');
+    if (excluidos.has(v.content_item_id)) { chk.checked = true; d.classList.add('excluido'); }
+    chk.addEventListener('change', e => {
+      if (e.target.checked) { excluidos.add(v.content_item_id); d.classList.add('excluido'); }
+      else { excluidos.delete(v.content_item_id); d.classList.remove('excluido'); }
+      guardar();
+      progreso();
+    });
+    v.preguntas.forEach(p => {
+      // restaurar lo ya contestado
+      if (resp[p.id] !== undefined) {
+        const prev = d.querySelector(`input[name=q${p.id}][value="${resp[p.id].eleccion}"]`);
+        if (prev) prev.checked = true;
+      }
+      d.querySelectorAll(`input[name=q${p.id}]`).forEach(r => {
+        r.addEventListener('change', () => {
+          const ahora = Date.now();
+          resp[p.id] = { eleccion: +r.value,
+                         segundos: Math.round((ahora - ultimoEvento) / 1000),
+                         respondido_at: ahora };
+          ultimoEvento = ahora;
+          guardar();
+          progreso();
+        });
+      });
+    });
+  });
+  progreso();
+}
+
+function pendientes() {
+  let n = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => { if (resp[p.id] === undefined) n++; });
+  });
+  return n;
+}
+
+function progreso() {
+  const falta = pendientes();
+  const activas = DATOS.reduce((a, v) =>
+      a + (excluidos.has(v.content_item_id) ? 0 : v.preguntas.length), 0);
+  document.getElementById('prog').textContent =
+      `${activas - falta} de ${activas} contestadas` + (falta ? ` · faltan ${falta}` : '');
+  document.getElementById('enviar').disabled = falta > 0 || activas === 0;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+// Revision con soluciones, tras enviar. Recorre solo los videos que se
+// contestaron (no los excluidos) y muestra, por pregunta, las cuatro opciones
+// con la correcta marcada y --si se erro-- la que eligio la persona, mas la
+// cita del video como evidencia.
+function pintarRevision() {
+  const cont = document.getElementById('revision');
+  let html = '<h2 style="font-size:1.1rem">Soluciones</h2>';
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    html += `<div class="video"><h2>${esc(v.titulo)}</h2>`;
+    v.preguntas.forEach(p => {
+      const elegida = resp[p.id] ? resp[p.id].eleccion : null;
+      const bien = elegida === p.correcta;
+      html += `<div class="rev-p"><div class="txt">${esc(p.pregunta)}` +
+              (bien ? '<span class="badge">acertaste</span>'
+                    : '<span class="badge" style="background:#fbeaea;color:#b23b3b">fallaste</span>') +
+              `</div>`;
+      p.opciones.forEach((o, i) => {
+        let cls = 'op', marca = '';
+        if (i === p.correcta) { cls += ' correcta'; marca = '✓'; }
+        else if (i === elegida) { cls += ' elegida-mal'; marca = '✗'; }
+        html += `<div class="${cls}"><span class="marca">${marca}</span><span>${esc(o)}</span></div>`;
+      });
+      if (p.cita) html += `<p class="cita">En el video: «${esc(p.cita)}»</p>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  });
+  cont.innerHTML = html;
+}
+
+document.getElementById('enviar').addEventListener('click', () => {
+  const persona = (document.getElementById('persona').value || '').trim();
+  if (!persona) { alert('Falta el identificador'); return; }
+  const salida = { persona_id: persona,
+                   completado_at: new Date().toISOString(),
+                   videos_excluidos: [...excluidos], respuestas: [] };
+  let ok = 0, okDif = 0, nDif = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => {
+      const r = resp[p.id];
+      // Los dias se calculan contra el instante en que se contesto ESA
+      // pregunta, no contra la carga de la pagina: con autoguardado, una tanda
+      // puede empezarse un dia y terminarse otro.
+      const dias = v.watched_at
+        ? ((r.respondido_at || Date.now()) - new Date(v.watched_at).getTime()) / 86400000
+        : null;
+      const acierto = r.eleccion === p.correcta;
+      if (acierto) ok++;
+      if (p.dificil) { nDif++; if (acierto) okDif++; }
+      salida.respuestas.push({ pregunta_id: p.id, eleccion: r.eleccion, acierto,
+                               segundos: r.segundos,
+                               dias_transcurridos: dias === null ? null : +dias.toFixed(2) });
+    });
+  });
+  const n = salida.respuestas.length;
+  const caja = document.getElementById('resultado');
+  caja.style.display = 'block';
+  caja.innerHTML = `<h2 style="margin-top:0;font-size:1.05rem">Listo</h2>
+    <table>
+      <tr><th>Preguntas contestadas</th><td>${n}</td></tr>
+      <tr><th>Aciertos</th><td>${ok} (${(100*ok/n).toFixed(0)} %)</td></tr>
+      <tr><th>Aciertos en el subconjunto dificil</th>
+          <td>${nDif ? `${okDif} de ${nDif} (${(100*okDif/nDif).toFixed(0)} %)` : 'sin items'}</td></tr>
+      <tr><th>Videos excluidos por no haberlos visto</th><td>${excluidos.size}</td></tr>
+    </table>
+    <p class="id" style="margin-top:1rem">El archivo se descargo. Cargalo con
+    <code>cargar_quiz.py --respuestas</code>. El porcentaje de aqui arriba es
+    orientativo: la retencion corregida por la linea de base se calcula en la base
+    de datos.</p>
+    <p class="id">Abajo estan las soluciones de todo lo que contestaste.</p>`;
+
+  // Se oculta el cuestionario y se dibuja la revision con las respuestas
+  // correctas. Es seguro mostrarlas: la medicion ya quedo registrada arriba, y
+  // esta persona no vuelve a ver este video (las tandas lo excluyen).
+  document.getElementById('quiz').style.display = 'none';
+  document.querySelectorAll('.aviso').forEach(a => a.style.display = 'none');
+  document.getElementById('barra-inferior').style.display = 'none';
+  pintarRevision();
+  caja.scrollIntoView({ behavior: 'smooth' });
+  try { localStorage.removeItem(CLAVE); } catch (e) {}
+
+  const blob = new Blob([JSON.stringify(salida, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `respuestas_${persona}_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+});
+
+const habia = restaurar();
+pintar();
+document.getElementById('persona').addEventListener('input', guardar);
+if (habia) {
+  const a = document.createElement('div');
+  a.className = 'aviso';
+  a.innerHTML = '<strong>Se recupero tu avance.</strong> Podes cerrar y volver cuando quieras: ' +
+                'se guarda en este navegador a medida que contestas.';
+  document.querySelector('#quiz').before(a);
+}
+window.addEventListener('beforeunload', e => {
+  if (pendientes() > 0 && Object.keys(resp).length > 0) { e.preventDefault(); e.returnValue = ''; }
+});
+</script>
+</html>
