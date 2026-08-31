@@ -1,0 +1,230 @@
+{
+ "video_id": "a62HpQpVBh8",
+ "apto": true,
+ "origen_transcripcion": "base",
+ "transcripcion": {
+  "fuente": "youtube_auto",
+  "automatica": true,
+  "texto": "subtítulos automáticos de YouTube",
+  "palabras": 8342
+ },
+ "formato": "informativo",
+ "formatos_posibles": [
+  "informativo",
+  "practico_personal",
+  "entretenimiento",
+  "deporte_gaming"
+ ],
+ "frame_version": "mm-2026-08-v1",
+ "aviso_idioma": null,
+ "descriptores": [
+  {
+   "clave": "ritmo_ppm",
+   "unidad": "palabras/min",
+   "valor": 162.0,
+   "tipo": "continuo",
+   "ambito": "global",
+   "estado": "medido",
+   "percentil": 65.0,
+   "mediana_corpus": 145.35
+  },
+  {
+   "clave": "cifras_100w",
+   "unidad": "cifras/100 palabras",
+   "valor": 2.35,
+   "tipo": "continuo",
+   "ambito": "por_formato",
+   "estado": "medido",
+   "percentil": 60.0,
+   "mediana_corpus": 2.105,
+   "alternativas": {
+    "informativo": {
+     "estado": "medido",
+     "percentil": 60.0,
+     "mediana_corpus": 2.105
+    },
+    "practico_personal": {
+     "estado": "medido",
+     "percentil": 65.0,
+     "mediana_corpus": 1.85
+    },
+    "entretenimiento": {
+     "estado": "medido",
+     "percentil": 83.0,
+     "mediana_corpus": 1.47
+    },
+    "deporte_gaming": {
+     "estado": "medido",
+     "percentil": 55.0,
+     "mediana_corpus": 2.09
+    }
+   }
+  },
+  {
+   "clave": "atribucion_1000w",
+   "unidad": "marcas/1000 palabras",
+   "valor": 2.52,
+   "tipo": "presencia",
+   "ambito": "por_formato",
+   "p_ausencia": 0.3333,
+   "estado": "presente",
+   "percentil": 88.0,
+   "n_presentes": 64,
+   "alternativas": {
+    "informativo": {
+     "p_ausencia": 0.3333,
+     "estado": "presente",
+     "percentil": 88.0,
+     "n_presentes": 64
+    },
+    "practico_personal": {
+     "p_ausencia": 0.6173,
+     "estado": "presente",
+     "percentil": 93.0,
+     "n_presentes": 31
+    },
+    "entretenimiento": {
+     "p_ausencia": 0.5375,
+     "estado": "presente",
+     "percentil": 100.0,
+     "n_presentes": 37
+    },
+    "deporte_gaming": {
+     "p_ausencia": 0.5862,
+     "estado": "presente",
+     "percentil": 98.0,
+     "n_presentes": 36
+    }
+   }
+  },
+  {
+   "clave": "mattr_200",
+   "unidad": "0-1",
+   "valor": 0.63,
+   "tipo": "continuo",
+   "ambito": "global",
+   "estado": "medido",
+   "percentil": 94.0,
+   "mediana_corpus": 0.566
+  },
+  {
+   "clave": "conectores_1000w",
+   "unidad": "marcas/1000 palabras",
+   "valor": 8.15,
+   "tipo": "continuo",
+   "ambito": "global",
+   "estado": "medido",
+   "percentil": 42.0,
+   "mediana_corpus": 9.27
+  },
+  {
+   "clave": "enlaces_externos",
+   "unidad": "enlaces (absoluto)",
+   "valor": 1.0,
+   "tipo": "presencia",
+   "ambito": "por_formato",
+   "p_ausencia": 0.4792,
+   "estado": "presente",
+   "percentil": 55.0,
+   "n_presentes": 50,
+   "alternativas": {
+    "informativo": {
+     "p_ausencia": 0.4792,
+     "estado": "presente",
+     "percentil": 55.0,
+     "n_presentes": 50
+    },
+    "practico_personal": {
+     "p_ausencia": 0.679,
+     "estado": "presente",
+     "percentil": 56.0,
+     "n_presentes": 26
+    },
+    "entretenimiento": {
+     "p_ausencia": 0.55,
+     "estado": "presente",
+     "percentil": 60.0,
+     "n_presentes": 36
+    },
+    "deporte_gaming": {
+     "p_ausencia": 0.4598,
+     "estado": "presente",
+     "percentil": 47.0,
+     "n_presentes": 47
+    }
+   }
+  },
+  {
+   "clave": "promocional_1000w",
+   "unidad": "marcas/1000 palabras",
+   "valor": 0.24,
+   "tipo": "presencia",
+   "ambito": "por_formato",
+   "p_ausencia": 0.6146,
+   "estado": "presente",
+   "percentil": 12.0,
+   "n_presentes": 37,
+   "alternativas": {
+    "informativo": {
+     "p_ausencia": 0.6146,
+     "estado": "presente",
+     "percentil": 12.0,
+     "n_presentes": 37
+    },
+    "practico_personal": {
+     "p_ausencia": 0.5926,
+     "estado": "presente",
+     "percentil": 30.0,
+     "n_presentes": 33
+    },
+    "entretenimiento": {
+     "p_ausencia": 0.625,
+     "estado": "presente",
+     "percentil": 36.0,
+     "n_presentes": 30
+    },
+    "deporte_gaming": {
+     "p_ausencia": 0.3793,
+     "estado": "presente",
+     "percentil": 18.0,
+     "n_presentes": 54
+    }
+   }
+  },
+  {
+   "clave": "cobertura_titulo",
+   "unidad": "0-1",
+   "valor": 1.0,
+   "tipo": "continuo",
+   "ambito": "por_formato",
+   "estado": "medido",
+   "percentil": 100.0,
+   "mediana_corpus": 0.75,
+   "alternativas": {
+    "informativo": {
+     "estado": "medido",
+     "percentil": 100.0,
+     "mediana_corpus": 0.75
+    },
+    "practico_personal": {
+     "estado": "medido",
+     "percentil": 100.0,
+     "mediana_corpus": 0.667
+    },
+    "entretenimiento": {
+     "estado": "medido",
+     "percentil": 100.0,
+     "mediana_corpus": 0.6
+    },
+    "deporte_gaming": {
+     "estado": "medido",
+     "percentil": 100.0,
+     "mediana_corpus": 0.625
+    }
+   }
+  }
+ ],
+ "etiquetas": {},
+ "recalculado": false,
+ "nota": "Los percentiles son relativos al corpus de referencia de YouTube en espanol, agosto 2026. No son una calificacion."
+}

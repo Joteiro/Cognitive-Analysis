@@ -152,6 +152,31 @@ def percentil(valor, grid: list | None) -> float | None:
     return float(min(100, max(0, lo - 1 if grid[lo] > valor else lo)))
 
 
+def leer_contra(cfg: dict, valor, formato: str | None) -> dict:
+    """Como se lee UN descriptor contra la referencia de UN formato.
+
+    Se extrajo de ubicar() para poder preguntar lo mismo cuatro veces, una por
+    formato, sin escribir la regla dos veces. Es la misma razon por la que el
+    panel no recalcula nada en JavaScript: dos copias de una regla se separan.
+    """
+    ref = cfg.get("referencia") or {}
+    if cfg.get("ambito") == "por_formato":
+        ref = ref.get(formato) or ref.get("_todos") or {}
+    if valor is None or not ref:
+        return {"estado": "sin_dato"}
+    if cfg.get("tipo") == "presencia":
+        item = {"p_ausencia": ref.get("p_ausencia")}
+        if valor > 0:
+            item.update(estado="presente",
+                        percentil=percentil(valor, ref.get("grid_presentes")),
+                        n_presentes=ref.get("n_presentes"))
+        else:
+            item.update(estado="ausente")
+        return item
+    return {"estado": "medido", "percentil": percentil(valor, ref.get("grid")),
+            "mediana_corpus": ref.get("p50")}
+
+
 def ubicar(desc: dict, formato: str | None) -> list[dict]:
     """Traduce los 8 numeros crudos a como se muestran.
 
@@ -161,26 +186,56 @@ def ubicar(desc: dict, formato: str | None) -> list[dict]:
     escala = cargar_escala()
     salida = []
     for k, cfg in escala["descriptores"].items():
-        ref = cfg.get("referencia") or {}
-        if cfg.get("ambito") == "por_formato":
-            ref = ref.get(formato) or ref.get("_todos") or {}
-        v = desc.get(k)
-        item = {"clave": k, "unidad": cfg.get("unidad"), "valor": v,
+        item = {"clave": k, "unidad": cfg.get("unidad"), "valor": desc.get(k),
                 "tipo": cfg.get("tipo"), "ambito": cfg.get("ambito")}
-        if v is None or not ref:
-            item.update(estado="sin_dato")
-        elif cfg.get("tipo") == "presencia":
-            item["p_ausencia"] = ref.get("p_ausencia")
-            if v > 0:
-                item.update(estado="presente",
-                            percentil=percentil(v, ref.get("grid_presentes")),
-                            n_presentes=ref.get("n_presentes"))
-            else:
-                item.update(estado="ausente")
-        else:
-            item.update(estado="medido", percentil=percentil(v, ref.get("grid")),
-                        mediana_corpus=ref.get("p50"))
+        item.update(leer_contra(cfg, desc.get(k), formato))
         salida.append(item)
+    return salida
+
+
+def formatos_de_la_escala() -> list[str]:
+    """Los formatos que la escala conoce, leidos de la escala y no escritos aca.
+
+    Si el muestreo cambia los estratos, esto los sigue solo. Escribir la lista a
+    mano seria una cuarta copia de la taxonomia esperando a quedar vieja."""
+    vistos: list[str] = []
+    for cfg in cargar_escala()["descriptores"].values():
+        if cfg.get("ambito") != "por_formato":
+            continue
+        for f in (cfg.get("referencia") or {}):
+            if f != "_todos" and f not in vistos:
+                vistos.append(f)
+    return vistos
+
+
+def con_alternativas(filas_panel: list[dict]) -> list[dict]:
+    """Agrega a cada descriptor estratificado como se leeria bajo los otros formatos.
+
+    POR QUE EXISTE
+    El formato sale del category_id que el CANAL se autodeclara: no mira el
+    video. Contrastado contra un modelo que si lee el contenido, coincide en 7
+    de cada 10 casos. Y de ese formato dependen 5 de los 8 percentiles: el
+    mismo video con 2,35 cifras/100 palabras cae en el percentil 60 como
+    informativo y en el 83 como entretenimiento. Mostrar 60 a secas presenta
+    como un hecho algo que tiene 28 puntos de juego.
+
+    POR QUE AL RESPONDER Y NO AL GUARDAR
+    Para que los paneles ya calculados lo tengan sin recalcular ni migrar nada:
+    el valor crudo viaja en la fila guardada, y la escala esta en memoria. Nada
+    de esto se persiste, asi que content_features no cambia de forma y el
+    dashboard, que lee esa tabla por posicion, no se entera.
+    """
+    descs = cargar_escala()["descriptores"]
+    formatos = formatos_de_la_escala()
+    salida = []
+    for item in filas_panel:
+        cfg = descs.get(item.get("clave"))
+        if not cfg or cfg.get("ambito") != "por_formato":
+            salida.append(item)
+            continue
+        salida.append({**item,
+                       "alternativas": {f: leer_contra(cfg, item.get("valor"), f)
+                                        for f in formatos}})
     return salida
 
 
@@ -509,6 +564,45 @@ def desde_cache(fila: dict) -> dict | None:
     return dict(r)
 
 
+# De donde salio el texto que se midio, en castellano.
+#
+# POR QUE IMPORTA Y NO ES UN ADORNO
+# El panel no mide el video: mide su transcripcion. Y este proyecto ya descarto
+# dos indicadores (palabras_por_frase, preguntas_1000w) al descubrir que la
+# puntuacion la insertaba el transcriptor y no el hablante. O sea que si el
+# texto lo escribio una maquina, hay filas de las que conviene fiarse menos.
+# Decir "transcripcion ya almacenada" informaba de si estaba guardada, que no
+# es lo que condiciona la lectura.
+FUENTES_TRANSCRIPCION = {
+    "youtube_manual": "subtítulos publicados por el autor",
+    "youtube_auto":   "subtítulos automáticos de YouTube",
+    "supadata":       "transcripción automática (Supadata)",
+    "extension":      "texto tomado del reproductor",
+}
+
+
+def procedencia(fila: dict) -> dict:
+    """Fuente del texto medido, con su etiqueta legible y si es automatica.
+
+    `automatica` puede ser None a proposito: la columna transcript_is_generated
+    admite nulo y "no se sabe" es preferible a inventarlo. Cuando la fuente ya
+    dice que es automatica, se deduce; cuando no, se deja en None y la
+    extension no afirma nada.
+    """
+    fuente = (fila.get("transcript_source") or "").strip().lower() or None
+    generada = fila.get("transcript_is_generated")
+    if generada is None and fuente in ("youtube_auto", "supadata"):
+        generada = True
+    if generada is None and fuente == "youtube_manual":
+        generada = False
+    return {
+        "fuente": fuente,
+        "automatica": generada,
+        "texto": FUENTES_TRANSCRIPCION.get(fuente, "origen no registrado"),
+        "palabras": fila.get("transcript_word_count"),
+    }
+
+
 def armar_respuesta(video_id: str, fila: dict, filas_panel: list,
                     etiquetas: dict, fmt, frame: str,
                     desde_guardado: bool) -> dict:
@@ -523,10 +617,16 @@ def armar_respuesta(video_id: str, fila: dict, filas_panel: list,
     return {
         "video_id": video_id,
         "apto": True,
+        # DEPRECADO. Decia de donde salia el texto cuando el panel todavia
+        # pedia transcripciones; hoy este endpoint solo lee la base, asi que la
+        # constante era verdadera y a la vez inutil: informaba el momento, no la
+        # fuente. La fuente real va en "transcripcion". Se deja la clave hasta
+        # que ningun cliente viejo la lea.
         "origen_transcripcion": "base",
+        "transcripcion": procedencia(fila),
         "formato": fmt,
+        "formatos_posibles": formatos_de_la_escala(),
         "frame_version": frame,
-        "descriptores": filas_panel,
         # La escala de referencia se construyo con 344 videos en espanol. Si el
         # texto medido esta en otro idioma, los percentiles siguen calculandose
         # pero comparan contra una poblacion que no le corresponde. Se avisa en
@@ -535,6 +635,7 @@ def armar_respuesta(video_id: str, fila: dict, filas_panel: list,
                          else f"La transcripción está en '{fila.get('transcript_lang')}'. "
                               "La escala de referencia es de videos en español: "
                               "los percentiles no son estrictamente comparables."),
+        "descriptores": con_alternativas(filas_panel),
         "etiquetas": etiquetas or {},
         "recalculado": not desde_guardado,
         "nota": ("Los percentiles son relativos al corpus de referencia de "

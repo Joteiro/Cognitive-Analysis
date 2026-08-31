@@ -48,7 +48,50 @@ const ETIQUETAS = {
   cobertura_titulo:  'Correspondencia con el título',
 };
 
+// Los cuatro estratos, en castellano. Las claves las manda el backend en
+// `formatos_posibles`, leidas de la escala; aca solo se traducen.
+const NOMBRE_FORMATO = {
+  informativo:       'informativo',
+  practico_personal: 'práctico y personal',
+  entretenimiento:   'entretenimiento',
+  deporte_gaming:    'deporte y gaming',
+};
+
 const ID = 'cogana-panel';
+
+// ─── ESTADO DE LA VISTA ───────────────────────────────────────────────────────
+//
+// El panel se puede volver a dibujar sin volver a pedir nada: el backend manda
+// como se leeria cada descriptor estratificado bajo LOS CUATRO formatos, asi
+// que corregir el formato es cambiar de cual de las cuatro lecturas se muestra.
+// Cero red, cero recalculo, cero riesgo de que la extension y el backend
+// midan distinto.
+let vista = { datos: null, formato: null };
+
+// Correcciones de formato hechas por el usuario, por video.
+//
+// VIVEN SOLO EN ESTE NAVEGADOR, A PROPOSITO. La etiqueta oficial del estudio
+// sale de una regla determinista sobre el category_id; si la corrección del
+// usuario la pisara en la base, el corpus de referencia y los videos medidos
+// dejarian de estar etiquetados con el mismo criterio, que es lo unico que
+// hace comparable un percentil. Persistirlas como *etiquetas humanas aparte*
+// —para medir kappa contra la regla— es trabajo futuro, no esto.
+let formatosCorregidos = {};
+
+function cargarCorrecciones() {
+  try {
+    chrome.storage?.local?.get('formatos_corregidos', (r) => {
+      formatosCorregidos = (r && r.formatos_corregidos) || {};
+    });
+  } catch (_) { /* contexto huerfano o sin permiso: se sigue sin memoria */ }
+}
+
+function guardarCorreccion(videoId, formato) {
+  formatosCorregidos[videoId] = formato;
+  try {
+    chrome.storage?.local?.set({ formatos_corregidos: formatosCorregidos });
+  } catch (_) { /* idem */ }
+}
 
 // ─── PANEL ────────────────────────────────────────────────────────────────────
 
@@ -94,6 +137,20 @@ function contenedor() {
              background:#7aa2f7; border-radius:2px; transform:translateX(-50%); }
     .mediana { position:absolute; top:-1px; width:1px; height:7px;
                background:#4b5263; transform:translateX(-50%); }
+    /* Margen que introduce la etiqueta de formato: donde caeria el mismo valor
+       si el video estuviera clasificado de otra manera. Mismo tono que el
+       marcador y muy tenue — informa incertidumbre, no una segunda medida. */
+    .margen { position:absolute; top:0; height:5px; border-radius:3px;
+              background:rgba(122,162,247,.22); }
+    /* El formato deja de ser una etiqueta muda y pasa a ser corregible. */
+    .vara { display:flex; align-items:center; gap:7px; flex-wrap:wrap;
+            padding:9px 14px; border-bottom:1px solid #1c1f28; }
+    .vara-lab { font-size:11px; color:#8b93a7; }
+    .selfmt { font-size:11px; color:#cdd6f4; background:#1a1d26;
+              border:1px solid #2a2e3a; border-radius:5px; padding:3px 5px;
+              font-family:inherit; cursor:pointer; }
+    .selfmt:hover { border-color:#3a4560; }
+    .corregido { font-size:10.5px; color:#8b93a7; padding:8px 14px 0; }
     .pie { font-size:10.5px; color:#8b93a7; margin-top:5px; }
     .aus { font-size:11.5px; color:#8b93a7; margin-top:5px; }
     .nota { padding:10px 14px; border-top:1px solid #2a2e3a;
@@ -116,6 +173,38 @@ function cabecera(caja, subtitulo) {
       <button class="x" title="Cerrar">×</button>
     </div>`;
   caja.querySelector('.x').addEventListener('click', quitarPanel);
+}
+
+// Cabecera con el formato corregible.
+//
+// POR QUE ES CORREGIBLE
+// El formato no se deduce del video: sale del category_id que el CANAL se
+// autodeclara en YouTube. Contrastado contra un modelo que si lee el
+// contenido, coincide en 7 de cada 10 casos. Y de el dependen 5 de los 8
+// percentiles. Dejarlo como una etiqueta muda presenta como un hecho algo que
+// el propio proyecto midio y encontro flojo.
+// El selector va en su propia linea y no en la cabecera, por dos razones. Una
+// de espacio: "Información del contenido" y "práctico y personal" no entran
+// juntos en 330 px sin partirse. Y una de sentido, que es la que importa:
+// escrito como "Comparado contra: informativo" queda claro que el formato no es
+// una propiedad que el sistema afirme del video, sino la eleccion del grupo con
+// el que se lo compara. Como etiqueta suelta en la cabecera parecia lo primero.
+function cabeceraConFormato(caja, d, formatoActual, alCambiar) {
+  const opciones = (d.formatos_posibles || [])
+    .map((f) => `<option value="${f}"${f === formatoActual ? ' selected' : ''}>`
+              + `${NOMBRE_FORMATO[f] || f}</option>`).join('');
+  caja.innerHTML = `<div class="cab">
+      <span class="tit">Información del contenido</span>
+      ${opciones ? '' : `<span class="fmt">${NOMBRE_FORMATO[formatoActual] || formatoActual || ''}</span>`}
+      <button class="x" title="Cerrar">×</button>
+    </div>
+    ${opciones ? `<div class="vara">
+      <span class="vara-lab">Comparado contra videos de formato</span>
+      <select class="selfmt" title="La etiqueta la pone la categoría que el canal
+se declara en YouTube, no el video. Si no es la que ves, corregila.">${opciones}</select>
+    </div>` : ''}`;
+  caja.querySelector('.x').addEventListener('click', quitarPanel);
+  caja.querySelector('.selfmt')?.addEventListener('change', (e) => alCambiar(e.target.value));
 }
 
 function panelCargando() {
@@ -153,7 +242,49 @@ function panelSinDatos(d) {
     `<div class="vacio"><b>${titulo}</b><br>${porque}${matiz}</div>`);
 }
 
-function fila(d) {
+// Como se lee este descriptor bajo el formato elegido.
+//
+// Para los 3 descriptores de escala global no hay alternativas y devuelve lo
+// mismo que vino. Para los 5 estratificados, cambia la referencia contra la
+// que se compara — no el valor medido, que es el mismo siempre.
+function lectura(d, fmt) {
+  const alt = d.alternativas && fmt ? d.alternativas[fmt] : null;
+  return alt ? { ...d, ...alt } : d;
+}
+
+// Entre que percentiles cae el MISMO valor segun como se clasifique el video.
+// null cuando no aplica (escala global) o cuando el formato no mueve la aguja:
+// una banda de ancho cero es un adorno que sugiere incertidumbre donde no hay.
+function margenDeFormato(d) {
+  if (!d.alternativas) return null;
+  const ps = Object.values(d.alternativas)
+    .map((a) => (a ? a.percentil : null))
+    .filter((p) => p != null);
+  if (ps.length < 2) return null;
+  const lo = Math.min(...ps), hi = Math.max(...ps);
+  return hi - lo < 1 ? null : { lo, hi };
+}
+
+function bandaMargen(m) {
+  return m ? `<div class="margen" style="left:${m.lo}%;width:${m.hi - m.lo}%"
+    title="Entre el percentil ${Math.round(m.lo)} y el ${Math.round(m.hi)} según
+    cómo se clasifique este video."></div>` : '';
+}
+
+// Los extremos, dichos como se dicen.
+//
+// "Más que el 100 % de los videos comparables" se lee como un error de cálculo
+// —¿más que el cien por ciento?— y "más que el 0 %" no dice nada. En los
+// bordes la frase natural no lleva porcentaje.
+function textoPercentil(p) {
+  if (p >= 99.5) return 'Más que todos los videos comparables.';
+  if (p <= 0.5)  return 'Menos que todos los videos comparables.';
+  return `Más que el ${Math.round(p)} % de los videos comparables.`;
+}
+
+function fila(d0, fmt) {
+  const d = lectura(d0, fmt);
+  const m = margenDeFormato(d0);
   const nombre = ETIQUETAS[d.clave] || d.clave;
   const val = d.valor == null ? '—'
             : `${(+d.valor).toLocaleString('es', { maximumFractionDigits: 2 })} ${d.unidad || ''}`;
@@ -178,6 +309,7 @@ function fila(d) {
       <div class="lin1"><span class="nom" title="${d.clave}">${nombre}</span>
       <span class="val">${val}</span></div>
       ${p == null ? '' : `<div class="barra">
+        ${bandaMargen(m)}
         <div class="marca" style="left:${Math.min(100, Math.max(0, p))}%"></div>
       </div>`}
       <div class="pie">${detalle} El ${pctSin} % no tiene ninguno.</div>
@@ -195,26 +327,62 @@ function fila(d) {
     <div class="lin1"><span class="nom" title="${d.clave}">${nombre}</span>
     <span class="val">${val}</span></div>
     <div class="barra">
+      ${bandaMargen(m)}
       <div class="mediana" style="left:50%" title="mediana del corpus"></div>
       <div class="marca" style="left:${p}%"></div>
     </div>
-    <div class="pie">Más que el ${Math.round(p)} % de los videos comparables.</div>
+    <div class="pie">${textoPercentil(p)}</div>
   </div>`;
 }
 
 function panelDatos(d) {
+  vista = { datos: d, formato: formatosCorregidos[d.video_id] || d.formato };
+  dibujarPanel();
+}
+
+function dibujarPanel() {
+  const d = vista.datos;
+  if (!d) return;
+  const fmt = vista.formato;
   const caja = contenedor();
-  cabecera(caja, d.formato ? d.formato.replace('_', '/') : '');
-  const filas = (d.descriptores || []).map(fila).join('');
-  const fuente = d.origen_transcripcion === 'base' ? 'transcripción ya almacenada'
-                                                   : 'transcripción obtenida ahora';
+
+  cabeceraConFormato(caja, d, fmt, (nuevo) => {
+    vista.formato = nuevo;
+    guardarCorreccion(d.video_id, nuevo);
+    dibujarPanel();   // sin red: las cuatro lecturas ya estaban en la respuesta
+  });
+
+  const filas = (d.descriptores || []).map((x) => fila(x, fmt)).join('');
+  const hayMargen = (d.descriptores || []).some(margenDeFormato);
+  const corregido = fmt !== d.formato;
+
+  // Procedencia del TEXTO, no del momento en que se guardo. El panel mide la
+  // transcripcion, y de quien la escribio depende de que filas fiarse: este
+  // proyecto ya descarto dos indicadores al ver que la puntuacion la ponia el
+  // transcriptor y no el hablante.
+  const t = d.transcripcion || {};
+  const fuente = t.texto || 'origen de la transcripción no registrado';
+  const cautela = t.automatica
+    ? ' La puntuación la insertó el transcriptor, no quien habla.' : '';
+
   const aviso = d.aviso_idioma
     ? `<div class="aviso">⚠ ${d.aviso_idioma}</div>` : '';
+  const notaCorreccion = corregido
+    ? `<div class="corregido">Formato corregido por vos. Sólo en este navegador:
+       no cambia la etiqueta del estudio.</div>` : '';
+  // Una linea, no tres: el profesor pidio ver las limitaciones Y un panel mas
+  // simple. La banda ya se explica sola al pasar el mouse.
+  const notaMargen = hayMargen
+    ? `<br>La zona clara marca dónde caería el mismo valor con otro formato:
+       la etiqueta la pone el canal y acierta en 7 de cada 10 casos.`
+    : '';
+
   caja.insertAdjacentHTML('beforeend',
-    `${aviso}<div class="cuerpo">${filas}</div>
+    `${aviso}${notaCorreccion}<div class="cuerpo">${filas}</div>
      <div class="nota">Percentiles relativos al corpus de referencia de YouTube
      en español (${d.frame_version}), comparando contra videos del mismo formato
-     cuando corresponde. <b>No es una calificación.</b><br>${fuente}.</div>`);
+     cuando corresponde. <b>No es una calificación.</b>${notaMargen}
+     <br>Medido sobre: ${fuente}.${cautela}</div>`);
 }
 
 // ¿Sigue vivo el script?
@@ -470,5 +638,41 @@ function handleNavigation() {
   }, DELAY_MS);
 }
 
+// ─── DESPERTAR EL SERVIDOR ANTES DE QUE HAGA FALTA ───────────────────────────
+//
+// EL PROBLEMA
+// El valor del panel esta en decidir ANTES de poner el video. Pero en el plan
+// gratuito de Render el servicio se duerme tras un rato sin trafico, y el
+// arranque en frio se come hasta un minuto — justo cuando el usuario esta
+// esperando para decidir. La medida util llega despues del momento en que
+// servia. Ese es el reproche mas caro que se le puede hacer al producto.
+//
+// LA IDEA
+// Nadie abre un video sin pasar antes por YouTube. Este script ya corre en
+// TODAS las paginas de youtube.com, no solo en /watch: alcanza con avisarle al
+// servidor que despierte mientras el usuario todavia esta mirando el feed. Para
+// cuando hace clic, el servidor lleva medio minuto levantado.
+//
+// Es preferible a un cron externo por dos razones: no agrega ninguna pieza que
+// haya que mantener corriendo, y calienta exactamente cuando alguien va a usar
+// el producto en vez de las 24 horas del dia.
+const DESPERTAR_CADA_MS = 5 * 60 * 1000;
+let ultimoDespertar = 0;
+
+function despertarServidor() {
+  const ahora = Date.now();
+  if (ahora - ultimoDespertar < DESPERTAR_CADA_MS) return;
+  if (!contextoVivo()) return;
+  ultimoDespertar = ahora;
+  // Sin await y sin reintentos: si falla, el flujo normal ya reintenta con su
+  // propia espera. Esto es un empujon, no una dependencia.
+  fetch(`${API_BASE}/health`, { cache: 'no-store' }).catch(() => {});
+}
+
+cargarCorrecciones();
+despertarServidor();
 if (window.location.pathname === '/watch') handleNavigation();
-window.addEventListener('yt-navigate-finish', handleNavigation);
+window.addEventListener('yt-navigate-finish', () => {
+  despertarServidor();
+  handleNavigation();
+});

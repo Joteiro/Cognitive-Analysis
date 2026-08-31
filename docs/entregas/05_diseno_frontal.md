@@ -1,6 +1,6 @@
 # Entrega 5 — Diseño del frontal y experiencia de usuario
 
-**Proyecto:** Nutri-Score de Contenidos (repositorio `Cognitive Analysis`)
+**Proyecto:** Cognitive Analysis
 **Autor:** Juan Taraciuk
 **Fecha:** agosto de 2026
 
