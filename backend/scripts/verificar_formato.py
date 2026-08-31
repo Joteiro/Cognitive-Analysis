@@ -82,7 +82,11 @@ from pathlib import Path
 # Se reutiliza el cliente y la normalizacion de generar_quiz en vez de
 # copiarlos: dos copias del mismo cliente derivan, y este proyecto ya decidio
 # que no quiere logica duplicada.
-from generar_quiz import (Groq, normalizar, recortar_transcripcion, RAIZ, DOCS)
+# La clase Groq paso a llamarse ClienteLLM cuando generar_quiz gano soporte
+# multi-proveedor (Gemini + Groq). Este import quedo viejo y rompia con
+# "cannot import name 'Groq'".
+from generar_quiz import (ClienteLLM, PROVEEDORES, normalizar,
+                          recortar_transcripcion, RAIZ, DOCS)
 
 VERSION = "verificar-formato-0.2"
 
@@ -352,7 +356,11 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Verifica la etiqueta de formato sin corregirla")
     ap.add_argument("--corpus", default="historial", help="historial | referencia | todos")
     ap.add_argument("--max", type=int, default=0)
-    ap.add_argument("--modelo", default=None)
+    ap.add_argument("--proveedor", default="gemini", choices=["gemini", "groq"],
+                    help="proveedor del modelo clasificador (defecto gemini; groq esta "
+                         "dando 403 de acceso)")
+    ap.add_argument("--modelo", default=None,
+                    help="modelo concreto del proveedor elegido")
     # Defecto 1 y no 2: la doble pasada sobre 79 videos (158 llamadas, ~95k
     # tokens) choco con un limite DIARIO de tokens y tardo mas de tres horas
     # sin terminar. El test-retest queda disponible con --pasadas 2 para
@@ -413,13 +421,16 @@ def main() -> int:
         print(f"\nLa capa 2 serian ~{len(videos)} llamadas y ~{len(videos) * 600:,} tokens.")
         return 0
 
-    api_key = os.getenv("GROQ_API_KEY")
+    cfg = PROVEEDORES[args.proveedor]
+    api_key = next((os.getenv(k) for k in cfg["claves"] if os.getenv(k)), None)
     if not api_key:
-        print(f"No hay GROQ_API_KEY. Ponela en {env}")
+        donde = {"gemini": "aistudio.google.com/apikey",
+                 "groq": "console.groq.com"}[args.proveedor]
+        print(f"No hay {' ni '.join(cfg['claves'])}. Sacala en {donde} y ponela en {env}")
         return 2
 
-    groq = Groq(api_key, args.modelo)
-    print(f"\nCAPA 2 con {groq.modelo}")
+    groq = ClienteLLM(api_key, cfg, args.modelo)
+    print(f"\nCAPA 2 con {groq.modelo} ({args.proveedor})")
 
     fracciones = FRACCIONES[:max(1, min(args.pasadas, len(FRACCIONES)))]
 

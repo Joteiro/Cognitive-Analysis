@@ -1079,7 +1079,13 @@ def procesar_video(groq: "ClienteLLM", video: dict, rng: random.Random,
             resultado["preguntas"].append(registro)
             continue
 
-        # --- control 3: trivialidad ---
+        # --- linea de base (ex control 3): trivialidad ---
+        # Desde v1.1 esto YA NO DESCARTA: mide la tasa de acierto sin haber
+        # visto el video, para descontarla despues. Por lo tanto un FALLO aca
+        # (la API del control caida, un 403, un timeout) no puede matar una
+        # pregunta que ya paso los tres filtros reales -- solo la deja sin
+        # linea de base. Antes un 403 de Groq descartaba las 163 preguntas de
+        # una corrida entera aunque la generacion (Gemini) hubiera andado.
         time.sleep(PAUSA_SEGUNDOS)
         try:
             crudo = control.pedir(construir_prompt_control(video, registro),
@@ -1089,36 +1095,14 @@ def procesar_video(groq: "ClienteLLM", video: dict, rng: random.Random,
             registro["control_eleccion"] = eleccion
             registro["control_seguridad"] = ctrl.get("seguridad")
             registro["trivial"] = (eleccion == registro["correcta"])
+            registro["linea_base_acerto"] = registro["trivial"]
+            registro["dificil"] = not registro["trivial"]
         except Exception as e:
-            registro["descarte"] = f"control_fallo: {e}"
-            resultado["preguntas"].append(registro)
-            continue
-
-        # LA TRIVIALIDAD YA NO DESCARTA (v1.1).
-        #
-        # Sobre temas de conocimiento publico -- politica, historia del arte,
-        # actualidad -- ninguna pregunta bien construida es del todo
-        # inadivinable: si los cuatro distractores son plausibles y del mismo
-        # tipo, lo unico que queda para discriminar es cual es VERDAD en el
-        # mundo, y eso el modelo de control lo sabe. Descartar por eso dejaba
-        # 1 pregunta utilizable por video y tiraba las otras cinco.
-        #
-        # No hace falta que cada item sea inadivinable: hace falta CONOCER la
-        # tasa de acierto sin exposicion y descontarla. El control ya da ese
-        # dato pregunta por pregunta y sale gratis. Asi que se guarda como
-        # linea de base en vez de usarse como filtro binario.
-        #
-        # La retencion se puede calcular entonces de dos maneras, y conviene
-        # informar las dos:
-        #   - sobre el SUBCONJUNTO DIFICIL (los items que la linea de base
-        #     fallo): interpretacion directa, n mas chico;
-        #   - sobre TODOS los items descontando la linea de base: usa todo el
-        #     material, al precio de asumir que la linea de base del modelo
-        #     aproxima la de la persona.
-        registro["linea_base_acerto"] = registro["trivial"]
-        registro["dificil"] = not registro["trivial"]
+            # La pregunta sobrevive; solo queda sin linea de base.
+            registro["control_fallo"] = str(e)
+            registro["linea_base_acerto"] = None
+            registro["dificil"] = None
         registro["sobrevive"] = True
-
         resultado["preguntas"].append(registro)
 
     return resultado
@@ -1138,17 +1122,25 @@ where f.apto
   and ci.corpus = %(corpus)s
   and ci.transcript is not null
   and ci.transcript_word_count >= %(min_palabras)s
+  -- Salta los videos que YA tienen preguntas cargadas en Supabase. Es la forma
+  -- robusta de no re-generar: --reanudar solo mira el JSON de una etiqueta, y
+  -- con una etiqueta nueva se re-generaria todo. Esto mira la base, que es
+  -- donde de verdad "ya existe" el quiz, sin importar el archivo.
+  and (not %(saltar_con_quiz)s or ci.id not in (
+        select distinct content_item_id from quiz_preguntas))
 order by ci.transcript_word_count desc
 """
 
 
-def traer_videos(dsn: str, formato: str, corpus: str, min_palabras: int) -> list:
+def traer_videos(dsn: str, formato: str, corpus: str, min_palabras: int,
+                 saltar_con_quiz: bool = False) -> list:
     import psycopg2
     import psycopg2.extras
     with psycopg2.connect(dsn, connect_timeout=20) as c:
         with c.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
             cur.execute(CONSULTA, {"formato": formato, "corpus": corpus,
-                                   "min_palabras": min_palabras})
+                                   "min_palabras": min_palabras,
+                                   "saltar_con_quiz": saltar_con_quiz})
             return [dict(r) for r in cur.fetchall()]
 
 
@@ -1346,9 +1338,16 @@ def recontrolar(control: "ClienteLLM", resultados: list) -> list:
         r["modelo_control"] = control.modelo
         r["control_independiente"] = control.modelo != r.get("modelo")
         for p in r["preguntas"]:
-            if p.get("trivial") is None or p.get("correcta") is None:
-                continue          # nunca llego al control: no se toca
-            p["trivial_previo"] = p["trivial"]
+            # Se re-controla una pregunta si PASO los tres filtros reales: o ya
+            # tiene control previo, o fallo SOLO en el control (control_fallo).
+            # Las descartadas por un filtro real (cita_no_justifica,
+            # desbalanceadas, cita_no_verificable) no se rescatan.
+            desc = p.get("descarte") or ""
+            if p.get("correcta") is None:
+                continue
+            if desc and not desc.startswith("control_fallo"):
+                continue
+            p["trivial_previo"] = p.get("trivial")
             p["control_seguridad_previa"] = p.get("control_seguridad")
             try:
                 ctrl = json.loads(control.pedir(construir_prompt_control(video, p),
@@ -1359,8 +1358,12 @@ def recontrolar(control: "ClienteLLM", resultados: list) -> list:
                 p["control_seguridad"] = ctrl.get("seguridad")
                 p["trivial"] = (eleccion == p["correcta"])
             except Exception as e:
-                p["descarte"] = f"control_fallo: {e}"
-                p["sobrevive"] = False
+                # Fallo de infraestructura del control: la pregunta sigue
+                # utilizable, solo se queda sin linea de base.
+                p["control_fallo"] = str(e)
+                p["linea_base_acerto"] = None
+                p["dificil"] = None
+                p["sobrevive"] = True
                 continue
             p["linea_base_acerto"] = p["trivial"]
             p["dificil"] = not p["trivial"]
@@ -1407,7 +1410,16 @@ def main() -> int:
     ap.add_argument("--limites", action="store_true",
                     help="preguntarle a la API cual es TU cupo real y estimar el piloto")
     ap.add_argument("--reanudar", action="store_true",
-                    help="saltar los videos que ya esten en el json de salida")
+                    help="saltar los videos que ya esten en el json de salida (de ESTA etiqueta)")
+    ap.add_argument("--saltar-existentes", action="store_true",
+                    help="saltar los videos que YA tienen preguntas en Supabase "
+                         "(quiz_preguntas). Es lo que hay que usar para no re-generar lo "
+                         "ya hecho cuando cambias de etiqueta o de formato.")
+    ap.add_argument("--por-modelo", action="store_true",
+                    help="definir el conjunto de videos por la clasificacion del MODELO "
+                         "(formato_observado en formato_verificado.json) en vez de la "
+                         "regla determinista. Con --formato informativo --por-modelo toma "
+                         "exactamente los videos que el modelo llamo informativo.")
     ap.add_argument("--preguntas", type=int, default=N_PREGUNTAS,
                     help=f"preguntas a generar por video (defecto {N_PREGUNTAS})")
     ap.add_argument("--etiqueta", default="",
@@ -1452,19 +1464,40 @@ def main() -> int:
         print(f"No hay DATABASE_URL. Ponela en {env}")
         return 2
 
+    # Con --por-modelo el conjunto lo define la clasificacion del modelo, no la
+    # regla: se pide 'todos' a la base y despues se conserva solo lo que el
+    # modelo llamo como `args.formato`.
+    sql_formato = "todos" if args.por_modelo else args.formato
     print(f"Leyendo candidatos: formato={args.formato} corpus={args.corpus} "
-          f"min_palabras={args.min_palabras}")
-    videos = traer_videos(dsn, args.formato, args.corpus, args.min_palabras)
+          f"min_palabras={args.min_palabras}"
+          + (" · POR CLASIFICACION DEL MODELO" if args.por_modelo else "")
+          + (" · saltando los que ya tienen quiz en Supabase" if args.saltar_existentes else ""))
+    videos = traer_videos(dsn, sql_formato, args.corpus, args.min_palabras,
+                          args.saltar_existentes)
 
-    # Filtro de clasificacion: se saltan los videos que verificar_formato.py
-    # marco como "posible clasificacion diferente". La etiqueta NO se corrige
-    # -- esto es una decision sobre que datos usar, no un cambio de dato.
-    # Nota honesta sobre el criterio: se excluye TODO desacuerdo, no solo los
-    # "de confianza alta". Con una sola pasada el modelo declara su propia
-    # confianza, y sobre 79 videos declaro "alta" las 79 veces: el campo no
-    # discrimina. Se deja el filtro como esta, pero llamandolo por su nombre.
     verif = DOCS / "formato_verificado.json"
-    if verif.exists() and not args.ignorar_verificacion:
+    if args.por_modelo:
+        # Seleccionar por formato_observado == args.formato.
+        if not verif.exists():
+            print(f"  --por-modelo necesita {verif.name}, que no existe. "
+                  "Corre antes verificar_formato.py.")
+            return 2
+        vd = json.loads(verif.read_text(encoding="utf-8"))
+        modelo_dice = {d["content_item_id"]: d.get("formato_observado") for d in vd}
+        verificados = set(modelo_dice)
+        sin_verificar = [v for v in videos if v["id"] not in verificados]
+        videos = [v for v in videos if modelo_dice.get(v["id"]) == args.formato]
+        print(f"  el modelo clasifico {sum(1 for x in modelo_dice.values() if x==args.formato)} "
+              f"videos como '{args.formato}' en total")
+        if sin_verificar:
+            print(f"  AVISO: {len(sin_verificar)} candidatos no estan en "
+                  f"formato_verificado.json (sin clasificar por el modelo) y quedan fuera. "
+                  "Corre verificar_formato.py para incluirlos.")
+    elif verif.exists() and not args.ignorar_verificacion:
+        # Modo regla: se saltan los videos donde el modelo discrepa con la
+        # etiqueta determinista. La etiqueta NO se corrige -- es una decision
+        # sobre que datos usar. Se excluye TODO desacuerdo (el campo confianza
+        # no discrimina: sobre 79 videos declaro "alta" las 79 veces).
         marcados = {}
         for d in json.loads(verif.read_text(encoding="utf-8")):
             if d.get("formato_observado") and d["formato_observado"] != d["formato"]:

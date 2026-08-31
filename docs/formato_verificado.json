@@ -1,19 +1,5 @@
 [
   {
-    "content_item_id": 1,
-    "external_id": "48cfbLUtkog",
-    "titulo": "¿Cuál es el problema matemático MÁS ANTIGUO que sigue sin resolverse?",
-    "canal": "Derivando",
-    "categoria_yt": "Education",
-    "duracion": 506,
-    "formato": "informativo",
-    "et_formato": "divulgacion",
-    "sin_respaldo": false,
-    "formato_observado": "informativo",
-    "confianza": "alta",
-    "motivo": "Explica conceptos matemáticos y su historia"
-  },
-  {
     "content_item_id": 2,
     "external_id": "NCeRd-OZyhU",
     "titulo": "¿QUIÉN ES PAOLO ROCCA? | RADIOGRAFÍAS del PODER con Diego GENOUD",
@@ -25,21 +11,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación sobre un empresario y su imperio"
-  },
-  {
-    "content_item_id": 4,
-    "external_id": "u2Y-cJFcoP0",
-    "titulo": "ASÍ CONTROLA SÁNCHEZ LOS MEDIOS mientras sus escándalos de corrupción se acumulan - @SoloFonseca",
-    "canal": "Solo Fonseca",
-    "categoria_yt": "News & Politics",
-    "duracion": 2845,
-    "formato": "informativo",
-    "et_formato": "actualidad",
-    "sin_respaldo": false,
-    "formato_observado": "informativo",
-    "confianza": "alta",
-    "motivo": "Análisis y explicación de la corrupción y el control de los medios"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la figura de un empresario influyente y su impacto en el país, con el propósito principal de informar y explicar."
+      }
+    ],
+    "motivo": "El video analiza la figura de un empresario influyente y su impacto en el país, con el propósito principal de informar y explicar."
   },
   {
     "content_item_id": 6,
@@ -53,7 +39,21 @@
     "sin_respaldo": false,
     "formato_observado": "deporte_gaming",
     "confianza": "alta",
-    "motivo": "Contenido sobre fútbol y barras bravas"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "El video explora la cultura de una barra brava de fútbol y describe momentos de un partido en vivo, lo que lo vincula directamente con el deporte."
+      }
+    ],
+    "motivo": "El video explora la cultura de una barra brava de fútbol y describe momentos de un partido en vivo, lo que lo vincula directamente con el deporte."
   },
   {
     "content_item_id": 7,
@@ -67,7 +67,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es un programa de conversación largo y dististendido, con un tono casual y humorístico, típico de un talk show o podcast de entretenimiento."
+      }
+    ],
+    "motivo": "Es un programa de conversación largo y dististendido, con un tono casual y humorístico, típico de un talk show o podcast de entretenimiento."
   },
   {
     "content_item_id": 8,
@@ -81,7 +95,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "El tono distendido y la narrativa personal sugieren un vlog o una experiencia de viaje"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es un vlog de viajes donde el narrador comparte su experiencia personal, observaciones y reflexiones sobre San Andrés, con un propósito principal de entretener."
+      }
+    ],
+    "motivo": "Es un vlog de viajes donde el narrador comparte su experiencia personal, observaciones y reflexiones sobre San Andrés, con un propósito principal de entretener."
   },
   {
     "content_item_id": 9,
@@ -95,7 +123,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es un programa de radio o podcast de larga duración con conversaciones informales y variadas, típico de entretenimiento."
+      }
+    ],
+    "motivo": "Es un programa de radio o podcast de larga duración con conversaciones informales y variadas, típico de entretenimiento."
   },
   {
     "content_item_id": 10,
@@ -109,7 +151,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "El video es una charla personal y reflexiva del autor sobre su experiencia en Haití y las amenazas que recibió"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "El video es una narración personal del creador sobre sus experiencias y amenazas, con reflexiones sobre Haití, lo que encaja en el formato de vlog o charla personal."
+      }
+    ],
+    "motivo": "El video es una narración personal del creador sobre sus experiencias y amenazas, con reflexiones sobre Haití, lo que encaja en el formato de vlog o charla personal."
   },
   {
     "content_item_id": 11,
@@ -123,7 +179,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística sobre temas variados"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es un programa de conversación largo y distendido sobre temas deportivos, cuyo propósito principal es el entretenimiento a través del diálogo."
+      }
+    ],
+    "motivo": "Es un programa de conversación largo y distendido sobre temas deportivos, cuyo propósito principal es el entretenimiento a través del diálogo."
   },
   {
     "content_item_id": 12,
@@ -137,7 +207,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística sobre temas variados"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una charla larga y distendida que comenta un evento deportivo y otros temas de actualidad con humor y un tono informal, priorizando el entretenimiento."
+      }
+    ],
+    "motivo": "Es una charla larga y distendida que comenta un evento deportivo y otros temas de actualidad con humor y un tono informal, priorizando el entretenimiento."
   },
   {
     "content_item_id": 13,
@@ -151,7 +235,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística sobre diversos temas, incluyendo el fútbol y la vida personal de los participantes."
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una charla larga y distendida con tono informal y personal, típica de un programa de entretenimiento, aunque se hable de fútbol."
+      }
+    ],
+    "motivo": "Es una charla larga y distendida con tono informal y personal, típica de un programa de entretenimiento, aunque se hable de fútbol."
   },
   {
     "content_item_id": 15,
@@ -165,7 +263,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación política en Colombia"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la actualidad política de Colombia, las elecciones y las reacciones de los actores políticos, buscando que el espectador entienda la situación."
+      }
+    ],
+    "motivo": "El video analiza la actualidad política de Colombia, las elecciones y las reacciones de los actores políticos, buscando que el espectador entienda la situación."
   },
   {
     "content_item_id": 16,
@@ -179,7 +291,21 @@
     "sin_respaldo": false,
     "formato_observado": "deporte_gaming",
     "confianza": "alta",
-    "motivo": "Resumen de partido de futbol con highlights"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "Es un resumen de un partido de fútbol, con comentarios sobre el juego y los jugadores."
+      }
+    ],
+    "motivo": "Es un resumen de un partido de fútbol, con comentarios sobre el juego y los jugadores."
   },
   {
     "content_item_id": 17,
@@ -193,7 +319,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es un programa de radio/podcast de larga duración con formato de charla distendida, donde se abordan diversos temas, incluyendo deportes, con el propósito principal de entretener."
+      }
+    ],
+    "motivo": "Es un programa de radio/podcast de larga duración con formato de charla distendida, donde se abordan diversos temas, incluyendo deportes, con el propósito principal de entretener."
   },
   {
     "content_item_id": 18,
@@ -207,7 +347,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación política en Armenia y su relación con Rusia"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la actualidad geopolítica de Armenia y Rusia, explicando los eventos y sus posibles consecuencias."
+      }
+    ],
+    "motivo": "El video analiza la actualidad geopolítica de Armenia y Rusia, explicando los eventos y sus posibles consecuencias."
   },
   {
     "content_item_id": 19,
@@ -221,7 +375,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la crisis en Venezuela"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la crisis eléctrica de Venezuela, su contexto político e histórico, y las implicaciones de las decisiones gubernamentales."
+      }
+    ],
+    "motivo": "El video analiza la crisis eléctrica de Venezuela, su contexto político e histórico, y las implicaciones de las decisiones gubernamentales."
   },
   {
     "content_item_id": 20,
@@ -235,7 +403,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación política en Oriente Medio"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza y explica eventos geopolíticos actuales en Oriente Medio, con el propósito de informar al espectador."
+      }
+    ],
+    "motivo": "El video analiza y explica eventos geopolíticos actuales en Oriente Medio, con el propósito de informar al espectador."
   },
   {
     "content_item_id": 22,
@@ -249,7 +431,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "El tono distendido y la conversación informal sugieren un propósito de entretenimiento"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una charla distendida y personal sobre deportes, con anécdotas y humor, no un análisis o resumen formal."
+      }
+    ],
+    "motivo": "Es una charla distendida y personal sobre deportes, con anécdotas y humor, no un análisis o resumen formal."
   },
   {
     "content_item_id": 23,
@@ -263,7 +459,21 @@
     "sin_respaldo": true,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y charla larga con tono informal"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una entrevista larga y distendida donde el invitado comparte reflexiones personales y anécdotas."
+      }
+    ],
+    "motivo": "Es una entrevista larga y distendida donde el invitado comparte reflexiones personales y anécdotas."
   },
   {
     "content_item_id": 24,
@@ -277,7 +487,21 @@
     "sin_respaldo": false,
     "formato_observado": "deporte_gaming",
     "confianza": "alta",
-    "motivo": "Resumen de partido de futbol con goles y highlights"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "Es un resumen de un partido de fútbol con goles y jugadas destacadas."
+      }
+    ],
+    "motivo": "Es un resumen de un partido de fútbol con goles y jugadas destacadas."
   },
   {
     "content_item_id": 25,
@@ -291,7 +515,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación militar entre Europa y Rusia"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la actualidad geopolítica y militar, explicando la debilidad defensiva de Europa frente a Rusia y la innovación en drones, con el propósito de que el espectador entienda la situación."
+      }
+    ],
+    "motivo": "El video analiza la actualidad geopolítica y militar, explicando la debilidad defensiva de Europa frente a Rusia y la innovación en drones, con el propósito de que el espectador entienda la situación."
   },
   {
     "content_item_id": 26,
@@ -305,7 +543,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística sobre el Mundial"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es un programa de conversación y entretenimiento con temática mundialista, incluyendo interacción con el público y un tono distendido."
+      }
+    ],
+    "motivo": "Es un programa de conversación y entretenimiento con temática mundialista, incluyendo interacción con el público y un tono distendido."
   },
   {
     "content_item_id": 27,
@@ -319,7 +571,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "El video parece ser un vlog con un tono distendido y descriptivo, enfocado en la experiencia personal del autor en Paraguay"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es un vlog de viajes donde el creador comparte su experiencia y descubrimientos personales, con un propósito principal de entretener."
+      }
+    ],
+    "motivo": "Es un vlog de viajes donde el creador comparte su experiencia y descubrimientos personales, con un propósito principal de entretener."
   },
   {
     "content_item_id": 28,
@@ -333,7 +599,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Explicación detallada de un proyecto de restauración de ecosistemas"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica la historia de un ecosistema perdido y los esfuerzos para recrearlo, con el propósito de informar al espectador sobre el tema."
+      }
+    ],
+    "motivo": "El video explica la historia de un ecosistema perdido y los esfuerzos para recrearlo, con el propósito de informar al espectador sobre el tema."
   },
   {
     "content_item_id": 32,
@@ -347,7 +627,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una charla distendida y encuentro con público, con anécdotas personales y comentarios casuales, típico de un programa de entretenimiento."
+      }
+    ],
+    "motivo": "Es una charla distendida y encuentro con público, con anécdotas personales y comentarios casuales, típico de un programa de entretenimiento."
   },
   {
     "content_item_id": 33,
@@ -359,9 +653,23 @@
     "formato": "deporte_gaming",
     "et_formato": "conversacion_larga",
     "sin_respaldo": false,
-    "formato_observado": "entretenimiento",
+    "formato_observado": "deporte_gaming",
     "confianza": "alta",
-    "motivo": "charla distendida entre amigos sobre futbol"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "Es una charla/panel en vivo de larga duración con figuras del fútbol discutiendo temas relacionados con el deporte, incluyendo mundiales y jugadores."
+      }
+    ],
+    "motivo": "Es una charla/panel en vivo de larga duración con figuras del fútbol discutiendo temas relacionados con el deporte, incluyendo mundiales y jugadores."
   },
   {
     "content_item_id": 34,
@@ -375,7 +683,21 @@
     "sin_respaldo": false,
     "formato_observado": "deporte_gaming",
     "confianza": "alta",
-    "motivo": "Resumen de partido de fútbol con goles y análisis"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "Es un resumen de goles y jugadas destacadas de un partido de fútbol."
+      }
+    ],
+    "motivo": "Es un resumen de goles y jugadas destacadas de un partido de fútbol."
   },
   {
     "content_item_id": 35,
@@ -389,7 +711,21 @@
     "sin_respaldo": false,
     "formato_observado": "deporte_gaming",
     "confianza": "alta",
-    "motivo": "Resumen de un partido de fútbol con goles y jugadas destacadas"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "Es un resumen de un partido de fútbol con goles y jugadas destacadas."
+      }
+    ],
+    "motivo": "Es un resumen de un partido de fútbol con goles y jugadas destacadas."
   },
   {
     "content_item_id": 37,
@@ -401,9 +737,23 @@
     "formato": "informativo",
     "et_formato": "actualidad",
     "sin_respaldo": false,
-    "formato_observado": "informativo",
+    "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de noticias políticas"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la actualidad política con un tono sarcástico y dramático, buscando la interacción y el entretenimiento del espectador a través de la opinión del presentador."
+      }
+    ],
+    "motivo": "El video analiza la actualidad política con un tono sarcástico y dramático, buscando la interacción y el entretenimiento del espectador a través de la opinión del presentador."
   },
   {
     "content_item_id": 39,
@@ -415,9 +765,21 @@
     "formato": "informativo",
     "et_formato": "divulgacion",
     "sin_respaldo": false,
-    "formato_observado": "informativo",
-    "confianza": "alta",
-    "motivo": "Análisis y explicación de una noticia de arte"
+    "formato_observado": null,
+    "confianza": "baja",
+    "confianza_declarada": [
+      null
+    ],
+    "autoconsistente": false,
+    "formatos_por_pasada": [],
+    "pasadas": [
+      {
+        "formato": null,
+        "confianza_declarada": null,
+        "motivo": "fallo: HTTP 503: [{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n]"
+      }
+    ],
+    "motivo": "fallo: HTTP 503: [{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n]"
   },
   {
     "content_item_id": 40,
@@ -429,9 +791,21 @@
     "formato": "informativo",
     "et_formato": "divulgacion",
     "sin_respaldo": false,
-    "formato_observado": "entretenimiento",
-    "confianza": "alta",
-    "motivo": "El tono es distendido y el propósito es pasar el rato"
+    "formato_observado": null,
+    "confianza": "baja",
+    "confianza_declarada": [
+      null
+    ],
+    "autoconsistente": false,
+    "formatos_por_pasada": [],
+    "pasadas": [
+      {
+        "formato": null,
+        "confianza_declarada": null,
+        "motivo": "fallo: HTTP 503: [{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n]"
+      }
+    ],
+    "motivo": "fallo: HTTP 503: [{\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n]"
   },
   {
     "content_item_id": 41,
@@ -445,7 +819,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "La transcripción muestra un enfoque en la divulgación científica y explicación de conceptos"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video se presenta como un espacio de divulgación científica para aprender y compartir conocimiento sobre física."
+      }
+    ],
+    "motivo": "El video se presenta como un espacio de divulgación científica para aprender y compartir conocimiento sobre física."
   },
   {
     "content_item_id": 42,
@@ -459,7 +847,21 @@
     "sin_respaldo": false,
     "formato_observado": "deporte_gaming",
     "confianza": "alta",
-    "motivo": "Resumen de partido de fútbol con goles y análisis"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "Es un resumen de un partido de fútbol con goles y jugadas destacadas."
+      }
+    ],
+    "motivo": "Es un resumen de un partido de fútbol con goles y jugadas destacadas."
   },
   {
     "content_item_id": 44,
@@ -473,7 +875,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de noticias políticas"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza noticias de actualidad política y criminal en Venezuela, explicando sus implicaciones internacionales y geopolíticas."
+      }
+    ],
+    "motivo": "El video analiza noticias de actualidad política y criminal en Venezuela, explicando sus implicaciones internacionales y geopolíticas."
   },
   {
     "content_item_id": 45,
@@ -487,7 +903,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación sobre los requisitos para fundar un nuevo país"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza y explica los requisitos y desafíos para fundar un nuevo país en un ejercicio hipotético, buscando que el espectador entienda el tema."
+      }
+    ],
+    "motivo": "El video analiza y explica los requisitos y desafíos para fundar un nuevo país en un ejercicio hipotético, buscando que el espectador entienda el tema."
   },
   {
     "content_item_id": 46,
@@ -501,7 +931,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "La transcripción muestra un análisis detallado de un tema específico, con explicaciones técnicas y contexto histórico."
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza un evento crítico de seguridad informática, explica sus detalles técnicos y discute las implicaciones y responsabilidades de los desarrolladores."
+      }
+    ],
+    "motivo": "El video analiza un evento crítico de seguridad informática, explica sus detalles técnicos y discute las implicaciones y responsabilidades de los desarrolladores."
   },
   {
     "content_item_id": 50,
@@ -515,7 +959,21 @@
     "sin_respaldo": true,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una charla distendida y anecdótica entre padre e hijo, con el propósito principal de entretener."
+      }
+    ],
+    "motivo": "Es una charla distendida y anecdótica entre padre e hijo, con el propósito principal de entretener."
   },
   {
     "content_item_id": 51,
@@ -529,7 +987,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación política en Perú"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la actualidad política en Perú y Latinoamérica, explicando eventos y tendencias con contexto histórico."
+      }
+    ],
+    "motivo": "El video analiza la actualidad política en Perú y Latinoamérica, explicando eventos y tendencias con contexto histórico."
   },
   {
     "content_item_id": 54,
@@ -543,7 +1015,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de una noticia política"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza y explica una noticia de actualidad política y legal, detallando el caso y sus posibles implicaciones."
+      }
+    ],
+    "motivo": "El video analiza y explica una noticia de actualidad política y legal, detallando el caso y sus posibles implicaciones."
   },
   {
     "content_item_id": 59,
@@ -557,7 +1043,21 @@
     "sin_respaldo": false,
     "formato_observado": "deporte_gaming",
     "confianza": "alta",
-    "motivo": "Resumen de partido de fútbol con goles y análisis"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "Es un resumen y highlights de un partido de fútbol de la Copa Mundial."
+      }
+    ],
+    "motivo": "Es un resumen y highlights de un partido de fútbol de la Copa Mundial."
   },
   {
     "content_item_id": 61,
@@ -571,7 +1071,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "es una sesion de musica con un artista"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una sesión musical de rap, cuyo propósito principal es el entretenimiento."
+      }
+    ],
+    "motivo": "Es una sesión musical de rap, cuyo propósito principal es el entretenimiento."
   },
   {
     "content_item_id": 63,
@@ -585,7 +1099,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística sobre deporte"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una charla larga y distendida sobre la actualidad deportiva, con un formato de programa de entretenimiento, no un noticiero o resumen estructurado."
+      }
+    ],
+    "motivo": "Es una charla larga y distendida sobre la actualidad deportiva, con un formato de programa de entretenimiento, no un noticiero o resumen estructurado."
   },
   {
     "content_item_id": 64,
@@ -599,7 +1127,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis de la situación económica y política de Rusia"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la situación económica de Rusia y el impacto de la guerra, con el propósito principal de informar y explicar."
+      }
+    ],
+    "motivo": "El video analiza la situación económica de Rusia y el impacto de la guerra, con el propósito principal de informar y explicar."
   },
   {
     "content_item_id": 65,
@@ -613,7 +1155,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "El video analiza la vida y obra de Miguel Ángel con un enfoque educativo"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica la vida y características de Miguel Ángel, con el propósito de divulgar conocimiento sobre el artista."
+      }
+    ],
+    "motivo": "El video explica la vida y características de Miguel Ángel, con el propósito de divulgar conocimiento sobre el artista."
   },
   {
     "content_item_id": 67,
@@ -627,7 +1183,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación política"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la actualidad geopolítica, las declaraciones de Putin y la situación militar en Crimea, buscando explicar las causas y consecuencias de los eventos."
+      }
+    ],
+    "motivo": "El video analiza la actualidad geopolítica, las declaraciones de Putin y la situación militar en Crimea, buscando explicar las causas y consecuencias de los eventos."
   },
   {
     "content_item_id": 69,
@@ -641,7 +1211,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación política entre Estados Unidos e Irán"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza un evento geopolítico actual (acuerdo Trump-Irán y conflicto en Oriente Medio) con el propósito de informar y explicar la situación."
+      }
+    ],
+    "motivo": "El video analiza un evento geopolítico actual (acuerdo Trump-Irán y conflicto en Oriente Medio) con el propósito de informar y explicar la situación."
   },
   {
     "content_item_id": 70,
@@ -655,7 +1239,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación política en Reino Unido"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza y explica la actualidad política del Reino Unido, informando sobre la dimisión de Starmer y el ascenso de Farage."
+      }
+    ],
+    "motivo": "El video analiza y explica la actualidad política del Reino Unido, informando sobre la dimisión de Starmer y el ascenso de Farage."
   },
   {
     "content_item_id": 71,
@@ -669,7 +1267,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "La transcripción muestra un análisis y explicación detallada sobre las guayanas"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica las particularidades geográficas, culturales e históricas de las Guayanas para que el espectador entienda por qué son diferentes."
+      }
+    ],
+    "motivo": "El video explica las particularidades geográficas, culturales e históricas de las Guayanas para que el espectador entienda por qué son diferentes."
   },
   {
     "content_item_id": 77,
@@ -683,7 +1295,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "El video informa sobre un evento actual y analiza la situación en Venezuela"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video informa sobre una catástrofe natural y su gestión política, con análisis y reportajes de la situación."
+      }
+    ],
+    "motivo": "El video informa sobre una catástrofe natural y su gestión política, con análisis y reportajes de la situación."
   },
   {
     "content_item_id": 80,
@@ -695,9 +1321,23 @@
     "formato": "practico_personal",
     "et_formato": "sin_clasificar",
     "sin_respaldo": false,
-    "formato_observado": "entretenimiento",
+    "formato_observado": "practico_personal",
     "confianza": "alta",
-    "motivo": "El tono distendido y la conversación personal sugieren un propósito de entretenimiento"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "practico_personal"
+    ],
+    "pasadas": [
+      {
+        "formato": "practico_personal",
+        "confianza_declarada": "alta",
+        "motivo": "El video comparte reflexiones personales y consejos aplicables sobre decisiones de vida y desarrollo personal, dirigido a personas en una etapa similar."
+      }
+    ],
+    "motivo": "El video comparte reflexiones personales y consejos aplicables sobre decisiones de vida y desarrollo personal, dirigido a personas en una etapa similar."
   },
   {
     "content_item_id": 81,
@@ -711,7 +1351,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación del turismo en Estados Unidos"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza el impacto político y económico de la administración Trump en el turismo de EE.UU., presentando datos y una fuerte opinión."
+      }
+    ],
+    "motivo": "El video analiza el impacto político y económico de la administración Trump en el turismo de EE.UU., presentando datos y una fuerte opinión."
   },
   {
     "content_item_id": 84,
@@ -725,7 +1379,21 @@
     "sin_respaldo": true,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "El tono y el lenguaje utilizado sugieren una conversación distendida y poética, más enfocada en el entretenimiento que en la información objetiva."
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "El video es una charla larga y teatralizada con interacción directa con la audiencia, promoción de canal y un tono dramático/poético, característico de streams o contenido de entretenimiento."
+      }
+    ],
+    "motivo": "El video es una charla larga y teatralizada con interacción directa con la audiencia, promoción de canal y un tono dramático/poético, característico de streams o contenido de entretenimiento."
   },
   {
     "content_item_id": 85,
@@ -739,7 +1407,21 @@
     "sin_respaldo": false,
     "formato_observado": "practico_personal",
     "confianza": "alta",
-    "motivo": "El video enseña paso a paso el uso de una herramienta para proyectos de arquitectura e interiorismo"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "practico_personal"
+    ],
+    "pasadas": [
+      {
+        "formato": "practico_personal",
+        "confianza_declarada": "alta",
+        "motivo": "El video enseña cómo aplicar ChatGPT y la IA para diseñar proyectos de arquitectura e interiorismo, incluyendo un paso a paso y posibilidades prácticas."
+      }
+    ],
+    "motivo": "El video enseña cómo aplicar ChatGPT y la IA para diseñar proyectos de arquitectura e interiorismo, incluyendo un paso a paso y posibilidades prácticas."
   },
   {
     "content_item_id": 86,
@@ -753,7 +1435,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "El lenguaje y el tono utilizado son informales y distendidos, propio de un stream o vlog."
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una charla larga y distendida sobre fútbol, con tono personal y de interacción con la audiencia, más allá de un análisis objetivo."
+      }
+    ],
+    "motivo": "Es una charla larga y distendida sobre fútbol, con tono personal y de interacción con la audiencia, más allá de un análisis objetivo."
   },
   {
     "content_item_id": 87,
@@ -765,9 +1461,23 @@
     "formato": "entretenimiento",
     "et_formato": "sin_clasificar",
     "sin_respaldo": false,
-    "formato_observado": "informativo",
+    "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "La transcripcion se centra en explicar y describir la Nueva Ciudad Privada de Elon Musk"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "El video narra una visita y reflexiones personales sobre la ciudad de Elon Musk, con un tono conversacional y un final típico de vlogs, priorizando el entretenimiento."
+      }
+    ],
+    "motivo": "El video narra una visita y reflexiones personales sobre la ciudad de Elon Musk, con un tono conversacional y un final típico de vlogs, priorizando el entretenimiento."
   },
   {
     "content_item_id": 88,
@@ -781,7 +1491,21 @@
     "sin_respaldo": true,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "El propósito principal es informar sobre la vida y obra de Rubens"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video divulga información sobre la vida, obra y características del pintor Rubens, con el propósito de que el espectador entienda y aprenda sobre él."
+      }
+    ],
+    "motivo": "El video divulga información sobre la vida, obra y características del pintor Rubens, con el propósito de que el espectador entienda y aprenda sobre él."
   },
   {
     "content_item_id": 89,
@@ -795,7 +1519,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación política en Ucrania y su relación con la Unión Europea"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza y explica las razones geopolíticas e históricas de la postura de la UE sobre la entrada de Ucrania."
+      }
+    ],
+    "motivo": "El video analiza y explica las razones geopolíticas e históricas de la postura de la UE sobre la entrada de Ucrania."
   },
   {
     "content_item_id": 91,
@@ -809,7 +1547,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación política y militar entre Taiwán y China"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la actualidad geopolítica de Taiwán, sus defensas y la amenaza de China, con referencias a la guerra de Ucrania."
+      }
+    ],
+    "motivo": "El video analiza la actualidad geopolítica de Taiwán, sus defensas y la amenaza de China, con referencias a la guerra de Ucrania."
   },
   {
     "content_item_id": 92,
@@ -823,7 +1575,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Explica el proceso de restauración de un ecosistema con bevers"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica cómo los castores pueden restaurar ecosistemas y muestra un proyecto real, buscando que el espectador entienda el proceso y sus beneficios."
+      }
+    ],
+    "motivo": "El video explica cómo los castores pueden restaurar ecosistemas y muestra un proyecto real, buscando que el espectador entienda el proceso y sus beneficios."
   },
   {
     "content_item_id": 94,
@@ -837,7 +1603,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Explicación detallada sobre la Isla Nula y su significado geográfico"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica la naturaleza y el origen de la 'Isla Nula' y conceptos geográficos relacionados, buscando que el espectador entienda el tema."
+      }
+    ],
+    "motivo": "El video explica la naturaleza y el origen de la 'Isla Nula' y conceptos geográficos relacionados, buscando que el espectador entienda el tema."
   },
   {
     "content_item_id": 95,
@@ -851,7 +1631,21 @@
     "sin_respaldo": false,
     "formato_observado": "deporte_gaming",
     "confianza": "alta",
-    "motivo": "Resumen de partido de fútbol con narración de jugadas y goles"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "Es un resumen de un partido de fútbol, con narración de las jugadas y el resultado."
+      }
+    ],
+    "motivo": "Es un resumen de un partido de fútbol, con narración de las jugadas y el resultado."
   },
   {
     "content_item_id": 96,
@@ -865,7 +1659,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una entrevista o charla larga y distendida que aborda diversos temas de forma personal y conversacional, con el propósito principal de entretener."
+      }
+    ],
+    "motivo": "Es una entrevista o charla larga y distendida que aborda diversos temas de forma personal y conversacional, con el propósito principal de entretener."
   },
   {
     "content_item_id": 507,
@@ -879,7 +1687,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "El video es un vlog con un tono distendido y enfocado en la experiencia personal del autor en una ciudad"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es un vlog de viaje donde el creador comparte sus experiencias y observaciones personales sobre una ciudad, con un tono informal y enfocado en el entretenimiento."
+      }
+    ],
+    "motivo": "Es un vlog de viaje donde el creador comparte sus experiencias y observaciones personales sobre una ciudad, con un tono informal y enfocado en el entretenimiento."
   },
   {
     "content_item_id": 508,
@@ -893,7 +1715,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación sobre la posible clasificación de Trinidad y Tobago como país sudamericano"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica y analiza los argumentos geográficos y culturales sobre la pertenencia de Trinidad y Tobago a Sudamérica, buscando que el espectador entienda el tema."
+      }
+    ],
+    "motivo": "El video explica y analiza los argumentos geográficos y culturales sobre la pertenencia de Trinidad y Tobago a Sudamérica, buscando que el espectador entienda el tema."
   },
   {
     "content_item_id": 509,
@@ -907,7 +1743,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la situación política"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la situación geopolítica entre Trump e Irán, explicando amenazas, negociaciones y capacidades militares."
+      }
+    ],
+    "motivo": "El video analiza la situación geopolítica entre Trump e Irán, explicando amenazas, negociaciones y capacidades militares."
   },
   {
     "content_item_id": 510,
@@ -921,7 +1771,21 @@
     "sin_respaldo": false,
     "formato_observado": "entretenimiento",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "entretenimiento"
+    ],
+    "pasadas": [
+      {
+        "formato": "entretenimiento",
+        "confianza_declarada": "alta",
+        "motivo": "Es una entrevista o charla larga y distendida con una figura pública, donde se comparten anécdotas y reflexiones personales."
+      }
+    ],
+    "motivo": "Es una entrevista o charla larga y distendida con una figura pública, donde se comparten anécdotas y reflexiones personales."
   },
   {
     "content_item_id": 511,
@@ -935,7 +1799,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "analiza la vida y obra de Manu Chao de manera detallada"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza la historia, el contexto y los temas del álbum 'Clandestino' de Manu Chao, buscando que el espectador entienda su significado y creación."
+      }
+    ],
+    "motivo": "El video analiza la historia, el contexto y los temas del álbum 'Clandestino' de Manu Chao, buscando que el espectador entienda su significado y creación."
   },
   {
     "content_item_id": 512,
@@ -949,7 +1827,21 @@
     "sin_respaldo": false,
     "formato_observado": "deporte_gaming",
     "confianza": "alta",
-    "motivo": "La transcripción se centra en juegos de Nintendo Switch y su análisis"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "El video reseña y recomienda 24 videojuegos para Nintendo Switch, lo cual encaja directamente con la categoría de videojuegos."
+      }
+    ],
+    "motivo": "El video reseña y recomienda 24 videojuegos para Nintendo Switch, lo cual encaja directamente con la categoría de videojuegos."
   },
   {
     "content_item_id": 514,
@@ -963,7 +1855,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "El video explica y analiza la formación del istmo de Panamá y su impacto en la historia"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica la formación y el impacto geográfico e histórico del Istmo de Panamá, buscando que el espectador entienda el tema."
+      }
+    ],
+    "motivo": "El video explica la formación y el impacto geográfico e histórico del Istmo de Panamá, buscando que el espectador entienda el tema."
   },
   {
     "content_item_id": 515,
@@ -977,7 +1883,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Explica un tema científico con el propósito de informar"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica un fenómeno geológico (subducción) y su relación con un evento actual (terremoto), con el propósito de que el espectador entienda el tema."
+      }
+    ],
+    "motivo": "El video explica un fenómeno geológico (subducción) y su relación con un evento actual (terremoto), con el propósito de que el espectador entienda el tema."
   },
   {
     "content_item_id": 517,
@@ -989,9 +1909,23 @@
     "formato": "practico_personal",
     "et_formato": "conversacion_larga",
     "sin_respaldo": false,
-    "formato_observado": "entretenimiento",
+    "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Conversación distendida y humorística"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El propósito principal es divulgar y explicar conceptos lingüísticos y científicos, como se evidencia en el título, la discusión de puntos gramaticales y el agradecimiento del patrocinador por 'divulgar ciencia'."
+      }
+    ],
+    "motivo": "El propósito principal es divulgar y explicar conceptos lingüísticos y científicos, como se evidencia en el título, la discusión de puntos gramaticales y el agradecimiento del patrocinador por 'divulgar ciencia'."
   },
   {
     "content_item_id": 518,
@@ -1005,7 +1939,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "El propósito principal es explicar y analizar la falta de consenso entre economistas"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica y analiza las razones por las que los economistas no se ponen de acuerdo, divulgando conceptos sobre la naturaleza de la economía."
+      }
+    ],
+    "motivo": "El video explica y analiza las razones por las que los economistas no se ponen de acuerdo, divulgando conceptos sobre la naturaleza de la economía."
   },
   {
     "content_item_id": 607,
@@ -1019,7 +1967,21 @@
     "sin_respaldo": false,
     "formato_observado": "practico_personal",
     "confianza": "alta",
-    "motivo": "El video ofrece consejos prácticos y técnicas para aprender algo nuevo"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "practico_personal"
+    ],
+    "pasadas": [
+      {
+        "formato": "practico_personal",
+        "confianza_declarada": "alta",
+        "motivo": "El video ofrece 8 consejos prácticos y probados científicamente para aprender algo nuevo o prepararse para un examen, con el propósito de que el espectador HAGA algo."
+      }
+    ],
+    "motivo": "El video ofrece 8 consejos prácticos y probados científicamente para aprender algo nuevo o prepararse para un examen, con el propósito de que el espectador HAGA algo."
   },
   {
     "content_item_id": 609,
@@ -1033,7 +1995,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de la teoría del loco en la política"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica y analiza una estrategia política y sus implicaciones en la política internacional."
+      }
+    ],
+    "motivo": "El video explica y analiza una estrategia política y sus implicaciones en la política internacional."
   },
   {
     "content_item_id": 610,
@@ -1047,7 +2023,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de un tema específico con expertos y estudios"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica un fenómeno (cómo las pantallas afectan la percepción del tiempo) basándose en investigación científica y opiniones de expertos."
+      }
+    ],
+    "motivo": "El video explica un fenómeno (cómo las pantallas afectan la percepción del tiempo) basándose en investigación científica y opiniones de expertos."
   },
   {
     "content_item_id": 611,
@@ -1061,7 +2051,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Explicación detallada de conceptos matemáticos"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica un concepto matemático complejo (números imaginarios) de forma divulgativa."
+      }
+    ],
+    "motivo": "El video explica un concepto matemático complejo (números imaginarios) de forma divulgativa."
   },
   {
     "content_item_id": 612,
@@ -1075,7 +2079,21 @@
     "sin_respaldo": true,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Análisis y explicación de un tema específico, el desvanecimiento de contenido en internet"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video analiza y explica el fenómeno de la desaparición de contenido en internet ('Link Rot') con datos y estadísticas, buscando que el espectador entienda el problema."
+      }
+    ],
+    "motivo": "El video analiza y explica el fenómeno de la desaparición de contenido en internet ('Link Rot') con datos y estadísticas, buscando que el espectador entienda el problema."
   },
   {
     "content_item_id": 613,
@@ -1089,7 +2107,21 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "Presenta noticias y análisis económicos"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video es un resumen diario de noticias económicas y empresariales, con el propósito de informar al espectador sobre la actualidad."
+      }
+    ],
+    "motivo": "El video es un resumen diario de noticias económicas y empresariales, con el propósito de informar al espectador sobre la actualidad."
   },
   {
     "content_item_id": 614,
@@ -1103,6 +2135,216 @@
     "sin_respaldo": false,
     "formato_observado": "informativo",
     "confianza": "alta",
-    "motivo": "El video presenta curiosidades geográficas y explica la historia y características del Mar del Norte"
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica curiosidades geográficas e históricas del Mar del Norte, con el propósito principal de que el espectador aprenda y entienda."
+      }
+    ],
+    "motivo": "El video explica curiosidades geográficas e históricas del Mar del Norte, con el propósito principal de que el espectador aprenda y entienda."
+  },
+  {
+    "content_item_id": 615,
+    "external_id": "SL9m8YjSim8",
+    "titulo": "Estudiantes de La Plata 4-0 Gimnasia La Plata | #TorneoClausura2026 | RESUMEN | FECHA 5",
+    "canal": "Unknown channel",
+    "categoria_yt": "Sports",
+    "duracion": 726,
+    "formato": "deporte_gaming",
+    "et_formato": "resumen_evento",
+    "sin_respaldo": false,
+    "formato_observado": "deporte_gaming",
+    "confianza": "alta",
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "deporte_gaming"
+    ],
+    "pasadas": [
+      {
+        "formato": "deporte_gaming",
+        "confianza_declarada": "alta",
+        "motivo": "Es un resumen de un partido de fútbol con narración de las jugadas y goles."
+      }
+    ],
+    "motivo": "Es un resumen de un partido de fútbol con narración de las jugadas y goles."
+  },
+  {
+    "content_item_id": 617,
+    "external_id": "erBfOVMBqXM",
+    "titulo": "¿Qué pasó con los astronautas de la NASA en la Estación Espacial? SpaceX al rescate | Qué Pasó",
+    "canal": "Filo News",
+    "categoria_yt": "News & Politics",
+    "duracion": 253,
+    "formato": "informativo",
+    "et_formato": "explicativo",
+    "sin_respaldo": false,
+    "formato_observado": "informativo",
+    "confianza": "alta",
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica una noticia de actualidad sobre los astronautas de la NASA, las fallas de Boeing y la intervención de SpaceX."
+      }
+    ],
+    "motivo": "El video explica una noticia de actualidad sobre los astronautas de la NASA, las fallas de Boeing y la intervención de SpaceX."
+  },
+  {
+    "content_item_id": 618,
+    "external_id": "abNeoW5sq_4",
+    "titulo": "¿Cómo vive la gente a 400 KM sobre la tierra? ¿Cómo funciona ISS? Estación Espacial Internacional",
+    "canal": "MECATRÓNICA",
+    "categoria_yt": "People & Blogs",
+    "duracion": 249,
+    "formato": "practico_personal",
+    "et_formato": "directo",
+    "sin_respaldo": false,
+    "formato_observado": "informativo",
+    "confianza": "alta",
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica el funcionamiento de la ISS y la vida en ella, con el propósito de divulgar conocimiento."
+      }
+    ],
+    "motivo": "El video explica el funcionamiento de la ISS y la vida en ella, con el propósito de divulgar conocimiento."
+  },
+  {
+    "content_item_id": 619,
+    "external_id": "_oBF0egfh-k",
+    "titulo": "La Psicología de las Personas que Tienen Demasiados Intereses",
+    "canal": "La Psicología Invisible",
+    "categoria_yt": "Education",
+    "duracion": 482,
+    "formato": "informativo",
+    "et_formato": "divulgacion",
+    "sin_respaldo": false,
+    "formato_observado": "informativo",
+    "confianza": "alta",
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica y analiza un rasgo psicológico, buscando que el espectador entienda el concepto y sus implicaciones."
+      }
+    ],
+    "motivo": "El video explica y analiza un rasgo psicológico, buscando que el espectador entienda el concepto y sus implicaciones."
+  },
+  {
+    "content_item_id": 620,
+    "external_id": "ypH6dR7YGfU",
+    "titulo": "Intro to Geology: Crash Course Geology #1",
+    "canal": "CrashCourse",
+    "categoria_yt": "Education",
+    "duracion": 546,
+    "formato": "informativo",
+    "et_formato": "opinion_review",
+    "sin_respaldo": true,
+    "formato_observado": "informativo",
+    "confianza": "alta",
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica conceptos de geología de manera divulgativa, con el propósito principal de que el espectador entienda el tema."
+      }
+    ],
+    "motivo": "El video explica conceptos de geología de manera divulgativa, con el propósito principal de que el espectador entienda el tema."
+  },
+  {
+    "content_item_id": 621,
+    "external_id": "LUu8Gz1y91o",
+    "titulo": "Trump y Macri: una historia de negocios | #BIZELANEAS de verano",
+    "canal": "Javier Ledesma",
+    "categoria_yt": "Entertainment",
+    "duracion": 548,
+    "formato": "entretenimiento",
+    "et_formato": "sin_clasificar",
+    "sin_respaldo": false,
+    "formato_observado": "informativo",
+    "confianza": "alta",
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video narra y explica una historia de negocios histórica entre Trump y Macri, con el propósito principal de que el espectador entienda los eventos."
+      }
+    ],
+    "motivo": "El video narra y explica una historia de negocios histórica entre Trump y Macri, con el propósito principal de que el espectador entienda los eventos."
+  },
+  {
+    "content_item_id": 623,
+    "external_id": "U4EMQIN6Yoo",
+    "titulo": "¿Por qué Queremos Volver a la Luna?",
+    "canal": "QuantumFracture",
+    "categoria_yt": "Science & Technology",
+    "duracion": 707,
+    "formato": "informativo",
+    "et_formato": "explicativo",
+    "sin_respaldo": false,
+    "formato_observado": "informativo",
+    "confianza": "alta",
+    "confianza_declarada": [
+      "alta"
+    ],
+    "autoconsistente": true,
+    "formatos_por_pasada": [
+      "informativo"
+    ],
+    "pasadas": [
+      {
+        "formato": "informativo",
+        "confianza_declarada": "alta",
+        "motivo": "El video explica las razones y el propósito de volver a la Luna, con un claro objetivo de divulgación científica y tecnológica."
+      }
+    ],
+    "motivo": "El video explica las razones y el propósito de volver a la Luna, con un claro objetivo de divulgación científica y tecnológica."
   }
 ]
