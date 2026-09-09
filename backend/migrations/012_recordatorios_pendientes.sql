@@ -1,8 +1,11 @@
 -- 012_recordatorios_pendientes.sql : vista para el recordatorio del diferido.
--- Lista quien tiene mail y todavia no termino, con dias de inactividad y su
--- enlace. Solo participantes CON mail (los que aceptaron el recordatorio).
+-- Lista quien tiene mail y todavia no termino, con dias de inactividad y su enlace.
+-- SEGURIDAD: security_invoker=true para que respete RLS (sin esto, al estar en el
+-- esquema publico, PostgREST la exponia con permisos de dueno y filtraba los mails
+-- al rol anonimo). Ademas se revoca el acceso a anon/authenticated.
 --   select * from recordatorios_pendientes where dias_inactivo >= 3;
-create or replace view recordatorios_pendientes as
+create or replace view recordatorios_pendientes
+with (security_invoker = true) as
 with resp as (
   select r.persona_id,
          count(distinct q.content_item_id) as videos_respondidos,
@@ -36,3 +39,5 @@ left join vis  v on v.persona_id = p.persona_id
 left join asig a on a.persona_id = p.persona_id
 where greatest(0, coalesce(a.n,4) - coalesce(r.videos_respondidos,0)) > 0
 order by dias_inactivo desc;
+
+revoke all on recordatorios_pendientes from anon, authenticated;
