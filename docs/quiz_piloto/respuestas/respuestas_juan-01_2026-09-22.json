@@ -1,0 +1,473 @@
+{
+  "persona_id": "juan-01",
+  "completado_at": "2026-09-22T12:57:28.226Z",
+  "videos_excluidos": [
+    517,
+    92,
+    87
+  ],
+  "respuestas": [
+    {
+      "pregunta_id": 340,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 4,
+      "dias_transcurridos": 0.79
+    },
+    {
+      "pregunta_id": 341,
+      "eleccion": 3,
+      "acierto": false,
+      "segundos": 14,
+      "dias_transcurridos": 0.79
+    },
+    {
+      "pregunta_id": 342,
+      "eleccion": 0,
+      "acierto": true,
+      "segundos": 13,
+      "dias_transcurridos": 0.79
+    },
+    {
+      "pregunta_id": 343,
+      "eleccion": 3,
+      "acierto": false,
+      "segundos": 34,
+      "dias_transcurridos": 0.79
+    },
+    {
+      "pregunta_id": 344,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 27,
+      "dias_transcurridos": 0.79
+    },
+    {
+      "pregunta_id": 353,
+      "eleccion": 0,
+      "acierto": true,
+      "segundos": 1121,
+      "dias_transcurridos": 22.09
+    },
+    {
+      "pregunta_id": 354,
+      "eleccion": 2,
+      "acierto": false,
+      "segundos": 30,
+      "dias_transcurridos": 22.09
+    },
+    {
+      "pregunta_id": 355,
+      "eleccion": 2,
+      "acierto": false,
+      "segundos": 26,
+      "dias_transcurridos": 22.09
+    },
+    {
+      "pregunta_id": 356,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 16,
+      "dias_transcurridos": 22.09
+    },
+    {
+      "pregunta_id": 357,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 33,
+      "dias_transcurridos": 22.09
+    },
+    {
+      "pregunta_id": 358,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 650,
+      "dias_transcurridos": 22.13
+    },
+    {
+      "pregunta_id": 360,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 21,
+      "dias_transcurridos": 22.13
+    },
+    {
+      "pregunta_id": 363,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 14,
+      "dias_transcurridos": 22.13
+    },
+    {
+      "pregunta_id": 205,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 768,
+      "dias_transcurridos": 38.43
+    },
+    {
+      "pregunta_id": 206,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 16,
+      "dias_transcurridos": 38.43
+    },
+    {
+      "pregunta_id": 207,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 8,
+      "dias_transcurridos": 38.43
+    },
+    {
+      "pregunta_id": 208,
+      "eleccion": 1,
+      "acierto": false,
+      "segundos": 10,
+      "dias_transcurridos": 38.43
+    },
+    {
+      "pregunta_id": 209,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 18,
+      "dias_transcurridos": 38.43
+    },
+    {
+      "pregunta_id": 198,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 37582,
+      "dias_transcurridos": 39.56
+    },
+    {
+      "pregunta_id": 199,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 25,
+      "dias_transcurridos": 39.56
+    },
+    {
+      "pregunta_id": 200,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 17,
+      "dias_transcurridos": 39.56
+    },
+    {
+      "pregunta_id": 201,
+      "eleccion": 0,
+      "acierto": true,
+      "segundos": 11,
+      "dias_transcurridos": 39.56
+    },
+    {
+      "pregunta_id": 202,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 28,
+      "dias_transcurridos": 39.56
+    },
+    {
+      "pregunta_id": 233,
+      "eleccion": 0,
+      "acierto": true,
+      "segundos": 16,
+      "dias_transcurridos": 39.7
+    },
+    {
+      "pregunta_id": 234,
+      "eleccion": 3,
+      "acierto": false,
+      "segundos": 14,
+      "dias_transcurridos": 39.7
+    },
+    {
+      "pregunta_id": 235,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 17,
+      "dias_transcurridos": 39.7
+    },
+    {
+      "pregunta_id": 236,
+      "eleccion": 0,
+      "acierto": true,
+      "segundos": 19,
+      "dias_transcurridos": 39.7
+    },
+    {
+      "pregunta_id": 237,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 19,
+      "dias_transcurridos": 39.7
+    },
+    {
+      "pregunta_id": 238,
+      "eleccion": 2,
+      "acierto": false,
+      "segundos": 4,
+      "dias_transcurridos": 39.7
+    },
+    {
+      "pregunta_id": 251,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 2,
+      "dias_transcurridos": 39.89
+    },
+    {
+      "pregunta_id": 255,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 385,
+      "dias_transcurridos": 39.89
+    },
+    {
+      "pregunta_id": 239,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 2,
+      "dias_transcurridos": 40.17
+    },
+    {
+      "pregunta_id": 240,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 1,
+      "dias_transcurridos": 40.17
+    },
+    {
+      "pregunta_id": 241,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 14,
+      "dias_transcurridos": 40.17
+    },
+    {
+      "pregunta_id": 243,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 32,
+      "dias_transcurridos": 40.17
+    },
+    {
+      "pregunta_id": 244,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 22,
+      "dias_transcurridos": 40.17
+    },
+    {
+      "pregunta_id": 245,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 1,
+      "dias_transcurridos": 48.95
+    },
+    {
+      "pregunta_id": 246,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 10,
+      "dias_transcurridos": 48.95
+    },
+    {
+      "pregunta_id": 247,
+      "eleccion": 2,
+      "acierto": false,
+      "segundos": 15,
+      "dias_transcurridos": 48.95
+    },
+    {
+      "pregunta_id": 248,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 35,
+      "dias_transcurridos": 48.95
+    },
+    {
+      "pregunta_id": 249,
+      "eleccion": 3,
+      "acierto": false,
+      "segundos": 41,
+      "dias_transcurridos": 48.95
+    },
+    {
+      "pregunta_id": 250,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 17,
+      "dias_transcurridos": 48.95
+    },
+    {
+      "pregunta_id": 221,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 50,
+      "dias_transcurridos": 85.01
+    },
+    {
+      "pregunta_id": 222,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 12,
+      "dias_transcurridos": 85.01
+    },
+    {
+      "pregunta_id": 223,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 21,
+      "dias_transcurridos": 85.01
+    },
+    {
+      "pregunta_id": 224,
+      "eleccion": 0,
+      "acierto": true,
+      "segundos": 10,
+      "dias_transcurridos": 85.01
+    },
+    {
+      "pregunta_id": 225,
+      "eleccion": 2,
+      "acierto": true,
+      "segundos": 26,
+      "dias_transcurridos": 85.01
+    },
+    {
+      "pregunta_id": 226,
+      "eleccion": 1,
+      "acierto": false,
+      "segundos": 5,
+      "dias_transcurridos": 85.01
+    },
+    {
+      "pregunta_id": 227,
+      "eleccion": 1,
+      "acierto": false,
+      "segundos": 823,
+      "dias_transcurridos": 95.16
+    },
+    {
+      "pregunta_id": 228,
+      "eleccion": 0,
+      "acierto": true,
+      "segundos": 16,
+      "dias_transcurridos": 95.16
+    },
+    {
+      "pregunta_id": 229,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 6,
+      "dias_transcurridos": 95.16
+    },
+    {
+      "pregunta_id": 230,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 8,
+      "dias_transcurridos": 95.16
+    },
+    {
+      "pregunta_id": 231,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 20,
+      "dias_transcurridos": 95.16
+    },
+    {
+      "pregunta_id": 232,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 18,
+      "dias_transcurridos": 95.16
+    },
+    {
+      "pregunta_id": 180,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 15,
+      "dias_transcurridos": 96.16
+    },
+    {
+      "pregunta_id": 181,
+      "eleccion": 1,
+      "acierto": true,
+      "segundos": 32,
+      "dias_transcurridos": 96.16
+    },
+    {
+      "pregunta_id": 182,
+      "eleccion": 2,
+      "acierto": false,
+      "segundos": 68,
+      "dias_transcurridos": 96.16
+    },
+    {
+      "pregunta_id": 183,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 4,
+      "dias_transcurridos": 96.16
+    },
+    {
+      "pregunta_id": 184,
+      "eleccion": 1,
+      "acierto": false,
+      "segundos": 14,
+      "dias_transcurridos": 96.16
+    },
+    {
+      "pregunta_id": 185,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 17,
+      "dias_transcurridos": 96.16
+    },
+    {
+      "pregunta_id": 218,
+      "eleccion": 0,
+      "acierto": false,
+      "segundos": 518,
+      "dias_transcurridos": 98.06
+    },
+    {
+      "pregunta_id": 186,
+      "eleccion": 2,
+      "acierto": false,
+      "segundos": 23,
+      "dias_transcurridos": 147.96
+    },
+    {
+      "pregunta_id": 188,
+      "eleccion": 3,
+      "acierto": false,
+      "segundos": 284,
+      "dias_transcurridos": 147.96
+    },
+    {
+      "pregunta_id": 189,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 23,
+      "dias_transcurridos": 147.96
+    },
+    {
+      "pregunta_id": 190,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 26,
+      "dias_transcurridos": 147.96
+    },
+    {
+      "pregunta_id": 191,
+      "eleccion": 3,
+      "acierto": true,
+      "segundos": 19,
+      "dias_transcurridos": 147.96
+    }
+  ]
+}
