@@ -10,7 +10,7 @@ from fastapi.responses import JSONResponse
 
 from . import models
 from .database import engine
-from .routes import videop, panel
+from .routes import videop, panel, admin
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +57,9 @@ app.add_middleware(
 # objeto, no una funcion suelta. Ponerlo arriba da NameError.
 app.include_router(videop.router)
 app.include_router(panel.router)
+# /admin: la mitad de servidor del sitio en GitHub Pages (dashboard en vivo y
+# generacion de quizzes). Todo exige la clave ADMIN_KEY; sin ella, 503.
+app.include_router(admin.router)
 
 
 @app.exception_handler(Exception)

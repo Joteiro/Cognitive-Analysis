@@ -19,3 +19,10 @@ backend/scripts/enrich.log
 # OS
 .DS_Store
 Thumbs.db
+
+# La foto del dashboard: es el historial con titulos y canales, y docs/ es
+# publico. El dashboard del sitio se lee en vivo; esta copia es para el anexo.
+privado/
+
+# Capturas que deja la prueba del sitio en el navegador
+backend/tests/sitio/fotos/

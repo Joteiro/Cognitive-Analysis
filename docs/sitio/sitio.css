@@ -1,0 +1,189 @@
+/* sitio.css — lo común a todas las páginas del sitio: colores, barra de
+   navegación, ventana de la clave y avisos. Las clases llevan el prefijo
+   sitio- para no pisar los estilos propios del dashboard (dieta.html), que
+   se arma con su propia plantilla. La paleta es la misma del dashboard. */
+
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface-1: #fcfcfb;
+  --surface-2: #f2f1ec;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --muted: #7a7872;
+  --grid: #e1e0d9;
+  --border: rgba(11, 11, 11, 0.10);
+  --accent: #2a78d6;
+  --accent-ink: #ffffff;
+  --accent-soft: #e6f0fc;
+  --ok: #1f7a45;
+  --ok-bg: #e7f4ec;
+  --ok-br: #8fc7a6;
+  --err: #b23b3b;
+  --err-bg: #fbeaea;
+  --err-br: #e0a3a3;
+  --callout-bg: #fdf6e6;
+  --callout-br: #e8d9a8;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface-1: #1a1a19;
+    --surface-2: #232322;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --muted: #9a988f;
+    --grid: #2c2c2a;
+    --border: rgba(255, 255, 255, 0.10);
+    --accent: #3987e5;
+    --accent-ink: #ffffff;
+    --accent-soft: #16304f;
+    --ok: #5cc48a;
+    --ok-bg: #12291c;
+    --ok-br: #2f6b48;
+    --err: #ef8a8a;
+    --err-bg: #2e1616;
+    --err-br: #6b2f2f;
+    --callout-bg: #241f12;
+    --callout-br: #4a3f1e;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface-1: #1a1a19;
+  --surface-2: #232322;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --muted: #9a988f;
+  --grid: #2c2c2a;
+  --border: rgba(255, 255, 255, 0.10);
+  --accent: #3987e5;
+  --accent-ink: #ffffff;
+  --accent-soft: #16304f;
+  --ok: #5cc48a;
+  --ok-bg: #12291c;
+  --ok-br: #2f6b48;
+  --err: #ef8a8a;
+  --err-bg: #2e1616;
+  --err-br: #6b2f2f;
+  --callout-bg: #241f12;
+  --callout-br: #4a3f1e;
+}
+
+body { background: var(--page); color: var(--text-primary); }
+
+/* ── Barra de navegación ─────────────────────────────────────────────── */
+.sitio-nav {
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border);
+  font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.sitio-nav-in {
+  max-width: 1040px; margin: 0 auto; padding: 10px 16px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px;
+}
+.sitio-marca {
+  font-weight: 650; letter-spacing: -0.01em; color: var(--text-primary);
+  text-decoration: none; margin-right: auto;
+}
+.sitio-links { display: flex; flex-wrap: wrap; gap: 2px 4px; }
+.sitio-links a {
+  color: var(--text-secondary); text-decoration: none;
+  padding: 6px 10px; border-radius: 7px;
+}
+.sitio-links a:hover { color: var(--text-primary); background: var(--surface-2); }
+.sitio-links a[aria-current="page"] { color: var(--text-primary); background: var(--surface-2); font-weight: 600; }
+/* display y width explícitos: la plantilla del dashboard pone todo svg a width 100 % */
+.sitio-links .sitio-candado {
+  display: inline-block; width: 11px; height: 11px;
+  color: var(--muted); margin-left: 4px; vertical-align: -1px;
+}
+.sitio-salir {
+  font: inherit; font-size: 12.5px; color: var(--muted); background: none;
+  border: 0; padding: 6px 4px; cursor: pointer; text-decoration: underline;
+}
+.sitio-salir:hover { color: var(--text-primary); }
+
+/* ── Avisos y estados ────────────────────────────────────────────────── */
+.sitio-estado {
+  max-width: 1040px; margin: 0 auto; padding: 60px 16px;
+  text-align: center; color: var(--text-secondary);
+  font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.sitio-estado[hidden], .sitio-aviso[hidden] { display: none; }
+.sitio-estado .sitio-boton { margin-top: 14px; }
+.sitio-aviso {
+  max-width: 1040px; margin: 16px auto 0; padding: 0 16px;
+  font: 13.5px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.sitio-aviso > div {
+  background: var(--callout-bg); border: 1px solid var(--callout-br);
+  border-radius: 10px; padding: 11px 14px; color: var(--text-primary);
+}
+.sitio-aviso code { font-size: 12px; }
+
+/* ── Botones compartidos ─────────────────────────────────────────────── */
+.sitio-boton {
+  font: inherit; font-size: 14px; font-weight: 500; cursor: pointer;
+  background: var(--accent); color: var(--accent-ink);
+  border: 1px solid transparent; border-radius: 8px; padding: 8px 15px;
+  text-decoration: none; display: inline-block;
+}
+.sitio-boton:hover { filter: brightness(1.07); }
+.sitio-boton:disabled { opacity: .45; cursor: not-allowed; filter: none; }
+.sitio-boton.secundario {
+  background: var(--surface-1); color: var(--text-primary); border-color: var(--border);
+}
+
+/* ── Ventana de la clave ─────────────────────────────────────────────── */
+.sitio-modal {
+  position: fixed; inset: 0; z-index: 100; padding: 16px;
+  background: rgba(10, 10, 10, .55);
+  display: flex; align-items: center; justify-content: center;
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.sitio-modal form {
+  background: var(--surface-1); color: var(--text-primary);
+  border: 1px solid var(--border); border-radius: 12px;
+  width: 100%; max-width: 380px; padding: 22px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .25);
+}
+.sitio-modal h2 { font-size: 17px; margin: 0 0 6px; }
+.sitio-modal p { margin: 0 0 14px; color: var(--text-secondary); font-size: 13.5px; }
+.sitio-modal input {
+  width: 100%; box-sizing: border-box; font: inherit; font-size: 15px;
+  padding: 9px 11px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--page); color: var(--text-primary);
+}
+.sitio-modal .sitio-error { color: var(--err); font-size: 13px; min-height: 1.3em; margin: 8px 0 0; }
+.sitio-modal .acciones { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+
+/* ── Páginas propias del sitio (no el dashboard) ─────────────────────── */
+body.sitio-pagina {
+  margin: 0;
+  font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.sitio-main { max-width: 1040px; margin: 0 auto; padding: 28px 16px 72px; }
+.sitio-main.angosto { max-width: 760px; }
+.sitio-main h1 { font-size: 26px; line-height: 1.2; letter-spacing: -0.015em; margin: 0 0 8px; }
+.sitio-main h2 { font-size: 17px; letter-spacing: -0.005em; margin: 0 0 6px; }
+.sitio-main .bajada { color: var(--text-secondary); margin: 0 0 22px; max-width: 68ch; }
+.sitio-tarjeta {
+  background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 20px; margin-bottom: 18px;
+}
+.sitio-nota { color: var(--text-secondary); font-size: 13.5px; }
+.sitio-main a { color: var(--accent); }
+/* Los botones-enlace van después de la regla de arriba y con la misma
+   especificidad: si no, el texto del botón sale del color del acento, que es
+   justo el fondo del botón, y queda invisible. */
+a.sitio-boton { color: var(--accent-ink); }
+a.sitio-boton.secundario { color: var(--text-primary); }
+
+@media (max-width: 560px) {
+  .sitio-main { padding-top: 20px; }
+  .sitio-main h1 { font-size: 22px; }
+  .sitio-tarjeta { padding: 16px; }
+}

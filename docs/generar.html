@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generar quizzes — Cognitive Analysis</title>
+<link rel="stylesheet" href="sitio/sitio.css">
+<script src="sitio/sitio.js"></script>
+<style>
+  .cola { display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .cola .cifra { font-size: 28px; font-weight: 650; letter-spacing: -0.02em; line-height: 1; }
+  .cola .cifra small { font-size: 14px; font-weight: 400; color: var(--text-secondary); letter-spacing: 0; margin-left: 6px; }
+  .cola-acciones { display: flex; gap: 8px; flex-wrap: wrap; }
+  .aviso-cola { margin: 12px 0 0; }
+  .controles { display: flex; gap: 12px 20px; flex-wrap: wrap; align-items: center; margin: 4px 0 12px; font-size: 14px; }
+  .controles label { display: inline-flex; gap: 7px; align-items: center; color: var(--text-secondary); }
+  .controles select { font: inherit; font-size: 14px; padding: 6px 8px; border-radius: 8px;
+                      border: 1px solid var(--border); background: var(--page); color: var(--text-primary); }
+  .lista { border-top: 1px solid var(--grid); }
+  .fila { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; align-items: center;
+          padding: 11px 2px; border-bottom: 1px solid var(--grid); }
+  .fila .t { font-weight: 550; line-height: 1.35; }
+  .fila .m { color: var(--text-secondary); font-size: 13px; margin-top: 2px; }
+  .fila .sitio-boton { padding: 6px 13px; font-size: 13.5px; }
+  .vacio { color: var(--text-secondary); padding: 16px 2px; }
+  .trabajo { border-color: var(--accent); }
+  .trabajo .reloj { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
+  .resumen { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin: 12px 0 8px; }
+  .resumen div { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; }
+  .resumen b { display: block; font-size: 22px; font-weight: 650; letter-spacing: -0.02em; }
+  .resumen span { font-size: 12.5px; color: var(--text-secondary); }
+  .error { color: var(--err); }
+  .porque { font-size: 13.5px; color: var(--text-secondary); margin: 0; max-width: 70ch; }
+</style>
+</head>
+<body class="sitio-pagina">
+<div id="sitio-nav"></div>
+<main class="sitio-main">
+  <h1>Generar quizzes</h1>
+  <p class="bajada">
+    Preguntas nuevas desde la transcripción de un video de tu historial. Gemini escribe seis,
+    pasan los tres filtros (la cita existe, la cita respalda la respuesta, las opciones no delatan
+    la correcta) y un modelo distinto intenta contestarlas sin ver el video: esa es la línea de base.
+    Son las mismas reglas que <code>generar_quiz.py</code>, importadas, no copiadas.
+  </p>
+
+  <div id="carga" class="sitio-estado" role="status" aria-live="polite">Cargando…</div>
+
+  <div id="app" hidden>
+    <section class="sitio-tarjeta">
+      <div class="cola">
+        <div>
+          <h2>Tu cola para responder</h2>
+          <div class="cifra" id="cola-n">0<small>videos</small></div>
+        </div>
+        <div class="cola-acciones">
+          <a class="sitio-boton" id="responder" href="quiz.html">Responder ahora</a>
+        </div>
+      </div>
+      <div class="sitio-aviso aviso-cola" id="fuera" hidden></div>
+    </section>
+
+    <section class="sitio-tarjeta trabajo" id="trabajo" hidden aria-live="polite"></section>
+
+    <section class="sitio-tarjeta">
+      <h2>Videos sin quiz</h2>
+      <p class="porque">
+        Cada uno tarda uno o dos minutos. Acá no vas a ver las preguntas: si las leyeras, tu respuesta
+        después mediría lectura, no retención. Solo ves cuántas sobrevivieron y por qué cayeron las otras.
+      </p>
+      <div class="controles">
+        <label>Formato
+          <select id="formato">
+            <option value="todos">Todos</option>
+            <option value="informativo">Informativo</option>
+            <option value="entretenimiento">Entretenimiento</option>
+            <option value="deporte_gaming">Deporte y gaming</option>
+            <option value="practico_personal">Práctico y personal</option>
+          </select>
+        </label>
+        <label><input type="checkbox" id="sumar" checked> Sumar a mi cola al terminar</label>
+        <span class="sitio-nota" id="n-cand"></span>
+      </div>
+      <div class="lista" id="lista"></div>
+      <p class="sitio-nota" id="excluidos"></p>
+    </section>
+  </div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => Sitio.esc(s);
+  const LS_TRABAJO = 'ca.trabajoQuiz';
+
+  const NOM_FORMATO = { informativo: 'informativo', entretenimiento: 'entretenimiento',
+                        deporte_gaming: 'deporte y gaming', practico_personal: 'práctico y personal' };
+  const NOM_DESCARTE = {
+    cita_no_verificable: 'la cita no está en la transcripción',
+    cita_no_justifica: 'la cita no respalda la respuesta',
+    opciones_desbalanceadas: 'la correcta se delataba por su forma',
+    pregunta_sobre_publicidad: 'preguntaba por un anuncio',
+    formato_invalido: 'formato inválido',
+    opciones_duplicadas: 'opciones repetidas',
+    indice_correcto_invalido: 'sin respuesta correcta válida',
+  };
+
+  let enCurso = null;        // id del trabajo que se está siguiendo
+  let reloj = null;
+
+  const fechaCorta = (iso) => iso ? new Date(iso + 'T12:00:00').toLocaleDateString('es-ES',
+    { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+  const num = (n) => Number(n).toLocaleString('es-ES');
+  const mmss = (s) => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+
+  // ── Cola ───────────────────────────────────────────────────────────────
+  function pintarCola(c) {
+    $('cola-n').innerHTML = c.en_cola + '<small>' + (c.en_cola === 1 ? 'video' : 'videos') + ' con preguntas pendientes</small>';
+    const t = new URL(c.enlace).searchParams.get('t');
+    const b = $('responder');
+    b.href = 'quiz.html?t=' + encodeURIComponent(t);
+    b.classList.toggle('secundario', !c.en_cola);
+    b.textContent = c.en_cola ? 'Responder ahora' : 'Abrir mi enlace';
+    const fuera = $('fuera');
+    if (c.fuera_de_cola) {
+      fuera.hidden = false;
+      fuera.innerHTML = '<div>' + c.fuera_de_cola + (c.fuera_de_cola === 1 ? ' video tiene' : ' videos tienen') +
+        ' preguntas que todavía no contestaste pero no están en tu cola (se generaron desde la consola). ' +
+        '<button class="sitio-boton secundario" type="button" id="sumar-fuera">Sumarlos</button></div>';
+      $('sumar-fuera').addEventListener('click', async (e) => {
+        e.target.disabled = true;
+        try { pintarCola(await Sitio.api('/admin/quiz/cola', { method: 'POST', body: {} })); }
+        catch (err) { e.target.disabled = false; alertaEn(fuera, err); }
+      });
+    } else {
+      fuera.hidden = true;
+    }
+  }
+
+  function alertaEn(nodo, err) {
+    const p = document.createElement('p');
+    p.className = 'error';
+    p.textContent = err && err.message ? err.message : 'Algo falló.';
+    nodo.appendChild(p);
+  }
+
+  // ── Candidatos ─────────────────────────────────────────────────────────
+  async function cargarCandidatos() {
+    const lista = $('lista');
+    lista.innerHTML = '<p class="vacio">Cargando…</p>';
+    let r;
+    try { r = await Sitio.api('/admin/quiz/candidatos?formato=' + encodeURIComponent($('formato').value)); }
+    catch (e) { lista.innerHTML = ''; alertaEn(lista, e); return; }
+    $('n-cand').textContent = r.videos.length + (r.videos.length === 1 ? ' video' : ' videos');
+    $('excluidos').textContent = r.excluidos_por_formato
+      ? `${r.excluidos_por_formato} ${r.excluidos_por_formato === 1 ? 'video queda' : 'videos quedan'} fuera porque el modelo ve otro formato que la etiqueta (formato_verificado.json); el script también los salta.`
+      : '';
+    if (!r.videos.length) {
+      lista.innerHTML = '<p class="vacio">No quedan videos aptos sin quiz en este formato.</p>';
+      return;
+    }
+    lista.innerHTML = r.videos.map(v => `
+      <div class="fila">
+        <div>
+          <div class="t">${esc(v.titulo)}</div>
+          <div class="m">${esc(v.canal || '(sin canal)')} · ${esc(NOM_FORMATO[v.formato] || v.formato)} ·
+            ${num(v.palabras)} palabras · ${String(v.minutos).replace('.', ',')} min${v.visto ? ' · visto el ' + esc(fechaCorta(v.visto)) : ''}</div>
+        </div>
+        <button class="sitio-boton" type="button" data-id="${v.id}"${enCurso ? ' disabled' : ''}>Generar</button>
+      </div>`).join('');
+    lista.querySelectorAll('button[data-id]').forEach(b => b.addEventListener('click', () => generar(+b.dataset.id, b)));
+  }
+
+  function bloquearBotones(si) {
+    document.querySelectorAll('#lista button[data-id]').forEach(b => { b.disabled = si; });
+  }
+
+  // ── Generación ─────────────────────────────────────────────────────────
+  async function generar(id, boton) {
+    bloquearBotones(true);
+    const caja = $('trabajo');
+    caja.hidden = false;
+    caja.innerHTML = '<h2>Preparando…</h2>';
+    let r;
+    try {
+      r = await Sitio.api('/admin/quiz/generar', {
+        method: 'POST', body: { content_item_id: id, sumar_a_cola: $('sumar').checked },
+        alEsperar: m => { caja.innerHTML = '<h2>Preparando…</h2><p class="sitio-nota">' + esc(m) + '</p>'; },
+      });
+    } catch (e) {
+      caja.innerHTML = '<h2>No se pudo empezar</h2>';
+      alertaEn(caja, e);
+      bloquearBotones(false);
+      return;
+    }
+    seguir(r.trabajo);
+  }
+
+  function seguir(tid) {
+    enCurso = tid;
+    Sitio.escribir(LS_TRABAJO, tid);
+    bloquearBotones(true);
+    clearTimeout(reloj);
+    consultar();
+  }
+
+  async function consultar() {
+    const caja = $('trabajo');
+    caja.hidden = false;
+    let t;
+    try { t = await Sitio.api('/admin/quiz/trabajo/' + encodeURIComponent(enCurso)); }
+    catch (e) {
+      caja.innerHTML = '<h2>Perdí el rastro de la generación</h2>';
+      alertaEn(caja, e);
+      terminar();
+      return;
+    }
+    if (t.estado === 'corriendo') {
+      const fase = { preparando: 'Preparando', generando: 'Generando y filtrando', guardando: 'Guardando' }[t.fase] || 'Trabajando';
+      caja.innerHTML = `<h2>${fase}: «${esc(t.titulo)}»</h2>
+        <p class="sitio-nota">Llevo <span class="reloj">${mmss(t.segundos)}</span>. Suele tardar uno o dos minutos;
+        podés cambiar de pestaña, pero no cierres esta.</p>`;
+      reloj = setTimeout(consultar, 3000);
+      return;
+    }
+    if (t.estado === 'error') {
+      caja.innerHTML = `<h2>Falló la generación de «${esc(t.titulo)}»</h2>`;
+      alertaEn(caja, { message: t.error });
+      const p = document.createElement('p');
+      p.className = 'sitio-nota';
+      p.textContent = 'No se guardó nada: el video sigue en la lista para intentarlo de nuevo.';
+      caja.appendChild(p);
+    } else {
+      pintarResumen(caja, t);
+    }
+    terminar();
+  }
+
+  function pintarResumen(caja, t) {
+    const r = t.resumen;
+    const desc = Object.entries(r.descartes || {}).map(([k, n]) => `${n} porque ${NOM_DESCARTE[k] || k}`).join('; ');
+    const lb = r.linea_base;
+    const conBase = lb.acerto + lb.fallo;
+    caja.innerHTML = `<h2>Listo: «${esc(t.titulo)}»</h2>
+      <div class="resumen">
+        <div><b>${r.utilizables} de ${r.generadas}</b><span>preguntas utilizables</span></div>
+        <div><b>${conBase ? lb.acerto + ' de ' + conBase : '—'}</b><span>acertó el modelo sin ver el video</span></div>
+        <div><b>${mmss(t.segundos)}</b><span>tardó (min:seg)</span></div>
+      </div>
+      <p class="sitio-nota">${desc ? 'Descartadas: ' + esc(desc) + '. ' : 'Ninguna descartada. '}
+        ${lb.sin_dato ? lb.sin_dato + ' sin línea de base (falló el control; la pregunta igual queda). ' : ''}
+        ${r.utilizables ? (r.sumado_a_cola ? 'Ya está en tu cola.' : 'No se sumó a tu cola.') :
+          'Ninguna sobrevivió: el video queda marcado como hecho, igual que en el script.'}
+        Modelo ${esc(r.modelo)}, control ${esc(r.modelo_control)}, instrumento ${esc(r.version)}.</p>`;
+  }
+
+  async function terminar() {
+    enCurso = null;
+    Sitio.escribir(LS_TRABAJO, null);
+    try { pintarCola(await Sitio.api('/admin/quiz/cola')); } catch (e) { /* la cola se refresca al recargar */ }
+    cargarCandidatos();
+  }
+
+  // ── Arranque ───────────────────────────────────────────────────────────
+  async function arrancar() {
+    const carga = $('carga');
+    carga.hidden = false;
+    carga.textContent = 'Cargando…';
+    let c;
+    try { c = await Sitio.api('/admin/quiz/cola', { alEsperar: m => { carga.textContent = m; } }); }
+    catch (e) { Sitio.pintarError(carga, e, arrancar); return; }
+    Sitio.nav('generar');
+    carga.hidden = true;
+    $('app').hidden = false;
+    pintarCola(c);
+    $('formato').addEventListener('change', cargarCandidatos);
+    await cargarCandidatos();
+    const previo = Sitio.leer(LS_TRABAJO);   // si se recargó la página a mitad de una generación
+    if (previo) seguir(previo);
+  }
+
+  Sitio.nav('generar');
+  arrancar();
+})();
+</script>
+</body>
+</html>

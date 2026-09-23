@@ -128,20 +128,69 @@ flowchart LR
 │   │   ├── main.py             App, CORS, /health
 │   │   ├── routes/panel.py     GET /panel/{video_id}: descriptores y percentiles
 │   │   ├── routes/videop.py    POST /videos: registro y enriquecimiento en segundo plano
+│   │   ├── routes/admin.py    /admin/*: lo que el sitio no puede hacer solo (con clave)
 │   │   └── escala_referencia.json
 │   ├── scripts/                Ingesta, análisis y quiz (corren en local)
-│   ├── migrations/             SQL de Supabase, 001 a 012
+│   ├── migrations/             SQL de Supabase, 001 a 013
 │   └── tests/                  Pruebas del panel, sin red ni base de datos
-├── docs/
+├── docs/                       El sitio publicado en GitHub Pages
+│   ├── index.html              Portada
+│   ├── dieta.html              Dashboard en vivo (pide los datos al backend)
+│   ├── quiz.html               Quiz de retención por token
+│   ├── generar.html            Generación de quizzes (con clave)
+│   ├── sitio/                  CSS y JS comunes a las cuatro páginas
 │   ├── entregas/               Entregas del máster, en orden
 │   ├── assets/                 Imágenes, generadas desde assets/fuentes/
-│   ├── quiz_piloto/            Quiz web, piloto e informes de generación de preguntas
-│   ├── dieta_cognitiva.html    Dashboard generado
+│   ├── quiz_piloto/            Piloto e informes de generación de preguntas
 │   └── *.md, *.csv             Informes y datos de validación
+├── privado/                    Foto del dashboard con datos (ignorada por git)
 ├── guias/                      Enunciados de las entregas
 ├── render.yaml                 Despliegue del backend
 └── requirements.txt            Dependencias del backend
 ```
+
+## El sitio
+
+Todo vive en <https://joteiro.github.io/Cognitive-Analysis/>, servido por GitHub Pages desde `docs/`:
+
+| Página | Qué es | Quién entra |
+|---|---|---|
+| `index.html` | Portada | cualquiera |
+| `dieta.html` | El dashboard del historial, **en vivo**: pide las filas a `/admin/dieta` cada vez que se abre | con clave |
+| `quiz.html` | El quiz de retención; se entra con el enlace personal (`?t=<token>`) | participantes |
+| `generar.html` | Generar preguntas para un video del historial y sumarlo a la cola propia | con clave |
+
+Pages es estático: no puede guardar secretos ni leer la base. La mitad de servidor es
+`backend/app/routes/admin.py`, en el mismo Render que el panel, y **no reimplementa nada**:
+importa `build_dashboard` para las filas, `generar_quiz` para los filtros y la línea de base, y
+`cargar_quiz` para guardar. Si cambia el criterio en un script, cambia en la web.
+
+La clave viaja en la cabecera `X-Clave-Admin` y se compara con la variable `ADMIN_KEY` del
+servidor. **Sin `ADMIN_KEY` —o con menos de 16 caracteres— el modo admin queda apagado**, nunca
+abierto. La clave se guarda solo en el navegador que la escribió.
+
+Variables de entorno del backend, además de `DATABASE_URL`:
+
+| Variable | Para qué | Por defecto |
+|---|---|---|
+| `ADMIN_KEY` | Habilita `/admin/*`. Sin ella, 503 | — (apagado) |
+| `GEMINI_API_KEY` | Generar preguntas | — |
+| `QUIZ_MODELO_CONTROL` | Modelo de la línea de base, que **no puede ser el mismo** que genera | `gemini-2.5-flash-lite` |
+| `QUIZ_PROVEEDOR` / `QUIZ_PROVEEDOR_CONTROL` | Cambiar a Groq si vuelve a estar disponible | `gemini` |
+| `PERSONA_PROPIA` | Seudónimo dueño del historial | `juan-01` |
+
+Dos detalles que son de medición, no de interfaz:
+
+- Cuando un video del historial entra en la cola, el visionado se registra con
+  `content_items.watched_at` —cuándo lo vi de verdad— y de ahí salen los días hasta la
+  respuesta. Por eso el quiz **no vuelve a mostrar el video** si ya está visto: mostrarlo otra
+  vez convertiría la retención en lectura.
+- La página de generación **no muestra las preguntas**, solo cuántas sobrevivieron y por qué
+  cayeron las otras. Quien genera es quien después contesta.
+
+La foto del dashboard (`build_dashboard.py` sin argumentos) va a `privado/`, que git ignora:
+todo lo que está en `docs/` lo publica GitHub Pages, y esa foto es el historial con títulos,
+canales y fechas.
 
 ## Arranque rápido
 
@@ -224,7 +273,7 @@ Los scripts de `backend/scripts/` corren en local, más o menos en este orden:
 | Corpus | `build_reference_corpus.py` | Muestrea el corpus de referencia: `--dry-run` primero, después `--commit --cache` para insertar exactamente lo revisado |
 | Escala | `build_reference_scale.py` | Calcula la escala y escribe `escala_referencia.json` y `validacion_escala.md` |
 | Panel | `backfill_panel.py` | Calcula el panel de los videos que entraron sin pasar por la extensión |
-| Dashboard | `build_dashboard.py` | Regenera `docs/dieta_cognitiva.html`. Es una foto, no un espejo: hay que volver a correrlo para ver videos nuevos |
+| Dashboard | `build_dashboard.py` | Escribe la **foto** con datos en `privado/` (fuera de `docs/`, que es público). El dashboard del sitio es en vivo y no hay que regenerarlo; `--vivo` se corre solo si cambió la plantilla |
 | Preguntas | `generar_quiz.py` → `cargar_quiz.py --etiqueta <etiqueta>` | Genera y filtra preguntas para los videos que todavía no tienen quiz, y las sube a Supabase |
 | Quiz web | `armar_quiz_web.py` | Arma la página del quiz para participantes externos. Sus respuestas llegan solas a Supabase |
 | Quiz propio | `armar_quiz_html.py --persona <id>` → `cargar_quiz.py --todas` | Arma un formulario HTML con los videos que le faltan a esa persona. Las respuestas bajan como JSON y **hay que cargarlas a mano** (ver abajo) |

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cognitive Analysis</title>
+<meta name="description" content="Información del contenido para videos de YouTube: qué trae un video, medido y comparado, sin notas ni semáforos.">
+<link rel="stylesheet" href="sitio/sitio.css">
+<script src="sitio/sitio.js"></script>
+<style>
+  .portada { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 36px; align-items: start; }
+  .secciones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  a.seccion {
+    display: block; text-decoration: none; color: var(--text-primary);
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 18px; transition: border-color .12s, transform .12s;
+  }
+  a.seccion:hover { border-color: var(--accent); transform: translateY(-1px); }
+  a.seccion h2 { display: flex; align-items: center; gap: 7px; font-size: 16px; margin: 0 0 5px; }
+  a.seccion p { margin: 0; color: var(--text-secondary); font-size: 14px; }
+  a.seccion .ir { display: inline-block; margin-top: 10px; color: var(--accent); font-size: 13.5px; font-weight: 500; }
+  .etiqueta {
+    font-size: 11px; font-weight: 500; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 20px; padding: 1px 7px;
+  }
+  .captura {
+    margin: 0; border-radius: 14px; overflow: hidden; max-height: 470px; position: relative;
+    border: 1px solid var(--border); background: #131316;
+  }
+  .captura img { display: block; width: 100%; height: auto; }
+  .captura::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 90px;
+    background: linear-gradient(to bottom, rgba(19,19,22,0), rgba(19,19,22,1));
+  }
+  .captura-pie { color: var(--muted); font-size: 12.5px; margin: 8px 2px 0; }
+  .principios { margin: 26px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .principios li { color: var(--text-secondary); font-size: 14px; padding-left: 16px; position: relative; }
+  .principios li::before { content: ""; position: absolute; left: 0; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+  .principios b { color: var(--text-primary); font-weight: 600; }
+  .pie { margin-top: 34px; color: var(--muted); font-size: 13px; }
+  @media (max-width: 820px) {
+    .portada { grid-template-columns: minmax(0, 1fr); }
+    .lateral { max-width: 320px; }
+  }
+  @media (max-width: 560px) {
+    .secciones { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body class="sitio-pagina">
+<div id="sitio-nav"></div>
+<main class="sitio-main">
+  <div class="portada">
+    <div>
+      <h1>Cognitive Analysis</h1>
+      <p class="bajada">
+        Información del contenido para videos de YouTube. Mide qué trae un video
+        —ritmo del habla, cifras, fuentes, vocabulario, promoción— y lo ubica contra
+        un corpus de referencia de YouTube en español. Como la tabla nutricional de un
+        envase: te dice qué tiene, no si es bueno. Decidir sigue siendo cosa tuya.
+      </p>
+
+      <div class="secciones">
+        <a class="seccion" href="https://github.com/Joteiro/Cognitive-Analysis#readme">
+          <h2>Panel en YouTube</h2>
+          <p>La extensión de Chrome muestra los ocho descriptores al lado del video, antes de decidir si mirarlo.</p>
+          <span class="ir">Cómo funciona →</span>
+        </a>
+        <a class="seccion" href="dieta.html">
+          <h2>Dieta cognitiva <span class="etiqueta">con clave</span></h2>
+          <p>El historial medido: dónde cae frente a la mediana de YouTube, por videos o por minutos, y qué canales se llevan el consumo. Se lee en vivo.</p>
+          <span class="ir">Ver la dieta →</span>
+        </a>
+        <a class="seccion" href="quiz.html">
+          <h2>Responder</h2>
+          <p>El quiz de retención: preguntas sobre videos que viste, contestadas días después y de memoria. Se entra con el enlace personal.</p>
+          <span class="ir">Ir al quiz →</span>
+        </a>
+        <a class="seccion" href="generar.html">
+          <h2>Generar <span class="etiqueta">con clave</span></h2>
+          <p>Preguntas nuevas desde la transcripción de un video del historial, con los mismos filtros y la misma línea de base que el script.</p>
+          <span class="ir">Generar quizzes →</span>
+        </a>
+      </div>
+
+      <ul class="principios">
+        <li><b>Sin nota, sin letra y sin semáforo.</b> Todas las barras tienen el mismo color; lo único que informa es la posición.</li>
+        <li><b>El percentil describe, el adjetivo juzga.</b> Se dice «más que el 65 % de los videos comparables», nunca «alto» ni «bueno».</li>
+        <li><b>Lo que no se puede medir, se dice.</b> Un video con poca habla recibe «sin datos suficientes», no un cero.</li>
+      </ul>
+    </div>
+
+    <aside class="lateral">
+      <figure class="captura">
+        <img src="assets/readme_panel.png" width="660" height="1746"
+             alt="El panel sobre un video de divulgación: ocho descriptores, cada uno con su valor y su percentil frente a videos comparables.">
+      </figure>
+      <p class="captura-pie">El panel sobre un video informativo. Captura del panel real, no un diseño.</p>
+    </aside>
+  </div>
+
+  <p class="pie">
+    Juan Taraciuk · Proyecto final del Máster en Data Science &amp; IA de Evolve Academy, 2026 ·
+    <a href="https://github.com/Joteiro/Cognitive-Analysis">código y documentación en GitHub</a>
+  </p>
+</main>
+<script>Sitio.nav('inicio');</script>
+</body>
+</html>

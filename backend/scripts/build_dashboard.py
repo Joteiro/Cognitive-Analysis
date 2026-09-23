@@ -16,11 +16,23 @@ muestra la pantalla.
 Uso:
     .venv\\Scripts\\python build_dashboard.py
     .venv\\Scripts\\python build_dashboard.py --fuente instantanea
-    .venv\\Scripts\\python build_dashboard.py --salida ..\\..\\docs
+    .venv\\Scripts\\python build_dashboard.py --vivo
 
---fuente instantanea usa docs/dashboard_filas.json en vez de la base, para poder
-reconstruir el HTML sin conexion (y para que el anexo de la memoria sea
-reproducible por quien no tenga las credenciales).
+Dos salidas distintas, para dos usos distintos:
+
+  FOTO (por defecto) -> privado/dieta_cognitiva.html + privado/dashboard_filas.json
+      Los datos van pegados adentro: abre sin servidor ni credenciales. Es la
+      que sirve para el anexo de la memoria. Va a privado/ (ignorada por git)
+      y NO a docs/, porque todo lo que esta en docs/ lo publica GitHub Pages:
+      la foto es el historial de YouTube con titulos, canales y fechas.
+      --fuente instantanea la rearma desde privado/dashboard_filas.json sin
+      conexion.
+
+  EN VIVO (--vivo) -> docs/dieta.html
+      La misma plantilla SIN datos: la pagina los pide al backend
+      (/admin/dieta) con la clave de admin, y recien entonces ejecuta el mismo
+      codigo de dibujo. No necesita la base para generarse y solo hay que
+      rehacerla cuando cambia la plantilla, no cuando cambian los datos.
 """
 
 from __future__ import annotations
@@ -34,6 +46,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 DOCS = HERE.parent.parent / "docs"
+# La foto con datos va aca, fuera de docs/: ver el encabezado.
+PRIVADO = HERE.parent.parent / "privado"
 PLANTILLA = HERE / "plantilla_dashboard.html"
 
 # Los percentiles se guardan en content_features.panel, un jsonb con los 8
@@ -221,17 +235,74 @@ def escribir(filas: list[list], meta: dict, salida: Path) -> Path:
     return destino
 
 
+# Lo que la version en vivo le agrega a la plantilla. Cada reemplazo tiene que
+# aparecer UNA sola vez: si la plantilla cambia y un marcador desaparece o se
+# duplica, se aborta en vez de publicar una pagina que no dibuja.
+CABEZA_VIVO = (
+    '<link rel="stylesheet" href="sitio/sitio.css">\n'
+    '<script src="sitio/sitio.js"></script>\n'
+    '<script src="sitio/dieta_vivo.js" defer></script>\n'
+)
+BARRA_VIVO = (
+    '<div id="sitio-nav"></div>\n'
+    '<div class="sitio-estado" id="dieta-carga" role="status" aria-live="polite">'
+    'Cargando la dieta…</div>\n'
+    '<div class="sitio-aviso" id="dieta-afuera" hidden></div>\n'
+)
+
+
+def escribir_vivo(destino: Path) -> Path:
+    """Arma docs/dieta.html: la plantilla del dashboard sin datos adentro.
+
+    Hay UN solo dashboard que mantener. Esta version cambia tres cosas y
+    ninguna toca el dibujo:
+      - FILAS y META salen de window.DIETA, que llena sitio/dieta_vivo.js con
+        la respuesta de /admin/dieta;
+      - el codigo de dibujo queda en un <script type="text/plain">: el
+        navegador no lo ejecuta al cargar, porque todavia no hay datos.
+        dieta_vivo.js lo ejecuta tal cual cuando llegan;
+      - se agregan la barra del sitio y el aviso de lo que quedo afuera.
+    """
+    html = PLANTILLA.read_text(encoding="utf-8")
+    reemplazos = [
+        ("<title>Dieta cognitiva — historial de YouTube</title>",
+         "<title>Dieta cognitiva — Cognitive Analysis</title>"),
+        ("</head>", CABEZA_VIVO + "</head>"),
+        ('<div class="viz-root">', BARRA_VIVO + '<div class="viz-root" hidden>'),
+        ("<script>\n// ─── DATOS", '<script type="text/plain" id="dieta-codigo">\n// ─── DATOS'),
+        ("const FILAS = __DATOS__;", "const FILAS = window.DIETA.filas;"),
+        ("const META  = __META__;", "const META  = window.DIETA.meta;"),
+    ]
+    for viejo, nuevo in reemplazos:
+        n = html.count(viejo)
+        if n != 1:
+            raise ValueError(f"La plantilla cambio: esperaba una vez {viejo!r} y aparece {n}.")
+        html = html.replace(viejo, nuevo)
+    destino.write_text(html, encoding="utf-8")
+    return destino
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description="Arma el dashboard de la dieta cognitiva.")
     p.add_argument("--fuente", choices=["base", "instantanea"], default="base",
                    help="de donde salen las filas (por defecto: la base)")
-    p.add_argument("--salida", default=str(DOCS), help="carpeta de salida")
+    p.add_argument("--salida", default=str(PRIVADO),
+                   help="carpeta de salida de la foto (por defecto privado/, fuera de docs/)")
     p.add_argument("--escala", default=None, help="ruta de escala_referencia.json")
+    p.add_argument("--vivo", action="store_true",
+                   help="arma docs/dieta.html (sin datos; los pide al backend) y termina")
     args = p.parse_args()
+
+    if args.vivo:
+        destino = escribir_vivo(DOCS / "dieta.html")
+        print(f"Version en vivo: {destino}")
+        print("No lleva datos: los pide a /admin/dieta con la clave. Rehacerla solo "
+              "cuando cambie la plantilla.")
+        return 0
 
     salida = Path(args.salida)
     salida.mkdir(parents=True, exist_ok=True)
-    escala = Path(args.escala) if args.escala else salida / "escala_referencia.json"
+    escala = Path(args.escala) if args.escala else DOCS / "escala_referencia.json"
     if not escala.exists():
         print(f"No encuentro {escala}. Corre antes build_reference_scale.py.", file=sys.stderr)
         return 2

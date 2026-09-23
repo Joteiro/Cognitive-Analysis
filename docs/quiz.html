@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz de retención — Cognitive Analysis</title>
+<link rel="stylesheet" href="sitio/sitio.css">
+<script src="sitio/sitio.js"></script>
+<style>
+  .video { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px;
+           padding: 18px 20px; margin-bottom: 18px; }
+  .video h2 { font-size: 16.5px; line-height: 1.4; margin: 0 0 2px; }
+  .canal { color: var(--text-secondary); font-size: 13.5px; margin: 0 0 12px; }
+  .marco { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000;
+           border-radius: 8px; overflow: hidden; margin-bottom: 10px; }
+  .marco iframe, .marco > div { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .estado-v { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+              font-size: 14px; color: var(--text-secondary); }
+  .ya-visto { background: var(--surface-2); border-radius: 8px; padding: 10px 12px;
+              font-size: 14px; color: var(--text-secondary); margin-bottom: 4px; }
+  .ya-visto b { color: var(--text-primary); }
+  .visto-ok { color: var(--ok); font-weight: 600; }
+  .novi { font-size: 13.5px; color: var(--text-secondary); display: flex; align-items: center;
+          gap: 8px; padding-top: 10px; margin-top: 10px; border-top: 1px solid var(--border); cursor: pointer; }
+  .bloqueo { margin-top: 12px; padding: 10px 12px; background: var(--surface-2);
+             border: 1px dashed var(--border); border-radius: 8px; font-size: 14px; color: var(--text-secondary); }
+  .video.excluido .preguntas, .video.excluido .bloqueo { opacity: .35; pointer-events: none; }
+  .video.excluido .marco { opacity: .5; }
+  .p { padding: 14px 0 4px; border-top: 1px solid var(--border); margin-top: 12px; }
+  .p .txt { font-weight: 550; margin-bottom: 8px; }
+  label.op { display: flex; gap: 10px; align-items: baseline; padding: 9px 12px; margin: 6px 0;
+             border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+             background: var(--page); transition: border-color .12s, background .12s; }
+  label.op:hover { border-color: var(--accent); background: var(--accent-soft); }
+  label.op input { margin: 0; flex: none; accent-color: var(--accent); }
+  .barra { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+           background: var(--surface-1); border-top: 1px solid var(--border); }
+  .barra .in { max-width: 760px; margin: 0 auto; padding: 11px 16px;
+               display: flex; align-items: center; gap: 14px; justify-content: space-between; }
+  .prog { font-size: 14px; color: var(--text-secondary); }
+  .err { color: var(--err); font-size: 13.5px; margin-right: 10px; }
+  table.res { border-collapse: collapse; width: 100%; font-size: 14.5px; margin-top: 10px; }
+  table.res th, table.res td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--grid); }
+  table.res td { text-align: right; font-variant-numeric: tabular-nums; }
+  .rev-p { padding: 12px 0; border-top: 1px solid var(--border); }
+  .rev-p .txt { font-weight: 550; margin-bottom: 6px; }
+  .rop { padding: 7px 11px; margin: 5px 0; border-radius: 8px; font-size: 14.5px;
+         border: 1px solid var(--border); display: flex; gap: 8px; align-items: baseline; }
+  .rop .marca { flex: 0 0 1.1rem; font-weight: 700; }
+  .rop.correcta { background: var(--ok-bg); border-color: var(--ok-br); }
+  .rop.correcta .marca { color: var(--ok); }
+  .rop.elegida-mal { background: var(--err-bg); border-color: var(--err-br); }
+  .rop.elegida-mal .marca { color: var(--err); }
+  .cita { font-size: 13.5px; color: var(--text-secondary); margin: 8px 0 0; font-style: italic;
+          border-left: 2px solid var(--border); padding-left: 10px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 500; padding: 1px 8px; border-radius: 10px;
+           background: var(--ok-bg); color: var(--ok); margin-left: 8px; }
+  .badge.mal { background: var(--err-bg); color: var(--err); }
+  .consent { position: fixed; inset: 0; background: rgba(10,10,10,.55); display: flex;
+             align-items: center; justify-content: center; padding: 16px; z-index: 50; }
+  .consent .caja { background: var(--surface-1); color: var(--text-primary); max-width: 540px;
+                   border-radius: 12px; padding: 24px; max-height: 90vh; overflow: auto;
+                   border: 1px solid var(--border); }
+  .consent h2 { margin: 0 0 10px; font-size: 18px; }
+  .consent p { font-size: 14.5px; margin: 0 0 12px; }
+  .entrar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .entrar input { flex: 1 1 240px; font: inherit; padding: 9px 11px; border-radius: 8px;
+                  border: 1px solid var(--border); background: var(--page); color: var(--text-primary); }
+  .oculto { display: none !important; }
+  body { padding-bottom: 80px; }
+</style>
+</head>
+<body class="sitio-pagina">
+<div id="sitio-nav"></div>
+
+<div class="consent oculto" id="consent" role="dialog" aria-modal="true" aria-labelledby="consent-t">
+  <div class="caja">
+    <h2 id="consent-t">Antes de empezar</h2>
+    <p>Este cuestionario es parte de un estudio (un trabajo de fin de máster) sobre
+       <strong>cuánto recordamos de los videos que vemos</strong>. Vas a ver unos videos
+       y después responder algunas preguntas de memoria.</p>
+    <p>Se guardan tus respuestas, el tiempo que tardás y cuándo viste cada video, de forma
+       <strong>anónima</strong> (bajo un seudónimo, sin tu nombre). Los datos se usan solo
+       de forma agregada para el estudio. Es <strong>voluntario</strong> y podés dejarlo
+       cuando quieras cerrando la página.</p>
+    <p class="sitio-nota">Participás como: <strong id="quien"></strong></p>
+    <button class="sitio-boton" id="aceptar" type="button">Acepto y quiero empezar</button>
+  </div>
+</div>
+
+<main class="sitio-main angosto">
+  <div id="cargando" class="sitio-estado" role="status" aria-live="polite">Cargando tu cuestionario…</div>
+  <div id="fatal" class="oculto"></div>
+
+  <div id="app" class="oculto">
+    <h1>Quiz de retención</h1>
+    <p class="bajada" id="sub"></p>
+    <div class="sitio-tarjeta sitio-nota" id="instrucciones">
+      <strong>Cómo funciona.</strong> Para cada video: miralo, y cuando termines se desbloquean
+      sus preguntas. Contestá <strong>de memoria</strong>: no vuelvas a mirar el video ni busques.
+      Si no te acordás, elegí igual la que te parezca más probable. Si un video no lo llegaste a ver,
+      marcá la casilla y sus preguntas quedan para otro momento. No vas a ver si acertaste hasta el
+      final, y podés cerrar y volver cuando quieras: el avance se guarda en este navegador.
+    </div>
+    <div id="resultado" class="sitio-tarjeta oculto"></div>
+    <div id="quiz"></div>
+    <div id="revision"></div>
+  </div>
+</main>
+
+<div class="barra oculto" id="barra-inferior"><div class="in">
+  <span class="prog" id="prog">0 de 0 contestadas</span>
+  <div>
+    <span class="err oculto" id="err"></span>
+    <button class="sitio-boton" id="enviar" type="button" disabled>Enviar respuestas</button>
+  </div>
+</div></div>
+
+<script>
+/* El quiz por token. Mismo circuito que quiz_piloto/formularios_web/quiz_web.html
+   (que ahora redirige acá): la página pide el quiz con obtener_quiz(token), que
+   NO trae la respuesta correcta, y al enviar registrar_respuestas puntúa en el
+   servidor y devuelve las soluciones.
+
+   Desde la migración 013 el servidor devuelve solo lo que falta contestar, así
+   que la página es una COLA: al volver, aparece lo nuevo y no lo ya hecho. Y si
+   el visionado ya está registrado (visto_at), las preguntas se desbloquean sin
+   volver a mostrar el video. */
+const SUPA_URL = "https://hprttdautrltgueryysz.supabase.co";
+// Clave PÚBLICA (anon). Es pública por diseño: la seguridad la dan las RPC
+// security definer, que validan el token. Nunca va acá la de servicio.
+const SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhwcnR0ZGF1dHJsdGd1ZXJ5eXN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxNDA0MDgsImV4cCI6MjA4NzcxNjQwOH0.eTnJqms6REWlT2nZBR6zZZzo1_iJnvJgIPb_cVyt098";
+const TOKEN = (new URLSearchParams(location.search).get('t') || '').trim();
+
+let DATOS = [], PERSONA = '', CLAVE = '', AHORA = null;
+let resp = {}, excluidos = new Set(), vistos = {};
+let ultimoEvento = Date.now();
+let players = {}, maxpct = {}, apiLista = false, pendientePintar = false, muestreo = null;
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => Sitio.esc(s);
+
+async function rpc(fn, args) {
+  const r = await fetch(SUPA_URL + '/rest/v1/rpc/' + fn, {
+    method: 'POST',
+    headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify(args),
+  });
+  if (!r.ok) throw new Error('RPC ' + fn + ' HTTP ' + r.status + ' ' + (await r.text()));
+  return r.json();
+}
+
+function guardar() {
+  Sitio.escribir(CLAVE, JSON.stringify({ resp, excluidos: [...excluidos], vistos, consent: true }));
+}
+function restaurar() {
+  let g = null;
+  try { g = JSON.parse(Sitio.leer(CLAVE) || 'null'); } catch (e) { g = null; }
+  if (!g) return null;
+  resp = g.resp || {}; excluidos = new Set(g.excluidos || []); vistos = g.vistos || {};
+  return g;
+}
+
+function hace(iso) {
+  const ref = AHORA ? new Date(AHORA) : new Date();
+  const d = Math.floor((ref - new Date(iso)) / 86400000);
+  const fecha = new Date(iso).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+  return `${fecha} · ${d <= 0 ? 'hoy' : d === 1 ? 'hace 1 día' : 'hace ' + d + ' días'}`;
+}
+
+// ── YouTube: solo se carga si algún video todavía hay que verlo ─────────────
+function cargarYouTube() {
+  if (window.YT || document.getElementById('yt-api')) return;
+  const s = document.createElement('script');
+  s.id = 'yt-api'; s.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(s);
+}
+window.onYouTubeIframeAPIReady = function () { apiLista = true; if (pendientePintar) crearPlayers(); };
+function crearPlayers() {
+  DATOS.forEach(v => {
+    if (v.visto_at || players[v.content_item_id] || !document.getElementById('yt-' + v.content_item_id)) return;
+    players[v.content_item_id] = new YT.Player('yt-' + v.content_item_id, {
+      videoId: v.external_id,
+      playerVars: { rel: 0, modestbranding: 1 },
+      events: { onStateChange: e => onEstado(v.content_item_id, e) },
+    });
+  });
+}
+function onEstado(vid, e) {
+  if (e.data === YT.PlayerState.PLAYING && !muestreo) muestreo = setInterval(muestrear, 1000);
+  if (e.data === YT.PlayerState.ENDED) { maxpct[vid] = 100; marcarVisto(vid, 100, true); }
+}
+function muestrear() {
+  DATOS.forEach(v => {
+    const p = players[v.content_item_id];
+    if (p && p.getDuration) {
+      const d = p.getDuration() || 0, t = p.getCurrentTime() || 0;
+      if (d > 0) {
+        const pct = Math.min(100, Math.round(100 * t / d));
+        maxpct[v.content_item_id] = Math.max(maxpct[v.content_item_id] || 0, pct);
+        const b = $('vi-' + v.content_item_id);
+        if (b && maxpct[v.content_item_id] >= 5) b.disabled = false;
+      }
+    }
+  });
+}
+async function marcarVisto(vid, pct, completo) {
+  if (vistos[vid] !== undefined && vistos[vid] >= (pct || 0) && !completo) { pintarEstado(vid); return; }
+  try {
+    await rpc('registrar_visionado', { p_token: TOKEN, p_content_item_id: vid,
+              p_reproduccion_pct: pct, p_completo: !!completo });
+    vistos[vid] = Math.max(vistos[vid] || 0, pct || 0);
+    guardar(); pintarEstado(vid); progreso();
+  } catch (err) { mostrarError('No se pudo registrar el visionado. Revisá tu conexión.'); }
+}
+function pintarEstado(vid) {
+  const cont = $('estado-' + vid), preg = $('preg-' + vid), blq = $('blq-' + vid);
+  if (vistos[vid] !== undefined) {
+    if (cont) cont.innerHTML = '<span class="visto-ok">✓ Video registrado</span>';
+    if (preg) preg.classList.remove('oculto');
+    if (blq) blq.classList.add('oculto');
+  }
+}
+
+// ── Pintar ────────────────────────────────────────────────────────────────
+function pintar() {
+  const cont = $('quiz'); cont.innerHTML = '';
+  let hayQueVer = false;
+  DATOS.forEach(v => {
+    const id = v.content_item_id;
+    const d = document.createElement('section');
+    d.className = 'video'; d.id = 'v' + id;
+    let html = `<h2>${esc(v.titulo)}</h2><p class="canal">${esc(v.canal || '')}</p>`;
+    if (v.visto_at) {
+      // Visto y registrado en el servidor: no se vuelve a mostrar el video,
+      // para que la respuesta mida lo que quedó y no lo que se acaba de ver.
+      html += `<div class="ya-visto">Lo viste el <b>${esc(hace(v.visto_at))}</b>. Contestá de memoria.</div>`;
+    } else {
+      hayQueVer = true;
+      html += `<div class="marco"><div id="yt-${id}"></div></div>
+        <div class="estado-v">
+          <button class="sitio-boton" id="vi-${id}" type="button" disabled>Ya terminé de verlo</button>
+          <span id="estado-${id}">Mirá el video para desbloquear las preguntas.</span>
+        </div>
+        <div class="bloqueo" id="blq-${id}">Las preguntas aparecen cuando marques el video como visto.</div>`;
+    }
+    html += `<label class="novi"><input type="checkbox" class="novi-chk">
+        No vi este video (o no lo recuerdo en absoluto)</label>
+      <div class="preguntas${v.visto_at ? '' : ' oculto'}" id="preg-${id}">`;
+    v.preguntas.forEach(p => {
+      html += `<div class="p"><div class="txt">${esc(p.pregunta)}</div>`;
+      p.opciones.forEach((o, i) => {
+        html += `<label class="op"><input type="radio" name="q${p.id}" value="${i}"><span>${esc(o)}</span></label>`;
+      });
+      html += `</div>`;
+    });
+    html += `</div>`;
+    d.innerHTML = html;
+    cont.appendChild(d);
+
+    const bVisto = $('vi-' + id);
+    if (bVisto) bVisto.addEventListener('click', () => {
+      const pct = maxpct[id] || 0; marcarVisto(id, pct, pct >= 90);
+    });
+    const chk = d.querySelector('.novi-chk');
+    if (excluidos.has(id)) { chk.checked = true; d.classList.add('excluido'); }
+    chk.addEventListener('change', e => {
+      if (e.target.checked) { excluidos.add(id); d.classList.add('excluido'); }
+      else { excluidos.delete(id); d.classList.remove('excluido'); }
+      guardar(); progreso();
+    });
+    v.preguntas.forEach(p => {
+      if (resp[p.id] !== undefined) {
+        const prev = d.querySelector(`input[name=q${p.id}][value="${resp[p.id].eleccion}"]`);
+        if (prev) prev.checked = true;
+      }
+      d.querySelectorAll(`input[name=q${p.id}]`).forEach(r => {
+        r.addEventListener('change', () => {
+          const ahora = Date.now();
+          resp[p.id] = { eleccion: +r.value, segundos: Math.round((ahora - ultimoEvento) / 1000) };
+          ultimoEvento = ahora; guardar(); progreso();
+        });
+      });
+    });
+    if (vistos[id] !== undefined) pintarEstado(id);
+  });
+  if (hayQueVer) { cargarYouTube(); if (apiLista) crearPlayers(); else pendientePintar = true; }
+  progreso();
+}
+
+function pendientes() {
+  let n = 0;
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    if (vistos[v.content_item_id] === undefined) { n += v.preguntas.length; return; }
+    v.preguntas.forEach(p => { if (resp[p.id] === undefined) n++; });
+  });
+  return n;
+}
+function progreso() {
+  const falta = pendientes();
+  const activas = DATOS.reduce((a, v) => a + (excluidos.has(v.content_item_id) ? 0 : v.preguntas.length), 0);
+  $('prog').textContent = `${activas - falta} de ${activas} contestadas` + (falta ? ` · faltan ${falta}` : '');
+  $('enviar').disabled = falta > 0 || activas === 0;
+}
+function mostrarError(msg) {
+  const e = $('err'); e.textContent = msg; e.classList.remove('oculto');
+  setTimeout(() => e.classList.add('oculto'), 6000);
+}
+
+function pintarRevision(soluciones) {
+  const mapa = {};
+  soluciones.forEach(s => { mapa[s.pregunta_id] = s; });
+  let html = '<h2>Soluciones</h2>';
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    html += `<section class="video"><h2>${esc(v.titulo)}</h2>`;
+    v.preguntas.forEach(p => {
+      const s = mapa[p.id]; if (!s) return;
+      html += `<div class="rev-p"><div class="txt">${esc(p.pregunta)}` +
+              (s.acierto ? '<span class="badge">acertaste</span>' : '<span class="badge mal">fallaste</span>') + `</div>`;
+      p.opciones.forEach((o, i) => {
+        let cls = 'rop', marca = '';
+        if (i === s.correcta) { cls += ' correcta'; marca = '✓'; }
+        else if (i === s.tu_eleccion) { cls += ' elegida-mal'; marca = '✗'; }
+        html += `<div class="${cls}"><span class="marca">${marca}</span><span>${esc(o)}</span></div>`;
+      });
+      if (s.cita) html += `<p class="cita">En el video: «${esc(s.cita)}»</p>`;
+      html += `</div>`;
+    });
+    html += `</section>`;
+  });
+  $('revision').innerHTML = html;
+}
+
+$('enviar').addEventListener('click', async () => {
+  const btn = $('enviar'); btn.disabled = true;
+  const payload = [];
+  DATOS.forEach(v => {
+    if (excluidos.has(v.content_item_id)) return;
+    v.preguntas.forEach(p => {
+      const r = resp[p.id];
+      payload.push({ pregunta_id: p.id, eleccion: r.eleccion, segundos: r.segundos });
+    });
+  });
+  let res;
+  try { res = await rpc('registrar_respuestas', { p_token: TOKEN, p_respuestas: payload }); }
+  catch (err) {
+    mostrarError('No se pudieron enviar las respuestas. Revisá tu conexión e intentá de nuevo.');
+    btn.disabled = false; return;
+  }
+  const soluciones = res.soluciones || [];
+  const ok = soluciones.filter(s => s.acierto).length;
+  const n = soluciones.length;
+  const dif = new Set();
+  DATOS.forEach(v => v.preguntas.forEach(p => { if (p.dificil) dif.add(p.id); }));
+  const okDif = soluciones.filter(s => dif.has(s.pregunta_id) && s.acierto).length;
+  const nDif = soluciones.filter(s => dif.has(s.pregunta_id)).length;
+  const quedan = excluidos.size;
+  const caja = $('resultado'); caja.classList.remove('oculto');
+  caja.innerHTML = `<h2>¡Listo, gracias!</h2>
+    <table class="res">
+      <tr><th>Preguntas contestadas</th><td>${n}</td></tr>
+      <tr><th>Aciertos</th><td>${ok} (${n ? (100 * ok / n).toFixed(0) : 0} %)</td></tr>
+      <tr><th>Aciertos en las más difíciles</th><td>${nDif ? `${okDif} de ${nDif}` : 'sin ítems'}</td></tr>
+      <tr><th>Videos que dejaste para otro momento</th><td>${quedan}</td></tr>
+    </table>
+    <p class="sitio-nota">Tus respuestas se guardaron. El porcentaje es orientativo.
+      Abajo están las soluciones de todo lo que contestaste.${quedan ?
+      ' Los videos que marcaste como no vistos siguen en tu enlace para cuando quieras.' : ''}</p>`;
+  $('quiz').classList.add('oculto');
+  $('instrucciones').classList.add('oculto');
+  $('barra-inferior').classList.add('oculto');
+  pintarRevision(soluciones);
+  caja.scrollIntoView({ behavior: 'smooth' });
+  // Se borra el avance (ya está en el servidor) pero no el consentimiento.
+  resp = {}; vistos = {}; excluidos = new Set(); guardar();
+});
+
+// ── Arranque ──────────────────────────────────────────────────────────────
+function fatal(html) {
+  $('cargando').classList.add('oculto');
+  const f = $('fatal'); f.className = 'sitio-estado'; f.innerHTML = html;
+}
+
+function pedirEnlace() {
+  fatal(`<h1>Quiz de retención</h1>
+    <p>Para contestar necesitás tu enlace personal: es el que te llegó por mensaje o mail.</p>
+    <form class="entrar" id="form-enlace">
+      <input id="enlace" placeholder="Pegá el enlace o el código" aria-label="Enlace o código personal" required>
+      <button class="sitio-boton" type="submit">Entrar</button>
+    </form>`);
+  $('form-enlace').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = $('enlace').value.trim();
+    let t = v;
+    try { t = new URL(v).searchParams.get('t') || v; } catch (err) { /* no era un enlace: es el código */ }
+    if (t) location.search = '?t=' + encodeURIComponent(t);
+  });
+}
+
+async function sinToken() {
+  // Sin ?t=: si este navegador tiene la clave de admin, se busca la cola propia.
+  if (!Sitio.clave()) { pedirEnlace(); return; }
+  $('cargando').textContent = 'Buscando tu cola…';
+  try {
+    const c = await Sitio.api('/admin/quiz/cola', { alEsperar: m => { $('cargando').textContent = m; } });
+    const t = new URL(c.enlace).searchParams.get('t');
+    location.replace('quiz.html?t=' + encodeURIComponent(t));
+  } catch (e) {
+    pedirEnlace();
+  }
+}
+
+function iniciarUI(recuperado) {
+  $('cargando').classList.add('oculto');
+  $('app').classList.remove('oculto');
+  $('barra-inferior').classList.remove('oculto');
+  const np = DATOS.reduce((a, v) => a + v.preguntas.length, 0);
+  $('sub').textContent = `${DATOS.length} ${DATOS.length === 1 ? 'video' : 'videos'} · ${np} ${np === 1 ? 'pregunta' : 'preguntas'} pendientes`;
+  pintar();
+  if (recuperado) {
+    const a = document.createElement('div');
+    a.className = 'sitio-tarjeta sitio-nota';
+    a.innerHTML = '<strong>Se recuperó tu avance.</strong> Podés seguir donde lo dejaste.';
+    $('quiz').before(a);
+  }
+}
+
+async function arranque() {
+  Sitio.nav('responder', { soloPublicas: true });
+  if (!TOKEN) { sinToken(); return; }
+  let data;
+  try { data = await rpc('obtener_quiz', { p_token: TOKEN }); }
+  catch (err) {
+    fatal('<h1>Enlace inválido</h1><p>No pudimos cargar tu cuestionario. ' +
+          'Revisá que el enlace esté completo o pedí uno nuevo.</p>');
+    return;
+  }
+  DATOS = (data.videos || []).filter(v => v.preguntas && v.preguntas.length);
+  PERSONA = data.persona || ''; AHORA = data.ahora || null;
+  CLAVE = 'quizweb_' + TOKEN;   // misma clave que la página vieja: el avance se conserva
+  $('quien').textContent = PERSONA;
+
+  if (!DATOS.length) {
+    Sitio.escribir(CLAVE, JSON.stringify({ consent: true }));
+    fatal('<h1>No tenés preguntas pendientes</h1><p>Contestaste todo lo que había. ¡Gracias! ' +
+          'Si se suman videos nuevos, van a aparecer en este mismo enlace.</p>' +
+          (Sitio.clave() ? '<p><a class="sitio-boton" href="generar.html">Generar más quizzes</a></p>' : ''));
+    return;
+  }
+
+  const g = restaurar();
+  // Lo que el servidor ya sabe manda: un visionado registrado desbloquea aunque
+  // este navegador no lo recuerde (otro dispositivo, datos borrados).
+  DATOS.forEach(v => { if (v.visto_at && vistos[v.content_item_id] === undefined) vistos[v.content_item_id] = 100; });
+  const recuperado = !!(g && (Object.keys(resp).length || excluidos.size));
+
+  if (g && g.consent) { iniciarUI(recuperado); return; }
+  $('cargando').classList.add('oculto');
+  $('consent').classList.remove('oculto');
+  $('aceptar').addEventListener('click', () => {
+    $('consent').classList.add('oculto'); guardar(); iniciarUI(recuperado);
+  });
+}
+arranque();
+</script>
+</body>
+</html>

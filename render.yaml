@@ -8,3 +8,10 @@ services:
     envVars:
       - key: DATABASE_URL
         sync: false   # lo ingresás manualmente en el dashboard de Render
+      # Sin ADMIN_KEY, /admin/* responde 503: el modo admin nace apagado.
+      # Poner una larga y al azar (>= 16 caracteres).
+      - key: ADMIN_KEY
+        sync: false
+      # Solo para generar quizzes desde la web.
+      - key: GEMINI_API_KEY
+        sync: false

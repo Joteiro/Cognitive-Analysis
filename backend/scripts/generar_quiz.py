@@ -1144,6 +1144,29 @@ def traer_videos(dsn: str, formato: str, corpus: str, min_palabras: int,
             return [dict(r) for r in cur.fetchall()]
 
 
+def discrepancias_formato(ruta: Path = None) -> dict:
+    """Videos donde el modelo discrepa con la etiqueta determinista de formato.
+
+    Devuelve {content_item_id: registro de formato_verificado.json}. En modo
+    regla esos videos se SALTAN: la etiqueta NO se corrige -- es una decision
+    sobre que datos usar. Se excluye TODO desacuerdo (el campo confianza no
+    discrimina: sobre 79 videos declaro "alta" las 79 veces).
+
+    Vive en una funcion propia porque la usan dos entradas: este script y el
+    endpoint /admin/quiz del backend (la pagina web). Si cada una tuviera su
+    copia, el dia que cambie el criterio la web generaria sobre videos que el
+    script excluye, y el instrumento dejaria de ser uno solo.
+    """
+    ruta = ruta or DOCS / "formato_verificado.json"
+    if not ruta.exists():
+        return {}
+    marcados = {}
+    for d in json.loads(ruta.read_text(encoding="utf-8")):
+        if d.get("formato_observado") and d["formato_observado"] != d["formato"]:
+            marcados[d["content_item_id"]] = d
+    return marcados
+
+
 # ---------------------------------------------------------------------------
 # Informe
 # ---------------------------------------------------------------------------
@@ -1495,13 +1518,8 @@ def main() -> int:
                   "Corre verificar_formato.py para incluirlos.")
     elif verif.exists() and not args.ignorar_verificacion:
         # Modo regla: se saltan los videos donde el modelo discrepa con la
-        # etiqueta determinista. La etiqueta NO se corrige -- es una decision
-        # sobre que datos usar. Se excluye TODO desacuerdo (el campo confianza
-        # no discrimina: sobre 79 videos declaro "alta" las 79 veces).
-        marcados = {}
-        for d in json.loads(verif.read_text(encoding="utf-8")):
-            if d.get("formato_observado") and d["formato_observado"] != d["formato"]:
-                marcados[d["content_item_id"]] = d
+        # etiqueta determinista (ver discrepancias_formato).
+        marcados = discrepancias_formato(verif)
         fuera = [v for v in videos if v["id"] in marcados]
         for v in fuera:
             m = marcados[v["id"]]
