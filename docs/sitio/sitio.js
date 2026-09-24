@@ -14,6 +14,7 @@
   var PAGINAS = [
     { id: 'inicio', href: 'index.html', txt: 'Inicio' },
     { id: 'dieta', href: 'dieta.html', txt: 'Dieta', admin: true },
+    { id: 'comparar', href: 'comparar.html', txt: 'Comparar', admin: true },
     { id: 'responder', href: 'quiz.html', txt: 'Responder' },
     { id: 'generar', href: 'generar.html', txt: 'Generar', admin: true },
   ];

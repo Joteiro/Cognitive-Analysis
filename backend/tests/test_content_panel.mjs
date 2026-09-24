@@ -139,6 +139,14 @@ check(guardado.formatos_corregidos &&
       guardado.formatos_corregidos['a62HpQpVBh8'] === 'entretenimiento',
       'la correccion queda guardada en este navegador');
 
+console.log('\n== la salida a comparar ==');
+const cmp = sh2.querySelector('.acc a');
+check(!!cmp, 'hay un enlace para comparar este video con otro');
+check(cmp && cmp.getAttribute('href').includes('comparar.html?a=a62HpQpVBh8'),
+      'y lleva el id del video en la URL, sin recordar nada entre paginas');
+check(cmp && cmp.getAttribute('target') === '_blank',
+      'se abre en otra pestana: no interrumpe el video');
+
 console.log('\n== el panel sigue siendo el mismo producto ==');
 const html = sh2.innerHTML;
 check(html.includes('No es una calificación'),

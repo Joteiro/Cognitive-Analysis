@@ -58,9 +58,13 @@ Pero hay tres cosas que el feedback no dice y que agravan el diagnóstico:
    `category_id` que el canal se autodeclara en YouTube. No mira título, duración, capítulos
    ni transcripción. Seis videos del corpus son «informativo» sólo porque el canal lo dice,
    sin ningún respaldo en el contenido.
-2. **El error es asimétrico.** En la tabla cruzada, 10 videos que la regla marca
-   `practico_personal` el modelo los lee como `informativo`. La regla sobre-asigna
-   justamente la categoría más poblada.
+2. **El error es asimétrico, y va en el sentido contrario al que decía la primera
+   versión de este documento.** El modelo que lee el contenido llama `informativo` a **45**
+   videos; la regla etiqueta así a **37**. Hay **15 videos que el modelo lee como
+   informativos y la regla no** (10 marcados `practico_personal` y 5 `entretenimiento`),
+   contra 7 en la dirección opuesta. Es decir: la regla **sub**-asigna informativo.
+   *(Corregido el 24/9. La versión anterior afirmaba lo contrario por leer la tabla cruzada
+   por la columna equivocada: las filas son la regla y las columnas el modelo.)*
 3. **El propio informe ya prescribía el arreglo.** Su último párrafo dice que si kappa es
    bajo *«eso hay que decirlo al presentar cualquier resultado partido por formato»*. El
    frontal no lo cumplía. No hubo que pensar nada nuevo: hubo que aplicar una regla que el

@@ -131,6 +131,12 @@
   }
   .estado b { color: var(--text-primary); font-variant-numeric: tabular-nums; }
 
+  .proc {
+    font-size: 12.5px; line-height: 1.55; color: var(--text-secondary);
+    margin: -8px 0 20px; padding: 0 3px;
+  }
+  .proc b { color: var(--text-primary); font-variant-numeric: tabular-nums; }
+
   .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 22px; }
   .tile { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 15px 17px; }
   .tile .v { font-size: 29px; line-height: 1.05; font-weight: 600; letter-spacing: -0.02em; }
@@ -249,6 +255,8 @@
 
   <div class="tiles" id="tiles"></div>
 
+  <p class="proc" id="proc"></p>
+
   <div class="callout" id="avisoN" hidden></div>
   <div class="callout" id="avisoDom" hidden></div>
 
@@ -331,6 +339,15 @@ const NOM_FORMATO = {
 
 // Por debajo de este n, una mediana con banda intercuartil es ruido dibujado con
 // autoridad. El grafico cambia de forma: pasa a mostrar los videos uno por uno.
+// Como se llama cada fuente de transcripcion en castellano. Las claves son las
+// de content_items.transcript_source.
+const FUENTE_TEXTO = {
+  youtube_manual: "con subtítulos del autor",
+  youtube_auto:   "con subtítulos automáticos de YouTube",
+  supadata:       "con transcripción automática (Supadata)",
+  extension:      "con texto tomado del reproductor",
+};
+
 const UMBRAL_N = 15;
 // Cuando un canal se lleva mas que esto del consumo filtrado, lo que se esta
 // mirando es ese canal, no la categoria. Se avisa.
@@ -338,7 +355,10 @@ const UMBRAL_DOMINANCIA = 0.40;
 
 const FILAS_OBJ = FILAS.map((f) => ({
   titulo: f[0], canal: f[1] || "(sin canal)", formato: f[2], fecha: f[3],
-  min: f[4], palabras: f[5], p: f.slice(6),
+  // p se corta en 14 y no hasta el final: la fuente de la transcripcion viaja
+  // despues de los ocho percentiles, y meterla en p la dibujaria como un noveno
+  // descriptor.
+  min: f[4], palabras: f[5], p: f.slice(6, 14), fuente: f[14] || null,
 }));
 const FECHA_MIN = FILAS_OBJ.reduce((a, f) => (f.fecha < a ? f.fecha : a), FILAS_OBJ[0].fecha);
 const FECHA_MAX = FILAS_OBJ.reduce((a, f) => (f.fecha > a ? f.fecha : a), FILAS_OBJ[0].fecha);
@@ -746,6 +766,32 @@ function textos(filas) {
     [num(nMin / 60, 1) + " h", "de tiempo medido"],
     [filas.length ? num(nMin / filas.length, 0) + " min" : "—", "duración promedio"],
   ].map(([v, l]) => `<div class="tile"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+  // DE QUE TEXTO SALIERON ESTAS MEDIDAS
+  //
+  // El panel no mide el video: mide su transcripcion. El proyecto ya descarto
+  // dos indicadores —palabras_por_frase y preguntas_1000w— al descubrir que la
+  // puntuacion la insertaba el transcriptor y no el hablante. Si la mayoria del
+  // recorte se midio sobre subtitulos automaticos, eso condiciona como se leen
+  // las filas lexicas, y es un dato que estaba en la base sin llegar a la vista.
+  const proc = document.getElementById("proc");
+  const conFuente = filas.filter((f) => f.fuente);
+  if (!filas.length) {
+    proc.innerHTML = "";
+  } else if (!conFuente.length) {
+    // Lo que no se puede medir, se dice: una foto vieja no trae el campo.
+    proc.innerHTML = "<b>Medido sobre:</b> origen de la transcripción no registrado en estos datos.";
+  } else {
+    const partes = agrupar(conFuente, (f) => f.fuente)
+      .sort((a, b) => b.n - a.n)
+      .map((g) => `<b>${g.n}</b> ${FUENTE_TEXTO[g.k] || g.k}`);
+    const autos = conFuente.filter((f) => f.fuente !== "youtube_manual").length;
+    const faltan = filas.length - conFuente.length;
+    proc.innerHTML = `<b>Medido sobre:</b> ${partes.join(" · ")}` +
+      (faltan ? ` · <b>${faltan}</b> sin origen registrado` : "") + "." +
+      (autos ? ` En ${autos === 1 ? "esa transcripción automática" : "las automáticas"}
+        la puntuación la insertó el transcriptor, no quien habla.` : "");
+  }
 
   // Aviso de n insuficiente.
   const avisoN = document.getElementById("avisoN");

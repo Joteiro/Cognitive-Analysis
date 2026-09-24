@@ -92,7 +92,7 @@ def a_local(dt: datetime) -> datetime:
 
 SQL = """
 SELECT i.title, i.channel, f.formato, i.watched_at, f.duration_seconds,
-       f.n_words, f.panel
+       f.n_words, f.panel, i.transcript_source, i.external_id
   FROM content_features f
   JOIN content_items    i ON i.id = f.content_item_id
  WHERE i.watched_at IS NOT NULL
@@ -145,7 +145,25 @@ def cargar_de_base(dsn: str) -> list[list]:
 
 
 def fila_compacta(r: dict) -> list:
-    """Una fila del dashboard: [titulo, canal, formato, fecha, min, palabras, p0..p7]."""
+    """Una fila del dashboard, por posicion:
+
+        0 titulo · 1 canal · 2 formato · 3 fecha · 4 minutos · 5 palabras
+        6..13  percentiles, en PANEL_ORDEN
+        14     fuente de la transcripcion
+        15     external_id
+        16..23 valores crudos, en PANEL_ORDEN
+
+    LO NUEVO VA SIEMPRE AL FINAL. Los ocho percentiles se leen por indice en
+    tres lugares distintos (la plantilla del dashboard, comparar.html y la foto
+    guardada en privado/), y correrlos en silencio es exactamente el error que
+    esta funcion aborta unas lineas mas abajo. Agregar al final no rompe a nadie:
+    quien lea la fila vieja encuentra lo mismo donde estaba.
+
+    Los valores crudos viajan porque son lo unico comparable entre dos videos
+    sin pasar por la etiqueta de formato, que acierta 7 de cada 10 veces. El
+    percentil sirve para ubicar un video contra el corpus; para ponerlo al lado
+    de otro video, lo que se mira son las cifras por cada mil palabras.
+    """
     panel = r["panel"]
     if isinstance(panel, str):          # psycopg2 devuelve jsonb como texto si no hay adaptador
         panel = json.loads(panel)
@@ -155,10 +173,12 @@ def fila_compacta(r: dict) -> list:
         raise ValueError(f"El panel de «{r['title'][:40]}» no trae {faltan}. "
                          "Se aborta: reindexar por posicion con un panel incompleto "
                          "correria los percentiles de descriptor sin avisar.")
-    pcts = []
+    pcts, valores = [], []
     for k in PANEL_ORDEN:
         v = por_clave[k].get("percentil")
         pcts.append(None if v is None else int(round(float(v))))
+        crudo = por_clave[k].get("valor")
+        valores.append(None if crudo is None else round(float(crudo), 4))
     return [
         r["title"] or "(sin titulo)",
         r["channel"] or "(sin canal)",
@@ -167,6 +187,12 @@ def fila_compacta(r: dict) -> list:
         round((r["duration_seconds"] or 0) / 60.0, 1),
         r["n_words"],
         *pcts,
+        # De que texto salio la medida. El panel no mide el video: mide su
+        # transcripcion, y este proyecto ya descarto dos indicadores al ver que
+        # la puntuacion la ponia el transcriptor y no el hablante.
+        r.get("transcript_source"),
+        r.get("external_id"),
+        *valores,
     ]
 
 

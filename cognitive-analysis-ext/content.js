@@ -17,6 +17,12 @@
 const API_BASE      = 'https://cognitive-analysis-gfpg.onrender.com';
 const BACKEND_URL   = `${API_BASE}/videos`;
 const PANEL_URL     = `${API_BASE}/panel`;
+// La pagina de comparacion del sitio. Se abre con el video actual del lado A y
+// el lado B vacio: el boton NO recuerda nada entre videos. Un "comparar con"
+// de dos pasos obliga a guardar un estado que sobrevive a la navegacion de
+// YouTube, y lo unico que gana es ahorrar una busqueda en una lista que la
+// pagina ya tiene.
+const COMPARAR_URL  = 'https://joteiro.github.io/Cognitive-Analysis/comparar.html';
 const DELAY_MS      = 2500;
 const POLL_MAX      = 24;
 
@@ -151,6 +157,14 @@ function contenedor() {
               font-family:inherit; cursor:pointer; }
     .selfmt:hover { border-color:#3a4560; }
     .corregido { font-size:10.5px; color:#8b93a7; padding:8px 14px 0; }
+    /* Un solo boton, y lleva a otra pagina: el panel describe un video, y
+       compararlo con otro es lo unico que se puede hacer con esa descripcion
+       sin salir del producto. */
+    .acc { padding:11px 14px; border-top:1px solid #2a2e3a; }
+    .b1 { display:block; text-align:center; background:#2a3550; border:1px solid #3a4560;
+          color:#cdd6f4; border-radius:7px; padding:7px 0; font-size:12px;
+          font-weight:600; text-decoration:none; }
+    .b1:hover { background:#32405f; }
     .pie { font-size:10.5px; color:#8b93a7; margin-top:5px; }
     .aus { font-size:11.5px; color:#8b93a7; margin-top:5px; }
     .nota { padding:10px 14px; border-top:1px solid #2a2e3a;
@@ -379,6 +393,9 @@ function dibujarPanel() {
 
   caja.insertAdjacentHTML('beforeend',
     `${aviso}${notaCorreccion}<div class="cuerpo">${filas}</div>
+     <div class="acc"><a class="b1" target="_blank" rel="noopener"
+        href="${COMPARAR_URL}?a=${encodeURIComponent(d.video_id)}"
+        >Comparar con otro video</a></div>
      <div class="nota">Percentiles relativos al corpus de referencia de YouTube
      en español (${d.frame_version}), comparando contra videos del mismo formato
      cuando corresponde. <b>No es una calificación.</b>${notaMargen}
