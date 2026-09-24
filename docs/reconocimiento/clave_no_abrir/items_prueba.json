@@ -1,0 +1,281 @@
+{
+ "version": "reconocimiento-1.0",
+ "generado_at": "2026-09-23T19:25:53.473400+00:00",
+ "semilla": 20260923,
+ "modelo_generador": "gemini-2.5-flash",
+ "modelo_control": "gemini-2.5-flash-lite",
+ "videos": [
+  {
+   "content_item_id": 86,
+   "titulo": "ANÁLISIS FUTBORDISTICO: ARGENTINA - INGLATERRA | SE VIENE ESPAÑA",
+   "canal": "Tomás Rebord",
+   "url": "https://www.youtube.com/watch?v=P4tUwyG2KKQ",
+   "categoria": "News & Politics",
+   "duration_seconds": 3183,
+   "watched_at": "2026-07-16T10:50:40.308000+00:00",
+   "senuelo_origen_id": 336,
+   "senuelo_origen_titulo": "SE PICÓ EN EL OBELISCO💥 ARGENTINA A SEMIFINALES",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 2,
+    "senuelos_respaldados_por_el_objetivo": 4
+   },
+   "items": [
+    {
+     "texto": "El narrador se sentía sumamente agotado y sobrepasado por la emoción antes y durante el partido.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 1
+    },
+    {
+     "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 2
+    },
+    {
+     "texto": "La estrategia contra España debe incluir burlas y provocaciones para desestabilizar a los jugadores.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 3
+    },
+    {
+     "texto": "El \"aura\" de esta generación de la \"escaloneta\" es descrita como picante y llena de aguante.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 4
+    },
+    {
+     "texto": "En un momento se aclara que todas las cifras del video estan expresadas en unidades marcianas.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 5
+    },
+    {
+     "texto": "En esta ocasión, el equipo llegó casi a tiempo, mejorando la puntualidad de un evento anterior.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 6
+    },
+    {
+     "texto": "Durante cinco minutos, ninguno de los equipos logró mantener la posesión del balón de manera efectiva.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 7
+    },
+    {
+     "texto": "La selección argentina es vista como \"gedienta\" y gana partidos gracias a su actitud y determinación.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 8
+    },
+    {
+     "texto": "A pesar de su lentitud, \"la escaloneta\" demuestra una gran templanza y seguridad en el campo.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 9
+    },
+    {
+     "texto": "El contenido audiovisual se publica un domingo, justo después de la culminación de un partido de cuartos de final.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 10
+    },
+    {
+     "texto": "La selección argentina convierte el sufrimiento en una fortaleza, reflejando aspectos de la cultura del tango.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 11
+    },
+    {
+     "texto": "El narrador tenía la firme convicción de que Messi no sería eliminado por Inglaterra en esta semifinal.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 12
+    },
+    {
+     "texto": "El estilo de juego de la selección argentina, apodado \"la escaloneta\", se caracteriza por ser lento.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 13
+    },
+    {
+     "texto": "La selección argentina mantiene un récord impecable en semifinales, habiendo ganado todas sus seis apariciones.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 14
+    },
+    {
+     "texto": "El narrador decidió salir a caminar y confiar en que los festejos del barrio anunciarían un gol.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 15
+    },
+    {
+     "texto": "Los partidos de alta intensidad se disfrutan mejor en compañía de un grupo pequeño y de confianza.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 16
+    },
+    {
+     "texto": "Argentina se enfrentará a España en la final de la Copa del Mundo en un encuentro predestinado.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 17
+    },
+    {
+     "texto": "Se observa una clara separación entre la presencia policial y el ambiente festivo con música a todo volumen.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 18
+    },
+    {
+     "texto": "La \"escaloneta\" de este Mundial exhibió una tenacidad mental superior a la mostrada en el torneo anterior.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 19
+    },
+    {
+     "texto": "La estrategia de intimidación aplicada a los jugadores ingleses resultó ser efectiva y funcionó.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 20
+    },
+    {
+     "texto": "Existe un cántico popular que asocia a quienes no saltan con la nacionalidad inglesa, marcando una diferencia.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 21
+    },
+    {
+     "texto": "La policía resguarda el Obelisco para evitar que las personas escalen la reja debido a la euforia.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 22
+    },
+    {
+     "texto": "El árbitro de la semifinal fue percibido como un personaje muy hablador y excesivamente teatral.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 23
+    },
+    {
+     "texto": "Martínez ejecutó una definición precisa hacia el otro lado del arco, marcando un tanto importante.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 24
+    },
+    {
+     "texto": "El presentador agradece la sintonía y promete reencontrarse en las semifinales, aún rodeado de gente.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 25
+    },
+    {
+     "texto": "Tras la partida policial, la gente volvió a ocupar un puesto de diarios, generando desorden y daños.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 26
+    },
+    {
+     "texto": "Un artista talentoso está realizando una pintura facial con el retrato del futbolista Lionel Messi.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 27
+    },
+    {
+     "texto": "El presentador ya no tiene calcomanías disponibles y se cruza con una persona ebria que canta.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 28
+    },
+    {
+     "texto": "Se vende una gran variedad de productos de la selección argentina, como gorros, camisetas y banderas.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 29
+    },
+    {
+     "texto": "Una seguidora fiel reconoce al presentador y le manifiesta su lealtad desde hace mucho tiempo.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 30
+    },
+    {
+     "texto": "Existe gran confianza en derrotar a Inglaterra y un fuerte deseo de vengar los sucesos de Malvinas.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 31
+    },
+    {
+     "texto": "La entrada agresiva de Paredes sobre Bellingham fue una táctica deliberada para desestabilizar al rival.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 32
+    },
+    {
+     "texto": "Suisha logró anotar un gol crucial, consiguiendo así el empate en el marcador del partido.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 33
+    },
+    {
+     "texto": "La celebración tiene lugar en Capital Federal, cerca del monumento a Argentina, con gente bailando animadamente.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 34
+    },
+    {
+     "texto": "Se sugiere un \"bullying planetario\" hacia los españoles, a quienes se considera ingenuos y poco resistentes.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 35
+    },
+    {
+     "texto": "Una multitud numerosa y alegre genera un ambiente festivo, aunque con cierto nivel de desorden.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 36
+    },
+    {
+     "texto": "Argentina avanzó a semifinales para enfrentarse a Inglaterra, y se muestran los festejos en Capital Federal.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 37
+    },
+    {
+     "texto": "La celebración del gol de Enzo Fernández fue una \"topollina\", una variante particular del festejo.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 38
+    },
+    {
+     "texto": "La camiseta de la selección argentina ejerce una presión psicológica significativa sobre los equipos rivales.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 39
+    },
+    {
+     "texto": "Durante el partido, el narrador experimentó una sensación de despersonalización y no pudo verlo completo.",
+     "clase": "objetivo",
+     "origen_video_id": 86,
+     "n": 40
+    },
+    {
+     "texto": "Existe abundante mercadería de la selección argentina, incluyendo muñecos de Messi y variados accesorios.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 41
+    },
+    {
+     "texto": "La llegada tardía del presentador fue causada por las condiciones climáticas adversas, específicamente la lluvia intensa.",
+     "clase": "senuelo",
+     "origen_video_id": 336,
+     "n": 42
+    }
+   ],
+   "senuelo_similitud": 0.1815
+  }
+ ]
+}

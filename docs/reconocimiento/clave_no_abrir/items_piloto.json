@@ -1,0 +1,1479 @@
+{
+ "version": "reconocimiento-1.0",
+ "generado_at": "2026-09-24T09:55:28.333241+00:00",
+ "semilla": 20260923,
+ "modelo_generador": "gemini-2.5-flash",
+ "modelo_control": "gemini-2.5-flash-lite",
+ "videos": [
+  {
+   "content_item_id": 85,
+   "titulo": "Nuevo CHATGPT para Arquitectura e Interiorismo ▶ Proyectos completos",
+   "canal": "bydavidparra",
+   "url": "https://www.youtube.com/watch?v=1GL4y-TaPU0",
+   "categoria": "Science & Technology",
+   "duration_seconds": 501,
+   "watched_at": "2026-07-10T11:36:07.877000+00:00",
+   "senuelo_origen_id": 137,
+   "senuelo_origen_titulo": "Cómo Clonar la VOZ en Segundos por IA GRATIS y SIN Límites 🎙️",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 3,
+    "senuelos_respaldados_por_el_objetivo": 3,
+    "senuelos_con_nombres_ausentes": 0
+   },
+   "items": [
+    {
+     "texto": "Es posible obtener múltiples vistas detalladas de una misma habitación.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 1
+    },
+    {
+     "texto": "Algunas herramientas de IA para clonación de voz operan en la nube sin requerir recursos del dispositivo.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 2
+    },
+    {
+     "texto": "La inteligencia artificial no es un software infalible; puede cometer errores y su criterio fallar.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 3
+    },
+    {
+     "texto": "Con plantas de techos y alzados, se puede generar una axonométrica y una vista tipo dron.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 4
+    },
+    {
+     "texto": "Algunas plataformas de clonación de voz son gratuitas, privadas y ofrecen uso ilimitado.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 5
+    },
+    {
+     "texto": "Algunos modelos de IA para clonación de voz son compatibles con múltiples idiomas.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 6
+    },
+    {
+     "texto": "Las herramientas de código abierto permiten clonar voces de manera privada, gratuita y sin límites.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 7
+    },
+    {
+     "texto": "El presentador interrumpe la explicacion para anunciar que el episodio se grabo entero bajo el agua.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 8
+    },
+    {
+     "texto": "La tecnología actual permite incluso generar canciones utilizando una voz clonada.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 9
+    },
+    {
+     "texto": "Es crucial mantener el formato original y superponer el diagrama de usos sin alterar la planta base.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 10
+    },
+    {
+     "texto": "Se puede generar un diagrama de usos basándose en una planta previamente adjunta.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 11
+    },
+    {
+     "texto": "Un servidor VPS permite ejecutar aplicaciones 24/7 sin depender del equipo local.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 12
+    },
+    {
+     "texto": "ChatGPT ahora incluye una herramienta de edición para modificar partes específicas de una imagen.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 13
+    },
+    {
+     "texto": "Cuantos más ejemplos de audio se den a la IA, mejor será la calidad de la clonación.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 14
+    },
+    {
+     "texto": "Algunas plataformas ofrecen funciones premium de clonación de voz en la nube de forma gratuita.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 15
+    },
+    {
+     "texto": "Algunas soluciones gratuitas de clonación de voz superan en calidad a opciones de pago.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 16
+    },
+    {
+     "texto": "El modelo de razonamiento ofrece diversas opciones que se ajustan a los colores y usos definidos.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 17
+    },
+    {
+     "texto": "La plataforma ofrece diversos modelos de IA para generar voces a partir de texto.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 18
+    },
+    {
+     "texto": "Un render básico puede transformarse en una imagen fotorrealista de diseño de interiores.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 19
+    },
+    {
+     "texto": "Las herramientas de clonación de voz pueden tener un impacto positivo en la vida de las personas.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 20
+    },
+    {
+     "texto": "La clonación de voz ofrece opciones para grabar directamente o subir audios preexistentes.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 21
+    },
+    {
+     "texto": "Los renders generados se pueden transformar en imágenes hiperrealistas, permitiendo cambiar materiales y estilos.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 22
+    },
+    {
+     "texto": "Los diagramas utilizan lenguaje arquitectónico, con colores e iconos que representan cada uso.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 23
+    },
+    {
+     "texto": "Esta tecnología representa una transformación fundamental en los métodos de diseño de proyectos.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 24
+    },
+    {
+     "texto": "Desde una planta, se puede generar un 3D axonométrico y aislar espacios para diseñar directamente.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 25
+    },
+    {
+     "texto": "Es importante seleccionar modelos de IA que soporten el idioma deseado, no solo inglés.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 26
+    },
+    {
+     "texto": "Proporcionar un prompt inicial preciso a la IA es clave para obtener resultados deseados.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 27
+    },
+    {
+     "texto": "La voz humana es una característica distintiva y personal de cada individuo.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 28
+    },
+    {
+     "texto": "Es posible clonar voces en la nube, permitiendo su uso desde cualquier dispositivo.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 29
+    },
+    {
+     "texto": "La instalación de esta plataforma de código abierto es sencilla y compatible con varios sistemas operativos.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 30
+    },
+    {
+     "texto": "A partir de una planta y requisitos, se obtienen propuestas de distribución y diagramas de uso.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 31
+    },
+    {
+     "texto": "Para proyectos pequeños y medianos, los renders 3D pueden generarse directamente desde la planta.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 32
+    },
+    {
+     "texto": "Se pueden capturar imágenes de Street View para iniciar el diseño de un proyecto.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 33
+    },
+    {
+     "texto": "Grabar el audio localmente y luego subirlo mejora la calidad de la clonación en la nube.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 34
+    },
+    {
+     "texto": "La inteligencia artificial tiene la capacidad de replicar y generar voces humanas con facilidad.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 35
+    },
+    {
+     "texto": "Se asignan colores específicos a diferentes zonas, como amarillo para circulación y verde para exteriores.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 36
+    },
+    {
+     "texto": "La intensa competencia entre modelos de IA impulsa una evolución tecnológica acelerada.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 37
+    },
+    {
+     "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 38
+    },
+    {
+     "texto": "Proporcionar la transcripción del audio es fundamental para una clonación de voz precisa.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 39
+    },
+    {
+     "texto": "La IA permite diseñar desde Google Maps, generar plantas, crear 3D y presentaciones.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 40
+    },
+    {
+     "texto": "Los modelos de IA avanzan rápidamente; lo que antes era impensable, ahora es posible.",
+     "clase": "objetivo",
+     "origen_video_id": 85,
+     "n": 41
+    },
+    {
+     "texto": "La clonación de voz debe realizarse siempre con el consentimiento explícito del propietario de la voz.",
+     "clase": "senuelo",
+     "origen_video_id": 137,
+     "n": 42
+    }
+   ],
+   "senuelo_similitud": 0.1436
+  },
+  {
+   "content_item_id": 10,
+   "titulo": "No podré volver a Haití...",
+   "canal": "PlanetaJuan",
+   "url": "https://www.youtube.com/watch?v=4riNFNeQl8U",
+   "categoria": "People & Blogs",
+   "duration_seconds": 998,
+   "watched_at": "2026-06-07T14:54:56.125000+00:00",
+   "senuelo_origen_id": 291,
+   "senuelo_origen_titulo": "12 SEGUNDOS que SACUDIERON TODO — PETO y MARCO RUBIO en el MOMENTO MÁS TENSO",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 2,
+    "senuelos_respaldados_por_el_objetivo": 3,
+    "senuelos_con_nombres_ausentes": 8
+   },
+   "items": [
+    {
+     "texto": "Los haitianos están agotados de que los medios solo exhiban aspectos negativos como basura, pandillas y guerra.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 1
+    },
+    {
+     "texto": "Parte de la fortuna proviene de contratos estatales irregulares y dinero de campaña no declarado.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 2
+    },
+    {
+     "texto": "El propósito de este contenido es comprender mejor la reacción del pueblo haitiano ante visitantes extranjeros.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 3
+    },
+    {
+     "texto": "Contratos de salud millonarios favorecieron a empresas intermediarias, inflando precios de medicamentos.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 4
+    },
+    {
+     "texto": "Personas involucradas en el escándalo serán sancionadas y incluidas en listas de prohibiciones de EE. UU.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 5
+    },
+    {
+     "texto": "El dinero oculto no proviene de negocios legítimos, sino de corrupción y acuerdos oscuros.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 6
+    },
+    {
+     "texto": "Haití ha desarrollado desconfianza debido al abandono histórico por parte de la comunidad internacional.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 7
+    },
+    {
+     "texto": "El salario presidencial no permite acumular una fortuna de decenas de millones de dólares.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 8
+    },
+    {
+     "texto": "No todos los haitianos reaccionaron negativamente; hubo mensajes de advertencia y amistad.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 9
+    },
+    {
+     "texto": "Un testigo clave, un empresario, colaboró con autoridades norteamericanas a cambio de protección.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 10
+    },
+    {
+     "texto": "La dignidad de Haití, como primera nación negra libre, es un hecho poco reconocido globalmente.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 11
+    },
+    {
+     "texto": "Algunos de los mensajes recibidos contenían explícitas amenazas de muerte hacia el visitante.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 12
+    },
+    {
+     "texto": "Miles de personas creyeron en sus promesas, votando por un cambio significativo.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 13
+    },
+    {
+     "texto": "Las enérgicas reacciones provienen de un pueblo exhausto por su compleja y dolorosa situación.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 14
+    },
+    {
+     "texto": "Prometió acabar con la corrupción y repartir la riqueza para una Colombia más justa.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 15
+    },
+    {
+     "texto": "La inteligencia estadounidense siguió el rastro del dinero, revisando cuentas y hablando con testigos.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 16
+    },
+    {
+     "texto": "Las instituciones de control colombianas fallaron al no detectar ni investigar las irregularidades a tiempo.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 17
+    },
+    {
+     "texto": "El secretario de Estado norteamericano presentó pruebas contundentes sobre el origen del dinero.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 18
+    },
+    {
+     "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 19
+    },
+    {
+     "texto": "Los problemas sociales actuales en Haití son innegables y evidentes para cualquier visitante.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 20
+    },
+    {
+     "texto": "Millones de dólares se encuentran en cuentas secretas, propiedades de lujo y negocios ilícitos.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 21
+    },
+    {
+     "texto": "Las redes sociales frecuentemente magnifican una imagen negativa, eclipsando los aspectos positivos.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 22
+    },
+    {
+     "texto": "Haití también posee hermosas realidades, incluyendo playas paradisíacas, montañas, paisajes y cascadas naturales.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 23
+    },
+    {
+     "texto": "El presidente de Colombia posee una fortuna oculta en el extranjero, recientemente descubierta.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 24
+    },
+    {
+     "texto": "Se descubrió que el presidente acumulaba millones en el extranjero mientras prometía ayudar a los pobres.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 25
+    },
+    {
+     "texto": "En un momento se aclara que todas las cifras del video estan expresadas en unidades marcianas.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 26
+    },
+    {
+     "texto": "Gran parte de la capital haitiana está bajo el control de pandillas, sin un gobierno efectivo.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 27
+    },
+    {
+     "texto": "La historia de Haití está marcada por generaciones de esclavitud africana impuesta por los franceses.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 28
+    },
+    {
+     "texto": "Se identificaron movimientos sospechosos de dinero desde Colombia hacia paraísos fiscales.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 29
+    },
+    {
+     "texto": "Actualmente, Haití atraviesa un período de grandes dificultades y desafíos significativos.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 30
+    },
+    {
+     "texto": "El dinero para ayudar a víctimas de desastres naturales terminó en cuentas secretas del presidente.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 31
+    },
+    {
+     "texto": "El enfoque mediático sobre Haití se centra siempre en problemas sociales, económicos, de violencia y seguridad.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 32
+    },
+    {
+     "texto": "Contratos irregulares en la unidad de gestión del riesgo desviaron fondos destinados a emergencias.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 33
+    },
+    {
+     "texto": "La mayoría de los videos fueron grabados en la capital haitiana, dominada en gran parte por pandillas.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 34
+    },
+    {
+     "texto": "La fortuna acumulada es tan grande que una persona normal no podría ganarla en toda su vida.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 35
+    },
+    {
+     "texto": "Se anhela que Haití encuentre paz y un camino próspero, más allá de su sufrida libertad histórica.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 36
+    },
+    {
+     "texto": "El presidente negó las acusaciones, calificándolas de ataque político y conspiración.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 37
+    },
+    {
+     "texto": "Aunque existen lugares hermosos, muchas zonas son inaccesibles por el control de grupos armados.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 38
+    },
+    {
+     "texto": "Tras compartir videos, el creador de contenido recibió varias amenazas a través de la plataforma de Facebook.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 39
+    },
+    {
+     "texto": "Los medios suelen mostrar los problemas de Haití sin ofrecer el necesario contexto histórico.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 40
+    },
+    {
+     "texto": "Existe un dilema entre documentar la realidad objetivamente o convertir el dolor ajeno en entretenimiento.",
+     "clase": "objetivo",
+     "origen_video_id": 10,
+     "n": 41
+    },
+    {
+     "texto": "La investigación de Estados Unidos reveló una red de cuentas y propiedades controladas por el mandatario.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 42
+    }
+   ],
+   "senuelo_similitud": 0.1118
+  },
+  {
+   "content_item_id": 80,
+   "titulo": "Tengo 40 años, nadie me preparó para esto...",
+   "canal": "PlanetaJuan",
+   "url": "https://www.youtube.com/watch?v=DBF0O70OJTI",
+   "categoria": "People & Blogs",
+   "duration_seconds": 1596,
+   "watched_at": "2026-07-03T07:35:53.268000+00:00",
+   "senuelo_origen_id": 186,
+   "senuelo_origen_titulo": "Qué son las constelaciones familiares | EP. 20 | Gente Con Buena Vibra | JoseLlegaAlto",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 0,
+    "senuelos_respaldados_por_el_objetivo": 3,
+    "senuelos_con_nombres_ausentes": 2
+   },
+   "items": [
+    {
+     "texto": "Es poco común que las personas reflexionen sobre sus arrepentimientos en cada etapa de su vida adulta.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 1
+    },
+    {
+     "texto": "Es fundamental cuidar el cuerpo de forma preventiva, ya que los hábitos saludables benefician el futuro.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 2
+    },
+    {
+     "texto": "Es paradójico que la elección de pareja, tan vital, reciba menos preparación que la carrera profesional.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 3
+    },
+    {
+     "texto": "La insatisfacción, aun con logros, puede originarse en vacíos, abandonos o hermanos no nacidos.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 4
+    },
+    {
+     "texto": "Los niños absorben gran parte de la información de sus padres durante sus primeros seis años.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 5
+    },
+    {
+     "texto": "Invertir en la salud es tan importante como invertir tiempo y dinero para evitar problemas futuros.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 6
+    },
+    {
+     "texto": "La información transgeneracional contiene secretos y tabúes familiares que no suelen ser verbalizados.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 7
+    },
+    {
+     "texto": "Los adultos deben aceptar a sus padres tal como son para ocupar su propio lugar en la vida.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 8
+    },
+    {
+     "texto": "Padres separados pueden usar constelaciones para evitar que sus hijos asuman roles inapropiados.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 9
+    },
+    {
+     "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 10
+    },
+    {
+     "texto": "Descubrir y explotar lo que a uno le gusta nunca es demasiado tarde, sin importar la edad.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 11
+    },
+    {
+     "texto": "El principio de pertenencia establece que todos tienen derecho a un lugar en el sistema familiar.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 12
+    },
+    {
+     "texto": "La terapia de constelaciones familiares permite sanar la historia personal y facilita la toma de decisiones conscientes.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 13
+    },
+    {
+     "texto": "Las constelaciones familiares ayudan a cada individuo a ocupar su lugar adecuado en el sistema familiar.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 14
+    },
+    {
+     "texto": "Asumir la responsabilidad personal y transformar las dificultades en motivación es crucial para el orgullo propio.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 15
+    },
+    {
+     "texto": "El propósito de las constelaciones es sanar patrones y lealtades que impiden el avance personal.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 16
+    },
+    {
+     "texto": "Con el paso de los años, la percepción es que el tiempo transcurre con mayor velocidad.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 17
+    },
+    {
+     "texto": "Para construir la vida deseada en el futuro, es esencial comenzar a vivirla plenamente en el presente.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 18
+    },
+    {
+     "texto": "Cada año vivido representa una fracción decreciente de la existencia total, haciendo que el tiempo parezca encogerse.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 19
+    },
+    {
+     "texto": "Reflexionar sobre lo logrado y lo que se haría diferente es clave para el crecimiento personal.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 20
+    },
+    {
+     "texto": "Los malos hábitos de la juventud suelen manifestarse como problemas de salud en etapas posteriores de la vida.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 21
+    },
+    {
+     "texto": "Una constelación familiar es una llamada profunda del alma, a la que no todos acceden.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 22
+    },
+    {
+     "texto": "Las constelaciones familiares revelan patrones repetidos o enfermedades, a menudo vinculadas a un excluido.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 23
+    },
+    {
+     "texto": "A menudo, las profesiones se eligen por razones prácticas o externas, sin considerar la verdadera pasión o vocación.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 24
+    },
+    {
+     "texto": "Es común dedicar tiempo a actividades o metas que, con el tiempo, se revelan poco significativas o ajenas.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 25
+    },
+    {
+     "texto": "Las decisiones profesionales iniciales, aunque no sean por pasión, pueden abrir puertas a oportunidades inesperadas.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 26
+    },
+    {
+     "texto": "Los abortos representan una vida que merece un lugar reconocido en el sistema familiar.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 27
+    },
+    {
+     "texto": "Los humanos tienen cuerpos sutiles llenos de información que ha viajado a través de generaciones.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 28
+    },
+    {
+     "texto": "Se busca constelar cuando algo detiene el avance, indagando lealtades a historias familiares desconocidas.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 29
+    },
+    {
+     "texto": "Las constelaciones pueden revelar lealtades inconscientes que causan enfermedades, facilitando su sanación.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 30
+    },
+    {
+     "texto": "El tiempo debe ser manejado como un valioso recurso financiero, invirtiéndolo sabiamente cada día.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 31
+    },
+    {
+     "texto": "Para avanzar, es crucial identificar lo que nos detiene y asumir un fuerte liderazgo personal.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 32
+    },
+    {
+     "texto": "Invertir pequeñas cantidades a largo plazo es más efectivo que esperar grandes ganancias repentinas.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 33
+    },
+    {
+     "texto": "Al llegar a cierta edad, la conciencia del tiempo restante intensifica su valor y uso.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 34
+    },
+    {
+     "texto": "Entender que el tiempo es un recurso no renovable es un concepto valioso para asimilar temprano en la vida.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 35
+    },
+    {
+     "texto": "Las constelaciones familiares revelan la historia inconsciente, permitiendo tomar decisiones conscientes y diferentes.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 36
+    },
+    {
+     "texto": "La energía de nuestros ancestros viaja a través del ADN, impactando nuestra herencia personal.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 37
+    },
+    {
+     "texto": "El tiempo es un recurso irrecuperable; una vez que pasa, no hay forma de traerlo de vuelta.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 38
+    },
+    {
+     "texto": "La experta en constelaciones familiares ayuda a transformar creencias limitantes para mejorar significativamente la calidad de vida.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 39
+    },
+    {
+     "texto": "El conductor promete que la proxima entrega se transmitira exclusivamente en forma de olor.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 40
+    },
+    {
+     "texto": "Padres conscientes deben buscar terapia para conectar con su ser interno, beneficiando a la familia.",
+     "clase": "senuelo",
+     "origen_video_id": 186,
+     "n": 41
+    },
+    {
+     "texto": "La elección de una pareja es una de las decisiones más trascendentales para la calidad de vida.",
+     "clase": "objetivo",
+     "origen_video_id": 80,
+     "n": 42
+    }
+   ],
+   "senuelo_similitud": 0.1209
+  },
+  {
+   "content_item_id": 607,
+   "titulo": "8 técnicas científicas para aprender algo nuevo o prepararse para un examen | BBC Mundo",
+   "canal": "BBC News Mundo",
+   "url": "https://www.youtube.com/watch?v=jBbeUc6A8y4",
+   "categoria": "News & Politics",
+   "duration_seconds": 570,
+   "watched_at": "2026-08-13T22:38:00.896000+00:00",
+   "senuelo_origen_id": 286,
+   "senuelo_origen_titulo": "🔴 Nos ROBAN el COCHE del PARKING del HOTEL ¿Qué pasó con nuestro coche?",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 1,
+    "senuelos_respaldados_por_el_objetivo": 0,
+    "senuelos_con_nombres_ausentes": 5
+   },
+   "items": [
+    {
+     "texto": "La inteligencia artificial puede ser una fuente de motivación y curiosidad, activando el interés por el estudio.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 1
+    },
+    {
+     "texto": "Las experiencias pasadas, incluso las difíciles, sirven para impulsarte a mejorar.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 2
+    },
+    {
+     "texto": "Las lagunas en el conocimiento son una oportunidad para buscar nuevas fuentes y profundizar en el tema.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 3
+    },
+    {
+     "texto": "Iniciar el aprendizaje de algo nuevo puede parecer abrumador debido a su complejidad y magnitud inicial.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 4
+    },
+    {
+     "texto": "No te rindas en tu ascenso hacia la cima, sin importar los obstáculos que encuentres en el camino.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 5
+    },
+    {
+     "texto": "Si pudieras volver atrás, te dirías que todo saldrá bien al final, solo sigue adelante.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 6
+    },
+    {
+     "texto": "Cuando crean que has perdido, es tu momento de ser implacable y demostrar tu fuerza.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 7
+    },
+    {
+     "texto": "El presentador interrumpe la explicacion para anunciar que el episodio se grabo entero bajo el agua.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 8
+    },
+    {
+     "texto": "Lucha por lo que amas con cada aliento, tus pasiones son el motor de tu existencia.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 9
+    },
+    {
+     "texto": "El tercer paso de la técnica Feynman implica identificar las áreas donde el conocimiento es insuficiente.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 10
+    },
+    {
+     "texto": "Un horario de estudio adecuado debe permitir el descanso cerebral para optimizar el proceso de aprendizaje.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 11
+    },
+    {
+     "texto": "Encuentra tus límites, pero no seas inflexible; siempre busca la mejora continua.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 12
+    },
+    {
+     "texto": "Tomar apuntes a mano es una estrategia efectiva para consolidar conceptos y mejorar la concentración.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 13
+    },
+    {
+     "texto": "Actúa con rapidez y decisión; si alguien te traiciona, prepárate para las consecuencias.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 14
+    },
+    {
+     "texto": "No muestres piedad ni te dejes influenciar por las opiniones negativas de los demás.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 15
+    },
+    {
+     "texto": "Quienes desean verte abajo, en realidad temen que te recuperes y los superes.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 16
+    },
+    {
+     "texto": "La inteligencia artificial no debe usarse para obtener soluciones directas, sino como una herramienta de apoyo.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 17
+    },
+    {
+     "texto": "Es esencial que te desafíes a ti mismo para descubrir tus gustos y capacidades.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 18
+    },
+    {
+     "texto": "El cuarto paso de la técnica Feynman es revisar las notas y reexplicar el contenido hasta dominarlo.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 19
+    },
+    {
+     "texto": "No permitas que otros te digan cómo vivir tu vida, confía en tu propio conocimiento.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 20
+    },
+    {
+     "texto": "Harán que parezca que tus derrotas no les importan, pero en el fondo, están asustados.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 21
+    },
+    {
+     "texto": "Barbara Oakley aconseja explicar el tema a una persona real para identificar errores en el entendimiento.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 22
+    },
+    {
+     "texto": "Explicar el tema a alguien con poco conocimiento ayuda a clarificar y consolidar la comprensión.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 23
+    },
+    {
+     "texto": "Pensar en conceptos clave antes de dormir puede ayudar al cerebro a procesarlos y comprenderlos mejor.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 24
+    },
+    {
+     "texto": "El cerebro necesita periodos de inactividad para consolidar la información aprendida y formar recuerdos duraderos.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 25
+    },
+    {
+     "texto": "Harán que tus pérdidas parezcan insignificantes, pero no dejes que eso te afecte.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 26
+    },
+    {
+     "texto": "Estudiar más de ocho horas al día no produce mejores resultados y puede ser contraproducente.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 27
+    },
+    {
+     "texto": "Cuando finalmente piensen que has fracasado, es tu oportunidad para ser implacable y fuerte.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 28
+    },
+    {
+     "texto": "Es gratificante progresar y ver cómo otros se esfuerzan para intentar alcanzarte.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 29
+    },
+    {
+     "texto": "Intentarán llenarte de miedos, esperando que no descubras tu verdadero potencial.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 30
+    },
+    {
+     "texto": "Se sugiere comenzar con sesiones de estudio de corta duración para mantener la motivación y el enfoque.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 31
+    },
+    {
+     "texto": "Durante los descansos de Pomodoro, es vital evitar el uso del teléfono móvil para no interferir con el aprendizaje.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 32
+    },
+    {
+     "texto": "Hablar en voz alta sobre el material de estudio refuerza la retención del conocimiento en la memoria.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 33
+    },
+    {
+     "texto": "Considera los momentos complicados como pruebas que te ayudan a crecer y fortalecerte.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 34
+    },
+    {
+     "texto": "Prepárate para las batallas y desafíos, mantente siempre en alerta y con determinación.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 35
+    },
+    {
+     "texto": "Los estudiantes que toman notas manualmente suelen obtener mejores resultados académicos.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 36
+    },
+    {
+     "texto": "El sueño es fundamental para que el cerebro fortalezca las conexiones neuronales y consolide el aprendizaje.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 37
+    },
+    {
+     "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 38
+    },
+    {
+     "texto": "No permitas que las opiniones externas o los problemas te alejen de tu verdadero ser.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 39
+    },
+    {
+     "texto": "Barbara Oakley, investigadora del aprendizaje, ofrece consejos prácticos para estudiar eficazmente.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 40
+    },
+    {
+     "texto": "Dividir el material de estudio en partes manejables contribuye al éxito del aprendizaje.",
+     "clase": "objetivo",
+     "origen_video_id": 607,
+     "n": 41
+    },
+    {
+     "texto": "Unos pocos amigos con buenas intenciones pueden ser clave para sentirte vivo y conectado.",
+     "clase": "senuelo",
+     "origen_video_id": 286,
+     "n": 42
+    }
+   ],
+   "senuelo_similitud": 0.1722
+  },
+  {
+   "content_item_id": 27,
+   "titulo": "¿Por qué NADIE visita Paraguay? 🇵🇾 El país olvidado de Sudamérica",
+   "canal": "PlanetaJuan",
+   "url": "https://www.youtube.com/watch?v=RdmcXQkvo08",
+   "categoria": "People & Blogs",
+   "duration_seconds": 1674,
+   "watched_at": "2026-06-15T07:25:26.169000+00:00",
+   "senuelo_origen_id": 362,
+   "senuelo_origen_titulo": "La Ciudad de $100 Mil Millones que fue un FRACASO Total",
+   "n_objetivos": 19,
+   "n_senuelos": 19,
+   "descartes": {
+    "objetivos_no_respaldados": 10,
+    "senuelos_respaldados_por_el_objetivo": 13,
+    "senuelos_con_nombres_ausentes": -1
+   },
+   "items": [
+    {
+     "texto": "El presentador interrumpe la explicacion para anunciar que el episodio se grabo entero bajo el agua.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 1
+    },
+    {
+     "texto": "La lengua guaraní es la base cultural viva de Paraguay, influyendo en su vida cotidiana.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 2
+    },
+    {
+     "texto": "Paraguay posee una historia única en el continente, narrada en español y guaraní.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 3
+    },
+    {
+     "texto": "Las construcciones gigantescas de la ciudad aparecen en el horizonte como algo de ciencia ficción.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 4
+    },
+    {
+     "texto": "En un centro comercial cercano al hotel, es posible alquilar scooters para moverse por la ciudad.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 5
+    },
+    {
+     "texto": "El río Paraguay en Asunción cuenta con una playa fluvial para el disfrute de sus habitantes.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 6
+    },
+    {
+     "texto": "El complejo fue concebido como una \"Ciudad del Futuro\" con servicios públicos accesibles para residentes.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 7
+    },
+    {
+     "texto": "La tarjeta de acceso para residentes permite ingresar a todos los bloques del complejo.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 8
+    },
+    {
+     "texto": "El tereré es la bebida oficial de Paraguay, reconocida como patrimonio inmaterial de la UNESCO.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 9
+    },
+    {
+     "texto": "Piscinas y parques acuáticos se distribuyen por la ciudad, disponibles solo para quienes viven allí.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 10
+    },
+    {
+     "texto": "Se estima que el 80% de los apartamentos planificados para cientos de miles de personas permanecen vacíos.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 11
+    },
+    {
+     "texto": "El turismo en Paraguay tiende a ser más local debido a la falta de atractivos masivos.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 12
+    },
+    {
+     "texto": "Paraguay experimentó la dictadura más larga de Sudamérica, que duró 35 años.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 13
+    },
+    {
+     "texto": "Paraguay recibe pocos turistas en comparación con su población, a pesar de sus atractivos.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 14
+    },
+    {
+     "texto": "El hotel, que debería ser muy concurrido, se encuentra casi vacío, incluso en días festivos.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 15
+    },
+    {
+     "texto": "A pesar de no tener mar, Paraguay tiene una de las historias más intensas del continente.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 16
+    },
+    {
+     "texto": "El hotel se mantiene impecable, aparentando estar listo para turistas, aunque la realidad es opuesta.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 17
+    },
+    {
+     "texto": "La promotora Country Garden sigue pagando servicios básicos para que Forest City no parezca un fracaso.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 18
+    },
+    {
+     "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 19
+    },
+    {
+     "texto": "Un parque de diversiones en Asunción parece estar en funcionamiento y bien mantenido.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 20
+    },
+    {
+     "texto": "La ciudad, con sus rascacielos en Malasia, fue pensada como el futuro y ahora está casi deshabitada.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 21
+    },
+    {
+     "texto": "Desde el aire, Forest City se ve como una urbe casi perfecta, con edificios altos y avenidas limpias.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 22
+    },
+    {
+     "texto": "La falta de turismo en Paraguay no se debe a la ausencia de historia o cultura.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 23
+    },
+    {
+     "texto": "La dictadura militar paraguaya finalizó en 1989 gracias a un golpe militar interno.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 24
+    },
+    {
+     "texto": "Forest City es una ciudad que lo tiene todo, excepto una población significativa de habitantes.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 25
+    },
+    {
+     "texto": "Las temperaturas en Paraguay pueden alcanzar los 40 grados Celsius en ciertas temporadas.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 26
+    },
+    {
+     "texto": "El Forest City Marina Hotel, con más de 280 habitaciones, es el único hotel de alto standing allí.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 27
+    },
+    {
+     "texto": "Las bicicletas disponibles en el hotel solo pueden usarse dentro del complejo, no fuera de él.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 28
+    },
+    {
+     "texto": "Forest City fue diseñada para albergar a un millón de personas, pero sus edificios están mayormente desocupados.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 29
+    },
+    {
+     "texto": "En Paraguay, el español y el guaraní se hablan, manteniendo vivo el pasado indígena.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 30
+    },
+    {
+     "texto": "Las playas fluviales del río Paraguay tienen pequeños peces visibles en sus aguas.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 31
+    },
+    {
+     "texto": "La falta de salida al mar de Paraguay y Bolivia afecta su comercio y turismo.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 32
+    },
+    {
+     "texto": "La Costanera de Asunción permite a los ciudadanos integrar el río Paraguay con la ciudad.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 33
+    },
+    {
+     "texto": "Algunas personas aún abren negocios en Forest City, creyendo en un futuro próspero para el lugar.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 34
+    },
+    {
+     "texto": "A pesar de ser un hotel de lujo, su piscina está desierta al mediodía, hora ideal para su uso.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 35
+    },
+    {
+     "texto": "El agua del río Paraguay es tibia, especialmente durante la época más calurosa del año.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 36
+    },
+    {
+     "texto": "Paraguay aprendió a sobrevivir entre grandes imperios, adaptándose a los choques históricos.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 37
+    },
+    {
+     "texto": "A pesar de ser fin de semana, los locales del centro comercial están mayormente vacíos, con poca gente.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 38
+    },
+    {
+     "texto": "Paraguay es un país sin mar con una historia interesante, visitado principalmente por curiosos.",
+     "clase": "objetivo",
+     "origen_video_id": 27,
+     "n": 39
+    },
+    {
+     "texto": "Los jardines de Forest City están meticulosamente cuidados, y la ciudad presume de cero contaminación.",
+     "clase": "senuelo",
+     "origen_video_id": 362,
+     "n": 40
+    }
+   ],
+   "senuelo_similitud": 0.133
+  },
+  {
+   "content_item_id": 8,
+   "titulo": "San Andrés: Los piratas del Caribe colombiano 🇨🇴",
+   "canal": "PlanetaJuan",
+   "url": "https://www.youtube.com/watch?v=uM4Obm-zuwg",
+   "categoria": "People & Blogs",
+   "duration_seconds": 1801,
+   "watched_at": "2026-04-27T15:14:40.279000+00:00",
+   "senuelo_origen_id": 291,
+   "senuelo_origen_titulo": "12 SEGUNDOS que SACUDIERON TODO — PETO y MARCO RUBIO en el MOMENTO MÁS TENSO",
+   "n_objetivos": 7,
+   "n_senuelos": 7,
+   "descartes": {
+    "objetivos_no_respaldados": 25,
+    "senuelos_respaldados_por_el_objetivo": 2,
+    "senuelos_con_nombres_ausentes": 10
+   },
+   "items": [
+    {
+     "texto": "La cultura, religión e idioma en San Andrés difieren de las raíces españolas, inclinándose hacia influencias inglesas.",
+     "clase": "objetivo",
+     "origen_video_id": 8,
+     "n": 1
+    },
+    {
+     "texto": "Millones de dólares estaban resguardados en cuentas secretas, propiedades lujosas y negocios ilícitos del presidente.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 2
+    },
+    {
+     "texto": "Cientos de años atrás, estas islas eran refugio de piratas, a diferencia de hoy que son un destino turístico.",
+     "clase": "objetivo",
+     "origen_video_id": 8,
+     "n": 3
+    },
+    {
+     "texto": "En San Andrés se habla español y también el creol sanandresano, una mezcla de inglés y lenguas caribeñas.",
+     "clase": "objetivo",
+     "origen_video_id": 8,
+     "n": 4
+    },
+    {
+     "texto": "Antes del auge turístico, los ingleses colonizaron San Andrés, estableciendo plantaciones con esclavos.",
+     "clase": "objetivo",
+     "origen_video_id": 8,
+     "n": 5
+    },
+    {
+     "texto": "El conductor promete que la proxima entrega se transmitira exclusivamente en forma de olor.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 6
+    },
+    {
+     "texto": "La historia de la fortuna oculta no es un rumor; es un hecho actual que transformará la historia de Colombia.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 7
+    },
+    {
+     "texto": "La playa de San Andrés cuenta con múltiples accesos, la mayoría privados por hoteles y comercios.",
+     "clase": "objetivo",
+     "origen_video_id": 8,
+     "n": 8
+    },
+    {
+     "texto": "A mitad del video el narrador confiesa que todo lo anterior lo dijo en un idioma inventado por el.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 9
+    },
+    {
+     "texto": "La isla de San Andrés, aunque legalmente colombiana, estuvo disputada por su cercanía a Nicaragua.",
+     "clase": "objetivo",
+     "origen_video_id": 8,
+     "n": 10
+    },
+    {
+     "texto": "El amanecer en San Andrés fue presenciado por el narrador y también por perros que lo contemplaban.",
+     "clase": "objetivo",
+     "origen_video_id": 8,
+     "n": 11
+    },
+    {
+     "texto": "Miles de ciudadanos confiaron en sus promesas de una Colombia más justa e igualitaria, votando por él con esperanza.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 12
+    },
+    {
+     "texto": "El dinero oculto no proviene de actividades legales, sino de corrupción, contratos estatales y fondos de campaña irregulares.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 13
+    },
+    {
+     "texto": "Se ha descubierto que el presidente acumulaba millones en el extranjero mientras prometía ayudar a los pobres.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 14
+    },
+    {
+     "texto": "La noticia de la fortuna oculta llegó en un momento de grave crisis económica para Colombia.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 15
+    },
+    {
+     "texto": "Se encontraron cuentas secretas y propiedades a nombre de terceros, pero controladas por el presidente de Colombia.",
+     "clase": "senuelo",
+     "origen_video_id": 291,
+     "n": 16
+    }
+   ],
+   "senuelo_similitud": 0.1225
+  }
+ ]
+}
