@@ -1,0 +1,1484 @@
+{
+ "instrumento": "reconocimiento-2.0",
+ "etiqueta": "piloto2",
+ "persona": "juan-01",
+ "respondido_at": "2026-09-25T18:11:18.934Z",
+ "videos": [
+  {
+   "content_item_id": 644,
+   "recuerda_video": "si",
+   "respuestas": [
+    {
+     "n": 1,
+     "si": false,
+     "confianza": 3,
+     "segundos": 32.2
+    },
+    {
+     "n": 2,
+     "si": true,
+     "confianza": 3,
+     "segundos": 9.8
+    },
+    {
+     "n": 3,
+     "si": true,
+     "confianza": 4,
+     "segundos": 9.8
+    },
+    {
+     "n": 4,
+     "si": true,
+     "confianza": 5,
+     "segundos": 10.9
+    },
+    {
+     "n": 5,
+     "si": false,
+     "confianza": 5,
+     "segundos": 13.2
+    },
+    {
+     "n": 6,
+     "si": true,
+     "confianza": 4,
+     "segundos": 7.5
+    },
+    {
+     "n": 7,
+     "si": true,
+     "confianza": 4,
+     "segundos": 13.9
+    },
+    {
+     "n": 8,
+     "si": true,
+     "confianza": 3,
+     "segundos": 9.3
+    },
+    {
+     "n": 9,
+     "si": false,
+     "confianza": 3,
+     "segundos": 6.1
+    },
+    {
+     "n": 10,
+     "si": true,
+     "confianza": 4,
+     "segundos": 4
+    },
+    {
+     "n": 11,
+     "si": true,
+     "confianza": 5,
+     "segundos": 83.3
+    },
+    {
+     "n": 12,
+     "si": false,
+     "confianza": 2,
+     "segundos": 14.8
+    },
+    {
+     "n": 13,
+     "si": true,
+     "confianza": 5,
+     "segundos": 17
+    },
+    {
+     "n": 14,
+     "si": false,
+     "confianza": 2,
+     "segundos": 12
+    },
+    {
+     "n": 15,
+     "si": true,
+     "confianza": 4,
+     "segundos": 5.5
+    },
+    {
+     "n": 16,
+     "si": true,
+     "confianza": 4,
+     "segundos": 10.1
+    },
+    {
+     "n": 17,
+     "si": false,
+     "confianza": 5,
+     "segundos": 6.1
+    },
+    {
+     "n": 18,
+     "si": false,
+     "confianza": 4,
+     "segundos": 15.3
+    },
+    {
+     "n": 19,
+     "si": true,
+     "confianza": 4,
+     "segundos": 24.3
+    },
+    {
+     "n": 20,
+     "si": false,
+     "confianza": 2,
+     "segundos": 40
+    },
+    {
+     "n": 21,
+     "si": true,
+     "confianza": 4,
+     "segundos": 10.3
+    },
+    {
+     "n": 22,
+     "si": false,
+     "confianza": 5,
+     "segundos": 13.9
+    },
+    {
+     "n": 23,
+     "si": false,
+     "confianza": 4,
+     "segundos": 11.6
+    },
+    {
+     "n": 24,
+     "si": true,
+     "confianza": 4,
+     "segundos": 15.3
+    },
+    {
+     "n": 25,
+     "si": false,
+     "confianza": 5,
+     "segundos": 6.3
+    },
+    {
+     "n": 26,
+     "si": false,
+     "confianza": 4,
+     "segundos": 10
+    },
+    {
+     "n": 27,
+     "si": true,
+     "confianza": 4,
+     "segundos": 3.2
+    },
+    {
+     "n": 28,
+     "si": false,
+     "confianza": 4,
+     "segundos": 10
+    },
+    {
+     "n": 29,
+     "si": true,
+     "confianza": 3,
+     "segundos": 13.9
+    },
+    {
+     "n": 30,
+     "si": false,
+     "confianza": 5,
+     "segundos": 14.5
+    },
+    {
+     "n": 31,
+     "si": true,
+     "confianza": 3,
+     "segundos": 7.9
+    },
+    {
+     "n": 32,
+     "si": true,
+     "confianza": 4,
+     "segundos": 2.3
+    },
+    {
+     "n": 33,
+     "si": true,
+     "confianza": 3,
+     "segundos": 26.9
+    },
+    {
+     "n": 34,
+     "si": true,
+     "confianza": 4,
+     "segundos": 3.1
+    },
+    {
+     "n": 35,
+     "si": false,
+     "confianza": 5,
+     "segundos": 15.1
+    },
+    {
+     "n": 36,
+     "si": true,
+     "confianza": 4,
+     "segundos": 2.4
+    },
+    {
+     "n": 37,
+     "si": false,
+     "confianza": 2,
+     "segundos": 1.8
+    },
+    {
+     "n": 38,
+     "si": false,
+     "confianza": 5,
+     "segundos": 5.2
+    },
+    {
+     "n": 39,
+     "si": false,
+     "confianza": 3,
+     "segundos": 8.4
+    },
+    {
+     "n": 40,
+     "si": false,
+     "confianza": 5,
+     "segundos": 8.1
+    },
+    {
+     "n": 41,
+     "si": false,
+     "confianza": 5,
+     "segundos": 5.9
+    },
+    {
+     "n": 42,
+     "si": true,
+     "confianza": 5,
+     "segundos": 8.6
+    }
+   ]
+  },
+  {
+   "content_item_id": 647,
+   "recuerda_video": "si",
+   "respuestas": [
+    {
+     "n": 1,
+     "si": true,
+     "confianza": 3,
+     "segundos": 69.9
+    },
+    {
+     "n": 2,
+     "si": true,
+     "confianza": 4,
+     "segundos": 16.6
+    },
+    {
+     "n": 3,
+     "si": false,
+     "confianza": 5,
+     "segundos": 3.7
+    },
+    {
+     "n": 4,
+     "si": false,
+     "confianza": 5,
+     "segundos": 8.9
+    },
+    {
+     "n": 5,
+     "si": false,
+     "confianza": 5,
+     "segundos": 5.5
+    },
+    {
+     "n": 6,
+     "si": false,
+     "confianza": 4,
+     "segundos": 14.4
+    },
+    {
+     "n": 7,
+     "si": false,
+     "confianza": 4,
+     "segundos": 14.5
+    },
+    {
+     "n": 8,
+     "si": true,
+     "confianza": 4,
+     "segundos": 6.1
+    },
+    {
+     "n": 9,
+     "si": true,
+     "confianza": 5,
+     "segundos": 7.8
+    },
+    {
+     "n": 10,
+     "si": true,
+     "confianza": 4,
+     "segundos": 74
+    },
+    {
+     "n": 11,
+     "si": false,
+     "confianza": 5,
+     "segundos": 8.4
+    },
+    {
+     "n": 12,
+     "si": true,
+     "confianza": 3,
+     "segundos": 10.6
+    },
+    {
+     "n": 13,
+     "si": false,
+     "confianza": 5,
+     "segundos": 17.6
+    },
+    {
+     "n": 14,
+     "si": true,
+     "confianza": 4,
+     "segundos": 3.2
+    },
+    {
+     "n": 15,
+     "si": false,
+     "confianza": 3,
+     "segundos": 9.1
+    },
+    {
+     "n": 16,
+     "si": false,
+     "confianza": 5,
+     "segundos": 8.2
+    },
+    {
+     "n": 17,
+     "si": true,
+     "confianza": 5,
+     "segundos": 7.4
+    },
+    {
+     "n": 18,
+     "si": false,
+     "confianza": 5,
+     "segundos": 4.7
+    },
+    {
+     "n": 19,
+     "si": true,
+     "confianza": 4,
+     "segundos": 2.9
+    },
+    {
+     "n": 20,
+     "si": false,
+     "confianza": 4,
+     "segundos": 31.3
+    },
+    {
+     "n": 21,
+     "si": false,
+     "confianza": 2,
+     "segundos": 12.9
+    },
+    {
+     "n": 22,
+     "si": true,
+     "confianza": 4,
+     "segundos": 5.9
+    },
+    {
+     "n": 23,
+     "si": true,
+     "confianza": 4,
+     "segundos": 13.7
+    },
+    {
+     "n": 24,
+     "si": true,
+     "confianza": 4,
+     "segundos": 10.4
+    },
+    {
+     "n": 25,
+     "si": true,
+     "confianza": 2,
+     "segundos": 8.1
+    },
+    {
+     "n": 26,
+     "si": false,
+     "confianza": 4,
+     "segundos": 12.2
+    },
+    {
+     "n": 27,
+     "si": true,
+     "confianza": 2,
+     "segundos": 17.5
+    },
+    {
+     "n": 28,
+     "si": true,
+     "confianza": 2,
+     "segundos": 10.9
+    },
+    {
+     "n": 29,
+     "si": false,
+     "confianza": 5,
+     "segundos": 5.8
+    },
+    {
+     "n": 30,
+     "si": true,
+     "confianza": 3,
+     "segundos": 12.7
+    },
+    {
+     "n": 31,
+     "si": true,
+     "confianza": 4,
+     "segundos": 5.7
+    },
+    {
+     "n": 32,
+     "si": false,
+     "confianza": 5,
+     "segundos": 2.3
+    },
+    {
+     "n": 33,
+     "si": false,
+     "confianza": 4,
+     "segundos": 13.6
+    },
+    {
+     "n": 34,
+     "si": true,
+     "confianza": 4,
+     "segundos": 18.3
+    },
+    {
+     "n": 35,
+     "si": true,
+     "confianza": 4,
+     "segundos": 16.1
+    },
+    {
+     "n": 36,
+     "si": false,
+     "confianza": 4,
+     "segundos": 8.4
+    },
+    {
+     "n": 37,
+     "si": false,
+     "confianza": 3,
+     "segundos": 5.6
+    },
+    {
+     "n": 38,
+     "si": true,
+     "confianza": 3,
+     "segundos": 9.1
+    },
+    {
+     "n": 39,
+     "si": false,
+     "confianza": 3,
+     "segundos": 14.7
+    },
+    {
+     "n": 40,
+     "si": true,
+     "confianza": 4,
+     "segundos": 10.9
+    },
+    {
+     "n": 41,
+     "si": true,
+     "confianza": 2,
+     "segundos": 14.3
+    },
+    {
+     "n": 42,
+     "si": true,
+     "confianza": 1,
+     "segundos": 17.5
+    }
+   ]
+  },
+  {
+   "content_item_id": 645,
+   "recuerda_video": "si",
+   "respuestas": [
+    {
+     "n": 1,
+     "si": true,
+     "confianza": 4,
+     "segundos": 9.4
+    },
+    {
+     "n": 2,
+     "si": true,
+     "confianza": 3,
+     "segundos": 7.9
+    },
+    {
+     "n": 3,
+     "si": false,
+     "confianza": 5,
+     "segundos": 13.9
+    },
+    {
+     "n": 4,
+     "si": true,
+     "confianza": 5,
+     "segundos": 19.6
+    },
+    {
+     "n": 5,
+     "si": true,
+     "confianza": 3,
+     "segundos": 4.8
+    },
+    {
+     "n": 6,
+     "si": false,
+     "confianza": 1,
+     "segundos": 17.8
+    },
+    {
+     "n": 7,
+     "si": true,
+     "confianza": 4,
+     "segundos": 6.8
+    },
+    {
+     "n": 8,
+     "si": true,
+     "confianza": 5,
+     "segundos": 5.1
+    },
+    {
+     "n": 9,
+     "si": true,
+     "confianza": 3,
+     "segundos": 8.9
+    },
+    {
+     "n": 10,
+     "si": false,
+     "confianza": 3,
+     "segundos": 9.4
+    },
+    {
+     "n": 11,
+     "si": false,
+     "confianza": 5,
+     "segundos": 2.6
+    },
+    {
+     "n": 12,
+     "si": false,
+     "confianza": 5,
+     "segundos": 5
+    },
+    {
+     "n": 13,
+     "si": false,
+     "confianza": 5,
+     "segundos": 9.3
+    },
+    {
+     "n": 14,
+     "si": false,
+     "confianza": 4,
+     "segundos": 8.5
+    },
+    {
+     "n": 15,
+     "si": false,
+     "confianza": 5,
+     "segundos": 6.3
+    },
+    {
+     "n": 16,
+     "si": true,
+     "confianza": 4,
+     "segundos": 6.6
+    },
+    {
+     "n": 17,
+     "si": false,
+     "confianza": 2,
+     "segundos": 9.9
+    },
+    {
+     "n": 18,
+     "si": true,
+     "confianza": 4,
+     "segundos": 4.3
+    },
+    {
+     "n": 19,
+     "si": true,
+     "confianza": 5,
+     "segundos": 4.3
+    },
+    {
+     "n": 20,
+     "si": true,
+     "confianza": 4,
+     "segundos": 4.7
+    },
+    {
+     "n": 21,
+     "si": true,
+     "confianza": 5,
+     "segundos": 4.3
+    },
+    {
+     "n": 22,
+     "si": true,
+     "confianza": 4,
+     "segundos": 6.4
+    },
+    {
+     "n": 23,
+     "si": false,
+     "confianza": 5,
+     "segundos": 13.4
+    },
+    {
+     "n": 24,
+     "si": false,
+     "confianza": 5,
+     "segundos": 4.1
+    },
+    {
+     "n": 25,
+     "si": true,
+     "confianza": 4,
+     "segundos": 5.7
+    },
+    {
+     "n": 26,
+     "si": false,
+     "confianza": 5,
+     "segundos": 9.7
+    },
+    {
+     "n": 27,
+     "si": false,
+     "confianza": 5,
+     "segundos": 13.1
+    },
+    {
+     "n": 28,
+     "si": true,
+     "confianza": 4,
+     "segundos": 13.1
+    },
+    {
+     "n": 29,
+     "si": false,
+     "confianza": 3,
+     "segundos": 13.5
+    },
+    {
+     "n": 30,
+     "si": true,
+     "confianza": 4,
+     "segundos": 18.4
+    },
+    {
+     "n": 31,
+     "si": true,
+     "confianza": 5,
+     "segundos": 8.1
+    },
+    {
+     "n": 32,
+     "si": true,
+     "confianza": 5,
+     "segundos": 4.6
+    },
+    {
+     "n": 33,
+     "si": true,
+     "confianza": 5,
+     "segundos": 6.3
+    },
+    {
+     "n": 34,
+     "si": true,
+     "confianza": 5,
+     "segundos": 15.6
+    },
+    {
+     "n": 35,
+     "si": false,
+     "confianza": 3,
+     "segundos": 9.5
+    },
+    {
+     "n": 36,
+     "si": false,
+     "confianza": 4,
+     "segundos": 16.8
+    },
+    {
+     "n": 37,
+     "si": true,
+     "confianza": 3,
+     "segundos": 22.2
+    },
+    {
+     "n": 38,
+     "si": false,
+     "confianza": 4,
+     "segundos": 10.5
+    },
+    {
+     "n": 39,
+     "si": true,
+     "confianza": 4,
+     "segundos": 8.3
+    },
+    {
+     "n": 40,
+     "si": false,
+     "confianza": 2,
+     "segundos": 9.1
+    },
+    {
+     "n": 41,
+     "si": true,
+     "confianza": 3,
+     "segundos": 10.1
+    },
+    {
+     "n": 42,
+     "si": true,
+     "confianza": 4,
+     "segundos": 4.4
+    }
+   ]
+  },
+  {
+   "content_item_id": 649,
+   "recuerda_video": "si",
+   "respuestas": [
+    {
+     "n": 1,
+     "si": true,
+     "confianza": 3,
+     "segundos": 219.4
+    },
+    {
+     "n": 2,
+     "si": true,
+     "confianza": 3,
+     "segundos": 12.4
+    },
+    {
+     "n": 3,
+     "si": false,
+     "confianza": 2,
+     "segundos": 20.4
+    },
+    {
+     "n": 4,
+     "si": false,
+     "confianza": 5,
+     "segundos": 0.9
+    },
+    {
+     "n": 5,
+     "si": true,
+     "confianza": 4,
+     "segundos": 12.5
+    },
+    {
+     "n": 6,
+     "si": false,
+     "confianza": 3,
+     "segundos": 21.1
+    },
+    {
+     "n": 7,
+     "si": true,
+     "confianza": 4,
+     "segundos": 18.3
+    },
+    {
+     "n": 8,
+     "si": false,
+     "confianza": 5,
+     "segundos": 8.6
+    },
+    {
+     "n": 9,
+     "si": true,
+     "confianza": 4,
+     "segundos": 7.2
+    },
+    {
+     "n": 10,
+     "si": false,
+     "confianza": 4,
+     "segundos": 9.2
+    },
+    {
+     "n": 11,
+     "si": true,
+     "confianza": 4,
+     "segundos": 6
+    },
+    {
+     "n": 12,
+     "si": true,
+     "confianza": 5,
+     "segundos": 3.5
+    },
+    {
+     "n": 13,
+     "si": false,
+     "confianza": 3,
+     "segundos": 20.6
+    },
+    {
+     "n": 14,
+     "si": true,
+     "confianza": 3,
+     "segundos": 6.2
+    },
+    {
+     "n": 15,
+     "si": false,
+     "confianza": 5,
+     "segundos": 4.1
+    },
+    {
+     "n": 16,
+     "si": false,
+     "confianza": 3,
+     "segundos": 6.9
+    },
+    {
+     "n": 17,
+     "si": false,
+     "confianza": 5,
+     "segundos": 6.6
+    },
+    {
+     "n": 18,
+     "si": false,
+     "confianza": 5,
+     "segundos": 2.7
+    },
+    {
+     "n": 19,
+     "si": false,
+     "confianza": 5,
+     "segundos": 10.4
+    },
+    {
+     "n": 20,
+     "si": false,
+     "confianza": 4,
+     "segundos": 7.6
+    },
+    {
+     "n": 21,
+     "si": false,
+     "confianza": 5,
+     "segundos": 18.6
+    },
+    {
+     "n": 22,
+     "si": true,
+     "confianza": 5,
+     "segundos": 3.5
+    },
+    {
+     "n": 23,
+     "si": true,
+     "confianza": 4,
+     "segundos": 6.4
+    },
+    {
+     "n": 24,
+     "si": false,
+     "confianza": 3,
+     "segundos": 5.1
+    },
+    {
+     "n": 25,
+     "si": false,
+     "confianza": 4,
+     "segundos": 54.4
+    },
+    {
+     "n": 26,
+     "si": true,
+     "confianza": 4,
+     "segundos": 8.2
+    },
+    {
+     "n": 27,
+     "si": true,
+     "confianza": 4,
+     "segundos": 6.6
+    },
+    {
+     "n": 28,
+     "si": true,
+     "confianza": 4,
+     "segundos": 7.5
+    },
+    {
+     "n": 29,
+     "si": true,
+     "confianza": 3,
+     "segundos": 6.2
+    },
+    {
+     "n": 30,
+     "si": true,
+     "confianza": 3,
+     "segundos": 4.5
+    },
+    {
+     "n": 31,
+     "si": true,
+     "confianza": 4,
+     "segundos": 12
+    },
+    {
+     "n": 32,
+     "si": true,
+     "confianza": 3,
+     "segundos": 10
+    },
+    {
+     "n": 33,
+     "si": true,
+     "confianza": 5,
+     "segundos": 5.7
+    },
+    {
+     "n": 34,
+     "si": true,
+     "confianza": 3,
+     "segundos": 10.8
+    },
+    {
+     "n": 35,
+     "si": false,
+     "confianza": 5,
+     "segundos": 6.7
+    },
+    {
+     "n": 36,
+     "si": false,
+     "confianza": 4,
+     "segundos": 7
+    },
+    {
+     "n": 37,
+     "si": false,
+     "confianza": 5,
+     "segundos": 5.1
+    },
+    {
+     "n": 38,
+     "si": true,
+     "confianza": 3,
+     "segundos": 10.1
+    },
+    {
+     "n": 39,
+     "si": true,
+     "confianza": 3,
+     "segundos": 12.7
+    },
+    {
+     "n": 40,
+     "si": false,
+     "confianza": 3,
+     "segundos": 5.9
+    },
+    {
+     "n": 41,
+     "si": true,
+     "confianza": 4,
+     "segundos": 5.2
+    },
+    {
+     "n": 42,
+     "si": true,
+     "confianza": 5,
+     "segundos": 3
+    }
+   ]
+  },
+  {
+   "content_item_id": 646,
+   "recuerda_video": "si",
+   "respuestas": [
+    {
+     "n": 1,
+     "si": false,
+     "confianza": 3,
+     "segundos": 13.9
+    },
+    {
+     "n": 2,
+     "si": true,
+     "confianza": 4,
+     "segundos": 12.8
+    },
+    {
+     "n": 3,
+     "si": true,
+     "confianza": 2,
+     "segundos": 4
+    },
+    {
+     "n": 4,
+     "si": true,
+     "confianza": 5,
+     "segundos": 9.9
+    },
+    {
+     "n": 5,
+     "si": false,
+     "confianza": 5,
+     "segundos": 9.5
+    },
+    {
+     "n": 6,
+     "si": false,
+     "confianza": 3,
+     "segundos": 7.3
+    },
+    {
+     "n": 7,
+     "si": false,
+     "confianza": 5,
+     "segundos": 3.1
+    },
+    {
+     "n": 8,
+     "si": true,
+     "confianza": 5,
+     "segundos": 4.6
+    },
+    {
+     "n": 9,
+     "si": true,
+     "confianza": 5,
+     "segundos": 4.2
+    },
+    {
+     "n": 10,
+     "si": true,
+     "confianza": 5,
+     "segundos": 4.7
+    },
+    {
+     "n": 11,
+     "si": true,
+     "confianza": 4,
+     "segundos": 4.4
+    },
+    {
+     "n": 12,
+     "si": false,
+     "confianza": 5,
+     "segundos": 4.2
+    },
+    {
+     "n": 13,
+     "si": true,
+     "confianza": 5,
+     "segundos": 4.4
+    },
+    {
+     "n": 14,
+     "si": false,
+     "confianza": 4,
+     "segundos": 9
+    },
+    {
+     "n": 15,
+     "si": false,
+     "confianza": 4,
+     "segundos": 8.3
+    },
+    {
+     "n": 16,
+     "si": false,
+     "confianza": 3,
+     "segundos": 5
+    },
+    {
+     "n": 17,
+     "si": true,
+     "confianza": 4,
+     "segundos": 5
+    },
+    {
+     "n": 18,
+     "si": true,
+     "confianza": 4,
+     "segundos": 6.1
+    },
+    {
+     "n": 19,
+     "si": true,
+     "confianza": 5,
+     "segundos": 5.8
+    },
+    {
+     "n": 20,
+     "si": true,
+     "confianza": 3,
+     "segundos": 10.2
+    },
+    {
+     "n": 21,
+     "si": false,
+     "confianza": 4,
+     "segundos": 6.6
+    },
+    {
+     "n": 22,
+     "si": false,
+     "confianza": 5,
+     "segundos": 4
+    },
+    {
+     "n": 23,
+     "si": false,
+     "confianza": 5,
+     "segundos": 5.8
+    },
+    {
+     "n": 24,
+     "si": false,
+     "confianza": 5,
+     "segundos": 6.1
+    },
+    {
+     "n": 25,
+     "si": false,
+     "confianza": 4,
+     "segundos": 9.8
+    },
+    {
+     "n": 26,
+     "si": true,
+     "confianza": 5,
+     "segundos": 14.7
+    },
+    {
+     "n": 27,
+     "si": false,
+     "confianza": 5,
+     "segundos": 9.3
+    },
+    {
+     "n": 28,
+     "si": true,
+     "confianza": 3,
+     "segundos": 6.5
+    },
+    {
+     "n": 29,
+     "si": true,
+     "confianza": 3,
+     "segundos": 4.5
+    },
+    {
+     "n": 30,
+     "si": true,
+     "confianza": 5,
+     "segundos": 5.1
+    }
+   ]
+  },
+  {
+   "content_item_id": 648,
+   "recuerda_video": "si",
+   "respuestas": [
+    {
+     "n": 1,
+     "si": false,
+     "confianza": 5,
+     "segundos": 22.4
+    },
+    {
+     "n": 2,
+     "si": true,
+     "confianza": 3,
+     "segundos": 13.1
+    },
+    {
+     "n": 3,
+     "si": true,
+     "confianza": 5,
+     "segundos": 5.3
+    },
+    {
+     "n": 4,
+     "si": false,
+     "confianza": 3,
+     "segundos": 6.1
+    },
+    {
+     "n": 5,
+     "si": true,
+     "confianza": 5,
+     "segundos": 6.8
+    },
+    {
+     "n": 6,
+     "si": false,
+     "confianza": 5,
+     "segundos": 10.9
+    },
+    {
+     "n": 7,
+     "si": true,
+     "confianza": 5,
+     "segundos": 20.5
+    },
+    {
+     "n": 8,
+     "si": true,
+     "confianza": 4,
+     "segundos": 6.3
+    },
+    {
+     "n": 9,
+     "si": true,
+     "confianza": 5,
+     "segundos": 13.4
+    },
+    {
+     "n": 10,
+     "si": false,
+     "confianza": 5,
+     "segundos": 11.3
+    },
+    {
+     "n": 11,
+     "si": true,
+     "confianza": 5,
+     "segundos": 11.6
+    },
+    {
+     "n": 12,
+     "si": false,
+     "confianza": 4,
+     "segundos": 9.7
+    },
+    {
+     "n": 13,
+     "si": true,
+     "confianza": 4,
+     "segundos": 6.5
+    },
+    {
+     "n": 14,
+     "si": false,
+     "confianza": 4,
+     "segundos": 12.8
+    },
+    {
+     "n": 15,
+     "si": true,
+     "confianza": 3,
+     "segundos": 17.6
+    },
+    {
+     "n": 16,
+     "si": false,
+     "confianza": 5,
+     "segundos": 16.2
+    },
+    {
+     "n": 17,
+     "si": true,
+     "confianza": 4,
+     "segundos": 10.5
+    },
+    {
+     "n": 18,
+     "si": true,
+     "confianza": 5,
+     "segundos": 6.5
+    },
+    {
+     "n": 19,
+     "si": false,
+     "confianza": 5,
+     "segundos": 13.7
+    },
+    {
+     "n": 20,
+     "si": true,
+     "confianza": 4,
+     "segundos": 8.4
+    },
+    {
+     "n": 21,
+     "si": true,
+     "confianza": 5,
+     "segundos": 7.4
+    },
+    {
+     "n": 22,
+     "si": false,
+     "confianza": 5,
+     "segundos": 27.5
+    },
+    {
+     "n": 23,
+     "si": false,
+     "confianza": 3,
+     "segundos": 14.1
+    },
+    {
+     "n": 24,
+     "si": false,
+     "confianza": 5,
+     "segundos": 19.1
+    },
+    {
+     "n": 25,
+     "si": false,
+     "confianza": 5,
+     "segundos": 4.5
+    },
+    {
+     "n": 26,
+     "si": false,
+     "confianza": 5,
+     "segundos": 7.6
+    },
+    {
+     "n": 27,
+     "si": true,
+     "confianza": 3,
+     "segundos": 8.9
+    },
+    {
+     "n": 28,
+     "si": false,
+     "confianza": 2,
+     "segundos": 17
+    },
+    {
+     "n": 29,
+     "si": false,
+     "confianza": 5,
+     "segundos": 5.5
+    },
+    {
+     "n": 30,
+     "si": false,
+     "confianza": 5,
+     "segundos": 6.1
+    },
+    {
+     "n": 31,
+     "si": false,
+     "confianza": 5,
+     "segundos": 6.4
+    },
+    {
+     "n": 32,
+     "si": false,
+     "confianza": 5,
+     "segundos": 9.4
+    },
+    {
+     "n": 33,
+     "si": false,
+     "confianza": 5,
+     "segundos": 3.7
+    },
+    {
+     "n": 34,
+     "si": true,
+     "confianza": 5,
+     "segundos": 4.8
+    },
+    {
+     "n": 35,
+     "si": false,
+     "confianza": 5,
+     "segundos": 3.7
+    },
+    {
+     "n": 36,
+     "si": false,
+     "confianza": 5,
+     "segundos": 11.4
+    },
+    {
+     "n": 37,
+     "si": true,
+     "confianza": 4,
+     "segundos": 9
+    },
+    {
+     "n": 38,
+     "si": false,
+     "confianza": 3,
+     "segundos": 9.7
+    },
+    {
+     "n": 39,
+     "si": true,
+     "confianza": 5,
+     "segundos": 6.9
+    },
+    {
+     "n": 40,
+     "si": true,
+     "confianza": 3,
+     "segundos": 8.3
+    },
+    {
+     "n": 41,
+     "si": true,
+     "confianza": 3,
+     "segundos": 13.1
+    },
+    {
+     "n": 42,
+     "si": true,
+     "confianza": 3,
+     "segundos": 19.8
+    }
+   ]
+  }
+ ]
+}

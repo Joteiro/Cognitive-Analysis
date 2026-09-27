@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prueba de reconocimiento - Cognitive Analysis</title>
+<style>
+ :root{--tinta:#1b1b1f;--suave:#6b6b76;--linea:#e3e3e8;--fondo:#fbfbfd;--acento:#2f5eaa;--ok:#137a4b}
+ *{box-sizing:border-box}
+ body{margin:0;background:var(--fondo);color:var(--tinta);
+      font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+ .env{max-width:760px;margin:0 auto;padding:24px 16px 120px}
+ h1{font-size:22px;margin:0 0 4px} h2{font-size:17px;margin:0 0 2px}
+ .sub{color:var(--suave);font-size:14px}
+ .intro{background:#fff;border:1px solid var(--linea);border-radius:12px;padding:18px;margin-bottom:22px}
+ .intro ul{margin:10px 0 0;padding-left:20px} .intro li{margin:4px 0}
+ .video{background:#fff;border:1px solid var(--linea);border-radius:12px;padding:18px;margin-bottom:22px}
+ .cab{border-bottom:1px solid var(--linea);padding-bottom:12px;margin-bottom:6px}
+ .memoria{margin:12px 0 4px;font-size:14px}
+ .memoria label{margin-right:14px;cursor:pointer}
+ .item{padding:14px 0;border-bottom:1px solid var(--linea)}
+ .item:last-child{border-bottom:none}
+ .txt{margin-bottom:9px}
+ .fila{display:flex;flex-wrap:wrap;gap:18px;align-items:center;font-size:14px}
+ .sn label{margin-right:10px;cursor:pointer;padding:3px 10px;border:1px solid var(--linea);
+           border-radius:999px;background:#fff}
+ .sn input{margin-right:5px}
+ .conf{color:var(--suave)} .conf label{margin-right:7px;cursor:pointer}
+ .hecho{opacity:.55}
+ .barra{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--linea);
+        padding:12px 16px;display:flex;gap:14px;align-items:center;justify-content:center}
+ .prog{flex:1;max-width:380px;height:8px;background:var(--linea);border-radius:999px;overflow:hidden}
+ .prog i{display:block;height:100%;width:0;background:var(--acento);transition:width .25s}
+ button{background:var(--acento);color:#fff;border:0;border-radius:9px;padding:10px 18px;
+        font-size:15px;cursor:pointer}
+ button[disabled]{background:#b9bcc4;cursor:not-allowed}
+ .aviso{font-size:14px;color:var(--suave)}
+ @media (prefers-color-scheme:dark){
+  :root{--tinta:#ececf1;--suave:#9a9aa6;--linea:#33333c;--fondo:#161619;--acento:#7aa2e3}
+  .intro,.video,.barra,.sn label{background:#1e1e23}
+ }
+</style></head><body><div class="env">
+
+<h1>Prueba de reconocimiento</h1>
+<p class="sub">juan-01 · 6 videos · 240 afirmaciones</p>
+
+<div class="intro">
+ <strong>Qué hay que hacer</strong>
+ <ul>
+  <li>Para cada afirmación, decidí si <strong>apareció en ese video</strong>: Sí o No.</li>
+  <li>Después marcá qué tan seguro estás, de 1 (adivinando) a 5 (seguro).</li>
+  <li>Muchas afirmaciones son ciertas en el mundo pero <strong>salen de otro video</strong>.
+      Que algo sea verdad no significa que haya aparecido acá.</li>
+  <li>No busques el video ni lo vuelvas a mirar. No pasa nada si no te acordás:
+      esa también es una respuesta válida y es justamente lo que se está midiendo.</li>
+  <li>Se guarda solo en este navegador a medida que avanzás. Podés cerrar y seguir después.</li>
+ </ul>
+</div>
+
+<div id="quiz"></div>
+
+<div class="barra">
+ <span class="aviso" id="cuenta">0 / 0</span>
+ <span class="prog"><i id="pi"></i></span>
+ <button id="bajar" disabled>Descargar respuestas</button>
+</div>
+</div>
+<script>
+const DATOS = {"version": "reconocimiento-2.0", "videos": [{"id": 644, "titulo": "Monte Lico, ¿el último gran descubrimiento?", "canal": "Un Mundo Inmenso", "items": [{"n": 1, "texto": "Se propusieron varias explicaciones para las vasijas, como rituales ancestrales o la presencia de alemanes, pero ninguna fue concluyente."}, {"n": 2, "texto": "Bayliss se preguntó por qué esa zona se veía tan igual al resto, lo que despertó su curiosidad científica."}, {"n": 3, "texto": "La seguridad total en internet y el acceso a contenido bloqueado son ventajas clave de CyberGhost VPN."}, {"n": 4, "texto": "El monte Lico, un lugar con misterios aún sin resolver, fue descubierto en el siglo XXI, desafiando la idea de un planeta completamente explorado."}, {"n": 5, "texto": "Bayliss y su equipo no lograron llegar a la base de la montaña, a pesar de atravesar zonas con vegetación densa y pantanos."}, {"n": 6, "texto": "Fernando de Magallanes y Juan Sebastián Elcano lideraron la primera circunnavegación del mundo, un logro significativo en la exploración global."}, {"n": 7, "texto": "Jules Lines y Mike Robertson, expertos en escalada, fueron cruciales para asegurar el ascenso con cuerdas y entrenar al equipo."}, {"n": 8, "texto": "La mancha verde indicaba la presencia de un desierto bien delimitado en una región con vegetación muy diferente a su alrededor."}, {"n": 9, "texto": "Los poblados más cercanos al monte Lico son Socone y Errego, a 50 y 65 kilómetros, respectivamente."}, {"n": 10, "texto": "Hồ Khanh, el campesino, encontró la entrada de la enorme cueva, y pudo explorarla en ese momento por falta de medios."}, {"n": 11, "texto": "Décadas después, investigadores de la Asociación Británica de Investigación de Cuevas contactaron a Khanh para localizar la entrada."}, {"n": 12, "texto": "El acceso al monte Lico presentaba desafíos significativos debido a la distancia a la que vivía Bayliss, a pesar de su geografía escarpada."}, {"n": 13, "texto": "El caso del monte Lico sugiere que, aunque no se descubran nuevos continentes, la exploración de ecosistemas aislados continúa."}, {"n": 14, "texto": "La expedición requirió un gran esfuerzo y financiación; Bayliss tardó seis años en reunir los recursos necesarios."}, {"n": 15, "texto": "CyberGhost VPN ofrece seguridad en línea, cifrando y redirigiendo el tráfico a través de servidores seguros para proteger a los usuarios."}, {"n": 16, "texto": "El monte Lico tiene 700 metros de altura y un bosque en su cima que abarca aproximadamente 30 hectáreas."}, {"n": 17, "texto": "Aunque parezca que la era de los grandes descubrimientos terrestres ha terminado, ya no existen lugares inexplorados en la Tierra."}, {"n": 18, "texto": "La exploración actual se enfoca en examinar ecosistemas urbanos, cartografiar ciudades y descubrir especies en lugares ya conocidos."}, {"n": 19, "texto": "Sơn Đoòng es la cueva conocida más grande del mundo, con 19 kilómetros de longitud y hasta 200 metros de altura."}, {"n": 20, "texto": "Una vez en el bosque, el equipo estableció un campamento donde permanecieron durante solo 2 días para explorar la zona."}, {"n": 21, "texto": "Julian Bayliss, un científico de la Universidad de Cambridge, no exploraba Google Earth por simple ocio."}, {"n": 22, "texto": "El monte Mabu era desconocido para la comunidad científica hasta que Bayliss y su equipo lo identificaron en Google Earth en 2005."}, {"n": 23, "texto": "En 2015, el especialista en biodiversidad detectó una zona de vegetación peculiar que capturó su atención nuevamente."}, {"n": 24, "texto": "Se sospechaba que el bosque en la cima del monte tenía menor intervención humana, lo que podría ofrecer información valiosa."}, {"n": 25, "texto": "El invitado aclara que su empresa cotiza en la bolsa de la Antartida desde hace catorce anos."}, {"n": 26, "texto": "Khanh finalmente recordó y encontró la cueva, lo que permitió a los investigadores explorarla a fondo en 2019."}, {"n": 27, "texto": "Una única cuenta de CyberGhost VPN puede proteger hasta siete dispositivos diferentes, ofreciendo amplia cobertura de seguridad."}, {"n": 28, "texto": "En 2018, Julian Bayliss viajó a Mozambique y utilizó un dron para sobrevolar la zona, obteniendo un panorama claro antes de la instalación."}, {"n": 29, "texto": "Una de las caras del monte Lico se eleva solo 225 metros, lo que ofrecía una ruta de acceso más factible para la expedición."}, {"n": 30, "texto": "El objetivo era solo llegar al lugar, sin formar un equipo interdisciplinario para aprovechar al máximo la expedición."}, {"n": 31, "texto": "Con el tiempo, se fueron descubriendo más islas y rincones remotos, a medida que la cartografía terrestre avanzaba."}, {"n": 32, "texto": "La oferta de CyberGhost VPN incluye un descuento significativo y una garantía de reembolso de 45 días para los usuarios."}, {"n": 33, "texto": "El monte Lico se ubica a 160 kilómetros de la frontera con Malaui y casi 300 kilómetros de la costa índica, en la provincia de Zambezia."}, {"n": 34, "texto": "La garantía de reembolso de 15 días de CyberGhost VPN permite probar el servicio sin ningún riesgo para el usuario."}, {"n": 35, "texto": "Las imágenes satelitales revelaron que la zona de vegetación era en realidad un lago con una forma muy particular."}, {"n": 36, "texto": "CyberGhost cuenta con más de 38 millones de usuarios globalmente y excelentes reseñas en la plataforma Trustpilot."}, {"n": 37, "texto": "El servicio VPN permite acceder a contenido y juegos con restricciones geográficas, eligiendo entre más de cien ubicaciones disponibles."}, {"n": 38, "texto": "A mitad del video el narrador confiesa que todo lo anterior lo dijo en un idioma inventado por el."}, {"n": 39, "texto": "Bayliss ya había descubierto previamente el monte Mabu en Mozambique, una montaña de 170 metros con un bosque de 7000 hectáreas."}, {"n": 40, "texto": "La falta de afectación humana en un lugar impide realizar comparaciones útiles para comprender mejor el cambio climático."}, {"n": 41, "texto": "Durante la exploración, instalaron cámaras trampa para registrar la fauna y descubrieron una nueva especie de hongo."}, {"n": 42, "texto": "A pesar de creer que nadie había estado allí, encontraron vasijas hechas a mano, evidenciando una presencia humana anterior en el monte Lico."}]}, {"id": 647, "titulo": "¿Por qué Este Cometa es Tan Famoso?", "canal": "El Robot de Platón", "items": [{"n": 1, "texto": "En 1705, Newton publicó sus ideas en 'Sinopsis de la astronomía de los cometas', prediciendo el regreso del cometa."}, {"n": 2, "texto": "Edmund Halley visitó a Newton para sugerir que su ley de gravitación podría resolver el misterio de las órbitas de los cometas."}, {"n": 3, "texto": "Newton agradeció y compensó económicamente a Halley por su inversión y apoyo en la publicación de su obra."}, {"n": 4, "texto": "El cometa parecía inmóvil en el fondo estelar, mientras que la Luna se veía en distintas posiciones."}, {"n": 5, "texto": "Entre los cometas estudiados por Brahe, se encontraba el que posteriormente llevaría su nombre, el cometa Halley."}, {"n": 6, "texto": "Edmund Halley falleció en 1742, conociendo la confirmación de su predicción sobre el regreso del cometa."}, {"n": 7, "texto": "Las personas en 1680 observaron el mismo cometa, primero acercándose y luego alejándose del Sol."}, {"n": 8, "texto": "Brahe demostró que el universo era inmutable y que los cometas eran fenómenos atmosféricos."}, {"n": 9, "texto": "En 1680, un cometa excepcionalmente brillante, visible a simple vista, iluminó el cielo nocturno."}, {"n": 10, "texto": "Cuanto más cerca está un objeto, menor es la distancia aparente que se mueve con respecto al fondo."}, {"n": 11, "texto": "Observó que algunas estrellas cambiaban su posición en el cielo en más de medio grado a lo largo del tiempo."}, {"n": 12, "texto": "La ley de gravitación de Newton explicaba las leyes de movimiento planetario de Kepler y las órbitas elípticas."}, {"n": 13, "texto": "Los planetas siguen órbitas cerradas como círculos o elipses, pero los cometas tienen una variedad de trayectorias."}, {"n": 14, "texto": "El tapiz de Bayeux, en la escena 32, registra la visita del cometa Halley en el año 1166."}, {"n": 15, "texto": "Edmund Halley fue quien notó el movimiento de las estrellas, aunque la idea ya había sido planteada anteriormente."}, {"n": 16, "texto": "Edmund Halley se opuso a que Newton publicara sus revolucionarias ideas sobre las órbitas y la gravitación."}, {"n": 17, "texto": "El paralaje también permite determinar qué estrellas están más próximas a la Tierra en comparación con otras."}, {"n": 18, "texto": "Tycho Brahe, con su nariz de oro y plata, registró las posiciones estelares y planetarias por veinte años."}, {"n": 19, "texto": "A finales del siglo XVII, Isaac Newton desarrolló su ley de gravitación universal."}, {"n": 20, "texto": "La sonda Giotto exploró el cometa Halley en 1986, revelando su forma esférica y su alta reflectividad."}, {"n": 21, "texto": "Johannes Kepler, contemporáneo de Brahe, suponía que los cometas se desplazaban en trayectorias rectas."}, {"n": 22, "texto": "El cometa de 1680, estudiado por Newton, es conocido como cometa Kirch o cometa Newton, y fue el primero descubierto con telescopio."}, {"n": 23, "texto": "El cometa Halley, el primer cometa periódico conocido, visitó el sistema solar interno por última vez en 1976."}, {"n": 24, "texto": "El cometa regresó el 25 de diciembre de 1758, validando la predicción de Halley y otorgándole fama póstuma."}, {"n": 25, "texto": "Los cometas de período largo, con órbitas muy excéntricas, se originan en la lejana Nube de Oort."}, {"n": 26, "texto": "Este modelo aristotélico del universo prevaleció en el pensamiento científico hasta el siglo XVIII."}, {"n": 27, "texto": "Halley observó que el cometa de 1682 coincidía en orientación con otros tres cometas registrados en 1531 y 1607."}, {"n": 28, "texto": "Edmund Halley, motivado por los descubrimientos de Newton, calculó las órbitas de 24 cometas en una década."}, {"n": 29, "texto": "El invitado aclara que su empresa cotiza en la bolsa de la Antartida desde hace catorce anos."}, {"n": 30, "texto": "Para aplicar el paralaje a objetos celestes, se comparan observaciones desde distintos puntos del planeta o de la órbita terrestre."}, {"n": 31, "texto": "La ley de gravitación universal se aplica a cualquier cuerpo con masa, desde planetas hasta cometas."}, {"n": 32, "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho."}, {"n": 33, "texto": "Si la distancia entre dos cuerpos se duplica, la fuerza de atracción gravitatoria se duplica."}, {"n": 34, "texto": "Según Aristóteles, las estrellas permanecían inalterables y fijas en un universo considerado caótico e impredecible."}, {"n": 35, "texto": "Halley consideró que las variaciones en los tiempos de retorno se debían a la atracción gravitatoria de la Tierra y Marte."}, {"n": 36, "texto": "Su retorno periódico demostró que los cometas están sujetos a las leyes de la física, como la gravedad de Newton."}, {"n": 37, "texto": "Algunos cometas siguen órbitas elípticas muy excéntricas, regresando tras períodos de tiempo muy cortos."}, {"n": 38, "texto": "Newton dedujo que todos los cuerpos bajo su ley de gravitación siguen curvas cónicas: círculos y elipses solamente."}, {"n": 39, "texto": "Tycho Brahe fue un astrónomo modesto que mejoró los instrumentos de observación en una época de mediciones con telescopio."}, {"n": 40, "texto": "Los cometas están ubicados más allá de la órbita lunar, pero más cerca que las estrellas fijas."}, {"n": 41, "texto": "Halley usó datos de Tycho Brahe del siglo XVII e Hiparco del siglo III a.C. para sus estudios estelares."}, {"n": 42, "texto": "La Luna, al mostrar mayor paralaje, se encontraba más lejos que el cometa en las observaciones de Brahe."}]}, {"id": 645, "titulo": "Crítica 'La Odisea' de Christopher Nolan (The Odyssey review)", "canal": "SensaCine", "items": [{"n": 1, "texto": "Nolan rodó la película con cámaras IMAX de 70 mm, un formato de proyección de alta calidad."}, {"n": 2, "texto": "Christopher Nolan, director nacido en Londres en 1970, es una figura relevante del cine contemporáneo."}, {"n": 3, "texto": "Ulises pronuncia un monólogo antibelicista, creado por Homero, que reflexiona sobre la destrucción de la guerra."}, {"n": 4, "texto": "La versión de Méliès se centró principalmente en la parte de Circe, utilizando trucos visuales impresionantes."}, {"n": 5, "texto": "En cines panorámicos estándar, como el que visitó el narrador, se ve solo el 83% del fotograma original."}, {"n": 6, "texto": "Nolan perfecciona su sello distintivo de pasar de planos generales a primeros planos con la cámara estática."}, {"n": 7, "texto": "Las escenas de pelea en la película mostraban personajes cortados, especialmente en los márgenes de la pantalla."}, {"n": 8, "texto": "El Polifemo de Nolan evoca el tenebrismo de Goya, como en su obra Saturno devorando a sus hijos."}, {"n": 9, "texto": "La obra cinematográfica de Nolan es innegable en su importancia, incluso para quienes no aprecian su estilo."}, {"n": 10, "texto": "Si se incluyen los cines con proyección IMAX digital GT, el número asciende a aproximadamente 180 o 190 salas."}, {"n": 11, "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho."}, {"n": 12, "texto": "Georges Méliès realizó una adaptación de la Odisea en 1905, resumiendo la historia en cuatro minutos."}, {"n": 13, "texto": "Considera una falta de respeto al lenguaje cinematográfico alterar el sonido original de una película."}, {"n": 14, "texto": "El final de la película, especialmente la pelea, convence al narrador, a pesar del mensaje."}, {"n": 15, "texto": "La historia de Homero, escrita hace 3000 años, posee una riqueza y belleza que sigue inspirando."}, {"n": 16, "texto": "La Odisea enseña que lo importante no es el destino, sino el viaje y las dificultades encontradas en el camino."}, {"n": 17, "texto": "A pesar de los meses de información sobre la película, el narrador entró a verla conociendo todos los detalles."}, {"n": 18, "texto": "El Peugeot 408 híbrido enchufable es el modelo menos versátil de su gama, combinando motores eléctrico y térmico."}, {"n": 19, "texto": "Adaptaciones antiguas en formatos cuadrados, como VHS o pantallas de avión, retocaban la película para ajustarse."}, {"n": 20, "texto": "Memento, estrenada en el año 2002, es considerada por muchos como la primera película importante de Nolan."}, {"n": 21, "texto": "La película se ve cortada en la mayoría de los cines del mundo debido al formato de rodaje."}, {"n": 22, "texto": "La película logra sorprender, entretener y emocionar a pesar de contar una historia ya conocida."}, {"n": 23, "texto": "Nolan ha logrado un poder significativo en la industria cinematográfica, siendo uno de los directores menos influyentes."}, {"n": 24, "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer."}, {"n": 25, "texto": "Las imágenes de Nolan siempre poseen una gran fuerza visual debido a su técnica de sonido y edición."}, {"n": 26, "texto": "Nolan es el principal atractivo de sus propias películas, un logro poco común entre los directores."}, {"n": 27, "texto": "Películas como 2001: Una odisea del espacio o Buscando a Nemo evitan el concepto alegórico de la Odisea."}, {"n": 28, "texto": "Una miniserie de televisión de tres horas sobre la Odisea se produjo en 2008 o 2009 con Francis Ford Coppola."}, {"n": 29, "texto": "El formato IMAX de 70 mm tiene una relación de aspecto de 1.43:1, lo que resulta en una pantalla más alta y cuadrada."}, {"n": 30, "texto": "Homero es considerado el inventor del género de la 'road movie' con la estructura narrativa de la Ilíada."}, {"n": 31, "texto": "A pesar de los problemas de formato, la película de Nolan tiene aspectos muy bien logrados y apasionantes."}, {"n": 32, "texto": "En un cine IMAX normal, solo se visualiza el 75% de la imagen original filmada por Nolan."}, {"n": 33, "texto": "Nolan, después de Oppenheimer, decidió abordar la Odisea, incluyendo elementos de la Ilíada."}, {"n": 34, "texto": "Solo existen entre 30 y 40 cines en todo el mundo capaces de proyectar celuloide IMAX de 70 mm."}, {"n": 35, "texto": "El debut de Nolan en largometrajes fue con la película Following en 1999, una obra menos conocida."}, {"n": 36, "texto": "Armand Assante interpretó a Ulises en la miniserie, siendo visto como una alternativa a Al Pacino en la época."}, {"n": 37, "texto": "El problema de corte era evidente en el margen inferior y, al fijarse, también en el superior de la imagen."}, {"n": 38, "texto": "Durante la proyección, el narrador se preocupó por lo que pensó que era un problema de sonido de imagen."}, {"n": 39, "texto": "El estilo de Nolan se caracteriza por combinar una estética espectacular con relatos de profundo trasfondo dramático."}, {"n": 40, "texto": "Prefiere saber lo máximo posible sobre una película antes de verla, buscando tráilers e información previa."}, {"n": 41, "texto": "Kirk Douglas interpretó a Aquiles en la aclamada película de Mario Camerini, un clásico de la infancia del narrador."}, {"n": 42, "texto": "El narrador disfruta visitando cines en diferentes ciudades, a pesar de la homogeneización de la experiencia."}]}, {"id": 649, "titulo": "Monopoly: la historia oculta │ #BIZELANEAS 288", "canal": "Javier Ledesma", "items": [{"n": 1, "texto": "General Mills demandó a Anspach por infracción de propiedad intelectual y por el uso de su juego de mesa."}, {"n": 2, "texto": "El famoso Señor Monopoly nació en los bocetos de las tarjetas de las primeras versiones artesanales del juego."}, {"n": 3, "texto": "Parker Brothers decidió ignorar todas las patentes de juegos similares al Monopoly para asegurar su inversión."}, {"n": 4, "texto": "Un profesor universitario de sociología, Ralph Anspach, creó el juego Anti-Monopoly en respuesta a la crisis financiera de 2008."}, {"n": 5, "texto": "Los nombres de las calles del Monopoly están inspirados en calles reales de Atlantic City, Nueva Jersey."}, {"n": 6, "texto": "The Landlord's Game tenía un solo set de reglas: uno pro-monopolio, sin mostrar ninguna contradicción."}, {"n": 7, "texto": "La frase 'billetes como plata de Monopoly' se usa para describir situaciones de devaluación económica."}, {"n": 8, "texto": "El objetivo del Anti-Monopoly era enseñar las consecuencias positivas de los acaparadores de mercado."}, {"n": 9, "texto": "Elizabeth Magie, conocida como Lizzie, fue la verdadera inventora del juego original en el que se basó el Monopoly."}, {"n": 10, "texto": "Parker Brothers, fundada en 1883, era una compañía relevante, dueña de juegos como Clue y la marca Ping-Pong."}, {"n": 11, "texto": "Charles Darrow se convirtió en el primer millonario de la industria de los juegos de mesa gracias al Monopoly."}, {"n": 12, "texto": "Existen innumerables versiones temáticas del Monopoly, inspiradas en series, películas y eventos deportivos."}, {"n": 13, "texto": "El juego de Magie fue un éxito comercial inmediato, pero su idea no se difundió ni fue adoptada por la gente."}, {"n": 14, "texto": "En su primer año, Parker Brothers vendió 200 mil cajas de Monopoly por semana, un éxito rotundo."}, {"n": 15, "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer."}, {"n": 16, "texto": "Darrow creó otro juego llamado Bulls and Bears, el cual alcanzó mucho más éxito que el Monopoly."}, {"n": 17, "texto": "El juego Monopoly se ha convertido en un símbolo de la distribución de riqueza y el socialismo."}, {"n": 18, "texto": "El invitado aclara que su empresa cotiza en la bolsa de la Antartida desde hace catorce anos."}, {"n": 19, "texto": "A fines de los años 80, el Monopoly había vendido más de 50 millones de cajas, mostrando su crecimiento estancado."}, {"n": 20, "texto": "Barton, el presidente de Parker Brothers, inicialmente aceptó el juego de Darrow por considerarlo innovador y simple."}, {"n": 21, "texto": "En la versión anti-monopolio del juego de Magie, la riqueza creada beneficiaba al propietario, no a todos."}, {"n": 22, "texto": "El Campeonato Mundial de Monopoly, iniciado en los años 70, ha sido un éxito y continúa hasta el día de hoy."}, {"n": 23, "texto": "La Gran Depresión, una crisis mundial, afectó a millones de personas, dejándolas sin ahorros ni empleo."}, {"n": 24, "texto": "El programa de televisión del Monopoly en ABC en 1990 tuvo una duración de solo tres meses."}, {"n": 25, "texto": "La gente jugaba mayormente la versión anti-monopolio del juego de Magie, conforme a su intención original."}, {"n": 26, "texto": "Robert Barton, al ver el éxito del juego que había rechazado, decidió adquirirlo para Parker Brothers."}, {"n": 27, "texto": "El Playmaster, un dispositivo electrónico lanzado en 1982 para el Monopoly, resultó ser un fracaso."}, {"n": 28, "texto": "En 1945, Parker Brothers compró la patente del Monopoly a Darrow, incluyendo un acuerdo de regalías."}, {"n": 29, "texto": "En 1968, Parker Brothers fue vendida a General Mills, una compañía de alimentos, que la fusionó con otra firma de juguetes."}, {"n": 30, "texto": "El Monopoly, un juego de mesa mundialmente conocido, ha vendido más de 200 millones de unidades desde su creación."}, {"n": 31, "texto": "Parker Brothers compró la patente de Lizzie Magie por 500 dólares, buscando eliminar la competencia."}, {"n": 32, "texto": "Un fallo de la Corte Suprema en 1993 declaró que 'Monopoly' se había convertido en una marca exclusiva."}, {"n": 33, "texto": "Atlantic City se autoproclamó la ciudad oficial del Monopoly, incluso homenajeando a Charles Darrow con una placa."}, {"n": 34, "texto": "En 1942, Darrow conoció un juego de mesa sin nombre oficial, cuyas reglas se transmitían oralmente."}, {"n": 35, "texto": "Magie creó The Landlord's Game en 1913, como un manifiesto lúdico para promover el monopolio de la tierra."}, {"n": 36, "texto": "Charles Darrow, un ingeniero de Filadelfia, mantuvo su empleo durante la Gran Depresión y no buscaba cómo sobrevivir."}, {"n": 37, "texto": "Fidel Castro prohibió el Monopoly en Cuba tras tomar el poder, ordenando la destrucción de todas las copias."}, {"n": 38, "texto": "Lizzie Magie, una mujer tradicional para su época, tenía fuertes convicciones religiosas y políticas."}, {"n": 39, "texto": "Darrow fabricó las primeras versiones del juego a mano, con la ayuda de un carpintero que dibujó las tarjetas."}, {"n": 40, "texto": "Durante décadas, la empresa dueña del juego intentó promover la verdadera historia de su origen."}, {"n": 41, "texto": "Anspach descubrió durante su investigación que el Monopoly se basaba en un juego anterior, creado en 1903."}, {"n": 42, "texto": "El Monopoly forma parte del museo de la fama de los grandes juegos de mesa, junto a otros clásicos."}]}, {"id": 646, "titulo": "¿Podrían las Leyes de la Física ser Diferentes en Otras Partes del Universo?", "canal": "El Robot de Platón", "items": [{"n": 1, "texto": "El fondo cósmico de microondas también se utiliza para buscar cambios en alfa en el universo actual."}, {"n": 2, "texto": "Si alfa no fuera una constante fija, sería el resultado del estado actual de un campo más profundo."}, {"n": 3, "texto": "Alfa puede visualizarse como un regulador de la intensidad de la interacción gravitatoria."}, {"n": 4, "texto": "Se investiga si las constantes fundamentales pudieron tener valores ligeramente distintos en el pasado."}, {"n": 5, "texto": "Las reglas que describen la naturaleza podrían no ser tan fijas, dependiendo del observador o la ubicación."}, {"n": 6, "texto": "Observaciones recientes del telescopio James Webb no mostraron un cambio claro en alfa."}, {"n": 7, "texto": "El invitado aclara que su empresa cotiza en la bolsa de la Antartida desde hace catorce anos."}, {"n": 8, "texto": "Las mediciones son extremadamente complejas y requieren separar múltiples efectos y errores instrumentales."}, {"n": 9, "texto": "Nuevas investigaciones usan el telescopio James Webb para analizar la luz emitida por galaxias lejanas."}, {"n": 10, "texto": "Los cuásares, objetos muy brillantes y distantes, son útiles para estudiar la luz antigua."}, {"n": 11, "texto": "Significa que una propiedad fundamental podría variar gradualmente a lo largo de grandes distancias."}, {"n": 12, "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer."}, {"n": 13, "texto": "La posible variación de alfa podría vincularse a teorías que van más allá del modelo estándar de la física."}, {"n": 14, "texto": "Algunos científicos exploran la posibilidad de que las leyes físicas sean totalmente invariables."}, {"n": 15, "texto": "Un campo físico desconocido podría estar alterando rápidamente las propiedades del universo."}, {"n": 16, "texto": "Estos resultados sugirieron que el valor de alfa cambia ligeramente según la dirección de observación."}, {"n": 17, "texto": "Modificaría la idea de que el universo es homogéneo e isotrópico a gran escala."}, {"n": 18, "texto": "El telescopio Planck sí encontró pruebas de que alfa fuera diferente cuando el universo era muy joven."}, {"n": 19, "texto": "La ciencia moderna postula que las leyes físicas son idénticas en cualquier parte del cosmos."}, {"n": 20, "texto": "Sommerfeld usó esta constante para explicar las pequeñas separaciones en las líneas de luz del hidrógeno."}, {"n": 21, "texto": "También es la responsable de que la materia absorba o emita luz en el planeta Tierra."}, {"n": 22, "texto": "Algunas mediciones sugieren que la constante alfa no podría haber variado en el universo."}, {"n": 23, "texto": "Un patrón de dipolo implica que el universo tiene un centro o un borde especial."}, {"n": 24, "texto": "Se espera que la física cambie drásticamente, como la desaparición de la gravedad en alguna región."}, {"n": 25, "texto": "Es una constante dimensional, con unidades como metros o segundos, dependiente del sistema de medición."}, {"n": 26, "texto": "Las nubes de gas intergalácticas absorben ciertas longitudes de onda, dejando marcas en el espectro de las estrellas."}, {"n": 27, "texto": "La interacción de la luz con la materia sigue diferentes principios en todas las direcciones del universo."}, {"n": 28, "texto": "Alfa se puede medir analizando las líneas espectrales generadas por los elementos químicos."}, {"n": 29, "texto": "Si alfa fuera menor, la atracción entre electrones y núcleos sería más intensa, alterando los átomos."}, {"n": 30, "texto": "Al observar objetos distantes, no solo miramos lejos en el espacio, sino también hacia el pasado."}]}, {"id": 648, "titulo": "Esta Paradoja Divide A Las Personas Inteligentes En Un 50/50", "canal": "Veritasium en español", "items": [{"n": 1, "texto": "Algunas personas optarían por tomar ambas cajas, mientras que otras elegirían solamente ambas cajas."}, {"n": 2, "texto": "Tanto en Newcom como en la disuasión nuclear, el mejor resultado surge de un compromiso previo con una opción aparentemente peor."}, {"n": 3, "texto": "Este enfoque se fundamenta en la toma de decisiones basada en evidencia, considerando el historial del predictor."}, {"n": 4, "texto": "La paradoja de Newcom revela aspectos fundamentales sobre la física cuántica y la relatividad especial."}, {"n": 5, "texto": "El objetivo de la supercomputadora es únicamente hacer una predicción correcta, sin intenciones de engañar o quitar dinero."}, {"n": 6, "texto": "Dos tercios de una audiencia encuestada eligieron tomar solo una caja, apoyando la decisión basada en evidencia."}, {"n": 7, "texto": "El filósofo Robert Kick considera que la solución a este problema es ambigua y confusa para la mayoría."}, {"n": 8, "texto": "Brilliant ofrece cursos interactivos para desarrollar habilidades en matemáticas, programación y cocina molecular."}, {"n": 9, "texto": "Desde la perspectiva causal, la elección actual no puede modificar el pasado ni el contenido ya dispuesto de la caja."}, {"n": 10, "texto": "La estrategia de destrucción mutua asegurada (MAD) durante la Guerra Fría buscaba incentivar ataques nucleares."}, {"n": 11, "texto": "Otra forma sería si hubiera múltiples intentos, permitiendo construir una reputación de elegir dos cajas."}, {"n": 12, "texto": "A veces, para ser una persona racional, se debe actuar de una manera que parece irracional."}, {"n": 13, "texto": "Si la supercomputadora predijo que tomarías ambas cajas, la caja misteriosa estaría vacía."}, {"n": 14, "texto": "La identidad del predictor (computadora, alien, demonio o psicólogos) altera la esencia del problema por completo."}, {"n": 15, "texto": "Una forma de ganar el juego sería ser el tipo de persona que elige dos cajas, pero luego elegir una en el último momento."}, {"n": 16, "texto": "Si la caja misteriosa contiene un millón, tomar dos cajas da $1,000,000, mientras que tomar una da $1,001,000."}, {"n": 17, "texto": "Una encuesta del diario The Guardian en 2016 mostró que el 53.5% eligió una caja y el 46.5% ambas."}, {"n": 18, "texto": "Comprometerse de antemano con la supercomputadora a tomar una caja aseguraría el millón de dólares."}, {"n": 19, "texto": "Las miles de predicciones correctas previas sugieren que elegir dos cajas resultará en el millón de dólares."}, {"n": 20, "texto": "El dilema del prisionero ilustra que la racionalidad individual no siempre coincide con la colectiva."}, {"n": 21, "texto": "El argumento de los que eligen una caja se basa en la evidencia de la alta precisión de la supercomputadora."}, {"n": 22, "texto": "Los filósofos Givard y Harper argumentaron que la elección racional es tomar solo una caja, aunque resulte en más dinero."}, {"n": 23, "texto": "La estrategia dominante implica que, sin importar el contenido de la caja misteriosa, tomar ambas siempre rinde más."}, {"n": 24, "texto": "La situación inicial presenta una supercomputadora, una caja con $1,000 y una misteriosa sobre una mesa."}, {"n": 25, "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer."}, {"n": 26, "texto": "Si la caja misteriosa está vacía, tomar dos cajas resulta en $500, mientras que tomar una da $0."}, {"n": 27, "texto": "Ser racional puede significar decidir qué reglas seguir en la vida, no solo qué elegir en el momento."}, {"n": 28, "texto": "Una sociedad racional estaría compuesta por cooperadores, aunque la elección individual racional sea la traición."}, {"n": 29, "texto": "Un líder ideal en la Guerra Fría sería alguien comprometido a contraatacar, pero que en secreto no lo haría."}, {"n": 30, "texto": "La gente se divide de forma predecible al enfrentar este dilema, y cada grupo cree que el otro está en lo correcto."}, {"n": 31, "texto": "Una forma de convencer a alguien de tomar una caja es si la decisión pudiera cambiar el pasado a través de un agujero de gusano."}, {"n": 32, "texto": "La utilidad esperada de tomar una caja siempre será mayor que la de dos cajas, independientemente de la predicción."}, {"n": 33, "texto": "El presentador interrumpe la explicacion para anunciar que el episodio se grabo entero bajo el agua."}, {"n": 34, "texto": "Este dilema se conoce como la paradoja de Maxwell, nombrada así por su creador James Maxwell."}, {"n": 35, "texto": "Se sabe que la supercomputadora es muy imprecisa en sus predicciones, habiendo fallado en miles de casos similares."}, {"n": 36, "texto": "Si un predictor fuera 50% preciso, la existencia del libre albedrío se pondría en cuestión."}, {"n": 37, "texto": "Pensar que la decisión actual puede cambiar el pasado se considera pensamiento ilusorio."}, {"n": 38, "texto": "Los defensores de tomar las dos cajas argumentan que siempre es mejor elegir la estrategia dominante."}, {"n": 39, "texto": "La elección del participante no puede alterar el contenido de la caja misteriosa, ya que fue dispuesto previamente."}, {"n": 40, "texto": "La suposición explícita en cada afirmación es lo que divide a las personas en sus decisiones."}, {"n": 41, "texto": "La predicción de la supercomputadora se realizó después de que el participante conociera el problema y la disposición de las cajas."}, {"n": 42, "texto": "Si la supercomputadora predijo que tomarías solo la caja misteriosa, esta contendría $1,000."}]}]};
+const PERSONA = "juan-01";
+const ETIQUETA = "piloto2";
+const LLAVE = "reconocimiento_" + PERSONA + "_" + ETIQUETA;
+let estado = {};
+try { estado = JSON.parse(localStorage.getItem(LLAVE) || "{}"); } catch (e) { estado = {}; }
+let ultimo = Date.now();
+
+const TOTAL = DATOS.videos.reduce((a, v) => a + v.items.length, 0);
+const cont = document.getElementById("quiz");
+
+DATOS.videos.forEach(v => {
+  const d = document.createElement("div");
+  d.className = "video";
+  let h = '<div class="cab"><h2>' + esc(v.titulo) + '</h2>'
+        + '<div class="sub">' + esc(v.canal || "") + '</div>'
+        + '<div class="memoria">¿Te acordás de haber visto este video?'
+        + ' <label><input type="radio" name="mem' + v.id + '" value="si"> Sí</label>'
+        + ' <label><input type="radio" name="mem' + v.id + '" value="vago"> Vagamente</label>'
+        + ' <label><input type="radio" name="mem' + v.id + '" value="no"> No me acuerdo</label>'
+        + '</div></div>';
+  v.items.forEach(it => {
+    const k = v.id + "_" + it.n;
+    h += '<div class="item" id="i' + k + '">'
+       + '<div class="txt">' + esc(it.texto) + '</div>'
+       + '<div class="fila"><span class="sn">'
+       + '<label><input type="radio" name="r' + k + '" value="1"> Apareció</label>'
+       + '<label><input type="radio" name="r' + k + '" value="0"> No apareció</label>'
+       + '</span><span class="conf">seguridad: ';
+    for (let c = 1; c <= 5; c++) {
+      h += '<label><input type="radio" name="c' + k + '" value="' + c + '">' + c + '</label>';
+    }
+    h += '</span></div></div>';
+  });
+  d.innerHTML = h;
+  cont.appendChild(d);
+});
+
+document.querySelectorAll('input[type=radio]').forEach(r => {
+  r.addEventListener('change', () => {
+    const n = r.name;
+    if (n.startsWith('mem')) {
+      estado['mem' + n.slice(3)] = r.value;
+    } else {
+      const k = n.slice(1);
+      estado[k] = estado[k] || {};
+      if (n[0] === 'r') { estado[k].si = r.value === '1'; }
+      else { estado[k].conf = +r.value; }
+      const ahora = Date.now();
+      if (estado[k].seg === undefined) { estado[k].seg = Math.round((ahora - ultimo) / 100) / 10; }
+      ultimo = ahora;
+    }
+    guardar();
+    pintar();
+  });
+});
+
+function guardar() {
+  try { localStorage.setItem(LLAVE, JSON.stringify(estado)); } catch (e) {}
+}
+
+function completos() {
+  let n = 0;
+  DATOS.videos.forEach(v => v.items.forEach(it => {
+    const e = estado[v.id + "_" + it.n];
+    if (e && e.si !== undefined && e.conf) n++;
+  }));
+  return n;
+}
+
+// Un video cuenta solo si esta entero: todos sus items y la pregunta de si se
+// acuerda de haberlo visto. Se exportan solo los enteros, asi podes cortar
+// cuando quieras y puntuar lo hecho sin que un video a medias ensucie su d'.
+function videosCompletos() {
+  return DATOS.videos.filter(v =>
+    estado['mem' + v.id] &&
+    v.items.every(it => {
+      const e = estado[v.id + "_" + it.n];
+      return e && e.si !== undefined && e.conf;
+    }));
+}
+
+function pintar() {
+  const n = completos();
+  const vc = videosCompletos().length;
+  document.getElementById('cuenta').textContent =
+    n + ' / ' + TOTAL + '  ·  ' + vc + ' de ' + DATOS.videos.length + ' videos enteros';
+  document.getElementById('pi').style.width = (100 * n / TOTAL) + '%';
+  const b = document.getElementById('bajar');
+  b.disabled = vc === 0;
+  b.textContent = vc ? 'Descargar ' + vc + (vc === 1 ? ' video' : ' videos') : 'Descargar respuestas';
+  DATOS.videos.forEach(v => v.items.forEach(it => {
+    const e = estado[v.id + "_" + it.n];
+    const el = document.getElementById('i' + v.id + "_" + it.n);
+    if (el) el.className = 'item' + (e && e.si !== undefined && e.conf ? ' hecho' : '');
+  }));
+}
+
+function restaurar() {
+  Object.keys(estado).forEach(k => {
+    if (k.startsWith('mem')) {
+      const r = document.querySelector('input[name=mem' + k.slice(3) + '][value="' + estado[k] + '"]');
+      if (r) r.checked = true;
+      return;
+    }
+    const e = estado[k];
+    if (e && e.si !== undefined) {
+      const r = document.querySelector('input[name=r' + k + '][value="' + (e.si ? 1 : 0) + '"]');
+      if (r) r.checked = true;
+    }
+    if (e && e.conf) {
+      const c = document.querySelector('input[name=c' + k + '][value="' + e.conf + '"]');
+      if (c) c.checked = true;
+    }
+  });
+}
+
+document.getElementById('bajar').addEventListener('click', () => {
+  const salida = {
+    instrumento: DATOS.version, etiqueta: ETIQUETA, persona: PERSONA,
+    respondido_at: new Date().toISOString(),
+    videos: videosCompletos().map(v => ({
+      content_item_id: v.id,
+      recuerda_video: estado['mem' + v.id] || null,
+      respuestas: v.items.map(it => {
+        const e = estado[v.id + "_" + it.n] || {};
+        return { n: it.n, si: !!e.si, confianza: e.conf || null, segundos: e.seg || null };
+      })
+    }))
+  };
+  const b = new Blob([JSON.stringify(salida, null, 1)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(b);
+  a.download = 'reconocimiento_' + PERSONA + '_' + ETIQUETA + '.json';
+  a.click();
+});
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"]/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+}
+
+restaurar();
+pintar();
+</script></body></html>

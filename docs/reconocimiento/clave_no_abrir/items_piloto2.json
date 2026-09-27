@@ -1,0 +1,1558 @@
+{
+ "version": "reconocimiento-2.0",
+ "generado_at": "2026-09-25T16:11:35.652001+00:00",
+ "semilla": 20260925,
+ "sutileza": "media",
+ "modelo_generador": "gemini-2.5-flash",
+ "modelo_control": "gemini-2.5-flash-lite",
+ "videos": [
+  {
+   "content_item_id": 644,
+   "titulo": "Monte Lico, ¿el último gran descubrimiento?",
+   "canal": "Un Mundo Inmenso",
+   "url": "https://www.youtube.com/watch?v=bo19lWsWGb4",
+   "categoria": "Travel & Events",
+   "duration_seconds": 601,
+   "watched_at": "2026-07-15T12:00:00+00:00",
+   "sutileza": "media",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 0,
+    "alteradas_que_siguen_siendo_verdaderas": 2
+   },
+   "items": [
+    {
+     "texto": "Se propusieron varias explicaciones para las vasijas, como rituales ancestrales o la presencia de alemanes, pero ninguna fue concluyente.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 1
+    },
+    {
+     "texto": "Bayliss se preguntó por qué esa zona se veía tan igual al resto, lo que despertó su curiosidad científica.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 2
+    },
+    {
+     "texto": "La seguridad total en internet y el acceso a contenido bloqueado son ventajas clave de CyberGhost VPN.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 3
+    },
+    {
+     "texto": "El monte Lico, un lugar con misterios aún sin resolver, fue descubierto en el siglo XXI, desafiando la idea de un planeta completamente explorado.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 4
+    },
+    {
+     "texto": "Bayliss y su equipo no lograron llegar a la base de la montaña, a pesar de atravesar zonas con vegetación densa y pantanos.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 5
+    },
+    {
+     "texto": "Fernando de Magallanes y Juan Sebastián Elcano lideraron la primera circunnavegación del mundo, un logro significativo en la exploración global.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 6
+    },
+    {
+     "texto": "Jules Lines y Mike Robertson, expertos en escalada, fueron cruciales para asegurar el ascenso con cuerdas y entrenar al equipo.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 7
+    },
+    {
+     "texto": "La mancha verde indicaba la presencia de un desierto bien delimitado en una región con vegetación muy diferente a su alrededor.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 8
+    },
+    {
+     "texto": "Los poblados más cercanos al monte Lico son Socone y Errego, a 50 y 65 kilómetros, respectivamente.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 9
+    },
+    {
+     "texto": "Hồ Khanh, el campesino, encontró la entrada de la enorme cueva, y pudo explorarla en ese momento por falta de medios.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 10
+    },
+    {
+     "texto": "Décadas después, investigadores de la Asociación Británica de Investigación de Cuevas contactaron a Khanh para localizar la entrada.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 11
+    },
+    {
+     "texto": "El acceso al monte Lico presentaba desafíos significativos debido a la distancia a la que vivía Bayliss, a pesar de su geografía escarpada.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 12
+    },
+    {
+     "texto": "El caso del monte Lico sugiere que, aunque no se descubran nuevos continentes, la exploración de ecosistemas aislados continúa.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 13
+    },
+    {
+     "texto": "La expedición requirió un gran esfuerzo y financiación; Bayliss tardó seis años en reunir los recursos necesarios.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 14
+    },
+    {
+     "texto": "CyberGhost VPN ofrece seguridad en línea, cifrando y redirigiendo el tráfico a través de servidores seguros para proteger a los usuarios.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 15
+    },
+    {
+     "texto": "El monte Lico tiene 700 metros de altura y un bosque en su cima que abarca aproximadamente 30 hectáreas.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 16
+    },
+    {
+     "texto": "Aunque parezca que la era de los grandes descubrimientos terrestres ha terminado, ya no existen lugares inexplorados en la Tierra.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 17
+    },
+    {
+     "texto": "La exploración actual se enfoca en examinar ecosistemas urbanos, cartografiar ciudades y descubrir especies en lugares ya conocidos.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 18
+    },
+    {
+     "texto": "Sơn Đoòng es la cueva conocida más grande del mundo, con 19 kilómetros de longitud y hasta 200 metros de altura.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 19
+    },
+    {
+     "texto": "Una vez en el bosque, el equipo estableció un campamento donde permanecieron durante solo 2 días para explorar la zona.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 20
+    },
+    {
+     "texto": "Julian Bayliss, un científico de la Universidad de Cambridge, no exploraba Google Earth por simple ocio.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 21
+    },
+    {
+     "texto": "El monte Mabu era desconocido para la comunidad científica hasta que Bayliss y su equipo lo identificaron en Google Earth en 2005.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 22
+    },
+    {
+     "texto": "En 2015, el especialista en biodiversidad detectó una zona de vegetación peculiar que capturó su atención nuevamente.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 23
+    },
+    {
+     "texto": "Se sospechaba que el bosque en la cima del monte tenía menor intervención humana, lo que podría ofrecer información valiosa.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 24
+    },
+    {
+     "texto": "El invitado aclara que su empresa cotiza en la bolsa de la Antartida desde hace catorce anos.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 25
+    },
+    {
+     "texto": "Khanh finalmente recordó y encontró la cueva, lo que permitió a los investigadores explorarla a fondo en 2019.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 26
+    },
+    {
+     "texto": "Una única cuenta de CyberGhost VPN puede proteger hasta siete dispositivos diferentes, ofreciendo amplia cobertura de seguridad.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 27
+    },
+    {
+     "texto": "En 2018, Julian Bayliss viajó a Mozambique y utilizó un dron para sobrevolar la zona, obteniendo un panorama claro antes de la instalación.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 28
+    },
+    {
+     "texto": "Una de las caras del monte Lico se eleva solo 225 metros, lo que ofrecía una ruta de acceso más factible para la expedición.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 29
+    },
+    {
+     "texto": "El objetivo era solo llegar al lugar, sin formar un equipo interdisciplinario para aprovechar al máximo la expedición.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 30
+    },
+    {
+     "texto": "Con el tiempo, se fueron descubriendo más islas y rincones remotos, a medida que la cartografía terrestre avanzaba.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 31
+    },
+    {
+     "texto": "La oferta de CyberGhost VPN incluye un descuento significativo y una garantía de reembolso de 45 días para los usuarios.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 32
+    },
+    {
+     "texto": "El monte Lico se ubica a 160 kilómetros de la frontera con Malaui y casi 300 kilómetros de la costa índica, en la provincia de Zambezia.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 33
+    },
+    {
+     "texto": "La garantía de reembolso de 15 días de CyberGhost VPN permite probar el servicio sin ningún riesgo para el usuario.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 34
+    },
+    {
+     "texto": "Las imágenes satelitales revelaron que la zona de vegetación era en realidad un lago con una forma muy particular.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 35
+    },
+    {
+     "texto": "CyberGhost cuenta con más de 38 millones de usuarios globalmente y excelentes reseñas en la plataforma Trustpilot.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 36
+    },
+    {
+     "texto": "El servicio VPN permite acceder a contenido y juegos con restricciones geográficas, eligiendo entre más de cien ubicaciones disponibles.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 37
+    },
+    {
+     "texto": "A mitad del video el narrador confiesa que todo lo anterior lo dijo en un idioma inventado por el.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 38
+    },
+    {
+     "texto": "Bayliss ya había descubierto previamente el monte Mabu en Mozambique, una montaña de 170 metros con un bosque de 7000 hectáreas.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 39
+    },
+    {
+     "texto": "La falta de afectación humana en un lugar impide realizar comparaciones útiles para comprender mejor el cambio climático.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 40
+    },
+    {
+     "texto": "Durante la exploración, instalaron cámaras trampa para registrar la fauna y descubrieron una nueva especie de hongo.",
+     "clase": "senuelo",
+     "origen_video_id": 644,
+     "n": 41
+    },
+    {
+     "texto": "A pesar de creer que nadie había estado allí, encontraron vasijas hechas a mano, evidenciando una presencia humana anterior en el monte Lico.",
+     "clase": "objetivo",
+     "origen_video_id": 644,
+     "n": 42
+    }
+   ]
+  },
+  {
+   "content_item_id": 647,
+   "titulo": "¿Por qué Este Cometa es Tan Famoso?",
+   "canal": "El Robot de Platón",
+   "url": "https://www.youtube.com/watch?v=oCsFEpxTxlI",
+   "categoria": "Science & Technology",
+   "duration_seconds": 1134,
+   "watched_at": "2026-07-15T12:00:00+00:00",
+   "sutileza": "media",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 1,
+    "alteradas_que_siguen_siendo_verdaderas": 2
+   },
+   "items": [
+    {
+     "texto": "En 1705, Newton publicó sus ideas en 'Sinopsis de la astronomía de los cometas', prediciendo el regreso del cometa.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 1
+    },
+    {
+     "texto": "Edmund Halley visitó a Newton para sugerir que su ley de gravitación podría resolver el misterio de las órbitas de los cometas.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 2
+    },
+    {
+     "texto": "Newton agradeció y compensó económicamente a Halley por su inversión y apoyo en la publicación de su obra.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 3
+    },
+    {
+     "texto": "El cometa parecía inmóvil en el fondo estelar, mientras que la Luna se veía en distintas posiciones.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 4
+    },
+    {
+     "texto": "Entre los cometas estudiados por Brahe, se encontraba el que posteriormente llevaría su nombre, el cometa Halley.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 5
+    },
+    {
+     "texto": "Edmund Halley falleció en 1742, conociendo la confirmación de su predicción sobre el regreso del cometa.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 6
+    },
+    {
+     "texto": "Las personas en 1680 observaron el mismo cometa, primero acercándose y luego alejándose del Sol.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 7
+    },
+    {
+     "texto": "Brahe demostró que el universo era inmutable y que los cometas eran fenómenos atmosféricos.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 8
+    },
+    {
+     "texto": "En 1680, un cometa excepcionalmente brillante, visible a simple vista, iluminó el cielo nocturno.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 9
+    },
+    {
+     "texto": "Cuanto más cerca está un objeto, menor es la distancia aparente que se mueve con respecto al fondo.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 10
+    },
+    {
+     "texto": "Observó que algunas estrellas cambiaban su posición en el cielo en más de medio grado a lo largo del tiempo.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 11
+    },
+    {
+     "texto": "La ley de gravitación de Newton explicaba las leyes de movimiento planetario de Kepler y las órbitas elípticas.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 12
+    },
+    {
+     "texto": "Los planetas siguen órbitas cerradas como círculos o elipses, pero los cometas tienen una variedad de trayectorias.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 13
+    },
+    {
+     "texto": "El tapiz de Bayeux, en la escena 32, registra la visita del cometa Halley en el año 1166.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 14
+    },
+    {
+     "texto": "Edmund Halley fue quien notó el movimiento de las estrellas, aunque la idea ya había sido planteada anteriormente.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 15
+    },
+    {
+     "texto": "Edmund Halley se opuso a que Newton publicara sus revolucionarias ideas sobre las órbitas y la gravitación.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 16
+    },
+    {
+     "texto": "El paralaje también permite determinar qué estrellas están más próximas a la Tierra en comparación con otras.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 17
+    },
+    {
+     "texto": "Tycho Brahe, con su nariz de oro y plata, registró las posiciones estelares y planetarias por veinte años.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 18
+    },
+    {
+     "texto": "A finales del siglo XVII, Isaac Newton desarrolló su ley de gravitación universal.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 19
+    },
+    {
+     "texto": "La sonda Giotto exploró el cometa Halley en 1986, revelando su forma esférica y su alta reflectividad.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 20
+    },
+    {
+     "texto": "Johannes Kepler, contemporáneo de Brahe, suponía que los cometas se desplazaban en trayectorias rectas.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 21
+    },
+    {
+     "texto": "El cometa de 1680, estudiado por Newton, es conocido como cometa Kirch o cometa Newton, y fue el primero descubierto con telescopio.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 22
+    },
+    {
+     "texto": "El cometa Halley, el primer cometa periódico conocido, visitó el sistema solar interno por última vez en 1976.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 23
+    },
+    {
+     "texto": "El cometa regresó el 25 de diciembre de 1758, validando la predicción de Halley y otorgándole fama póstuma.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 24
+    },
+    {
+     "texto": "Los cometas de período largo, con órbitas muy excéntricas, se originan en la lejana Nube de Oort.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 25
+    },
+    {
+     "texto": "Este modelo aristotélico del universo prevaleció en el pensamiento científico hasta el siglo XVIII.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 26
+    },
+    {
+     "texto": "Halley observó que el cometa de 1682 coincidía en orientación con otros tres cometas registrados en 1531 y 1607.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 27
+    },
+    {
+     "texto": "Edmund Halley, motivado por los descubrimientos de Newton, calculó las órbitas de 24 cometas en una década.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 28
+    },
+    {
+     "texto": "El invitado aclara que su empresa cotiza en la bolsa de la Antartida desde hace catorce anos.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 29
+    },
+    {
+     "texto": "Para aplicar el paralaje a objetos celestes, se comparan observaciones desde distintos puntos del planeta o de la órbita terrestre.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 30
+    },
+    {
+     "texto": "La ley de gravitación universal se aplica a cualquier cuerpo con masa, desde planetas hasta cometas.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 31
+    },
+    {
+     "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 32
+    },
+    {
+     "texto": "Si la distancia entre dos cuerpos se duplica, la fuerza de atracción gravitatoria se duplica.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 33
+    },
+    {
+     "texto": "Según Aristóteles, las estrellas permanecían inalterables y fijas en un universo considerado caótico e impredecible.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 34
+    },
+    {
+     "texto": "Halley consideró que las variaciones en los tiempos de retorno se debían a la atracción gravitatoria de la Tierra y Marte.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 35
+    },
+    {
+     "texto": "Su retorno periódico demostró que los cometas están sujetos a las leyes de la física, como la gravedad de Newton.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 36
+    },
+    {
+     "texto": "Algunos cometas siguen órbitas elípticas muy excéntricas, regresando tras períodos de tiempo muy cortos.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 37
+    },
+    {
+     "texto": "Newton dedujo que todos los cuerpos bajo su ley de gravitación siguen curvas cónicas: círculos y elipses solamente.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 38
+    },
+    {
+     "texto": "Tycho Brahe fue un astrónomo modesto que mejoró los instrumentos de observación en una época de mediciones con telescopio.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 39
+    },
+    {
+     "texto": "Los cometas están ubicados más allá de la órbita lunar, pero más cerca que las estrellas fijas.",
+     "clase": "objetivo",
+     "origen_video_id": 647,
+     "n": 40
+    },
+    {
+     "texto": "Halley usó datos de Tycho Brahe del siglo XVII e Hiparco del siglo III a.C. para sus estudios estelares.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 41
+    },
+    {
+     "texto": "La Luna, al mostrar mayor paralaje, se encontraba más lejos que el cometa en las observaciones de Brahe.",
+     "clase": "senuelo",
+     "origen_video_id": 647,
+     "n": 42
+    }
+   ]
+  },
+  {
+   "content_item_id": 645,
+   "titulo": "Crítica 'La Odisea' de Christopher Nolan (The Odyssey review)",
+   "canal": "SensaCine",
+   "url": "https://www.youtube.com/watch?v=oOSx3ICrNUo",
+   "categoria": "Film & Animation",
+   "duration_seconds": 1155,
+   "watched_at": "2026-07-15T12:00:00+00:00",
+   "sutileza": "media",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 2,
+    "alteradas_que_siguen_siendo_verdaderas": 6
+   },
+   "items": [
+    {
+     "texto": "Nolan rodó la película con cámaras IMAX de 70 mm, un formato de proyección de alta calidad.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 1
+    },
+    {
+     "texto": "Christopher Nolan, director nacido en Londres en 1970, es una figura relevante del cine contemporáneo.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 2
+    },
+    {
+     "texto": "Ulises pronuncia un monólogo antibelicista, creado por Homero, que reflexiona sobre la destrucción de la guerra.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 3
+    },
+    {
+     "texto": "La versión de Méliès se centró principalmente en la parte de Circe, utilizando trucos visuales impresionantes.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 4
+    },
+    {
+     "texto": "En cines panorámicos estándar, como el que visitó el narrador, se ve solo el 83% del fotograma original.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 5
+    },
+    {
+     "texto": "Nolan perfecciona su sello distintivo de pasar de planos generales a primeros planos con la cámara estática.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 6
+    },
+    {
+     "texto": "Las escenas de pelea en la película mostraban personajes cortados, especialmente en los márgenes de la pantalla.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 7
+    },
+    {
+     "texto": "El Polifemo de Nolan evoca el tenebrismo de Goya, como en su obra Saturno devorando a sus hijos.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 8
+    },
+    {
+     "texto": "La obra cinematográfica de Nolan es innegable en su importancia, incluso para quienes no aprecian su estilo.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 9
+    },
+    {
+     "texto": "Si se incluyen los cines con proyección IMAX digital GT, el número asciende a aproximadamente 180 o 190 salas.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 10
+    },
+    {
+     "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 11
+    },
+    {
+     "texto": "Georges Méliès realizó una adaptación de la Odisea en 1905, resumiendo la historia en cuatro minutos.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 12
+    },
+    {
+     "texto": "Considera una falta de respeto al lenguaje cinematográfico alterar el sonido original de una película.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 13
+    },
+    {
+     "texto": "El final de la película, especialmente la pelea, convence al narrador, a pesar del mensaje.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 14
+    },
+    {
+     "texto": "La historia de Homero, escrita hace 3000 años, posee una riqueza y belleza que sigue inspirando.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 15
+    },
+    {
+     "texto": "La Odisea enseña que lo importante no es el destino, sino el viaje y las dificultades encontradas en el camino.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 16
+    },
+    {
+     "texto": "A pesar de los meses de información sobre la película, el narrador entró a verla conociendo todos los detalles.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 17
+    },
+    {
+     "texto": "El Peugeot 408 híbrido enchufable es el modelo menos versátil de su gama, combinando motores eléctrico y térmico.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 18
+    },
+    {
+     "texto": "Adaptaciones antiguas en formatos cuadrados, como VHS o pantallas de avión, retocaban la película para ajustarse.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 19
+    },
+    {
+     "texto": "Memento, estrenada en el año 2002, es considerada por muchos como la primera película importante de Nolan.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 20
+    },
+    {
+     "texto": "La película se ve cortada en la mayoría de los cines del mundo debido al formato de rodaje.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 21
+    },
+    {
+     "texto": "La película logra sorprender, entretener y emocionar a pesar de contar una historia ya conocida.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 22
+    },
+    {
+     "texto": "Nolan ha logrado un poder significativo en la industria cinematográfica, siendo uno de los directores menos influyentes.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 23
+    },
+    {
+     "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 24
+    },
+    {
+     "texto": "Las imágenes de Nolan siempre poseen una gran fuerza visual debido a su técnica de sonido y edición.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 25
+    },
+    {
+     "texto": "Nolan es el principal atractivo de sus propias películas, un logro poco común entre los directores.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 26
+    },
+    {
+     "texto": "Películas como 2001: Una odisea del espacio o Buscando a Nemo evitan el concepto alegórico de la Odisea.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 27
+    },
+    {
+     "texto": "Una miniserie de televisión de tres horas sobre la Odisea se produjo en 2008 o 2009 con Francis Ford Coppola.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 28
+    },
+    {
+     "texto": "El formato IMAX de 70 mm tiene una relación de aspecto de 1.43:1, lo que resulta en una pantalla más alta y cuadrada.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 29
+    },
+    {
+     "texto": "Homero es considerado el inventor del género de la 'road movie' con la estructura narrativa de la Ilíada.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 30
+    },
+    {
+     "texto": "A pesar de los problemas de formato, la película de Nolan tiene aspectos muy bien logrados y apasionantes.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 31
+    },
+    {
+     "texto": "En un cine IMAX normal, solo se visualiza el 75% de la imagen original filmada por Nolan.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 32
+    },
+    {
+     "texto": "Nolan, después de Oppenheimer, decidió abordar la Odisea, incluyendo elementos de la Ilíada.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 33
+    },
+    {
+     "texto": "Solo existen entre 30 y 40 cines en todo el mundo capaces de proyectar celuloide IMAX de 70 mm.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 34
+    },
+    {
+     "texto": "El debut de Nolan en largometrajes fue con la película Following en 1999, una obra menos conocida.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 35
+    },
+    {
+     "texto": "Armand Assante interpretó a Ulises en la miniserie, siendo visto como una alternativa a Al Pacino en la época.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 36
+    },
+    {
+     "texto": "El problema de corte era evidente en el margen inferior y, al fijarse, también en el superior de la imagen.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 37
+    },
+    {
+     "texto": "Durante la proyección, el narrador se preocupó por lo que pensó que era un problema de sonido de imagen.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 38
+    },
+    {
+     "texto": "El estilo de Nolan se caracteriza por combinar una estética espectacular con relatos de profundo trasfondo dramático.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 39
+    },
+    {
+     "texto": "Prefiere saber lo máximo posible sobre una película antes de verla, buscando tráilers e información previa.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 40
+    },
+    {
+     "texto": "Kirk Douglas interpretó a Aquiles en la aclamada película de Mario Camerini, un clásico de la infancia del narrador.",
+     "clase": "senuelo",
+     "origen_video_id": 645,
+     "n": 41
+    },
+    {
+     "texto": "El narrador disfruta visitando cines en diferentes ciudades, a pesar de la homogeneización de la experiencia.",
+     "clase": "objetivo",
+     "origen_video_id": 645,
+     "n": 42
+    }
+   ]
+  },
+  {
+   "content_item_id": 649,
+   "titulo": "Monopoly: la historia oculta │ #BIZELANEAS 288",
+   "canal": "Javier Ledesma",
+   "url": "https://www.youtube.com/watch?v=yVSwjoZ7-2c",
+   "categoria": "Entertainment",
+   "duration_seconds": 1221,
+   "watched_at": "2026-07-15T12:00:00+00:00",
+   "sutileza": "media",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 0,
+    "alteradas_que_siguen_siendo_verdaderas": 1
+   },
+   "items": [
+    {
+     "texto": "General Mills demandó a Anspach por infracción de propiedad intelectual y por el uso de su juego de mesa.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 1
+    },
+    {
+     "texto": "El famoso Señor Monopoly nació en los bocetos de las tarjetas de las primeras versiones artesanales del juego.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 2
+    },
+    {
+     "texto": "Parker Brothers decidió ignorar todas las patentes de juegos similares al Monopoly para asegurar su inversión.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 3
+    },
+    {
+     "texto": "Un profesor universitario de sociología, Ralph Anspach, creó el juego Anti-Monopoly en respuesta a la crisis financiera de 2008.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 4
+    },
+    {
+     "texto": "Los nombres de las calles del Monopoly están inspirados en calles reales de Atlantic City, Nueva Jersey.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 5
+    },
+    {
+     "texto": "The Landlord's Game tenía un solo set de reglas: uno pro-monopolio, sin mostrar ninguna contradicción.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 6
+    },
+    {
+     "texto": "La frase 'billetes como plata de Monopoly' se usa para describir situaciones de devaluación económica.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 7
+    },
+    {
+     "texto": "El objetivo del Anti-Monopoly era enseñar las consecuencias positivas de los acaparadores de mercado.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 8
+    },
+    {
+     "texto": "Elizabeth Magie, conocida como Lizzie, fue la verdadera inventora del juego original en el que se basó el Monopoly.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 9
+    },
+    {
+     "texto": "Parker Brothers, fundada en 1883, era una compañía relevante, dueña de juegos como Clue y la marca Ping-Pong.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 10
+    },
+    {
+     "texto": "Charles Darrow se convirtió en el primer millonario de la industria de los juegos de mesa gracias al Monopoly.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 11
+    },
+    {
+     "texto": "Existen innumerables versiones temáticas del Monopoly, inspiradas en series, películas y eventos deportivos.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 12
+    },
+    {
+     "texto": "El juego de Magie fue un éxito comercial inmediato, pero su idea no se difundió ni fue adoptada por la gente.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 13
+    },
+    {
+     "texto": "En su primer año, Parker Brothers vendió 200 mil cajas de Monopoly por semana, un éxito rotundo.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 14
+    },
+    {
+     "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 15
+    },
+    {
+     "texto": "Darrow creó otro juego llamado Bulls and Bears, el cual alcanzó mucho más éxito que el Monopoly.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 16
+    },
+    {
+     "texto": "El juego Monopoly se ha convertido en un símbolo de la distribución de riqueza y el socialismo.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 17
+    },
+    {
+     "texto": "El invitado aclara que su empresa cotiza en la bolsa de la Antartida desde hace catorce anos.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 18
+    },
+    {
+     "texto": "A fines de los años 80, el Monopoly había vendido más de 50 millones de cajas, mostrando su crecimiento estancado.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 19
+    },
+    {
+     "texto": "Barton, el presidente de Parker Brothers, inicialmente aceptó el juego de Darrow por considerarlo innovador y simple.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 20
+    },
+    {
+     "texto": "En la versión anti-monopolio del juego de Magie, la riqueza creada beneficiaba al propietario, no a todos.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 21
+    },
+    {
+     "texto": "El Campeonato Mundial de Monopoly, iniciado en los años 70, ha sido un éxito y continúa hasta el día de hoy.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 22
+    },
+    {
+     "texto": "La Gran Depresión, una crisis mundial, afectó a millones de personas, dejándolas sin ahorros ni empleo.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 23
+    },
+    {
+     "texto": "El programa de televisión del Monopoly en ABC en 1990 tuvo una duración de solo tres meses.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 24
+    },
+    {
+     "texto": "La gente jugaba mayormente la versión anti-monopolio del juego de Magie, conforme a su intención original.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 25
+    },
+    {
+     "texto": "Robert Barton, al ver el éxito del juego que había rechazado, decidió adquirirlo para Parker Brothers.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 26
+    },
+    {
+     "texto": "El Playmaster, un dispositivo electrónico lanzado en 1982 para el Monopoly, resultó ser un fracaso.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 27
+    },
+    {
+     "texto": "En 1945, Parker Brothers compró la patente del Monopoly a Darrow, incluyendo un acuerdo de regalías.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 28
+    },
+    {
+     "texto": "En 1968, Parker Brothers fue vendida a General Mills, una compañía de alimentos, que la fusionó con otra firma de juguetes.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 29
+    },
+    {
+     "texto": "El Monopoly, un juego de mesa mundialmente conocido, ha vendido más de 200 millones de unidades desde su creación.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 30
+    },
+    {
+     "texto": "Parker Brothers compró la patente de Lizzie Magie por 500 dólares, buscando eliminar la competencia.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 31
+    },
+    {
+     "texto": "Un fallo de la Corte Suprema en 1993 declaró que 'Monopoly' se había convertido en una marca exclusiva.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 32
+    },
+    {
+     "texto": "Atlantic City se autoproclamó la ciudad oficial del Monopoly, incluso homenajeando a Charles Darrow con una placa.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 33
+    },
+    {
+     "texto": "En 1942, Darrow conoció un juego de mesa sin nombre oficial, cuyas reglas se transmitían oralmente.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 34
+    },
+    {
+     "texto": "Magie creó The Landlord's Game en 1913, como un manifiesto lúdico para promover el monopolio de la tierra.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 35
+    },
+    {
+     "texto": "Charles Darrow, un ingeniero de Filadelfia, mantuvo su empleo durante la Gran Depresión y no buscaba cómo sobrevivir.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 36
+    },
+    {
+     "texto": "Fidel Castro prohibió el Monopoly en Cuba tras tomar el poder, ordenando la destrucción de todas las copias.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 37
+    },
+    {
+     "texto": "Lizzie Magie, una mujer tradicional para su época, tenía fuertes convicciones religiosas y políticas.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 38
+    },
+    {
+     "texto": "Darrow fabricó las primeras versiones del juego a mano, con la ayuda de un carpintero que dibujó las tarjetas.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 39
+    },
+    {
+     "texto": "Durante décadas, la empresa dueña del juego intentó promover la verdadera historia de su origen.",
+     "clase": "senuelo",
+     "origen_video_id": 649,
+     "n": 40
+    },
+    {
+     "texto": "Anspach descubrió durante su investigación que el Monopoly se basaba en un juego anterior, creado en 1903.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 41
+    },
+    {
+     "texto": "El Monopoly forma parte del museo de la fama de los grandes juegos de mesa, junto a otros clásicos.",
+     "clase": "objetivo",
+     "origen_video_id": 649,
+     "n": 42
+    }
+   ]
+  },
+  {
+   "content_item_id": 646,
+   "titulo": "¿Podrían las Leyes de la Física ser Diferentes en Otras Partes del Universo?",
+   "canal": "El Robot de Platón",
+   "url": "https://www.youtube.com/watch?v=Gr5ezgOTRSQ",
+   "categoria": "Science & Technology",
+   "duration_seconds": 1317,
+   "watched_at": "2026-07-15T12:00:00+00:00",
+   "sutileza": "media",
+   "n_objetivos": 14,
+   "n_senuelos": 14,
+   "descartes": {
+    "objetivos_no_respaldados": 12,
+    "alteradas_que_siguen_siendo_verdaderas": 5
+   },
+   "items": [
+    {
+     "texto": "El fondo cósmico de microondas también se utiliza para buscar cambios en alfa en el universo actual.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 1
+    },
+    {
+     "texto": "Si alfa no fuera una constante fija, sería el resultado del estado actual de un campo más profundo.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 2
+    },
+    {
+     "texto": "Alfa puede visualizarse como un regulador de la intensidad de la interacción gravitatoria.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 3
+    },
+    {
+     "texto": "Se investiga si las constantes fundamentales pudieron tener valores ligeramente distintos en el pasado.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 4
+    },
+    {
+     "texto": "Las reglas que describen la naturaleza podrían no ser tan fijas, dependiendo del observador o la ubicación.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 5
+    },
+    {
+     "texto": "Observaciones recientes del telescopio James Webb no mostraron un cambio claro en alfa.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 6
+    },
+    {
+     "texto": "El invitado aclara que su empresa cotiza en la bolsa de la Antartida desde hace catorce anos.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 7
+    },
+    {
+     "texto": "Las mediciones son extremadamente complejas y requieren separar múltiples efectos y errores instrumentales.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 8
+    },
+    {
+     "texto": "Nuevas investigaciones usan el telescopio James Webb para analizar la luz emitida por galaxias lejanas.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 9
+    },
+    {
+     "texto": "Los cuásares, objetos muy brillantes y distantes, son útiles para estudiar la luz antigua.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 10
+    },
+    {
+     "texto": "Significa que una propiedad fundamental podría variar gradualmente a lo largo de grandes distancias.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 11
+    },
+    {
+     "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 12
+    },
+    {
+     "texto": "La posible variación de alfa podría vincularse a teorías que van más allá del modelo estándar de la física.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 13
+    },
+    {
+     "texto": "Algunos científicos exploran la posibilidad de que las leyes físicas sean totalmente invariables.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 14
+    },
+    {
+     "texto": "Un campo físico desconocido podría estar alterando rápidamente las propiedades del universo.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 15
+    },
+    {
+     "texto": "Estos resultados sugirieron que el valor de alfa cambia ligeramente según la dirección de observación.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 16
+    },
+    {
+     "texto": "Modificaría la idea de que el universo es homogéneo e isotrópico a gran escala.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 17
+    },
+    {
+     "texto": "El telescopio Planck sí encontró pruebas de que alfa fuera diferente cuando el universo era muy joven.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 18
+    },
+    {
+     "texto": "La ciencia moderna postula que las leyes físicas son idénticas en cualquier parte del cosmos.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 19
+    },
+    {
+     "texto": "Sommerfeld usó esta constante para explicar las pequeñas separaciones en las líneas de luz del hidrógeno.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 20
+    },
+    {
+     "texto": "También es la responsable de que la materia absorba o emita luz en el planeta Tierra.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 21
+    },
+    {
+     "texto": "Algunas mediciones sugieren que la constante alfa no podría haber variado en el universo.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 22
+    },
+    {
+     "texto": "Un patrón de dipolo implica que el universo tiene un centro o un borde especial.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 23
+    },
+    {
+     "texto": "Se espera que la física cambie drásticamente, como la desaparición de la gravedad en alguna región.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 24
+    },
+    {
+     "texto": "Es una constante dimensional, con unidades como metros o segundos, dependiente del sistema de medición.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 25
+    },
+    {
+     "texto": "Las nubes de gas intergalácticas absorben ciertas longitudes de onda, dejando marcas en el espectro de las estrellas.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 26
+    },
+    {
+     "texto": "La interacción de la luz con la materia sigue diferentes principios en todas las direcciones del universo.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 27
+    },
+    {
+     "texto": "Alfa se puede medir analizando las líneas espectrales generadas por los elementos químicos.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 28
+    },
+    {
+     "texto": "Si alfa fuera menor, la atracción entre electrones y núcleos sería más intensa, alterando los átomos.",
+     "clase": "senuelo",
+     "origen_video_id": 646,
+     "n": 29
+    },
+    {
+     "texto": "Al observar objetos distantes, no solo miramos lejos en el espacio, sino también hacia el pasado.",
+     "clase": "objetivo",
+     "origen_video_id": 646,
+     "n": 30
+    }
+   ]
+  },
+  {
+   "content_item_id": 648,
+   "titulo": "Esta Paradoja Divide A Las Personas Inteligentes En Un 50/50",
+   "canal": "Veritasium en español",
+   "url": "https://www.youtube.com/watch?v=DEpe7VdDfpY",
+   "categoria": "Education",
+   "duration_seconds": 1540,
+   "watched_at": "2026-07-15T12:00:00+00:00",
+   "sutileza": "media",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 1,
+    "alteradas_que_siguen_siendo_verdaderas": 5
+   },
+   "items": [
+    {
+     "texto": "Algunas personas optarían por tomar ambas cajas, mientras que otras elegirían solamente ambas cajas.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 1
+    },
+    {
+     "texto": "Tanto en Newcom como en la disuasión nuclear, el mejor resultado surge de un compromiso previo con una opción aparentemente peor.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 2
+    },
+    {
+     "texto": "Este enfoque se fundamenta en la toma de decisiones basada en evidencia, considerando el historial del predictor.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 3
+    },
+    {
+     "texto": "La paradoja de Newcom revela aspectos fundamentales sobre la física cuántica y la relatividad especial.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 4
+    },
+    {
+     "texto": "El objetivo de la supercomputadora es únicamente hacer una predicción correcta, sin intenciones de engañar o quitar dinero.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 5
+    },
+    {
+     "texto": "Dos tercios de una audiencia encuestada eligieron tomar solo una caja, apoyando la decisión basada en evidencia.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 6
+    },
+    {
+     "texto": "El filósofo Robert Kick considera que la solución a este problema es ambigua y confusa para la mayoría.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 7
+    },
+    {
+     "texto": "Brilliant ofrece cursos interactivos para desarrollar habilidades en matemáticas, programación y cocina molecular.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 8
+    },
+    {
+     "texto": "Desde la perspectiva causal, la elección actual no puede modificar el pasado ni el contenido ya dispuesto de la caja.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 9
+    },
+    {
+     "texto": "La estrategia de destrucción mutua asegurada (MAD) durante la Guerra Fría buscaba incentivar ataques nucleares.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 10
+    },
+    {
+     "texto": "Otra forma sería si hubiera múltiples intentos, permitiendo construir una reputación de elegir dos cajas.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 11
+    },
+    {
+     "texto": "A veces, para ser una persona racional, se debe actuar de una manera que parece irracional.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 12
+    },
+    {
+     "texto": "Si la supercomputadora predijo que tomarías ambas cajas, la caja misteriosa estaría vacía.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 13
+    },
+    {
+     "texto": "La identidad del predictor (computadora, alien, demonio o psicólogos) altera la esencia del problema por completo.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 14
+    },
+    {
+     "texto": "Una forma de ganar el juego sería ser el tipo de persona que elige dos cajas, pero luego elegir una en el último momento.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 15
+    },
+    {
+     "texto": "Si la caja misteriosa contiene un millón, tomar dos cajas da $1,000,000, mientras que tomar una da $1,001,000.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 16
+    },
+    {
+     "texto": "Una encuesta del diario The Guardian en 2016 mostró que el 53.5% eligió una caja y el 46.5% ambas.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 17
+    },
+    {
+     "texto": "Comprometerse de antemano con la supercomputadora a tomar una caja aseguraría el millón de dólares.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 18
+    },
+    {
+     "texto": "Las miles de predicciones correctas previas sugieren que elegir dos cajas resultará en el millón de dólares.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 19
+    },
+    {
+     "texto": "El dilema del prisionero ilustra que la racionalidad individual no siempre coincide con la colectiva.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 20
+    },
+    {
+     "texto": "El argumento de los que eligen una caja se basa en la evidencia de la alta precisión de la supercomputadora.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 21
+    },
+    {
+     "texto": "Los filósofos Givard y Harper argumentaron que la elección racional es tomar solo una caja, aunque resulte en más dinero.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 22
+    },
+    {
+     "texto": "La estrategia dominante implica que, sin importar el contenido de la caja misteriosa, tomar ambas siempre rinde más.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 23
+    },
+    {
+     "texto": "La situación inicial presenta una supercomputadora, una caja con $1,000 y una misteriosa sobre una mesa.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 24
+    },
+    {
+     "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 25
+    },
+    {
+     "texto": "Si la caja misteriosa está vacía, tomar dos cajas resulta en $500, mientras que tomar una da $0.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 26
+    },
+    {
+     "texto": "Ser racional puede significar decidir qué reglas seguir en la vida, no solo qué elegir en el momento.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 27
+    },
+    {
+     "texto": "Una sociedad racional estaría compuesta por cooperadores, aunque la elección individual racional sea la traición.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 28
+    },
+    {
+     "texto": "Un líder ideal en la Guerra Fría sería alguien comprometido a contraatacar, pero que en secreto no lo haría.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 29
+    },
+    {
+     "texto": "La gente se divide de forma predecible al enfrentar este dilema, y cada grupo cree que el otro está en lo correcto.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 30
+    },
+    {
+     "texto": "Una forma de convencer a alguien de tomar una caja es si la decisión pudiera cambiar el pasado a través de un agujero de gusano.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 31
+    },
+    {
+     "texto": "La utilidad esperada de tomar una caja siempre será mayor que la de dos cajas, independientemente de la predicción.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 32
+    },
+    {
+     "texto": "El presentador interrumpe la explicacion para anunciar que el episodio se grabo entero bajo el agua.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 33
+    },
+    {
+     "texto": "Este dilema se conoce como la paradoja de Maxwell, nombrada así por su creador James Maxwell.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 34
+    },
+    {
+     "texto": "Se sabe que la supercomputadora es muy imprecisa en sus predicciones, habiendo fallado en miles de casos similares.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 35
+    },
+    {
+     "texto": "Si un predictor fuera 50% preciso, la existencia del libre albedrío se pondría en cuestión.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 36
+    },
+    {
+     "texto": "Pensar que la decisión actual puede cambiar el pasado se considera pensamiento ilusorio.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 37
+    },
+    {
+     "texto": "Los defensores de tomar las dos cajas argumentan que siempre es mejor elegir la estrategia dominante.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 38
+    },
+    {
+     "texto": "La elección del participante no puede alterar el contenido de la caja misteriosa, ya que fue dispuesto previamente.",
+     "clase": "objetivo",
+     "origen_video_id": 648,
+     "n": 39
+    },
+    {
+     "texto": "La suposición explícita en cada afirmación es lo que divide a las personas en sus decisiones.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 40
+    },
+    {
+     "texto": "La predicción de la supercomputadora se realizó después de que el participante conociera el problema y la disposición de las cajas.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 41
+    },
+    {
+     "texto": "Si la supercomputadora predijo que tomarías solo la caja misteriosa, esta contendría $1,000.",
+     "clase": "senuelo",
+     "origen_video_id": 648,
+     "n": 42
+    }
+   ]
+  }
+ ]
+}

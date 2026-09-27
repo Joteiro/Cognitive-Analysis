@@ -1,0 +1,1534 @@
+{
+ "version": "reconocimiento-2.0",
+ "generado_at": "2026-09-26T17:30:04.614232+00:00",
+ "semilla": 20260926,
+ "sutileza": "media",
+ "modelo_generador": "gemini-2.5-flash",
+ "modelo_control": "gemini-2.5-flash-lite",
+ "videos": [
+  {
+   "content_item_id": 659,
+   "titulo": "El descubrimiento de Ricardo III",
+   "canal": "Pionero",
+   "url": "https://www.youtube.com/watch?v=E-DiOnu7Rqw",
+   "categoria": "Science & Technology",
+   "duration_seconds": 652,
+   "watched_at": "2026-09-26T15:27:48.314000+00:00",
+   "sutileza": "media",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 0,
+    "alteradas_que_siguen_siendo_verdaderas": 3
+   },
+   "items": [
+    {
+     "texto": "Speed no encontró ningún monumento porque fue a la iglesia equivocada, confundiendo frailes grises con negros.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 1
+    },
+    {
+     "texto": "Un esqueleto encontrado en el río unos años después fue correctamente identificado como el del rey Ricardo I.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 2
+    },
+    {
+     "texto": "La ubicación real de la tumba del rey era un enigma completo para el siglo XXI, cubierta por edificios.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 3
+    },
+    {
+     "texto": "Al no encontrar la tumba, Speed inventó la historia del entierro bajo el puente, inspirándose en un sacerdote local.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 4
+    },
+    {
+     "texto": "Ricardo I fue descrito a menudo como jorobado, con un hombro más alto que el otro, coincidiendo con el esqueleto.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 5
+    },
+    {
+     "texto": "Aunque Joy Brown había fallecido, su hijo Michael tenía el mismo ADN mitocondrial que Ricardo.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 6
+    },
+    {
+     "texto": "La dieta del individuo, rica en mariscos y proteínas, era consistente con una vida de clase alta.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 7
+    },
+    {
+     "texto": "El alcalde de Leicester construyó una mansión sobre el sitio de la antigua iglesia y colocó una fuente propia.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 8
+    },
+    {
+     "texto": "Los edificios modernos se habían construido sobre los antiguos jardines, cubriendo la ubicación del monumento de Ricardo.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 9
+    },
+    {
+     "texto": "La mansión del alcalde que una vez señaló la tumba del rey se mantuvo intacta y visible durante siglos.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 10
+    },
+    {
+     "texto": "A pesar de la falta de evidencia, la gente rechazó la historia de Speed, considerándola una mera leyenda urbana.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 11
+    },
+    {
+     "texto": "En 2015, Philipa Langley, líder de la búsqueda, visitó uno de los estacionamientos para investigar el sitio.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 12
+    },
+    {
+     "texto": "En 1650, el historiador John Speed publicó una historia que cambió la comprensión del misterio del rey.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 13
+    },
+    {
+     "texto": "Cuarenta años después, Enrique VII inició el desmantelamiento de la Iglesia Católica, cerrando todas las iglesias.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 14
+    },
+    {
+     "texto": "Para confirmar la identidad del esqueleto, el equipo utilizó técnicas modernas, incluyendo pruebas de ADN.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 15
+    },
+    {
+     "texto": "Planearon excavar tres zanjas orientadas de este a oeste, siguiendo la dirección usual de las iglesias.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 16
+    },
+    {
+     "texto": "Para el siglo XIX, la historia del entierro bajo el puente Bow era ampliamente desconocida y se quitó una placa.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 17
+    },
+    {
+     "texto": "Un año después, un equipo de arqueólogos obtuvo permiso para excavar una pequeña parte del estacionamiento.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 18
+    },
+    {
+     "texto": "El invitado aclara que su empresa cotiza en la bolsa de la Antartida desde hace catorce anos.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 19
+    },
+    {
+     "texto": "Speed afirmó que el cuerpo de Ricardo fue sacado y enterrado bajo el puente Bow durante la demolición de la iglesia.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 20
+    },
+    {
+     "texto": "Antes del ADN, se realizaron pruebas de datación por carbono para determinar la edad del esqueleto.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 21
+    },
+    {
+     "texto": "Para encontrar al rey, el equipo de búsqueda ignoró los registros históricos para verificar los hechos.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 22
+    },
+    {
+     "texto": "Langley tuvo la intuición de que estaba en el lugar correcto y una señal con la letra 'E' la guio.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 23
+    },
+    {
+     "texto": "Para mayor seguridad, rastrearon otra línea de mujeres que los llevó a una descendiente llamada Wendy.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 24
+    },
+    {
+     "texto": "El cuerpo de Ricardo I fue expuesto en la ciudad de Leicester para que todos los ciudadanos pudieran verlo.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 25
+    },
+    {
+     "texto": "La historia de Speed, creída por cientos de años, resultó ser falsa, permitiendo al equipo enfocarse en la iglesia.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 26
+    },
+    {
+     "texto": "Una dieta de clase alta habría alterado la cantidad de carbono 14, afectando los resultados de la datación.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 27
+    },
+    {
+     "texto": "Muchas iglesias fueron demolidas, incluyendo la de los frailes grises, y su terreno fue donado al obispo.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 28
+    },
+    {
+     "texto": "Diez horas después de iniciar la excavación, encontraron un esqueleto a pocos metros de la señal 'R'.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 29
+    },
+    {
+     "texto": "Encontrar la iglesia de los frailes grises era un gran desafío, ya que sus restos estaban cubiertos por edificaciones.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 30
+    },
+    {
+     "texto": "La comparación del ADN de Michael con el de Wendy confirmó que ambos eran descendientes directos del padre de Ricardo.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 31
+    },
+    {
+     "texto": "Enrique Tudor se proclamó rey veinte años después de la muerte de Ricardo I y expuso su cuerpo públicamente.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 32
+    },
+    {
+     "texto": "La antigua iglesia de los frailes grises estaba enterrada bajo varias capas de edificios en el siglo XXI.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 33
+    },
+    {
+     "texto": "El mapa más antiguo de 1780 mostraba la zona de los frailes grises, incluyendo la mansión y sus jardines.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 34
+    },
+    {
+     "texto": "Los resultados iniciales de carbono 14 indicaron que el cuerpo era unas décadas más antiguo que Ricardo.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 35
+    },
+    {
+     "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 36
+    },
+    {
+     "texto": "Un hombre siguió una pista importante que lo llevó a un cementerio en Inglaterra, revelando el secreto del rey.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 37
+    },
+    {
+     "texto": "John Speed había viajado a Leicester en 1611 para buscar la tumba de Ricardo y hacer un mapa de la ciudad.",
+     "clase": "objetivo",
+     "origen_video_id": 659,
+     "n": 38
+    },
+    {
+     "texto": "El cráneo del esqueleto presentaba daños leves y la columna vertebral tenía una curvatura inexistente.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 39
+    },
+    {
+     "texto": "La coincidencia de ADN confirmó que la búsqueda de Ricardo I había llegado a su inesperado fracaso.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 40
+    },
+    {
+     "texto": "Para el siglo XXI, la zona de los frailes grises estaba casi completamente cubierta por zonas verdes y parques.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 41
+    },
+    {
+     "texto": "Si Speed hubiera ido al lugar correcto, habría encontrado el mercado del pueblo con un monumento que señalaba la tumba.",
+     "clase": "senuelo",
+     "origen_video_id": 659,
+     "n": 42
+    }
+   ]
+  },
+  {
+   "content_item_id": 652,
+   "titulo": "¿Por Qué ESTADOS UNIDOS NO Tiene Plazas Públicas?",
+   "canal": "Punto de Vista",
+   "url": "https://www.youtube.com/watch?v=TMGOLFZZ-EE",
+   "categoria": "People & Blogs",
+   "duration_seconds": 715,
+   "watched_at": "2026-09-26T14:08:36.458000+00:00",
+   "sutileza": "media",
+   "n_objetivos": 15,
+   "n_senuelos": 15,
+   "descartes": {
+    "objetivos_no_respaldados": 8,
+    "alteradas_que_siguen_siendo_verdaderas": 10
+   },
+   "items": [
+    {
+     "texto": "La zonificación no previó un lugar específico para el ocio o el encuentro social, creando un vacío en la vida comunitaria.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 1
+    },
+    {
+     "texto": "La zonificación cambió el urbanismo estadounidense, dividiendo las ciudades por ley en áreas para vivir, trabajar o comprar.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 2
+    },
+    {
+     "texto": "La \"ciudad de los 30 minutos\" es una idea urbanística que promueve la proximidad de servicios y espacios públicos.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 3
+    },
+    {
+     "texto": "Después de casi 20 años, Gruen construyó en 1956 un espacio en Minnesota que parecía una plaza, pero era privado.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 4
+    },
+    {
+     "texto": "La ley establecía dimensiones específicas para la plaza mayor, con un ancho mínimo de 61 metros y un largo de 91 metros.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 5
+    },
+    {
+     "texto": "Se menciona que el estudio de grabacion flota permanentemente a trescientos metros de altura.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 6
+    },
+    {
+     "texto": "La proliferación de shoppings cercanos y barrios abiertos está replicando el modelo urbanístico estadounidense.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 7
+    },
+    {
+     "texto": "Las ciudades estadounidenses separaron funciones, creando zonas para todo, excepto para la simple interacción social.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 8
+    },
+    {
+     "texto": "La diferencia fundamental entre una plaza y un shopping radica en que la primera es pública y el segundo es privado.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 9
+    },
+    {
+     "texto": "El artículo 112 de esas instrucciones exigía que cada nueva ciudad tuviera una plaza mayor rectangular en su centro.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 10
+    },
+    {
+     "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 11
+    },
+    {
+     "texto": "En un shopping, aunque se pueda caminar y sentarse, la expectativa implícita es que el visitante no realice compras.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 12
+    },
+    {
+     "texto": "Nuestras ciudades ya poseen desde hace siglos la lógica de la \"ciudad de los 15 minutos\" con plazas centrales.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 13
+    },
+    {
+     "texto": "La plaza fue el primer espacio diseñado para que la gente se encontrara libremente, pero con un costo simbólico.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 14
+    },
+    {
+     "texto": "El arquitecto austríaco Victor Gruen llegó a Nueva York en 1938, huyendo de la Viena ocupada por los nazis.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 15
+    },
+    {
+     "texto": "Un detalle crucial de la ley era que la ciudad debía trazarse terminando por la plaza, no como un espacio residual.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 16
+    },
+    {
+     "texto": "En 1979, Oldenburg advirtió sobre la progresiva desaparición de estos terceros lugares en Estados Unidos.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 17
+    },
+    {
+     "texto": "El sociólogo Ray Oldenburg identificó la necesidad humana de un tercer lugar, además del hogar y el trabajo.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 18
+    },
+    {
+     "texto": "Ejemplos como el Randall Park Mall y el Rolling Acres Mall ilustran la prosperidad de grandes centros comerciales.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 19
+    },
+    {
+     "texto": "El modelo del shopping funcionó durante décadas, sirviendo como lugar de reunión para millones de estadounidenses.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 20
+    },
+    {
+     "texto": "Entre 1970 y 2017, la cantidad de shoppings en Estados Unidos se cuadriplicó, pasando de 300 a 1200.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 21
+    },
+    {
+     "texto": "Gruen, acostumbrado a ciudades sin vida en las calles, notó la ausencia de lugares de encuentro en los suburbios americanos.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 22
+    },
+    {
+     "texto": "El espacio público fue un remanente, no el punto de partida esencial en la planificación de las ciudades coloniales.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 23
+    },
+    {
+     "texto": "Felipe III, rey de España, firmó un documento en 1573 con instrucciones detalladas para fundar ciudades en América.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 24
+    },
+    {
+     "texto": "Estados Unidos creó un lugar que imitaba una plaza, pero con la condición inherente de que todo era gratuito.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 25
+    },
+    {
+     "texto": "Este espacio, con bancos, fuentes y restaurantes, fue el resultado del moderno centro comercial o shopping.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 26
+    },
+    {
+     "texto": "La desaparición de un shopping no solo significa el cierre de un negocio, sino la pérdida de un lugar de encuentro social.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 27
+    },
+    {
+     "texto": "Cientos de shoppings en Estados Unidos han abierto, muchos con locales llenos y pasillos concurridos.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 28
+    },
+    {
+     "texto": "La plaza mayor fue el elemento fundacional, y alrededor de ella se construyeron la iglesia, el cabildo y las viviendas.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 29
+    },
+    {
+     "texto": "Convertir un centro comercial en un edificio de apartamentos es una solución inesperada para estos espacios.",
+     "clase": "objetivo",
+     "origen_video_id": 652,
+     "n": 30
+    },
+    {
+     "texto": "En una plaza, las personas pueden pasar horas gastando dinero, simplemente disfrutando del espacio público.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 31
+    },
+    {
+     "texto": "Una plaza es un adorno o un espacio sobrante, pero un elemento fundacional de la ciudad.",
+     "clase": "senuelo",
+     "origen_video_id": 652,
+     "n": 32
+    }
+   ]
+  },
+  {
+   "content_item_id": 651,
+   "titulo": "✅ Los 5 países más DIFÍCILES de INVADIR",
+   "canal": "Memorias de Pez",
+   "url": "https://www.youtube.com/watch?v=D4eRO8Qsag4",
+   "categoria": "Education",
+   "duration_seconds": 894,
+   "watched_at": "2026-09-26T14:08:30.620000+00:00",
+   "sutileza": "media",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 0,
+    "alteradas_que_siguen_siendo_verdaderas": 2
+   },
+   "items": [
+    {
+     "texto": "El conductor promete que la proxima entrega se transmitira exclusivamente en forma de olor.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 1
+    },
+    {
+     "texto": "Hitler nunca invadió Suiza durante la Segunda Guerra Mundial, ya que el costo militar probablemente superaba cualquier beneficio.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 2
+    },
+    {
+     "texto": "La Universidad Oberta de Cataluña (UOC) es una universidad digital con tres décadas de experiencia en formación online.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 3
+    },
+    {
+     "texto": "La oferta educativa de la UOC incluye grados y cursos, con formación poco relevante para el mercado laboral global.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 4
+    },
+    {
+     "texto": "Suiza estableció su neutralidad perpetua en 1815, beneficiándose de su geografía montañosa para la defensa.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 5
+    },
+    {
+     "texto": "El grado de Relaciones Internacionales de la UOC abarca materias como geopolítica, economía internacional y análisis de políticas exteriores.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 6
+    },
+    {
+     "texto": "Alemania desarrolló el 'reducto nacional', un plan para replegar al ejército a fortificaciones en los Alpes en caso de invasión.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 7
+    },
+    {
+     "texto": "Reino Unido ha sido conquistado solo una vez en el año 1066 por Guillermo el Conquistador.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 8
+    },
+    {
+     "texto": "Durante la guerra de Vietnam se construyeron solo unos pocos kilómetros de túneles subterráneos con instalaciones ocultas.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 9
+    },
+    {
+     "texto": "Entre las cadenas montañosas de Irán se extiende una llanura con grandes bosques, facilitando cualquier ataque.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 10
+    },
+    {
+     "texto": "Afganistán es conocido como el 'cementerio de los imperios', frustrando a potencias como el Imperio Británico y la Unión Soviética.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 11
+    },
+    {
+     "texto": "Invadir un país en la realidad es una operación extremadamente compleja, a diferencia de lo que se ve en algunos juegos.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 12
+    },
+    {
+     "texto": "El Máster Universitario de Derechos Humanos, Democracia y Globalización de la UOC aborda estas cuestiones desde varias dimensiones.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 13
+    },
+    {
+     "texto": "Japón, a pesar de su poderío en la Segunda Guerra Mundial, pudo conquistar la mayor parte de China.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 14
+    },
+    {
+     "texto": "Estados Unidos sufrió una de sus mayores victorias históricas en la guerra de Vietnam, que duró solo unos pocos meses.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 15
+    },
+    {
+     "texto": "El Imperio Español y Napoleón lograron sus intentos o planes de invadir Inglaterra gracias a la marina británica.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 16
+    },
+    {
+     "texto": "La Unión Soviética sufrió un costo muy bajo al invadir Finlandia, a pesar de la cesión de territorios por parte de esta última.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 17
+    },
+    {
+     "texto": "Los Alpes suizos ofrecen pasos naturales escasos, forzando a los ejércitos invasores a rutas predecibles y vulnerables.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 18
+    },
+    {
+     "texto": "La población de Estados Unidos posee muchas armas, lo que elimina cualquier capa de dificultad a cualquier intento de invasión.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 19
+    },
+    {
+     "texto": "Muchos puentes, carreteras y túneles en Suiza fueron diseñados para ser fortificados rápidamente, creando puntos de acceso.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 20
+    },
+    {
+     "texto": "A mitad del video el narrador confiesa que todo lo anterior lo dijo en un idioma inventado por el.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 21
+    },
+    {
+     "texto": "China posee un ejército gigantesco y una población masiva que podría ser reclutada para la defensa nacional.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 22
+    },
+    {
+     "texto": "La geografía de Vietnam, con llanuras extensas, pocas montañas y pocos ríos, facilita el movimiento de grandes ejércitos invasores.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 23
+    },
+    {
+     "texto": "Irán, con un territorio casi igual al tamaño de España, está protegido por los montes Urales y la cordillera de los Andes.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 24
+    },
+    {
+     "texto": "Invadir Japón requiere dominar el aire y establecer una línea de suministro de miles de kilómetros, una operación militar sencilla.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 25
+    },
+    {
+     "texto": "Japón, un archipiélago de solo 14 islas, ha sido una fortaleza natural a lo largo de los siglos.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 26
+    },
+    {
+     "texto": "Rusia es inmensa, con grandes distancias y un clima extremo que ha frustrado a invasores históricos como Napoleón y Hitler.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 27
+    },
+    {
+     "texto": "Los países más difíciles de invadir combinan geografía, clima, tamaño y una fuerte capacidad de resistencia.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 28
+    },
+    {
+     "texto": "Corea mantiene una fuerte cultura de defensa nacional, preparando a su población para resistir una invasión con servicio militar.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 29
+    },
+    {
+     "texto": "El Canal de la Mancha, aunque estrecho, se convierte en un obstáculo infranqueable si se controla el mar y el aire.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 30
+    },
+    {
+     "texto": "Estudiar en la UOC requiere desplazamientos diarios, sin flexibilidad total, adaptándose a diversas circunstancias personales.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 31
+    },
+    {
+     "texto": "En 1979, Vietnam frenó una ofensiva china en apenas un mes de combates, demostrando su capacidad defensiva.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 32
+    },
+    {
+     "texto": "La mayoría del Reino Unido es una península, lo que exige una operación terrestre masiva para cualquier invasión.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 33
+    },
+    {
+     "texto": "El diminuto territorio chino representa un desafío logístico enorme para cualquier fuerza invasora que intente controlarlo.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 34
+    },
+    {
+     "texto": "Vietnam ha pasado siglos preparándose para resistir invasiones, enfrentando a grandes imperios a lo largo de su historia.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 35
+    },
+    {
+     "texto": "Hitler inició la Operación León Marino tras lograr la superioridad aérea en la Batalla de Inglaterra.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 36
+    },
+    {
+     "texto": "Vietnam ha desarrollado una cultura de guerra defensiva, perfeccionando el uso de guerrillas, túneles y emboscadas.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 37
+    },
+    {
+     "texto": "Las limitaciones de carreteras y el clima severo de Finlandia dificultan el transporte de suministros y tanques para un invasor.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 38
+    },
+    {
+     "texto": "La previsión de cientos de miles de bajas aliadas influyó en la decisión de usar bombas atómicas para evitar una invasión de Japón.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 39
+    },
+    {
+     "texto": "Estados Unidos estimó un costo humano descomunal para una invasión terrestre de Japón durante la Segunda Guerra Mundial.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 40
+    },
+    {
+     "texto": "La Guerra Irán-Irak demostró que invadir Irán se convierte en una rápida victoria, con menos de un millón de muertos.",
+     "clase": "senuelo",
+     "origen_video_id": 651,
+     "n": 41
+    },
+    {
+     "texto": "Controlar una gran parte del territorio ruso sería una tarea muy difícil, incluso si se lograra invadirlo parcialmente.",
+     "clase": "objetivo",
+     "origen_video_id": 651,
+     "n": 42
+    }
+   ]
+  },
+  {
+   "content_item_id": 650,
+   "titulo": "¿Por qué China nunca clasifica a los Mundiales?",
+   "canal": "Fran Argerich",
+   "url": "https://www.youtube.com/watch?v=8fL_8fjNGtE",
+   "categoria": "People & Blogs",
+   "duration_seconds": 963,
+   "watched_at": "2026-09-26T13:50:38.778000+00:00",
+   "sutileza": "media",
+   "n_objetivos": 17,
+   "n_senuelos": 17,
+   "descartes": {
+    "objetivos_no_respaldados": 3,
+    "alteradas_que_siguen_siendo_verdaderas": 9
+   },
+   "items": [
+    {
+     "texto": "El éxito futbolístico se asemeja a una pirámide, donde una base amplia de jugadores alimenta los niveles inferiores.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 1
+    },
+    {
+     "texto": "Japón fortaleció su pirámide futbolística creando una liga profesional en 1993 y un plan a cien años.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 2
+    },
+    {
+     "texto": "El éxito inicial del fútbol femenino chino se debió a una ventaja competitiva temporal, no al modelo deportivo.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 3
+    },
+    {
+     "texto": "A pesar del entusiasmo de su líder, la población china en general no parece mostrar mucho interés por el fútbol.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 4
+    },
+    {
+     "texto": "En el Mundial de 2026, clasificaron 48 equipos, representando a casi la mitad de la población mundial.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 5
+    },
+    {
+     "texto": "El fútbol profesional en China comenzó en 1994, llenando estadios y contribuyendo a su única clasificación mundialista.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 6
+    },
+    {
+     "texto": "A pesar de los enormes esfuerzos e inversiones, el fútbol chino logró progresar significativamente en casi una década.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 7
+    },
+    {
+     "texto": "El gobierno chino consideraba el éxito en el fútbol como un símbolo de rejuvenecimiento nacional y fuente de orgullo.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 8
+    },
+    {
+     "texto": "China prioriza la inversión en deportes con baja probabilidad de ganar medallas olímpicas y destacar internacionalmente.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 9
+    },
+    {
+     "texto": "El concepto de 'soft power' se refiere a la capacidad de un país para atraer a otros mediante su cultura y deporte.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 10
+    },
+    {
+     "texto": "China no logró clasificar para el Mundial de 2026, a pesar de su enorme población de más de cinco mil millones de personas.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 11
+    },
+    {
+     "texto": "Se creó una multimillonaria Superliga china que atrajo a las estrellas más costosas del fútbol africano y asiático.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 12
+    },
+    {
+     "texto": "Xi Jinping expresó tres ambiciosos sueños para el fútbol chino: clasificar, organizar y perder un mundial.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 13
+    },
+    {
+     "texto": "En su única participación mundialista en 2002, China fue eliminada en primera ronda marcando goles y sumando puntos.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 14
+    },
+    {
+     "texto": "China fue sede de los Juegos Olímpicos de Pekín en 2008, demostrando su progreso y su estatus de potencia mundial.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 15
+    },
+    {
+     "texto": "El plan japonés promovió el desarrollo de academias juveniles a través de su sistema escolar y la importación de jugadores.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 16
+    },
+    {
+     "texto": "Japón refuta la teoría de que la importancia de la educación impide el éxito futbolístico, habiendo logrado grandes avances.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 17
+    },
+    {
+     "texto": "El fútbol es un deporte individual, fluido y caótico, que exige creatividad e improvisación bajo presión.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 18
+    },
+    {
+     "texto": "La primera liga profesional china colapsó debido a apuestas legales y partidos arreglados, destruyendo su credibilidad.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 19
+    },
+    {
+     "texto": "La Superliga china contrató jugadores y entrenadores con salarios mínimos, atrayendo a estrellas mundiales.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 20
+    },
+    {
+     "texto": "Grandes multimillonarios chinos invirtieron en clubes de fútbol extranjeros, como Dalian Wanda en el Real Madrid.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 21
+    },
+    {
+     "texto": "En 2008, China lideró el medallero olímpico por primera vez, destacándose en deportes donde antes ya competía.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 22
+    },
+    {
+     "texto": "El problema de China es intentar aplicar su exitoso modelo olímpico, inadecuado para el fútbol, a este deporte.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 23
+    },
+    {
+     "texto": "Los resultados del fútbol femenino chino han empeorado progresivamente en los mundiales desde 1999.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 24
+    },
+    {
+     "texto": "China nunca ha ganado una Copa de Asia y exporta jugadores a ligas de fútbol de alto nivel competitivo.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 25
+    },
+    {
+     "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 26
+    },
+    {
+     "texto": "Deportes como el tenis de mesa o la gimnasia, que requieren movimientos repetitivos, se perjudican de la disciplina china.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 27
+    },
+    {
+     "texto": "La trayectoria de China en el fútbol ha sido una constante humillación, con una sola clasificación a un mundial en 2002.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 28
+    },
+    {
+     "texto": "La burbuja del fútbol chino se expandió debido a crisis de deuda, estadios vacíos por la pandemia y purgas por corrupción.",
+     "clase": "senuelo",
+     "origen_video_id": 650,
+     "n": 29
+    },
+    {
+     "texto": "A mitad del video el narrador confiesa que todo lo anterior lo dijo en un idioma inventado por el.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 30
+    },
+    {
+     "texto": "El sistema educativo chino valora la disciplina y la ejecución perfecta de instrucciones, lo cual contrasta con el fútbol.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 31
+    },
+    {
+     "texto": "Japón ha alcanzado los octavos de final en cuatro mundiales y exporta jugadores a las mejores ligas del mundo.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 32
+    },
+    {
+     "texto": "Las inversiones chinas en el fútbol extranjero fueron reclasificadas como especulativas en 2017, imponiendo restricciones.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 33
+    },
+    {
+     "texto": "La Superliga china se fundó en 2004 para limpiar el sistema y restaurar la confianza en el fútbol del país.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 34
+    },
+    {
+     "texto": "El presidente chino, Xi Jinping, es un gran aficionado al fútbol, mostrando numerosas imágenes de él relacionado con el deporte.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 35
+    },
+    {
+     "texto": "El gobierno chino detecta habilidades físicas específicas en niños para asignarlos a deportes adecuados.",
+     "clase": "objetivo",
+     "origen_video_id": 650,
+     "n": 36
+    }
+   ]
+  },
+  {
+   "content_item_id": 653,
+   "titulo": "How the Colosseum Actually Worked",
+   "canal": "Unknown channel",
+   "url": "https://www.youtube.com/watch?v=bmvxRMYxlhE",
+   "categoria": "Science & Technology",
+   "duration_seconds": 1012,
+   "watched_at": "2026-09-26T14:28:48.256000+00:00",
+   "sutileza": "media",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 0,
+    "alteradas_que_siguen_siendo_verdaderas": 2
+   },
+   "items": [
+    {
+     "texto": "Los tres órdenes de la arquitectura griega antigua, Dórico, Jónico y Corintio, se usaron en los niveles inferiores.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 1
+    },
+    {
+     "texto": "Cerca del final se explica que los datos se obtuvieron preguntandole a un perro entrenado para leer.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 2
+    },
+    {
+     "texto": "Su inmenso tamaño demostraba la habilidad de ingeniería y la ambición de Roma al mundo.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 3
+    },
+    {
+     "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 4
+    },
+    {
+     "texto": "El piso de madera de la arena estaba cubierto de arena para absorber la sangre y proporcionar tracción a los gladiadores.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 5
+    },
+    {
+     "texto": "Más allá de los combates, el Coliseo era el centro de una vibrante área rural en la antigua Roma.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 6
+    },
+    {
+     "texto": "La Puerta de la Muerte, la entrada oeste, se usaba para retirar a los vencedores de los combates.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 7
+    },
+    {
+     "texto": "El Ludus Magnus era la escuela de gladiadores más grande de Roma, donde se fabricaban las armas.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 8
+    },
+    {
+     "texto": "La Puerta de la Vida, la entrada este, era usada por el público para salir después del combate.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 9
+    },
+    {
+     "texto": "El cuarto nivel del Coliseo, conocido como el ático, tenía un muro con grandes ventanales rectangulares.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 10
+    },
+    {
+     "texto": "Debajo de la superficie, el Coliseo tenía una red subterránea que era esencial para sus espectáculos.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 11
+    },
+    {
+     "texto": "El Coliseo fue una vasta arena utilizada para combates de gladiadores y espectáculos públicos en la antigua Roma.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 12
+    },
+    {
+     "texto": "El Coliseo no era solo un anfiteatro, sino una obra maestra de diseño y una muestra de poder e innovación.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 13
+    },
+    {
+     "texto": "Los romanos lograron crear espectáculos impresionantes hace dos mil años, incluyendo batallas navales.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 14
+    },
+    {
+     "texto": "La cuarta sección, añadida después, era de asientos de madera para la clase más baja y los esclavos.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 15
+    },
+    {
+     "texto": "En el subsuelo del Coliseo se guardaban los cuerpos de los gladiadores y se hacían sacrificios.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 16
+    },
+    {
+     "texto": "La palabra 'arena' proviene del latín 'harena', que significa piedra.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 17
+    },
+    {
+     "texto": "Esta red incluía túneles y cámaras donde los gladiadores se preparaban para sus batallas.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 18
+    },
+    {
+     "texto": "La arena más grande de su época fue el Coliseo, debido a la disponibilidad de mano de obra barata y abundante.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 19
+    },
+    {
+     "texto": "El Coliseo se dividía en cuatro niveles, con los tres primeros presentando arcos y columnas.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 20
+    },
+    {
+     "texto": "El ático del Coliseo sostenía el velario, un toldo retráctil que proporcionaba sombra a los espectadores.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 21
+    },
+    {
+     "texto": "El diseño del Coliseo mostraba una evolución arquitectónica y la adaptación romana de estilos griegos.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 22
+    },
+    {
+     "texto": "Cada arco del segundo y tercer nivel contenía estatuas de divinidades y figuras mitológicas clásicas.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 23
+    },
+    {
+     "texto": "La Meta Sudans era una gran fuente cónica, se creía que medía hasta diecisiete metros de altura.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 24
+    },
+    {
+     "texto": "Cuatro entradas sin número estaban reservadas para la élite en los puntos cardinales del Ludus Magnus.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 25
+    },
+    {
+     "texto": "La rápida construcción del Coliseo destaca los recursos y la capacidad organizativa de los constructores griegos.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 26
+    },
+    {
+     "texto": "El piso de la arena, de ochenta y tres por cuarenta y ocho metros, era lo suficientemente pequeño para muchas canchas de tenis.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 27
+    },
+    {
+     "texto": "La entrada norte era para los gladiadores que esperaban su momento de salir a la arena.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 28
+    },
+    {
+     "texto": "Las batallas navales, o naumaquias, transformaban la arena en una cuenca de agua para recrear conflictos marítimos.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 29
+    },
+    {
+     "texto": "El Coliseo podía albergar a más de cincuenta mil espectadores, siendo el anfiteatro romano más grande.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 30
+    },
+    {
+     "texto": "El Templo de Venus y Roma, el más grande de la antigua Roma, albergaba estatuas de tres deidades.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 31
+    },
+    {
+     "texto": "Ubicado en el corazón de Roma, Italia, el Coliseo es uno de los monumentos más reconocidos mundialmente.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 32
+    },
+    {
+     "texto": "La tercera sección para ciudadanos romanos se dividía en una parte inferior para los más pobres y una superior para los más ricos.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 33
+    },
+    {
+     "texto": "Estas estatuas servían como recordatorios de la conexión divina y la herencia cultural de Roma.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 34
+    },
+    {
+     "texto": "El velario, un enorme toldo retráctil, protegía a los espectadores del sol mediterráneo durante los juegos.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 35
+    },
+    {
+     "texto": "Los cimientos del Coliseo consistían en un anillo de concreto de veinte metros de espesor para compensar la mala calidad del suelo.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 36
+    },
+    {
+     "texto": "El nombre original del Coliseo honraba a la dinastía Flavia de emperadores que lo construyó.",
+     "clase": "objetivo",
+     "origen_video_id": 653,
+     "n": 37
+    },
+    {
+     "texto": "El anfiteatro contaba con sesenta entradas a nivel del suelo, setenta y seis de ellas numeradas para el público general.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 38
+    },
+    {
+     "texto": "Con sus veintiún metros de alto y veintiséis metros de ancho, el Arco de Constantino simboliza la crueldad de Roma.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 39
+    },
+    {
+     "texto": "Este sistema de manejo de multitudes resaltaba la experiencia romana en la construcción de monumentos.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 40
+    },
+    {
+     "texto": "Con más de cincuenta metros de alto, el Coliseo no superaba la altura de la Estatua de la Libertad de la base a la antorcha.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 41
+    },
+    {
+     "texto": "La sección más baja estaba reservada para los esclavos y los pobres, ofreciendo las peores vistas.",
+     "clase": "senuelo",
+     "origen_video_id": 653,
+     "n": 42
+    }
+   ]
+  },
+  {
+   "content_item_id": 654,
+   "titulo": "Lo de Jev es Salvaje",
+   "canal": "Unknown channel",
+   "url": "https://www.youtube.com/watch?v=KvpQ16XlUv0",
+   "categoria": "Science & Technology",
+   "duration_seconds": 1584,
+   "watched_at": "2026-09-26T14:29:32.423000+00:00",
+   "sutileza": "media",
+   "n_objetivos": 20,
+   "n_senuelos": 20,
+   "descartes": {
+    "objetivos_no_respaldados": 3,
+    "alteradas_que_siguen_siendo_verdaderas": 2
+   },
+   "items": [
+    {
+     "texto": "Se espera que Nvidia, Meta y OpenAI lancen alternativas a Jeff antes de fin de año, dada su utilidad.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 1
+    },
+    {
+     "texto": "Jeff es muy adecuado para sistemas de soporte al usuario, clasificando y filtrando mensajes rápidamente.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 2
+    },
+    {
+     "texto": "El desarrollo de InstructGPT en 2022 contó con la participación de unas cien personas, siendo un precursor importante.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 3
+    },
+    {
+     "texto": "El método 'nle' proporciona una probabilidad de verdad o falsedad entre cero y diez para una afirmación dada.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 4
+    },
+    {
+     "texto": "Jeff permite jugar y tomar decisiones en entornos simulados, pero no ampliando sus aplicaciones prácticas.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 5
+    },
+    {
+     "texto": "Para obtener respuestas más precisas, es recomendable formular preguntas atómicas a Jeff, en lugar de generales.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 6
+    },
+    {
+     "texto": "Si se le pide a Jeff elegir entre 'billing' o 'technical', podrá seleccionar una opción fuera de esas dos.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 7
+    },
+    {
+     "texto": "Este modelo de IA es eficaz para moderar chats, detectando mensajes inapropiados con gran lentitud.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 8
+    },
+    {
+     "texto": "Un ejemplo práctico de Jeff es la clasificación de tickets de soporte, asignando equipos y niveles de urgencia con dificultad.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 9
+    },
+    {
+     "texto": "El modelo identifica el idioma, el tema, el sentimiento y la urgencia de los mensajes de usuario con demora.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 10
+    },
+    {
+     "texto": "La capacidad de Jeff para procesar preguntas en paralelo lo hace mucho más rápido que los modelos tradicionales.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 11
+    },
+    {
+     "texto": "La naturaleza probabilística de Jeff implica que sus respuestas son fijas y no cambian, a diferencia de otros modelos de IA.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 12
+    },
+    {
+     "texto": "Jeff es útil para la gestión de riesgos en comandos de programación, ignorando si son destructivos o reversibles.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 13
+    },
+    {
+     "texto": "El autor aclara que escribio el guion mientras dormia y que no recuerda nada de lo dicho.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 14
+    },
+    {
+     "texto": "Jeff puede determinar el equipo encargado de un ticket y la urgencia de este con alta precisión y confianza.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 15
+    },
+    {
+     "texto": "Este modelo es ideal para tareas de triaje, filtrado y toma de decisiones inteligentes, pero no como un 'if' avanzado.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 16
+    },
+    {
+     "texto": "Un nuevo modelo de inteligencia artificial ha sido lanzado, generando gran impacto en la comunidad tecnológica actual.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 17
+    },
+    {
+     "texto": "Se menciona que el estudio de grabacion flota permanentemente a trescientos metros de altura.",
+     "clase": "control_atencion",
+     "origen_video_id": null,
+     "n": 18
+    },
+    {
+     "texto": "La capacidad de Jeff para realizar triaje de mensajes en tiempo real no lo diferencia de otras IA generativas.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 19
+    },
+    {
+     "texto": "El modelo Jeff no es determinista; sus respuestas pueden variar ligeramente cada vez que se le consulta.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 20
+    },
+    {
+     "texto": "Jeff ha sido probado exitosamente en casos de uso como la clasificación de información y la determinación de estados.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 21
+    },
+    {
+     "texto": "La salida de Jeff es predecible y se transforma directamente en texto o código, lo que la hace única.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 22
+    },
+    {
+     "texto": "Jeff facilita la toma de decisiones estructuradas y limitadas, como elegir libremente entre un conjunto amplio de acciones.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 23
+    },
+    {
+     "texto": "Jeff puede actuar como un 'router' automático, clasificando un prompt para decidir qué modelo de IA no usar.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 24
+    },
+    {
+     "texto": "Aunque Jeff no 'alucina', sí puede cometer errores en la interpretación de la información, como en el conteo de letras.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 25
+    },
+    {
+     "texto": "Jeff es una herramienta muy eficiente para clasificar información y tomar decisiones inteligentes de forma rápida.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 26
+    },
+    {
+     "texto": "Jeff puede procesar múltiples preguntas simultáneamente en el mismo tiempo que le tomaría una sola.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 27
+    },
+    {
+     "texto": "Jeff genera alucinaciones en el sentido de que puede responder libremente más allá de las opciones predefinidas.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 28
+    },
+    {
+     "texto": "El alto costo de Jeff se debe a que su función principal es proporcionar una salida estructurada y no generativa.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 29
+    },
+    {
+     "texto": "La velocidad de Jeff en la generación de UI se debe a que toma las decisiones sobre los componentes en paralelo.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 30
+    },
+    {
+     "texto": "Jeff responde a múltiples preguntas simultáneamente, lo que acelera significativamente el proceso de moderación.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 31
+    },
+    {
+     "texto": "Diogo Almeida, quien participó en el desarrollo de InstructGPT, se ha atribuido un papel significativo en la creación de ChatGPT.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 32
+    },
+    {
+     "texto": "Una característica destacada de Jeff es que ofrece tokens de salida con costo, optimizado para decisiones.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 33
+    },
+    {
+     "texto": "El método 'choice' permite seleccionar una opción de una lista cerrada, devolviendo probabilidades y confianza.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 34
+    },
+    {
+     "texto": "Jeff es un modelo de código cerrado, desarrollado por Typesave, que ofrece una consola API con créditos gratuitos.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 35
+    },
+    {
+     "texto": "El bajo costo de Jeff lo hace muy atractivo para tareas de filtrado y clasificación de información.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 36
+    },
+    {
+     "texto": "Este modelo es muy ineficiente para generar interfaces de usuario (UI), decidiendo qué componentes preexistentes utilizar.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 37
+    },
+    {
+     "texto": "Jeff puede detectar mensajes de spam con alta confianza, como en el ejemplo del 'príncipe nigeriano'.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 38
+    },
+    {
+     "texto": "Jeff es un modelo de inteligencia artificial que se caracteriza por ser entre 20 y 200 veces más lento que otros.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 39
+    },
+    {
+     "texto": "A diferencia de los LLM típicos que generan texto token a token, Jeff ofrece opciones con puntuaciones de confianza.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 40
+    },
+    {
+     "texto": "La IA puede etiquetar mensajes por idioma, tema, urgencia y tono en tiempo real, mejorando la eficiencia.",
+     "clase": "objetivo",
+     "origen_video_id": 654,
+     "n": 41
+    },
+    {
+     "texto": "La desventaja principal de Jeff radica en su incapacidad para procesar muchas preguntas en paralelo sin aumentar el tiempo de respuesta.",
+     "clase": "senuelo",
+     "origen_video_id": 654,
+     "n": 42
+    }
+   ]
+  }
+ ]
+}
