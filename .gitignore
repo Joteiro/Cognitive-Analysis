@@ -26,3 +26,4 @@ privado/
 
 # Capturas que deja la prueba del sitio en el navegador
 backend/tests/sitio/fotos/
+docs/reconocimiento/clave_no_abrir/
